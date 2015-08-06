@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +27,8 @@ public class Branche implements java.io.Serializable {
 	private Integer anneeDebutExploitation;
 	private String referenceAgrement;
 	private Date dateAgrement;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<BrancheExercice> brancheExercices = new HashSet<BrancheExercice>(
+			0);
 
 	public Branche() {
 	}
@@ -38,14 +39,14 @@ public class Branche implements java.io.Serializable {
 
 	public Branche(String codeBranche, String branche, String etatBranche,
 			Integer anneeDebutExploitation, String referenceAgrement,
-			Date dateAgrement, Set<EtatCima> etatCimas) {
+			Date dateAgrement, Set<BrancheExercice> brancheExercices) {
 		this.codeBranche = codeBranche;
 		this.branche = branche;
 		this.etatBranche = etatBranche;
 		this.anneeDebutExploitation = anneeDebutExploitation;
 		this.referenceAgrement = referenceAgrement;
 		this.dateAgrement = dateAgrement;
-		this.etatCimas = etatCimas;
+		this.brancheExercices = brancheExercices;
 	}
 
 	@Id
@@ -104,13 +105,13 @@ public class Branche implements java.io.Serializable {
 		this.dateAgrement = dateAgrement;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "branches")
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "branche")
+	public Set<BrancheExercice> getBrancheExercices() {
+		return this.brancheExercices;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setBrancheExercices(Set<BrancheExercice> brancheExercices) {
+		this.brancheExercices = brancheExercices;
 	}
 
 }

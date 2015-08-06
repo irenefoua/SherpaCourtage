@@ -1,12 +1,15 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,12 +20,17 @@ import javax.persistence.Table;
 public class ObligationExercice implements java.io.Serializable {
 
 	private ObligationExerciceId id;
+	private EtatCima etatCima;
+	private ObligationEmprunt obligationEmprunt;
 
 	public ObligationExercice() {
 	}
 
-	public ObligationExercice(ObligationExerciceId id) {
+	public ObligationExercice(ObligationExerciceId id, EtatCima etatCima,
+			ObligationEmprunt obligationEmprunt) {
 		this.id = id;
+		this.etatCima = etatCima;
+		this.obligationEmprunt = obligationEmprunt;
 	}
 
 	@EmbeddedId
@@ -35,6 +43,26 @@ public class ObligationExercice implements java.io.Serializable {
 
 	public void setId(ObligationExerciceId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, insertable = false, updatable = false)
+	public EtatCima getEtatCima() {
+		return this.etatCima;
+	}
+
+	public void setEtatCima(EtatCima etatCima) {
+		this.etatCima = etatCima;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_OB_EMP", nullable = false, insertable = false, updatable = false)
+	public ObligationEmprunt getObligationEmprunt() {
+		return this.obligationEmprunt;
+	}
+
+	public void setObligationEmprunt(ObligationEmprunt obligationEmprunt) {
+		this.obligationEmprunt = obligationEmprunt;
 	}
 
 }

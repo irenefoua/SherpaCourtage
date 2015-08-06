@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -26,8 +26,13 @@ public class Exercice implements java.io.Serializable {
 	private BigDecimal primeAReporterExo;
 	private BigDecimal precExo;
 	private String etatExercice;
+	private Set<ObligationEmprunt> obligationEmprunts = new HashSet<ObligationEmprunt>(
+			0);
 	private Set<C10Exercice> c10Exercices = new HashSet<C10Exercice>(0);
 	private Set<C9Exercice> c9Exercices = new HashSet<C9Exercice>(0);
+	private Set<Etatc10tabbExercice> etatc10tabbExercices = new HashSet<Etatc10tabbExercice>(
+			0);
+	private Set<ModifiCapital> modifiCapitals = new HashSet<ModifiCapital>(0);
 	private Set<Avenant> avenants = new HashSet<Avenant>(0);
 	private Set<Etatc10tabaExercice> etatc10tabaExercices = new HashSet<Etatc10tabaExercice>(
 			0);
@@ -42,8 +47,10 @@ public class Exercice implements java.io.Serializable {
 	public Exercice(int codeexercice, String libelleExercice,
 			BigDecimal chiffreAffExo, BigDecimal primeExercice,
 			BigDecimal primeAReporterExo, BigDecimal precExo,
-			String etatExercice, Set<C10Exercice> c10Exercices,
-			Set<C9Exercice> c9Exercices, Set<Avenant> avenants,
+			String etatExercice, Set<ObligationEmprunt> obligationEmprunts,
+			Set<C10Exercice> c10Exercices, Set<C9Exercice> c9Exercices,
+			Set<Etatc10tabbExercice> etatc10tabbExercices,
+			Set<ModifiCapital> modifiCapitals, Set<Avenant> avenants,
 			Set<Etatc10tabaExercice> etatc10tabaExercices) {
 		this.codeexercice = codeexercice;
 		this.libelleExercice = libelleExercice;
@@ -52,8 +59,11 @@ public class Exercice implements java.io.Serializable {
 		this.primeAReporterExo = primeAReporterExo;
 		this.precExo = precExo;
 		this.etatExercice = etatExercice;
+		this.obligationEmprunts = obligationEmprunts;
 		this.c10Exercices = c10Exercices;
 		this.c9Exercices = c9Exercices;
+		this.etatc10tabbExercices = etatc10tabbExercices;
+		this.modifiCapitals = modifiCapitals;
 		this.avenants = avenants;
 		this.etatc10tabaExercices = etatc10tabaExercices;
 	}
@@ -123,6 +133,15 @@ public class Exercice implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exercice")
+	public Set<ObligationEmprunt> getObligationEmprunts() {
+		return this.obligationEmprunts;
+	}
+
+	public void setObligationEmprunts(Set<ObligationEmprunt> obligationEmprunts) {
+		this.obligationEmprunts = obligationEmprunts;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exercice")
 	public Set<C10Exercice> getC10Exercices() {
 		return this.c10Exercices;
 	}
@@ -138,6 +157,25 @@ public class Exercice implements java.io.Serializable {
 
 	public void setC9Exercices(Set<C9Exercice> c9Exercices) {
 		this.c9Exercices = c9Exercices;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exercice")
+	public Set<Etatc10tabbExercice> getEtatc10tabbExercices() {
+		return this.etatc10tabbExercices;
+	}
+
+	public void setEtatc10tabbExercices(
+			Set<Etatc10tabbExercice> etatc10tabbExercices) {
+		this.etatc10tabbExercices = etatc10tabbExercices;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exercice")
+	public Set<ModifiCapital> getModifiCapitals() {
+		return this.modifiCapitals;
+	}
+
+	public void setModifiCapitals(Set<ModifiCapital> modifiCapitals) {
+		this.modifiCapitals = modifiCapitals;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exercice")

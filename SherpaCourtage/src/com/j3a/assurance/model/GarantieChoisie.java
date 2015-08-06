@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -237,7 +237,7 @@ public class GarantieChoisie implements java.io.Serializable {
 		this.surprime = surprime;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "garantieChoisie")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "garantieChoisie")
 	public Set<GarantieGarantieChoisie> getGarantieGarantieChoisies() {
 		return this.garantieGarantieChoisies;
 	}

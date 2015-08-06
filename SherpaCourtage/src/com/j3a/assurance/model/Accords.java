@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,9 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -24,7 +22,7 @@ public class Accords implements java.io.Serializable {
 	private String clausesAccord;
 	private String refTextAccord;
 	private String natureAccord;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<AccordCima> accordCimas = new HashSet<AccordCima>(0);
 
 	public Accords() {
 	}
@@ -34,12 +32,13 @@ public class Accords implements java.io.Serializable {
 	}
 
 	public Accords(String codeAccord, String clausesAccord,
-			String refTextAccord, String natureAccord, Set<EtatCima> etatCimas) {
+			String refTextAccord, String natureAccord,
+			Set<AccordCima> accordCimas) {
 		this.codeAccord = codeAccord;
 		this.clausesAccord = clausesAccord;
 		this.refTextAccord = refTextAccord;
 		this.natureAccord = natureAccord;
-		this.etatCimas = etatCimas;
+		this.accordCimas = accordCimas;
 	}
 
 	@Id
@@ -79,14 +78,13 @@ public class Accords implements java.io.Serializable {
 		this.natureAccord = natureAccord;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "accord_cima", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_ACCORD", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) })
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accords")
+	public Set<AccordCima> getAccordCimas() {
+		return this.accordCimas;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setAccordCimas(Set<AccordCima> accordCimas) {
+		this.accordCimas = accordCimas;
 	}
 
 }

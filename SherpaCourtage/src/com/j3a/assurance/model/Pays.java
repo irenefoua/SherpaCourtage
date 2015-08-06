@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,10 @@ public class Pays implements java.io.Serializable {
 
 	private String codePays;
 	private String libellePays;
+	private Set<CompagnieAssurance> compagnieAssurances = new HashSet<CompagnieAssurance>(
+			0);
 	private Set<Province> provinces = new HashSet<Province>(0);
+	private Set<Ville> villes = new HashSet<Ville>(0);
 
 	public Pays() {
 	}
@@ -29,10 +32,14 @@ public class Pays implements java.io.Serializable {
 		this.codePays = codePays;
 	}
 
-	public Pays(String codePays, String libellePays, Set<Province> provinces) {
+	public Pays(String codePays, String libellePays,
+			Set<CompagnieAssurance> compagnieAssurances,
+			Set<Province> provinces, Set<Ville> villes) {
 		this.codePays = codePays;
 		this.libellePays = libellePays;
+		this.compagnieAssurances = compagnieAssurances;
 		this.provinces = provinces;
+		this.villes = villes;
 	}
 
 	@Id
@@ -55,12 +62,31 @@ public class Pays implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pays")
+	public Set<CompagnieAssurance> getCompagnieAssurances() {
+		return this.compagnieAssurances;
+	}
+
+	public void setCompagnieAssurances(
+			Set<CompagnieAssurance> compagnieAssurances) {
+		this.compagnieAssurances = compagnieAssurances;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pays")
 	public Set<Province> getProvinces() {
 		return this.provinces;
 	}
 
 	public void setProvinces(Set<Province> provinces) {
 		this.provinces = provinces;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pays")
+	public Set<Ville> getVilles() {
+		return this.villes;
+	}
+
+	public void setVilles(Set<Ville> villes) {
+		this.villes = villes;
 	}
 
 }

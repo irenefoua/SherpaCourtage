@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -74,7 +74,7 @@ public class Utilisateur implements java.io.Serializable {
 		this.codeUtilisateur = codeUtilisateur;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODE_POINT_VENTE", nullable = false)
 	public PointVente getPointVente() {
 		return this.pointVente;

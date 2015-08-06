@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,9 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,7 +31,8 @@ public class Direction implements java.io.Serializable {
 	private String qualificationPdirect;
 	private String gradePdirect;
 	private String contactPdirect;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<DirectionExercice> directionExercices = new HashSet<DirectionExercice>(
+			0);
 
 	public Direction() {
 	}
@@ -46,7 +45,8 @@ public class Direction implements java.io.Serializable {
 			String prenomsPdirect, Date dateNaisPdirect,
 			String lieuNaisPdirect, String sexePdirect,
 			String nationalitePdirect, String qualificationPdirect,
-			String gradePdirect, String contactPdirect, Set<EtatCima> etatCimas) {
+			String gradePdirect, String contactPdirect,
+			Set<DirectionExercice> directionExercices) {
 		this.codePdirect = codePdirect;
 		this.nomPdirect = nomPdirect;
 		this.prenomsPdirect = prenomsPdirect;
@@ -57,7 +57,7 @@ public class Direction implements java.io.Serializable {
 		this.qualificationPdirect = qualificationPdirect;
 		this.gradePdirect = gradePdirect;
 		this.contactPdirect = contactPdirect;
-		this.etatCimas = etatCimas;
+		this.directionExercices = directionExercices;
 	}
 
 	@Id
@@ -152,14 +152,13 @@ public class Direction implements java.io.Serializable {
 		this.contactPdirect = contactPdirect;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "direction_exercice", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_PDIRECT", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) })
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "direction")
+	public Set<DirectionExercice> getDirectionExercices() {
+		return this.directionExercices;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setDirectionExercices(Set<DirectionExercice> directionExercices) {
+		this.directionExercices = directionExercices;
 	}
 
 }

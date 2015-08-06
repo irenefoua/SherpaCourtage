@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,9 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +34,7 @@ public class ActionnaireConseil implements java.io.Serializable {
 	private BigDecimal valeursActions;
 	private String grade;
 	private String typeAc;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<AcExercice> acExercices = new HashSet<AcExercice>(0);
 
 	public ActionnaireConseil() {
 	}
@@ -49,7 +47,7 @@ public class ActionnaireConseil implements java.io.Serializable {
 			Date dateNaisAc, String lieuNaisAc, String sexeAc,
 			String nationaliteAc, String domicileAc, Integer nombreActions,
 			BigDecimal valeursActions, String grade, String typeAc,
-			Set<EtatCima> etatCimas) {
+			Set<AcExercice> acExercices) {
 		this.codeAc = codeAc;
 		this.nomAc = nomAc;
 		this.prenomsAc = prenomsAc;
@@ -62,7 +60,7 @@ public class ActionnaireConseil implements java.io.Serializable {
 		this.valeursActions = valeursActions;
 		this.grade = grade;
 		this.typeAc = typeAc;
-		this.etatCimas = etatCimas;
+		this.acExercices = acExercices;
 	}
 
 	@Id
@@ -175,14 +173,13 @@ public class ActionnaireConseil implements java.io.Serializable {
 		this.typeAc = typeAc;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "ac_exercice", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_AC", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) })
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "actionnaireConseil")
+	public Set<AcExercice> getAcExercices() {
+		return this.acExercices;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setAcExercices(Set<AcExercice> acExercices) {
+		this.acExercices = acExercices;
 	}
 
 }

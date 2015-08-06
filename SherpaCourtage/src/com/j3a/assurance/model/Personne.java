@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,8 +37,8 @@ public class Personne implements java.io.Serializable {
 	private Boolean enable;
 	private Set<Contrat> contrats = new HashSet<Contrat>(0);
 	private Set<Etre> etres = new HashSet<Etre>(0);
-	private Physique physique;
-	private Morale morale;
+	private Set<Physique> physiques = new HashSet<Physique>(0);
+	private Set<Morale> morales = new HashSet<Morale>(0);
 	private Set<PersonneNationalite> personneNationalites = new HashSet<PersonneNationalite>(
 			0);
 
@@ -55,7 +54,7 @@ public class Personne implements java.io.Serializable {
 			String nomRaisonSociale, String adresseGeo, String adresse,
 			String telephone, String fax, String email, String loginPers,
 			String motPassePers, Boolean enable, Set<Contrat> contrats,
-			Set<Etre> etres, Physique physique, Morale morale,
+			Set<Etre> etres, Set<Physique> physiques, Set<Morale> morales,
 			Set<PersonneNationalite> personneNationalites) {
 		this.numSouscripteur = numSouscripteur;
 		this.userRole = userRole;
@@ -71,8 +70,8 @@ public class Personne implements java.io.Serializable {
 		this.enable = enable;
 		this.contrats = contrats;
 		this.etres = etres;
-		this.physique = physique;
-		this.morale = morale;
+		this.physiques = physiques;
+		this.morales = morales;
 		this.personneNationalites = personneNationalites;
 	}
 
@@ -205,22 +204,22 @@ public class Personne implements java.io.Serializable {
 		this.etres = etres;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personne")
-	public Physique getPhysique() {
-		return this.physique;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personne")
+	public Set<Physique> getPhysiques() {
+		return this.physiques;
 	}
 
-	public void setPhysique(Physique physique) {
-		this.physique = physique;
+	public void setPhysiques(Set<Physique> physiques) {
+		this.physiques = physiques;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personne")
-	public Morale getMorale() {
-		return this.morale;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personne")
+	public Set<Morale> getMorales() {
+		return this.morales;
 	}
 
-	public void setMorale(Morale morale) {
-		this.morale = morale;
+	public void setMorales(Set<Morale> morales) {
+		this.morales = morales;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personne")

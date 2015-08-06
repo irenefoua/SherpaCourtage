@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,27 +29,39 @@ public class EtatCima implements java.io.Serializable {
 	private String societeCima;
 	private String paysCima;
 	private Date dateEtat;
-	private Set<EntrepriseCaution> entrepriseCautions = new HashSet<EntrepriseCaution>(
+	private Set<EntreprisecautionExercice> entreprisecautionExercices = new HashSet<EntreprisecautionExercice>(
+			0);
+	private Set<PaysactionExercice> paysactionExercices = new HashSet<PaysactionExercice>(
 			0);
 	private Set<Etatc10b> etatc10bs = new HashSet<Etatc10b>(0);
 	private Set<Feuillebilan> feuillebilans = new HashSet<Feuillebilan>(0);
-	private Set<Branche> branches = new HashSet<Branche>(0);
-	private Set<Direction> directions = new HashSet<Direction>(0);
-	private Set<EffectifPersonnel> effectifPersonnels = new HashSet<EffectifPersonnel>(
+	private Set<ObligationExercice> obligationExercices = new HashSet<ObligationExercice>(
 			0);
-	private Set<ModifiCapital> modifiCapitals = new HashSet<ModifiCapital>(0);
-	private Set<Accords> accordses = new HashSet<Accords>(0);
+	private Set<BrancheExercice> brancheExercices = new HashSet<BrancheExercice>(
+			0);
+	private Set<PoertefeilExercice> poertefeilExercices = new HashSet<PoertefeilExercice>(
+			0);
+	private Set<Ria> rias = new HashSet<Ria>(0);
+	private Set<DirectionExercice> directionExercices = new HashSet<DirectionExercice>(
+			0);
+	private Set<PersonnecautExercice> personnecautExercices = new HashSet<PersonnecautExercice>(
+			0);
+	private Set<EffectifPersoEtatCima> effectifPersoEtatCimas = new HashSet<EffectifPersoEtatCima>(
+			0);
+	private Set<ModifcapitalExercice> modifcapitalExercices = new HashSet<ModifcapitalExercice>(
+			0);
+	private Set<AccordCima> accordCimas = new HashSet<AccordCima>(0);
 	private Set<Etatc10TabA> etatc10TabAs = new HashSet<Etatc10TabA>(0);
 	private Set<Etatc10a> etatc10as = new HashSet<Etatc10a>(0);
 	private Set<CegCredit> cegCredits = new HashSet<CegCredit>(0);
-	private Set<ActionnaireConseil> actionnaireConseils = new HashSet<ActionnaireConseil>(
-			0);
+	private Set<AcExercice> acExercices = new HashSet<AcExercice>(0);
 	private Set<EtatC4> etatC4s = new HashSet<EtatC4>(0);
 	private Set<EtatC5> etatC5s = new HashSet<EtatC5>(0);
 	private Set<Etatc1> etatc1s = new HashSet<Etatc1>(0);
 	private Set<Cgpp> cgpps = new HashSet<Cgpp>(0);
 	private Set<Etatc9> etatc9s = new HashSet<Etatc9>(0);
 	private Set<CegDebit> cegDebits = new HashSet<CegDebit>(0);
+	private Set<Etatc10TabB> etatc10TabBs = new HashSet<Etatc10TabB>(0);
 
 	public EtatCima() {
 	}
@@ -62,40 +72,53 @@ public class EtatCima implements java.io.Serializable {
 
 	public EtatCima(String codeEtatCima, Etatc10TabA etatc10TabA,
 			Short exerciceConcerne, String societeCima, String paysCima,
-			Date dateEtat, Set<EntrepriseCaution> entrepriseCautions,
+			Date dateEtat,
+			Set<EntreprisecautionExercice> entreprisecautionExercices,
+			Set<PaysactionExercice> paysactionExercices,
 			Set<Etatc10b> etatc10bs, Set<Feuillebilan> feuillebilans,
-			Set<Branche> branches, Set<Direction> directions,
-			Set<EffectifPersonnel> effectifPersonnels,
-			Set<ModifiCapital> modifiCapitals, Set<Accords> accordses,
-			Set<Etatc10TabA> etatc10TabAs, Set<Etatc10a> etatc10as,
-			Set<CegCredit> cegCredits,
-			Set<ActionnaireConseil> actionnaireConseils, Set<EtatC4> etatC4s,
+			Set<ObligationExercice> obligationExercices,
+			Set<BrancheExercice> brancheExercices,
+			Set<PoertefeilExercice> poertefeilExercices, Set<Ria> rias,
+			Set<DirectionExercice> directionExercices,
+			Set<PersonnecautExercice> personnecautExercices,
+			Set<EffectifPersoEtatCima> effectifPersoEtatCimas,
+			Set<ModifcapitalExercice> modifcapitalExercices,
+			Set<AccordCima> accordCimas, Set<Etatc10TabA> etatc10TabAs,
+			Set<Etatc10a> etatc10as, Set<CegCredit> cegCredits,
+			Set<AcExercice> acExercices, Set<EtatC4> etatC4s,
 			Set<EtatC5> etatC5s, Set<Etatc1> etatc1s, Set<Cgpp> cgpps,
-			Set<Etatc9> etatc9s, Set<CegDebit> cegDebits) {
+			Set<Etatc9> etatc9s, Set<CegDebit> cegDebits,
+			Set<Etatc10TabB> etatc10TabBs) {
 		this.codeEtatCima = codeEtatCima;
 		this.etatc10TabA = etatc10TabA;
 		this.exerciceConcerne = exerciceConcerne;
 		this.societeCima = societeCima;
 		this.paysCima = paysCima;
 		this.dateEtat = dateEtat;
-		this.entrepriseCautions = entrepriseCautions;
+		this.entreprisecautionExercices = entreprisecautionExercices;
+		this.paysactionExercices = paysactionExercices;
 		this.etatc10bs = etatc10bs;
 		this.feuillebilans = feuillebilans;
-		this.branches = branches;
-		this.directions = directions;
-		this.effectifPersonnels = effectifPersonnels;
-		this.modifiCapitals = modifiCapitals;
-		this.accordses = accordses;
+		this.obligationExercices = obligationExercices;
+		this.brancheExercices = brancheExercices;
+		this.poertefeilExercices = poertefeilExercices;
+		this.rias = rias;
+		this.directionExercices = directionExercices;
+		this.personnecautExercices = personnecautExercices;
+		this.effectifPersoEtatCimas = effectifPersoEtatCimas;
+		this.modifcapitalExercices = modifcapitalExercices;
+		this.accordCimas = accordCimas;
 		this.etatc10TabAs = etatc10TabAs;
 		this.etatc10as = etatc10as;
 		this.cegCredits = cegCredits;
-		this.actionnaireConseils = actionnaireConseils;
+		this.acExercices = acExercices;
 		this.etatC4s = etatC4s;
 		this.etatC5s = etatC5s;
 		this.etatc1s = etatc1s;
 		this.cgpps = cgpps;
 		this.etatc9s = etatc9s;
 		this.cegDebits = cegDebits;
+		this.etatc10TabBs = etatc10TabBs;
 	}
 
 	@Id
@@ -155,14 +178,24 @@ public class EtatCima implements java.io.Serializable {
 		this.dateEtat = dateEtat;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "entreprisecaution_exercice", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_ENTREP_CAUT", nullable = false, updatable = false) })
-	public Set<EntrepriseCaution> getEntrepriseCautions() {
-		return this.entrepriseCautions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<EntreprisecautionExercice> getEntreprisecautionExercices() {
+		return this.entreprisecautionExercices;
 	}
 
-	public void setEntrepriseCautions(Set<EntrepriseCaution> entrepriseCautions) {
-		this.entrepriseCautions = entrepriseCautions;
+	public void setEntreprisecautionExercices(
+			Set<EntreprisecautionExercice> entreprisecautionExercices) {
+		this.entreprisecautionExercices = entreprisecautionExercices;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<PaysactionExercice> getPaysactionExercices() {
+		return this.paysactionExercices;
+	}
+
+	public void setPaysactionExercices(
+			Set<PaysactionExercice> paysactionExercices) {
+		this.paysactionExercices = paysactionExercices;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
@@ -183,51 +216,90 @@ public class EtatCima implements java.io.Serializable {
 		this.feuillebilans = feuillebilans;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "branche_exercice", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_BRANCHE", nullable = false, updatable = false) })
-	public Set<Branche> getBranches() {
-		return this.branches;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<ObligationExercice> getObligationExercices() {
+		return this.obligationExercices;
 	}
 
-	public void setBranches(Set<Branche> branches) {
-		this.branches = branches;
+	public void setObligationExercices(
+			Set<ObligationExercice> obligationExercices) {
+		this.obligationExercices = obligationExercices;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "etatCimas")
-	public Set<Direction> getDirections() {
-		return this.directions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<BrancheExercice> getBrancheExercices() {
+		return this.brancheExercices;
 	}
 
-	public void setDirections(Set<Direction> directions) {
-		this.directions = directions;
+	public void setBrancheExercices(Set<BrancheExercice> brancheExercices) {
+		this.brancheExercices = brancheExercices;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "etatCimas")
-	public Set<EffectifPersonnel> getEffectifPersonnels() {
-		return this.effectifPersonnels;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<PoertefeilExercice> getPoertefeilExercices() {
+		return this.poertefeilExercices;
 	}
 
-	public void setEffectifPersonnels(Set<EffectifPersonnel> effectifPersonnels) {
-		this.effectifPersonnels = effectifPersonnels;
+	public void setPoertefeilExercices(
+			Set<PoertefeilExercice> poertefeilExercices) {
+		this.poertefeilExercices = poertefeilExercices;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "modifcapital_exercice", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_MODIF_CAP", nullable = false, updatable = false) })
-	public Set<ModifiCapital> getModifiCapitals() {
-		return this.modifiCapitals;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<Ria> getRias() {
+		return this.rias;
 	}
 
-	public void setModifiCapitals(Set<ModifiCapital> modifiCapitals) {
-		this.modifiCapitals = modifiCapitals;
+	public void setRias(Set<Ria> rias) {
+		this.rias = rias;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "etatCimas")
-	public Set<Accords> getAccordses() {
-		return this.accordses;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<DirectionExercice> getDirectionExercices() {
+		return this.directionExercices;
 	}
 
-	public void setAccordses(Set<Accords> accordses) {
-		this.accordses = accordses;
+	public void setDirectionExercices(Set<DirectionExercice> directionExercices) {
+		this.directionExercices = directionExercices;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<PersonnecautExercice> getPersonnecautExercices() {
+		return this.personnecautExercices;
+	}
+
+	public void setPersonnecautExercices(
+			Set<PersonnecautExercice> personnecautExercices) {
+		this.personnecautExercices = personnecautExercices;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<EffectifPersoEtatCima> getEffectifPersoEtatCimas() {
+		return this.effectifPersoEtatCimas;
+	}
+
+	public void setEffectifPersoEtatCimas(
+			Set<EffectifPersoEtatCima> effectifPersoEtatCimas) {
+		this.effectifPersoEtatCimas = effectifPersoEtatCimas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<ModifcapitalExercice> getModifcapitalExercices() {
+		return this.modifcapitalExercices;
+	}
+
+	public void setModifcapitalExercices(
+			Set<ModifcapitalExercice> modifcapitalExercices) {
+		this.modifcapitalExercices = modifcapitalExercices;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<AccordCima> getAccordCimas() {
+		return this.accordCimas;
+	}
+
+	public void setAccordCimas(Set<AccordCima> accordCimas) {
+		this.accordCimas = accordCimas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
@@ -257,14 +329,13 @@ public class EtatCima implements java.io.Serializable {
 		this.cegCredits = cegCredits;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "etatCimas")
-	public Set<ActionnaireConseil> getActionnaireConseils() {
-		return this.actionnaireConseils;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<AcExercice> getAcExercices() {
+		return this.acExercices;
 	}
 
-	public void setActionnaireConseils(
-			Set<ActionnaireConseil> actionnaireConseils) {
-		this.actionnaireConseils = actionnaireConseils;
+	public void setAcExercices(Set<AcExercice> acExercices) {
+		this.acExercices = acExercices;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
@@ -319,6 +390,15 @@ public class EtatCima implements java.io.Serializable {
 
 	public void setCegDebits(Set<CegDebit> cegDebits) {
 		this.cegDebits = cegDebits;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "etatCima")
+	public Set<Etatc10TabB> getEtatc10TabBs() {
+		return this.etatc10TabBs;
+	}
+
+	public void setEtatc10TabBs(Set<Etatc10TabB> etatc10TabBs) {
+		this.etatc10TabBs = etatc10TabBs;
 	}
 
 }

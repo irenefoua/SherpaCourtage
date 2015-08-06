@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,9 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +27,8 @@ public class EffectifPersonnel implements java.io.Serializable {
 	private Integer agentGeneroPays;
 	private Integer coutiers;
 	private Integer totalPersNonSalarie;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<EffectifPersoEtatCima> effectifPersoEtatCimas = new HashSet<EffectifPersoEtatCima>(
+			0);
 
 	public EffectifPersonnel() {
 	}
@@ -43,7 +42,7 @@ public class EffectifPersonnel implements java.io.Serializable {
 			Integer agentExecution, Integer autreProdSalPays,
 			Integer totalPersSalarie, Integer agentGeneroPays,
 			Integer coutiers, Integer totalPersNonSalarie,
-			Set<EtatCima> etatCimas) {
+			Set<EffectifPersoEtatCima> effectifPersoEtatCimas) {
 		this.codeEffectifPersonnel = codeEffectifPersonnel;
 		this.personnelDirection = personnelDirection;
 		this.agentMaitrise = agentMaitrise;
@@ -53,7 +52,7 @@ public class EffectifPersonnel implements java.io.Serializable {
 		this.agentGeneroPays = agentGeneroPays;
 		this.coutiers = coutiers;
 		this.totalPersNonSalarie = totalPersNonSalarie;
-		this.etatCimas = etatCimas;
+		this.effectifPersoEtatCimas = effectifPersoEtatCimas;
 	}
 
 	@Id
@@ -138,14 +137,14 @@ public class EffectifPersonnel implements java.io.Serializable {
 		this.totalPersNonSalarie = totalPersNonSalarie;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "effectif_perso_etat_cima", catalog = "zeusbd", joinColumns = { @JoinColumn(name = "CODE_EFFECTIF_PERSONNEL", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, updatable = false) })
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "effectifPersonnel")
+	public Set<EffectifPersoEtatCima> getEffectifPersoEtatCimas() {
+		return this.effectifPersoEtatCimas;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setEffectifPersoEtatCimas(
+			Set<EffectifPersoEtatCima> effectifPersoEtatCimas) {
+		this.effectifPersoEtatCimas = effectifPersoEtatCimas;
 	}
 
 }

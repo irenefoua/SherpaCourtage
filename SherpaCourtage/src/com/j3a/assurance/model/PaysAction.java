@@ -1,11 +1,15 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +26,8 @@ public class PaysAction implements java.io.Serializable {
 	private String branchePa;
 	private Date anneeDebutExploitPa;
 	private String referenceAgremementPa;
+	private Set<PaysactionExercice> paysactionExercices = new HashSet<PaysactionExercice>(
+			0);
 
 	public PaysAction() {
 	}
@@ -31,12 +37,14 @@ public class PaysAction implements java.io.Serializable {
 	}
 
 	public PaysAction(String codePa, String paysPa, String branchePa,
-			Date anneeDebutExploitPa, String referenceAgremementPa) {
+			Date anneeDebutExploitPa, String referenceAgremementPa,
+			Set<PaysactionExercice> paysactionExercices) {
 		this.codePa = codePa;
 		this.paysPa = paysPa;
 		this.branchePa = branchePa;
 		this.anneeDebutExploitPa = anneeDebutExploitPa;
 		this.referenceAgremementPa = referenceAgremementPa;
+		this.paysactionExercices = paysactionExercices;
 	}
 
 	@Id
@@ -84,6 +92,16 @@ public class PaysAction implements java.io.Serializable {
 
 	public void setReferenceAgremementPa(String referenceAgremementPa) {
 		this.referenceAgremementPa = referenceAgremementPa;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paysAction")
+	public Set<PaysactionExercice> getPaysactionExercices() {
+		return this.paysactionExercices;
+	}
+
+	public void setPaysactionExercices(
+			Set<PaysactionExercice> paysactionExercices) {
+		this.paysactionExercices = paysactionExercices;
 	}
 
 }

@@ -1,12 +1,14 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +19,10 @@ import javax.persistence.Table;
 public class Portefeuilles implements java.io.Serializable {
 
 	private String codePortefeilles;
-	private Achat achat;
+	private Set<Vente> ventes = new HashSet<Vente>(0);
+	private Set<Achat> achats = new HashSet<Achat>(0);
+	private Set<PoertefeilExercice> poertefeilExercices = new HashSet<PoertefeilExercice>(
+			0);
 
 	public Portefeuilles() {
 	}
@@ -26,9 +31,12 @@ public class Portefeuilles implements java.io.Serializable {
 		this.codePortefeilles = codePortefeilles;
 	}
 
-	public Portefeuilles(String codePortefeilles, Achat achat) {
+	public Portefeuilles(String codePortefeilles, Set<Vente> ventes,
+			Set<Achat> achats, Set<PoertefeilExercice> poertefeilExercices) {
 		this.codePortefeilles = codePortefeilles;
-		this.achat = achat;
+		this.ventes = ventes;
+		this.achats = achats;
+		this.poertefeilExercices = poertefeilExercices;
 	}
 
 	@Id
@@ -41,13 +49,32 @@ public class Portefeuilles implements java.io.Serializable {
 		this.codePortefeilles = codePortefeilles;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "portefeuilles")
-	public Achat getAchat() {
-		return this.achat;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "portefeuilles")
+	public Set<Vente> getVentes() {
+		return this.ventes;
 	}
 
-	public void setAchat(Achat achat) {
-		this.achat = achat;
+	public void setVentes(Set<Vente> ventes) {
+		this.ventes = ventes;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "portefeuilles")
+	public Set<Achat> getAchats() {
+		return this.achats;
+	}
+
+	public void setAchats(Set<Achat> achats) {
+		this.achats = achats;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "portefeuilles")
+	public Set<PoertefeilExercice> getPoertefeilExercices() {
+		return this.poertefeilExercices;
+	}
+
+	public void setPoertefeilExercices(
+			Set<PoertefeilExercice> poertefeilExercices) {
+		this.poertefeilExercices = poertefeilExercices;
 	}
 
 }

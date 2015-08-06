@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +22,7 @@ public class CategorieCima implements java.io.Serializable {
 	private String libellecatecima;
 	private Set<Etatc10bCategorie> etatc10bCategories = new HashSet<Etatc10bCategorie>(
 			0);
+	private Set<Etatc10TabB> etatc10TabBs = new HashSet<Etatc10TabB>(0);
 	private Set<Etatc9Categorie> etatc9Categories = new HashSet<Etatc9Categorie>(
 			0);
 	private Set<Lgc1credit> lgc1credits = new HashSet<Lgc1credit>(0);
@@ -39,12 +40,14 @@ public class CategorieCima implements java.io.Serializable {
 
 	public CategorieCima(String codecategoriecima, String libellecatecima,
 			Set<Etatc10bCategorie> etatc10bCategories,
+			Set<Etatc10TabB> etatc10TabBs,
 			Set<Etatc9Categorie> etatc9Categories, Set<Lgc1credit> lgc1credits,
 			Set<Etatc10TabA> etatc10TabAs,
 			Set<Etatc10aCategorie> etatc10aCategories, Set<Lgc1debit> lgc1debits) {
 		this.codecategoriecima = codecategoriecima;
 		this.libellecatecima = libellecatecima;
 		this.etatc10bCategories = etatc10bCategories;
+		this.etatc10TabBs = etatc10TabBs;
 		this.etatc9Categories = etatc9Categories;
 		this.lgc1credits = lgc1credits;
 		this.etatc10TabAs = etatc10TabAs;
@@ -78,6 +81,15 @@ public class CategorieCima implements java.io.Serializable {
 
 	public void setEtatc10bCategories(Set<Etatc10bCategorie> etatc10bCategories) {
 		this.etatc10bCategories = etatc10bCategories;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categorieCima")
+	public Set<Etatc10TabB> getEtatc10TabBs() {
+		return this.etatc10TabBs;
+	}
+
+	public void setEtatc10TabBs(Set<Etatc10TabB> etatc10TabBs) {
+		this.etatc10TabBs = etatc10TabBs;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categorieCima")

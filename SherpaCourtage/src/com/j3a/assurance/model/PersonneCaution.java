@@ -1,10 +1,14 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +23,8 @@ public class PersonneCaution implements java.io.Serializable {
 	private String prenomsPersCaut;
 	private String qualificationPersCaut;
 	private String objetCautionPersCaut;
+	private Set<PersonnecautExercice> personnecautExercices = new HashSet<PersonnecautExercice>(
+			0);
 
 	public PersonneCaution() {
 	}
@@ -29,12 +35,14 @@ public class PersonneCaution implements java.io.Serializable {
 
 	public PersonneCaution(String codePersCaut, String nomPersCaut,
 			String prenomsPersCaut, String qualificationPersCaut,
-			String objetCautionPersCaut) {
+			String objetCautionPersCaut,
+			Set<PersonnecautExercice> personnecautExercices) {
 		this.codePersCaut = codePersCaut;
 		this.nomPersCaut = nomPersCaut;
 		this.prenomsPersCaut = prenomsPersCaut;
 		this.qualificationPersCaut = qualificationPersCaut;
 		this.objetCautionPersCaut = objetCautionPersCaut;
+		this.personnecautExercices = personnecautExercices;
 	}
 
 	@Id
@@ -81,6 +89,16 @@ public class PersonneCaution implements java.io.Serializable {
 
 	public void setObjetCautionPersCaut(String objetCautionPersCaut) {
 		this.objetCautionPersCaut = objetCautionPersCaut;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personneCaution")
+	public Set<PersonnecautExercice> getPersonnecautExercices() {
+		return this.personnecautExercices;
+	}
+
+	public void setPersonnecautExercices(
+			Set<PersonnecautExercice> personnecautExercices) {
+		this.personnecautExercices = personnecautExercices;
 	}
 
 }

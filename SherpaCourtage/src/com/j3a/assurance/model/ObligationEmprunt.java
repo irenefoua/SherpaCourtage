@@ -1,11 +1,17 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,26 +22,30 @@ import javax.persistence.Table;
 public class ObligationEmprunt implements java.io.Serializable {
 
 	private String codeObEmp;
-	private int codeexercice;
+	private Exercice exercice;
 	private String nature;
 	private BigDecimal montant;
 	private String type;
+	private Set<ObligationExercice> obligationExercices = new HashSet<ObligationExercice>(
+			0);
 
 	public ObligationEmprunt() {
 	}
 
-	public ObligationEmprunt(String codeObEmp, int codeexercice) {
+	public ObligationEmprunt(String codeObEmp, Exercice exercice) {
 		this.codeObEmp = codeObEmp;
-		this.codeexercice = codeexercice;
+		this.exercice = exercice;
 	}
 
-	public ObligationEmprunt(String codeObEmp, int codeexercice, String nature,
-			BigDecimal montant, String type) {
+	public ObligationEmprunt(String codeObEmp, Exercice exercice,
+			String nature, BigDecimal montant, String type,
+			Set<ObligationExercice> obligationExercices) {
 		this.codeObEmp = codeObEmp;
-		this.codeexercice = codeexercice;
+		this.exercice = exercice;
 		this.nature = nature;
 		this.montant = montant;
 		this.type = type;
+		this.obligationExercices = obligationExercices;
 	}
 
 	@Id
@@ -48,13 +58,14 @@ public class ObligationEmprunt implements java.io.Serializable {
 		this.codeObEmp = codeObEmp;
 	}
 
-	@Column(name = "CODEEXERCICE", nullable = false)
-	public int getCodeexercice() {
-		return this.codeexercice;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODEEXERCICE", nullable = false)
+	public Exercice getExercice() {
+		return this.exercice;
 	}
 
-	public void setCodeexercice(int codeexercice) {
-		this.codeexercice = codeexercice;
+	public void setExercice(Exercice exercice) {
+		this.exercice = exercice;
 	}
 
 	@Column(name = "NATURE", length = 30)
@@ -82,6 +93,16 @@ public class ObligationEmprunt implements java.io.Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "obligationEmprunt")
+	public Set<ObligationExercice> getObligationExercices() {
+		return this.obligationExercices;
+	}
+
+	public void setObligationExercices(
+			Set<ObligationExercice> obligationExercices) {
+		this.obligationExercices = obligationExercices;
 	}
 
 }
