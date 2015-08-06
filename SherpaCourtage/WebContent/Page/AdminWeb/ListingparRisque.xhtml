@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+
+
+	<!--<ui:define name="menu">
+	    Add your footer here or delete to use the default
+	</ui:define> -->
+
+
+	<ui:define name="content">
+		
+		<h:form id="form">
+		<p:messages id="messages" showDetail="false" autoUpdate="true" />
+		
+		<p:breadCrumb>
+		    <p:menuitem value="Home" action="/index?faces-redirect=true"/>
+		    <p:menuitem value="Chiffre D'affaire par risque" action="/pages/Pilotage/ListingparRisque?faces-redirect=true"/>
+		</p:breadCrumb>
+		
+		
+		<br />
+		<fieldset class="fieldsetPilotage" >
+			<legend>Selection des critères</legend>
+			
+			<h:panelGrid id="criteresDat" columns="3" columnClasses="halfleft,halfleft" style="width:100%">
+				
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			       <p:inputMask
+						value="#{managedListRisque.dateDeb}"
+						required="true"  requiredMessage="Debut de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+					<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			       <p:inputMask
+						value="#{managedListRisque.dateFin}"
+						required="true"
+						requiredMessage="Fin de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+			        <h:outputText value=""/>
+			        </h:panelGroup>
+			        
+			        
+			        
+			    </h:panelGrid>		
+			    	
+			    	<br />		
+				<p:panelGrid id="criteres" columns="2" style="width:100%" columnClasses="tiersLeft,tiersLeft,tiersLeft">
+					
+				    			<h:outputText value="Choix du risque" style="font-weight:bold;"/>
+				    			<h:outputText value="Choix du Point de vente" style="font-weight:bold;"/>
+				    			
+				    			<p:selectCheckboxMenu  
+									value="#{managedListRisque.selectRisque}"  layout="grid" columns="1" converter="#{risqCvtr}" style="width:100%"  panelStyle="width:37%" 
+									filter="true" filterMatchMode="startsWith"  label="Risque">
+						            <f:selectItems value="#{risqCvtr.risqList}" var="risq"
+										itemLabel="#{risq.libelleRisque}" itemValue="#{risq}" />
+										   </p:selectCheckboxMenu>
+				    		
+				    			
+					 			<p:selectCheckboxMenu  value="#{managedListRisque.selectPv}"  converter="#{ptdeVenteCvtr}" layout="grid" columns="1"  style="width:100%"  panelStyle="width:37%"  label="Point de vente">
+						            <f:selectItems value="#{ptdeVenteCvtr.pointVenteList}" var="pv"
+										itemLabel="#{pv.libellePointVente}" itemValue="#{pv}"  />
+						        </p:selectCheckboxMenu>
+				 			 
+				 			 
+						 	</p:panelGrid>		
+				 			
+				 		
+				 	<br />
+				            <p:commandButton  value="Valider les critères" action="#{managedListRisque.recupererinfo}"  icon="ui-icon-search"
+											 process=":form:criteres, :form:criteresDat, @this"   update=":form:tab" />
+				      					  
+				 	
+                   <p:commandButton id="graph" rendered="true" value="Afficher les graphes" actionListener="#{managedListRisque.callGraphStat}"/>
+
+<br />
+			
+			
+			 </fieldset>
+						
+				
+			<br />	
+			
+			
+			
+					
+				
+			
+    <p:dataTable  id="tab" var="risq" value="#{managedListRisque.listChiffrAf}" emptyMessage=" ">
+        <f:facet name="header">
+           Chiffre d'Affaire par risque et par point de vente
+        </f:facet>
+ 
+        
+ 
+        <p:subTable var="risq2" value="#{risq.listCAandRisq}">
+         <p:columnGroup type="header">
+            <p:row>
+                <p:column rowspan="2" headerText="Code Risque" />
+                <p:column colspan="2" headerText="Statistique"  style="text-align:center"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="Libelle Risque " />
+                <p:column headerText="Chiffre D'Affaire" />
+            </p:row>
+        </p:columnGroup>
+        
+            <f:facet name="header">
+                <h:outputText value="Point Vente :  #{risq.ptVte.codePointVente}" />
+                
+            </f:facet>
+            
+             <p:column headerText="Risque"  >
+                <h:outputText value="#{risq2.risque.codeRisque}"  />
+            </p:column>
+            
+            <p:column>
+                <h:outputText value="#{risq2.risque.libelleRisque}" />
+            </p:column>
+            
+            
+           
+            
+            
+            
+            <p:column>
+                <h:outputText value="#{risq2.chiffrAffaire}" />
+            </p:column>
+            
+            <p:columnGroup type="footer">
+                <p:row>
+                <p:column footerText=" " />
+                    <p:column footerText="Total Chiffre d'affaire: " style="text-align:right"/>
+                    
+                    <p:column footerText="#{risq.CATotal}" />
+                  
+                </p:row>
+            </p:columnGroup>
+        </p:subTable>
+    </p:dataTable>
+
+				
+				
+						
+	        <br />
+				
+				
+				
+		<p:separator style="width:500px;height:20px" />
+		
+		
+				
+	
+		</h:form>
+		
+		<p:dialog header="Graphiques Statistiques" widgetVar="dlg2" minHeight="40" width="750"  height="550">
+  <h:outputLabel  >
+<p:pieChart type="pie"  value="#{managedListRisque.modelrisq}" legendPosition="e"  ShowDataLabels="true"  title="REPARTION DU CHIFFRE D'AFFAIRE PAR RISQUES"   style="width:500px; height:450px"/>
+<p:pieChart  type="pie" value="#{managedListRisque.modelPv}"  legendPosition="e"  title="REPARTION DU CHIFFRE D'AFFAIRE PAR POINT DE VENTE" style="width:500px; height:450px" />
+	  </h:outputLabel>
+</p:dialog>
+	
+		
+		
+		
+
+   
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<ui:composition template="../../template/templateadmin.xhtml">
+	<ui:define name="content">
+		<p:panel header="Gestion de Garantie">
+				<h:form id="rech_garantie">
+					<fieldset id="recher_garantie" class="fieldset">
+
+
+						<legend>Gestion de Garantie</legend>
+						<h:panelGrid columns="6" style="margin-bottom:10px"
+							cellpadding="6">
+							<h:outputText value="Code Garantie * " />
+							<p:inputText value="#{garantieM.id}" id="id_garantie"
+								required="true"
+								requiredMessage="Le champ Code Garantie ne peut pas être vide!"
+								validatorMessage="Pas plus de 12 caractère">
+								<f:validateLength minimum="0" maximum="12" for="id_garantie"></f:validateLength>
+							</p:inputText>
+							<p:message for="id_garantie" />
+
+
+
+
+							<h:outputText value="Libellé Garantie" />
+							<p:inputText value="#{garantieM.libelleGarantie}"
+								id="id_libellegarantie"
+								validatorMessage="Pas plus de 30 caractère" required="true"
+								requiredMessage="Indiquer le libellé de la garantie">
+								<f:validateLength minimum="0" maximum="30"
+									for="id_libellegarantie"></f:validateLength>
+							</p:inputText>
+
+							<p:message for="id_libellegarantie" />
+							
+							
+							 <h:outputText value="Catégorie Garantie*" />	
+							<p:selectOneMenu id="cb_cat" label="Catégorie" 
+											value="#{garantieM.codeCategorie}"
+											 required="true" requiredMessage="Veillez renseigner le risque !">
+											<f:selectItem itemLabel="Defense Recours" itemValue="DC"></f:selectItem>
+											<f:selectItem itemLabel="DOMMAGE" itemValue="DM"></f:selectItem>
+											<f:selectItem itemLabel="Incendie" itemValue="INC"></f:selectItem>
+											<f:selectItem itemLabel="Vol" itemValue="VOL"></f:selectItem>
+											<f:selectItem itemLabel="Responsabilite Civile" itemValue="RC"></f:selectItem>
+											<f:selectItem itemLabel="Securite Routiere" itemValue="SR"></f:selectItem>
+											</p:selectOneMenu>						
+							                <p:message for="cb_cat" display="icon" />
+							                
+							                
+							                 <h:outputText value="Risque*" />	
+							    <p:selectOneMenu id="cb_risque" label="Risque" 
+											value="#{garantieM.slctRisque}"
+											 required="true" requiredMessage="Veillez renseigner le risque !">
+											
+											<f:selectItems
+												value="#{garantieM.risqueList}"
+												var="risque" itemLabel="#{risque.libelleRisque}" 
+												itemValue="#{risque.codeRisque}" />
+											</p:selectOneMenu>						
+							                <p:message for="cb_risque" display="icon" />
+							    
+
+						</h:panelGrid>
+<br />
+						<p:message for="buttonadd" />
+						<p:message for="buttonupdate" />
+						<p:message for="buttondelete" />
+						<h:commandButton id="buttonadd" value="Enregistrer"
+							binding="#{garantieM.buttonadd}"
+							action="#{garantieM.validateadd}" />
+
+
+						<h:commandButton id="buttonupdate" value="Modifier"
+							binding="#{garantieM.buttonupdate}"
+							action="#{garantieM.validateupdate}" />
+
+
+						<h:commandButton id="buttondelete" value="Supprimer"
+							binding="#{garantieM.buttondelete}"
+							action="#{garantieM.validatedelete}" />
+						<h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+
+					</fieldset>
+				</h:form>
+				<br></br>
+				<h:form>
+					<fieldset class="fieldset">
+						<legend>Liste des Garanties </legend>
+
+
+						<h:panelGrid>
+
+							<p:dataTable id="Zonegeo" var="garantie"
+								value="#{garantieM.garantiesList}" scrollable="true"
+												scrollHeight="230"
+												scrollWidth="1050">
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Code Garantie" />
+									</f:facet>
+									<h:outputText value="#{garantie.codeGarantie}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Libelle Garantie" />
+									</f:facet>
+									<h:outputText value="#{garantie.libelleGarantie}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</h:panelGrid>
+
+
+
+					</fieldset>
+
+
+				</h:form>
+			</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

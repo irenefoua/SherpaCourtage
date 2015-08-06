@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../../template/templateadmin.xhtml">
+		<ui:define name="content">
+		<h:form id="rech_risque">
+		<p:panel header="Gestion des Sous catégories">
+		
+					<!-- Pour les messages -->
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+					
+						<fieldset id="recher_risque" class="fieldset">		
+						<legend>Gestion des Sous Catégories</legend>
+						
+						
+								<h:panelGrid id="grid_cat" columns="3" style="margin-bottom:10px" cellpadding="6">
+								
+								 <h:outputText value="Catégorie*" />	
+							    <p:selectOneMenu id="cb_cat" label="Catégorie" 
+											value="#{managedSousCategorie.slctCategorie}"
+											 required="true" requiredMessage="Veillez renseigner le risque !">
+											<f:selectItems
+												value="#{managedSousCategorie.categorieList}"
+												var="cat" itemLabel="#{cat.libelleCategorie}" 
+												itemValue="#{cat.codeCategorie}" />
+											</p:selectOneMenu>						
+							                <p:message for="cb_cat" display="icon" />
+							    
+								<h:outputText value="Sous Categorie*" />							
+								<p:inputText value="#{managedSousCategorie.libelleCategorie}" id="id_libelleCategorie" 
+								validatorMessage="Pas plus de 30 caractÃ¨re" required="true" requiredMessage="Aucune Catégorie concernée par cette action">
+							     <f:validateLength minimum="0" maximum="30" for="id_libelleCategorie"/>
+							    </p:inputText>
+							    <p:message for="id_libelleCategorie" display="icon" />
+							    
+							    <h:outputText value="Tarif*" />	
+							    <p:selectOneMenu id="cb_tarif" label="Tarif" 
+											value="#{managedSousCategorie.sltTarif}"
+											 required="true" requiredMessage="Veillez renseigner le Tarif !">
+											
+											<f:selectItems
+												value="#{managedSousCategorie.tarifList}"
+												var="tarif" itemLabel="#{tarif.libelleTarif}" 
+												itemValue="#{tarif.codeTarif}" />
+											</p:selectOneMenu>						
+							                <p:message for="cb_tarif" display="icon" />
+							    
+							    
+							</h:panelGrid>
+							
+						<p:separator></p:separator>
+							
+							<h:panelGrid columns="4">
+						  <p:commandButton id="buttonadd" value="Enregistrer" action="#{managedSousCategorie.validateadd}" update="grid_cat, Categories" />
+
+						    <p:commandButton id="buttonupdate" value="Modifier" actionListener="#{managedSousCategorie.validateupdate}"/>
+						    
+						    <p:commandButton id="buttondelete" value="Supprimer" actionListener="#{managedSousCategorie.validatedelete}" />
+						 </h:panelGrid>
+						 <div style="color:#cccccc">
+						 <h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+						 </div>
+							
+								<br />
+								<p:dataTable id="Categories" var="categorie" value="#{managedSousCategorie.sousCatVehiculeList}" rowKey="#{categorie.codeSousCatVehicule}" 
+								selection="#{managedSousCategorie.sousCatVehiculeSup}" selectionMode="single">
+         <p:ajax event="rowSelect" listener="#{managedSousCategorie.affecterCategorie}"
+        >
+         </p:ajax>
+  
+        <f:facet name="header">  
+            Liste Catégories
+        </f:facet>  
+  
+        <p:column headerText="Code">  
+            #{categorie.codeSousCatVehicule}  
+        </p:column>  
+  
+        <p:column headerText="Catégories">  
+            #{categorie.libelleSousCatVehicule}  
+        </p:column>  
+    </p:dataTable> 
+							    
+						    </fieldset>
+						   </p:panel>
+			</h:form>	
+		</ui:define>
+	</ui:composition>
+</html>

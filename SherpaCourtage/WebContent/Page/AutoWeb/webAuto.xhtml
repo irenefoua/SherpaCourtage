@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+			
+			
+			<!-- Créer les onglets  -->
+			<p:wizard id="wizar">
+
+				<p:tab id="ongletDevis" title="Véhicule">
+				
+				<fieldset>
+				<legend>Votre véhicule</legend>
+				 <h:panelGrid columns="7">
+				 <h:outputText value="Numéro d'Immatriculation"/>
+				 <h:inputText 
+				 styleClass="identifiant"
+				 ></h:inputText>
+				 <h:outputText value="Date d'Immatriculation" style="margin-left: 20px;"></h:outputText>
+				 <p:inputMask  
+				 id="dateImmatpre" mask="99/99/9999" >
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+				
+				</p:inputMask>
+				
+				 </h:panelGrid></fieldset>
+						     
+							
+								<fieldset class="fieldset" style="width:97%" >
+								<legend>Carte Grise</legend>
+								
+								<h:panelGrid id="vehiProp" columns="6">
+								
+								<h:outputText value="Sous Categorie "/>
+										<p:selectOneMenu id="slctSCat">
+											<f:selectItem itemLabel="" itemValue=""/>
+											<f:selectItems value="" var="ca" itemLabel="" itemValue=""/>
+										</p:selectOneMenu>
+								
+								<h:outputText value="Catégorie " style="margin-left: 20px;"/>
+										<p:inputText id="catV" 
+										style="width:211px"/>
+										
+								<h:outputText value="1er Mise en circulation " style="margin-left: 20px;"/>
+								 <p:inputMask  id="datePms"  mask="99/99/9999" >
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:inputMask>
+								
+									
+								
+								<h:outputText value="Statut "/>
+										<p:selectOneMenu  id="statu" required="false" style="width:170px">
+											<f:selectItem itemLabel="Select Statut" itemValue=""/>
+											<f:selectItem itemLabel="Vehicule avec Atelage" itemValue="Vehicule avec Atelage"/>
+											<f:selectItem itemLabel="Vehicule sans Atelage" itemValue="Vehicule sans Atelage"/>
+											<f:selectItem itemLabel="Remorque" itemValue="Remorque"/>
+										</p:selectOneMenu>
+									
+								<h:outputText value="Carosserie " style="margin-left: 20px;"/>
+										<p:selectOneMenu  id="caross" required="false" 
+										 style="width:154px" label="Carosserie du vehicule">
+											<f:selectItem itemLabel="Choix de Carosserie" itemValue=""/>
+											<f:selectItem itemLabel="Berline tricorps" itemValue="Berline tricorps"/>
+											<f:selectItem itemLabel="Berline bicorps" itemValue="Berline bicorps"/>
+											<f:selectItem itemLabel="Berline monocorps" itemValue="Berline monocorps"/>
+											<f:selectItem itemLabel="Break" itemValue="Break"/>
+											<f:selectItem itemLabel="Coupé" itemValue="Coupe"/>
+											<f:selectItem itemLabel="Coupé sans montants" itemValue="Coupe sans montants"/>
+											<f:selectItem itemLabel="Coupé 4-portes" itemValue="Coupe 4-portes"/>
+											<f:selectItem itemLabel="Limousine" itemValue="Limousine"/>
+											<f:selectItem itemLabel="Roadster" itemValue="Roadster"/>
+											<f:selectItem itemLabel="Spider" itemValue="Spider"/>
+											<f:selectItem itemLabel="Pick-up" itemValue="Pick-up"/>
+											<f:selectItem itemLabel="Berline décapotable et landaulet" itemValue="Berline decapotable et landaulet"/>
+											<f:selectItem itemLabel="Coupéspace" itemValue="Coupespace"/>
+											<f:selectItem itemLabel="Coupé/cabriolet avec toit escamotable" itemValue="Coupe/cabriolet avec toit escamotable"/>
+											<f:selectItem itemLabel="Crossover" itemValue="Crossover"/>
+											<f:selectItem itemLabel="Minispace" itemValue="Minispace"/>
+											<f:selectItem itemLabel="SUV" itemValue="SUV"/>
+											<f:selectItem itemLabel="Monospace" itemValue="Monospace"/>
+											<f:selectItem itemLabel="Ludospace" itemValue="Ludospace"/>
+										</p:selectOneMenu>
+										
+										<h:outputText value="Genre " style="margin-left: 20px;"/>
+										<p:selectOneMenu id="genr"  required="false" style="width:127px">
+											<f:selectItem itemLabel="VP" itemValue="VP"/>
+											<f:selectItem itemLabel="VT" itemValue="VT"/>
+										</p:selectOneMenu>
+										
+										<h:outputText value="Marque " />
+										<p:selectOneMenu  id="marq" style="width:170px">
+											<f:selectItem itemLabel=" Sélectionnez"  itemValue=""/>
+											<f:selectItem itemLabel="ABARTH"  itemValue="ABARTH"/>										
+											<f:selectItem itemLabel="ACURA"  itemValue="ACURA"/>
+											<f:selectItem itemLabel="ALFA ROMEO"  itemValue="ALFA ROMEO"/>																						
+											<f:selectItem itemLabel="ALPINE"  itemValue="ALPINE"/>											
+											<f:selectItem itemLabel="ASTON MARTIN"  itemValue="ASTON MARTIN"/>											
+											<f:selectItem itemLabel="AUDI"  itemValue="AUDI"/>										
+											<f:selectItem itemLabel="AUTO UNION"  itemValue="AUTO UNION"/>
+											<f:selectItem itemLabel="AUTOBIANCHI"  itemValue="AUTOBIANCHI"/>
+											<f:selectItem itemLabel="BENTLEY"  itemValue="BENTLEY"/>
+											<f:selectItem itemLabel="BENZ"  itemValue="BENZ"/>
+											<f:selectItem itemLabel="BERTONE"  itemValue="BERTONE"/>
+											<f:selectItem itemLabel="BIZZARRINI"  itemValue="BIZZARRINI"/>
+											<f:selectItem itemLabel="BMW"  itemValue="BMW"/>																				
+											<f:selectItem itemLabel="BUGATTI"  itemValue="BUGATTI"/>									
+											<f:selectItem itemLabel="CADILLAC"  itemValue="CADILLAC"/>										
+											<f:selectItem itemLabel="CATERHAM"  itemValue="CATERHAM"/>											
+											<f:selectItem itemLabel="CHEVROLET"  itemValue="CHEVROLET"/>
+											<f:selectItem itemLabel="CHEVRON"  itemValue="CHEVRON"/>
+											<f:selectItem itemLabel="CHRYSLER"  itemValue="CHRYSLER"/>										
+											<f:selectItem itemLabel="CITROEN"  itemValue="CITROEN"/>								
+											<f:selectItem itemLabel="COOPER"  itemValue="COOPER"/>										
+											<f:selectItem itemLabel="DACIA"  itemValue="DACIA"/>
+											<f:selectItem itemLabel="DAEWOO"  itemValue="DAEWOO"/>
+											<f:selectItem itemLabel="DAIHATSU"  itemValue="DAIHATSU"/>
+											<f:selectItem itemLabel="DAIMLER"  itemValue="DAIMLER"/>
+											<f:selectItem itemLabel="DATSUN"  itemValue="DATSUN"/>											
+											<f:selectItem itemLabel="DODGE"  itemValue="DODGE"/>
+											<f:selectItem itemLabel="DONKERVOORT"  itemValue="DODGE"/>											
+											<f:selectItem itemLabel="FERRARI"  itemValue="FERRARI"/>						
+											<f:selectItem itemLabel="FIAT"  itemValue="FIAT"/>
+											<f:selectItem itemLabel="FIAT ABARTH"  itemValue="FIAT ABARTH"/>								
+											<f:selectItem itemLabel="FORD"  itemValue="FORD"/>							
+											<f:selectItem itemLabel="FRAZER NASH"  itemValue="FRAZER NASH"/>										
+											<f:selectItem itemLabel="GM"  itemValue="GM"/>
+											<f:selectItem itemLabel="GMC"  itemValue="GMC"/>									
+											<f:selectItem itemLabel="HONDA"  itemValue="HONDA"/>										
+											<f:selectItem itemLabel="HUMMER"  itemValue="HUMMER"/>
+											<f:selectItem itemLabel="HYUNDAI"  itemValue="HYUNDAI"/>									
+											<f:selectItem itemLabel="INFINITI"  itemValue="INFINITI"/>		
+											<f:selectItem itemLabel="ISUZU"  itemValue="ISUZU"/>							
+											<f:selectItem itemLabel="JAGUAR"  itemValue="JAGUAR"/>
+											<f:selectItem itemLabel="JEEP"  itemValue="JEEP"/>								
+											<f:selectItem itemLabel="KIA"  itemValue="KIA"/>
+											<f:selectItem itemLabel="KOENIGSEGG"  itemValue="KOENIGSEGG"/>
+											<f:selectItem itemLabel="KTM"  itemValue="KTM"/>									
+											<f:selectItem itemLabel="LAMBORGHINI"  itemValue="LAMBORGHINI"/>
+											<f:selectItem itemLabel="LANCIA"  itemValue="LANCIA"/>
+											<f:selectItem itemLabel="LAND ROVER"  itemValue="LAND ROVER"/>											
+											<f:selectItem itemLabel="LEXUS"  itemValue="LEXUS"/>											
+											<f:selectItem itemLabel="LINCOLN"  itemValue="LINCOLN"/>								
+											<f:selectItem itemLabel="LOTUS"  itemValue="LOTUS"/>									
+											<f:selectItem itemLabel="MASERATI"  itemValue="MASERATI"/>									
+											<f:selectItem itemLabel="MAZDA"  itemValue="MAZDA"/>							
+											<f:selectItem itemLabel="MCLAREN"  itemValue="MCLAREN"/>
+											<f:selectItem itemLabel="MERCEDES"  itemValue="MERCEDES"/>										
+											<f:selectItem itemLabel="MINI"  itemValue="MINI"/>										
+											<f:selectItem itemLabel="MITSUBISHI"  itemValue="MITSUBISHI"/>									
+											<f:selectItem itemLabel="NISSAN"  itemValue="NISSAN"/>											
+											<f:selectItem itemLabel="OPEL"  itemValue="OPEL"/>								
+											<f:selectItem itemLabel="PAGANI"  itemValue="PAGANI"/>										
+											<f:selectItem itemLabel="PEUGEOT"  itemValue="PEUGEOT"/>										
+											<f:selectItem itemLabel="PONTIAC"  itemValue="PONTIAC"/>
+											<f:selectItem itemLabel="PORSCHE"  itemValue="PORSCHE"/>							
+											<f:selectItem itemLabel="RENAULT"  itemValue="RENAULT"/>								
+											<f:selectItem itemLabel="ROLLAND PILAIN"  itemValue="ROLLAND PILAIN"/>
+											<f:selectItem itemLabel="ROLLS-ROYCE"  itemValue="ROLLS-ROYCE"/>						
+											<f:selectItem itemLabel="ROVER"  itemValue="ROVER"/>
+											<f:selectItem itemLabel="SAAB"  itemValue="SAAB"/>										
+											<f:selectItem itemLabel="SATURN"  itemValue="SATURN"/>
+											<f:selectItem itemLabel="SEAT"  itemValue="SEAT"/>										
+											<f:selectItem itemLabel="SHELBY"  itemValue="SHELBY"/>										
+											<f:selectItem itemLabel="SKODA"  itemValue="SKODA"/>
+											<f:selectItem itemLabel="SMART"  itemValue="SMART"/>										
+											<f:selectItem itemLabel="SSANGYONG"  itemValue="SSANGYONG"/>										
+											<f:selectItem itemLabel="SUBARU"  itemValue="SUBARU"/>								
+											<f:selectItem itemLabel="SUZUKI"  itemValue="SUZUKI"/>										
+											<f:selectItem itemLabel="TATRA"  itemValue="TATRA"/>									
+											<f:selectItem itemLabel="TESLA"  itemValue="TESLA"/>									
+											<f:selectItem itemLabel="TOYOTA"  itemValue="TOYOTA"/>																			
+											<f:selectItem itemLabel="VECTOR"  itemValue="VECTOR"/>
+											<f:selectItem itemLabel="VENTURI"  itemValue="VENTURI"/>									
+											<f:selectItem itemLabel="VOLKSWAGEN"  itemValue="VOLKSWAGEN"/>
+											<f:selectItem itemLabel="VOLVO"  itemValue="VOLVO"/>
+											
+
+										</p:selectOneMenu>
+										
+									
+									
+										<h:outputText value="Energie " style="margin-left: 20px;"/>
+										<p:selectOneMenu  id="enrg" style="width:154px">
+											<f:selectItem itemLabel="diesel" itemValue="diesel"/>
+											<f:selectItem itemLabel="essence" itemValue="essence"/>
+										</p:selectOneMenu>
+										
+							
+										<h:outputText value="Type Vehicule" style="margin-left: 20px;"/>
+										<p:selectOneMenu id="typV"   style="width:154px">
+											<f:selectItem itemLabel="" itemValue=""/>
+											<f:selectItem itemLabel="Particulier" itemValue="VP"/>
+											<f:selectItem itemLabel="Taxi" itemValue="VTT"/>
+											<f:selectItem itemLabel="Car" itemValue="VTC"/>
+											<f:selectItem itemLabel="Tracteur Routier" itemValue="VAT"/>
+											<f:selectItem itemLabel="Cyclomoteur Cylindrée" itemValue="VC"/>
+											<f:selectItem itemLabel="Cyclomoteur Tendems" itemValue="VT"/>
+											<f:selectItem itemLabel="Avec Double Commande" itemValue="VDC"/>
+											<f:selectItem itemLabel="Sans Double Commande" itemValue="VSDC"/>
+											<f:selectItem itemLabel="Autres" itemValue="VA"/>
+										</p:selectOneMenu>
+										
+											
+										
+										
+										<h:outputText value="Châssis " style="margin-left: 20px;"/>
+										<p:inputText id="chass" 
+										 style="width:148px"/>
+										 
+										
+
+										<h:outputText value="Charge Utile (T)"
+											style="margin-left: 20px;" />
+										<p:inputText id="poidsUtil"
+											
+											style="width:148px" 
+										>
+											<f:convertNumber type="number" />
+										</p:inputText>
+									
+								
+										<h:outputText value="Puissance Fiscale "/>
+										<p:inputText id="pfisc" 
+										style="width:149px">
+										<f:convertNumber integerOnly="true" ></f:convertNumber>
+										<f:validateLongRange minimum="0"  maximum="20"  ></f:validateLongRange>
+										<p:ajax  update="@this" global="false"/>
+										</p:inputText>
+
+									
+										<h:outputText value="Puissance Réelle Cm3&nbsp;&nbsp;" style="margin-left: 20px;"/>
+										<p:inputText id="preel" 
+										 style="width:148px">
+										 <p:ajax  update="@this" global="false"/>
+										 </p:inputText>
+										 
+										 <h:outputText value="Remorque" style="margin-left: 20px;"/>
+										<p:selectOneMenu id="remorq"   style="width:154px">
+											<f:selectItem itemLabel="Sans Remorque" itemValue="non"/>
+											<f:selectItem itemLabel="Avec Remorque" itemValue="oui"/>
+										</p:selectOneMenu>
+										
+										
+										<h:outputText value="Places.Cabine"/>
+										<p:inputText id="plcCab" 
+										style="width:149px">
+										 
+										 </p:inputText>
+										
+									
+										<h:outputText value="Places.HCabine" style="margin-left: 20px;"/>
+										<p:inputText id="plcHCab" 
+										 style="width:149px">
+										 </p:inputText>
+										 
+										 	<h:outputText value="Nombre.Transporté" style="margin-left: 20px;"/>
+										<p:inputText id="nbrTrans" 
+										readonly="true"
+										 style="width:149px"/>
+										 
+										
+										
+									
+										<h:outputText value="Valeur Neuve  " />
+										<p:inputText id="valNv" 
+										 style="width:148px">
+										<f:convertNumber pattern="##,###.##"></f:convertNumber>
+										<p:ajax event="blur" update="@this" global="false"></p:ajax>
+										</p:inputText>
+										
+										<h:outputText value="Valeur Venale" style="margin-left: 20px;" />
+										<p:inputText id="valVn"   
+										 style="width:149px" >
+										<f:convertNumber pattern="##,###.##" ></f:convertNumber>
+										<p:ajax event="blur" update="@this" global="false"></p:ajax>
+										</p:inputText>
+										
+										
+										 <h:outputText  />
+										 <h:outputText  />
+	
+										
+										<h:outputText value="Ville* " style="margin-left: 20px;" />
+										<p:selectOneMenu id="ville" label="Ville"
+											
+											 required="false" requiredMessage="Sélectionner une Ville !"
+											style="width:130px">
+											
+											<f:selectItems
+												
+												var="ca" itemLabel="" itemValue="" />
+											
+										</p:selectOneMenu>
+										
+										<h:outputText value="Zone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+											 />
+											
+										<p:inputText id="zoneGeo"
+										
+										readonly="true" style="width:170px" />
+										
+									</h:panelGrid>
+                                     </fieldset>
+										
+				</p:tab>
+
+
+				<p:tab id="ongletSouscripteur" title="Souscripteur">
+				
+				
+				
+                   <fieldset id="souscrip" class="fieldset" style="width: 97%">
+							<legend>Informations souscripteur</legend>
+							
+											<h:panelGrid id="clientGrid_Eng" columns="6">
+
+												<p:outputLabel for="nameP" value="Nom/Denomination"/>
+												<p:inputText id="nameP" styleClass="uppercase"
+													 required="false" requiredMessage="Le nom doit être obligatoirement renseigné"/>
+				
+
+												<p:outputLabel for="prenoms" value="Prénoms"  styleClass="outputDecalage2" />
+												<p:inputText id="prenoms" required="false" requiredMessage="Le prénom doit être obligatoirement renseigné" styleClass="uppercase"></p:inputText>
+													
+													
+												<p:outputLabel for="dateN" value="Né le" styleClass="outputDecalage2"/>
+												<p:inputMask mask="99/99/9999"  id="dateN">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</p:inputMask>
+												
+
+												<p:outputLabel for="lieuNais" value="Lieu naissance"/>
+												<p:inputText  
+													id="lieuNais"/>
+											
+
+												<p:outputLabel for="cb_prof" value="Profession"  styleClass="outputDecalage2"/>
+												<p:selectOneMenu id="cb_prof" 
+													effect="drop" 
+													>
+													<f:selectItem itemLabel="Select One" itemValue="" />
+													<f:selectItem itemLabel="Instituteur" itemValue="Instituteur"/>
+													<f:selectItem itemLabel="Informaticien" itemValue="Informaticien"/>
+													<f:selectItem itemLabel="Medecin" itemValue="Medecin"/>
+													<f:selectItem itemLabel="Phamarcien" itemValue="Phamarcien"/>
+													<f:selectItem itemLabel="Comptable" itemValue="Comptable"/>
+												</p:selectOneMenu>
+												
+
+
+												<p:outputLabel for="cb_sexe" value="Sexe"/>
+												<p:selectOneMenu id="cb_sexe"  effect="drop">
+													<f:selectItem itemLabel="Select One" itemValue="" />
+													<f:selectItems var="sexe"
+														itemLabel="" itemValue="" />
+												</p:selectOneMenu>
+
+
+												<p:outputLabel for="cb_sitMat" value="Situation matrimoniale" styleClass="outputDecalage2"/>
+												<p:selectOneMenu id="cb_sitMat"  effect="drop" editable="false">
+													<f:selectItem itemLabel="Select One" itemValue=" " />
+													<f:selectItem itemLabel="Célibataire"
+														itemValue="célibataire" />
+													<f:selectItem itemLabel="Marié(e)" itemValue="marié(e)" />
+												</p:selectOneMenu>
+												
+												
+												<p:outputLabel for="typePiece" value="Type pièce"/>
+												<p:selectOneMenu id="typePiece" >
+													<f:selectItem itemLabel="Select One" itemValue="" />
+													<f:selectItem itemLabel="CNI" itemValue="CNI"/>
+													<f:selectItem itemLabel="Attestation identité" itemValue="Attestation"/>
+													<f:selectItem itemLabel="Passeport" itemValue="Passeport"/>
+												</p:selectOneMenu>
+												
+												<p:outputLabel  value="N° pièce" styleClass="outputDecalage2"/>
+												<p:inputText  />
+											
+											
+												<p:outputLabel for="mail_dirig"  value="mail Dirigeant"/>
+												<p:inputText id="mail_dirig" />
+											</h:panelGrid>
+										
+												<p:outputLabel for="adrs" value="Adresse" styleClass="outputextcl2" />
+												<p:inputText id="adrs" required="false" requiredMessage="L'adresse doit être obligatoirement renseigné"
+													/>
+													
+												<p:outputLabel for="tel" value="Tel" styleClass="outputextcl2" />
+												<p:inputText id="tel" />
+					
+												<h:outputText value="Mail" styleClass="outputextcl2" />
+												<p:inputText
+													/>
+											
+ 
+												<h:outputText value="Fax" styleClass="outputextcl2" />
+												<p:inputText
+													 />
+								
+
+												<h:outputText value="Adr géo" />
+												<p:inputTextarea rows="1" cols="20"
+													 />
+
+											
+										</fieldset>
+				
+				
+				<fieldset class="fieldset" style="width: 97%">
+											<legend> Identité Conducteur </legend>
+											<h:panelGrid id="cducgrid" columns="9">
+											
+												<h:outputText value="Code"  />
+												<p:inputText id="num_cond" 
+												style="margin-left: 20px; width: 178px">
+													
+												</p:inputText>
+												<h:outputText  />
+						
+												<h:outputText value="Nom/Denomination*" style="margin-left: 20px;" />
+												<p:inputText id="nameC" 
+													style="width:175px"/>
+												<p:message id="msgnameC" for="nameC" display="icon" />
+						
+												<h:outputText value="Prénoms*" style="margin-left: 20px;" />
+												<p:inputText id="prenC"
+													
+													style="width:168px" />
+												<p:message id="msgprenC" for="prenC" display="icon" />
+						                      
+						                      
+						                      
+												<h:outputText value="Né le"  />
+												<p:inputMask 
+													id="dateC" style="width:178px ;margin-left: 20px;" mask="99/99/9999">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</p:inputMask>
+												<p:message id="msgdateNaissCond" for="dateC" display="icon" />
+						
+												<h:outputText value="Lieu naissance" style="margin-left: 20px;"/>
+												<p:inputText 
+													id="lieuNaisC" style="width:175px;"/>
+												<p:message id="msgdateC" for="dateC" display="icon" />
+												
+												<h:outputText value="Permis" style="margin-left: 20px;"/>
+													<p:selectOneMenu
+												
+												id="permC" required="false" style="width:145px">
+												<f:selectItem itemLabel="Permis BCDE" itemValue="BCDE" />
+												<f:selectItem itemLabel="Permis B" itemValue="B" />
+												<f:selectItem itemLabel="Permis A" itemValue="A" />
+												<f:selectItem itemLabel="Autre" itemValue="Autre" />
+											</p:selectOneMenu>	
+												<p:message id="msgpermC" for="permC" display="icon" />
+												
+												
+												<h:outputText value="N° Permis"/>
+												<p:inputText 
+													id="numPermC" style="width:178px; margin-left: 20px;"/>
+												<p:message id="msgnumPermC" for="numPermC" display="icon" />
+												
+												<h:outputText value="Durée du permis" style="margin-left: 20px;"/>
+												<p:inputText 
+													id="durpermC" style="width:175px;"/>
+												<p:message id="msgdurpermC" for="durpermC" display="icon" />
+												
+												<h:outputText value="Catégorie Socio-Professionnelle" style="margin-left: 20px;"/>
+												<p:selectOneMenu
+													 style="width:154px"
+													id="catProCd" required="false">
+													
+													<f:selectItem itemLabel="a" itemValue="a" />
+													<f:selectItem itemLabel=" b" itemValue="b" />
+													<f:selectItem itemLabel="c" itemValue="c" />
+													<f:selectItem itemLabel="d" itemValue="d" />
+													<f:selectItem itemLabel="e" itemValue="e" />
+												</p:selectOneMenu>
+												<p:message id="msgcatProCd" for="catProCd" display="icon" />	
+											</h:panelGrid>
+				                    </fieldset>
+				</p:tab>
+				
+				
+				
+				<p:tab id="ongletTarif" title="Tarifs">
+				
+				<fieldset class="fieldset"><legend>Choisissez votre formule</legend>
+				
+				<h:panelGrid columns="3">
+				<p:selectOneRadio label="Tiers simple"></p:selectOneRadio>
+				<p:selectOneRadio label="Tiers plus"></p:selectOneRadio>
+				<p:selectOneRadio label="Tiers risques"></p:selectOneRadio>
+				
+				
+				</h:panelGrid>
+				</fieldset>
+				</p:tab>
+
+
+			<p:tab id="ongletConfirmation" title="Confirmation">
+                     
+
+				</p:tab>
+
+
+			</p:wizard>
+
+			</h:form>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+	</ui:define>
+</ui:composition>
+</html>

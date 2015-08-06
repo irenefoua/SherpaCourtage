@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"/>
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Validation" url="#" />
+		</p:menubar>
+	</h:form>
+	
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	
+	
+	
+	<p:tab id="ongletQuittance" title="Quittance">
+	
+	
+	<h:outputLabel value="Voici l'offre que nous allons négocier pour vous dans l'heure!" style="margin-left:200px ;font-size:15px; color:red" />
+	
+	
+	<fieldset>
+	<legend>RECAPITULATIF </legend>
+		<p:panel header="Voiture à assurer" />
+		<br />
+		<h:outputLabel     style="margin-left:250px ;font-size:20px"  value="le vehicule à assurer est :#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.marque}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.energie}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.carrosserie}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.puissFisc}CV"/>
+	</fieldset>
+									
+                                
+                                <br />
+                                
+                                <fieldset>
+                                 <legend>Tarif Quittance   </legend>
+									
+								
+					                       <br />
+
+
+											<h:panelGrid columns="2" cellspacing="1">
+	
+	<h:panelGroup>
+	
+	<div style="margin-left: 350px" >							
+	<fieldset>					
+
+<h:panelGrid columns="2"  >
+
+
+												<h:outputText value="Prime Nette" style="margin-right: 30px;" />
+												<h:outputLabel
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.primeNette}"
+													readonly="true" size="9"  style="width:100px;margin-right: 20px;">
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</h:outputLabel>
+
+											 <h:outputText value="Accessoires" style="margin-left: 0px;" />
+												<h:outputLabel style="margin-right:20px; width:100px;" id="totalAcc"
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.totalAccessoire}"
+													readonly="false"  >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</h:outputLabel>
+
+
+												
+
+												<h:outputText value="Taxe" 
+													 />
+												<h:outputLabel 
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.taxeEnr}"
+													readonly="true" size="9"  style="width:100px;">
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</h:outputLabel>
+
+												<h:outputText value="FGA"  style="margin-right: 30px;"/>
+												<h:outputLabel style="margin-right: 20px; width:100px;"
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.taxeFGA}"
+													readonly="true" size="9" >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</h:outputLabel>
+
+												<h:outputText value="Prime Cedée"/>
+												<h:outputLabel
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.primeCedee}"
+													readonly="true" size="9" style="width:100px; margin-right: 20px;" >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</h:outputLabel>
+												
+<p:separator></p:separator><p:separator></p:separator>
+
+                               			 <h:outputText value="NET A PAYER (CFA)" style="margin-right:20px;"/>
+												<h:outputLabel
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.netteApayer}"
+													readonly="false" size="9" style="width:110px; font-size:15px; font-weight:17px;color:red;" 
+													 styleClass="outputPayer" >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</h:outputLabel>
+                                        
+   </h:panelGrid>    </fieldset>  </div>
+<br /> <br /> </h:panelGroup>
+                                         <br /> <br /> 
+											</h:panelGrid>	
+											
+                                   
+										<h:outputLabel style="margin-left: 350px"  value= "   Total TTc annuel: #{cotationAuto.managedQuittanceAuto.quittanceAuto.netteApayer} "/>
+											<div style="margin-left: 200px" >
+										<h:panelGrid  columns="3">	
+											<h:commandButton id="addContrats1"  actionListener="#{cotationAuto.sendDevis}" value="Voir le devis" style="width:150px;height:40px; margin-left:100px;font-size:15px;border-radius:20px;" />
+											<h:commandButton id="addContrats2" action="#{cotationAuto.clientMB.validerclien}" value="Souscrivez en ligne"  style="width:150px;height:40px; margin-left: 35px;font-size:15px;border-radius:20px;"/>
+                                                                              
+							      </h:panelGrid>
+																					
+</div>
+										
+									
+</fieldset>
+								
+
+				</p:tab>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

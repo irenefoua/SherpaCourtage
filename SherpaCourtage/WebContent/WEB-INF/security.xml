@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+
+<security:http>
+		<security:intercept-url pattern="/page/sinistreAutoWeb/declarationSinnistreAuto.xhtml" access="ROLE_WEBUSER"/>
+		<security:intercept-url pattern="/page/AutoWeb/clientAuto.xhtml" access="ROLE_WEBUSER"/>
+		<security:intercept-url pattern="/Page/AutoWeb/inscriptionPaypalNewSouscripteur.xhtml" access="ROLE_WEBUSER"/>
+		<security:intercept-url pattern="/page/EspaceUser/*" access="ROLE_WEBUSER"/>
+		
+	    <security:form-login login-page="/login.jsp" authentication-failure-url="/login-failure.jsp"/>
+		<security:logout logout-url="/logout.jsp" logout-success-url="/index.xhtml"/>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			 <security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select LOGIN_PERS, MOT_PASSE_PERS, ENABLE from personne where LOGIN_PERS=?"
+				authorities-by-username-query="select pers.LOGIN_PERS, ur.AUTORITY from personne pers, user_role ur where pers.user_role_id = ur.user_role_id and pers.LOGIN_PERS=? " />
+			</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

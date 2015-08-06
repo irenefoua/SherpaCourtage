@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="../../template/templateadmin.xhtml">
+
+	<ui:define name="content">
+		<p:panel header="Parametrer le taux de Commissionnement">
+				<h:form>
+			<p:growl id="growl" showDetail="true" sticky="false" />
+			<p:messages autoUpdate="true"></p:messages>
+				
+					<fieldset id="paramtaux" class="fieldset">
+						<legend>Parametrer le taux de Commissionnement</legend>
+						<h:panelGrid id="grid" columns="6" style="margin-bottom:10px"
+							cellpadding="2">
+
+							<h:outputText value="Point de vente  *" />
+							<p:selectOneMenu id="libellePointVente" value="#{pointDeVenteTypeApporteurMB.labelPointVente}" 
+								required="true" requiredMessage="Choisir un point de vente" style="width: 143px">
+								<f:selectItem itemLabel="Choisir" itemValue=""/>
+								<f:selectItems
+									value="#{pointDeVenteTypeApporteurMB.listLabelCodePointVente}" />
+							</p:selectOneMenu>
+							<p:message for="libellePointVente" display="icon" />
+
+							<h:outputText value=" Type Apporteur *" style="margin-left:80px"/>
+							<p:selectOneMenu id="typeApporteur" value="#{pointDeVenteTypeApporteurMB.labelType}"
+								required="true" requiredMessage="Choisir un apporteur" style="width: 143px">
+								<f:selectItem itemLabel="Choisir" itemValue=""></f:selectItem>
+								<f:selectItems
+									value="#{pointDeVenteTypeApporteurMB.listLabelTypeApporteur}" />
+							</p:selectOneMenu>
+							
+							<p:message for="typeApporteur" display="icon" />
+
+
+							<h:outputText value=" Date *" />
+							<p:inputMask value="#{pointDeVenteTypeApporteurMB.datePvType}"
+							id="date_update" required="true"
+							requiredMessage="Le champ Date ne peut pas être vide!"
+							readonly="true" style="background-color:#C5C1C3;color: #f10707">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+							</p:inputMask>
+							<p:message for="date_update" display="icon" />
+
+
+							<h:outputText value=" Taux *" style="margin-left:80px" />
+							<p:inputMask mask="999.99"
+								value="#{pointDeVenteTypeApporteurMB.tauxComissionnement}"
+								id="taux" required="true"
+								requiredMessage="Le champ Taux ne peut pas être vide!" />
+							<p:message for="taux" display="icon" />
+						</h:panelGrid>
+						<h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+						
+<p:separator></p:separator>
+
+
+	<p:commandButton id="buttonsave" value="Enregistrer" binding="#{pointDeVenteTypeApporteurMB.buttonsave}"
+				action="#{pointDeVenteTypeApporteurMB.update}" update="grid,growl" />
+				
+		</fieldset>
+				</h:form>
+			</p:panel>
+	</ui:define>
+	<p:layoutUnit id="center" position="center">
+		<ui:insert name="content">
+
+		</ui:insert>
+	</p:layoutUnit>
+</ui:composition>
+</html>

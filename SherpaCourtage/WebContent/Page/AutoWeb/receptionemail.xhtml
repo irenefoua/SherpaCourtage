@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	
+	
+	
+	<p:tab id="ongletQuittance" title="Quittance">
+	
+	
+	
+	<p:columnGroup>
+
+										
+										<p:panel header="Recevoir Devis par mail" style="font-size:20px"/>
+					<br />
+										<fieldset style="font-size:14px">	
+										<legend>Confirmation mail  </legend>
+											<h:panelGrid columns="2">
+
+												<h:outputText value="E-mail :* " style="margin-left:250px; font-size:14px;" ></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.clientMB.maPersonne.email}"
+													style="width:170px;margin-right:20px;font-size:13px;  line-height:200px;" validatorMessage="L'email est incorrect" required="true" requiredMessage="Entrez votre email!">
+												<f:validateRegex
+                                                     pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+													
+												</p:inputText>
+
+												<h:outputText value="Confirmation e-mail: *" style="margin-left:250px;font-size:14px;"  validatorMessage="L'email est incorrect" required="true" requiredMessage="Entrez votre email encore!"
+													></h:outputText>
+												<p:inputText style="width:170px;margin-right:100px;font-size:13px;height:100px;"
+													value="#{cotationAuto.clientMB.monPhysique.email}" >
+													
+													<f:validateRegex
+                                                     pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+													
+												</p:inputText>
+												
+                                                   <h:outputText value=" Adresse:" style="margin-left:250px;font-size:14px;" 
+													></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.clientMB.maPersonne.adresse}"
+													style="width:170px;font-size:13px;" >
+													
+													<p:ajax  
+									  				update="@this" global="false"/>
+												</p:inputText>
+                                                 
+                                                 
+													
+												 <h:outputText value=" Numero  telephone:"  
+													style="margin-left:250px;font-size:14px;"></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.clientMB.maPersonne.telephone}"
+													style="width:170px;font-size:13px;" >
+													
+													<p:ajax  event="blur"
+									  				update="@this" global="false"/>
+												</p:inputText>
+											
+ <br />
+                                               
+										
+												
+											</h:panelGrid>
+										
+                                 
+                                 <br />
+
+							
+				
+							<h:panelGrid  columns="2">
+										
+										<p:commandButton id="addContrats2"  value="Valider " style="width:120px;height:50px; margin-left: 250px;font-size:12px; border-radius:20px;"/>
+										<p:commandButton   value="Souscrire en ligne"  action="inscriptionPaypal"   style="width:120px;height:50px; margin-left: 30px;font-size:12px; border-radius:20px;"/>
+										<p:commandButton   value="Souscrire "  action="inscriptionPaypal"   style="width:120px;height:50px; position: absolute;font-size:12px; border-radius:20px;"/>
+
+
+							</h:panelGrid>
+						
+
+</fieldset>
+</p:columnGroup>
+
+				</p:tab>
+
+
+			
+
+			
+
+
+
+		</h:form>
+	
+	
+
+
+	</ui:define>
+</ui:composition>
+</html>

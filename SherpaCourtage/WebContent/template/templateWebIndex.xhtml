@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>DEVIS ASSURANCE</title>
+	<h:outputStylesheet library="css" name="main.css" />
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"
+		type="text/javascript"></script>
+	<!-- <link href="main.css" rel="stylesheet" type="text/css" media="screen" /> -->
+	<link rel="icon" type="image/x-icon" href="../../../resources/images/favicon.ico" />
+</h:head>
+
+<h:body>
+
+	<p:ajaxStatus onstart="statusDialog.show();"
+		onsuccess="statusDialog.hide();" />
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false" appendTo="@(body)"
+		showHeader="false" resizable="false">
+	<h:graphicImage value="../../../../../resources/images/ajax-loader.gif" />
+	</p:dialog>
+	<h:outputStylesheet library="css" name="style.css" />
+	<p:layout fullPage="true">
+		<!-- Le Header de la page -->
+
+		<p:layoutUnit id="top" position="north" size="75" style="">
+
+			<ui:insert name="top">
+				<div style=" font-family:verdana;padding:0px;border-radius:10px;border:1px solid red;background-color:#D6D6D6">
+			<h:panelGrid columns="3" columnClasses="non,eseLabel" style="width:100%;height:100%;padding:0px;">
+				<h:panelGrid columns="2">
+				
+					<h:graphicImage name="images/logo_j3a.jpg" style="margin:0px;"/>
+					
+				</h:panelGrid>
+		
+				<div style="color:#40B3DF; font-size:18px; margin-left: 3%; margin-right: 20%;"> DEVIS <span style="background-color:#B4009E;color:#ffffff; font-size: 18px ">ASSURANCE</span></div>
+				
+					<h:panelGrid >
+						</h:panelGrid>
+				</h:panelGrid>
+				</div>
+
+			</ui:insert>
+		</p:layoutUnit>
+
+		
+		
+		 <p:layoutUnit position="south" size="70"
+			styleClass="myLayoutStyleClass">
+                
+                <ui:insert name="bottom">
+				<h:panelGrid columns="2" columnClasses="non,eseLabel"
+					style="width:100%;height:100%;padding:0px;border-color:silver;background-color: threedlightshadow;">
+
+					<a href="../../../../Sherpa/index.jsf" style="color: blue">Menu
+						Principal</a>
+
+					<a href="../../../../Sherpa/pages/Auto/indexPrdAuto.jsf"
+						style="color: blue">Menu Auto</a>
+					
+					<a href="../../../../../../Sherpa/pages/springsecurity/logout.jsf"
+						style="color: red">Déconnecter</a>
+
+					<h:outputLink value="http://www.j3atechnologies.com/" hreflang=""
+						style="text-decoration: none;font-size: 13px;margin-left: 20%;margin-right: 20%;" target="_bank">
+						<h:outputText value="J3A SOFTWARE GROUP, " style="color:red;" />
+						<h:outputText value="Créateur de Valeurs Ajoutées Technologiques"
+							style="font-style: italic;" />
+					</h:outputLink>
+					<br />
+					<h:outputText value="Copyright :  J3A SOFTWARE GROUP"
+						style="float: right;font-size: 12px;" />
+
+				</h:panelGrid>
+			</ui:insert> </p:layoutUnit>
+			
+		<p:layoutUnit position="west" size="200"> </p:layoutUnit>
+
+        <p:layoutUnit position="east" size="200">  </p:layoutUnit>
+
+        <p:layoutUnit position="center" id="centerGlobal"> <p:layout>
+
+        <p:layoutUnit position="north" size="50">
+                    
+             </p:layoutUnit>
+
+        <p:megaMenu orientation=""  style="margin-top:20px">
+    <p:submenu label="Mon Véhicule">
+        <p:column>
+            <p:submenu label="Assurer ma voiture">
+                <p:menuitem value="Assurance Auto"  url="/Page/AutoWeb/devisAuto.xhtml" />
+                <p:menuitem value="Assurance Véhicule Professionnel" url="#" />
+                <p:menuitem value="Assurance voiture hybride" url="#"/>
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+            <p:submenu label="Assurer mes autres véhicules">
+                <p:menuitem value="Assurance voiture de collection" url="#" />
+                <p:menuitem value="Assurance voiture sans permis" url="#" />
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+             <p:submenu label="Sinistre Auto">
+                <p:menuitem value="Déclarer un sinistre auto" url="#" />
+                <p:menuitem value="Soumettre les pièces du sinistre" url="#" />
+                <p:menuitem value="Que faire en cas de sinistre" url="#" />
+            </p:submenu>
+        </p:column>
+    </p:submenu>
+ 
+    <p:submenu label="Mon logement">
+ 
+        <p:column>
+            <p:submenu label="Assurer mon habitation">
+                <p:menuitem value="Assurance Habitation" url="#" />
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+            <p:submenu label="Assurer mon bien mis en location">
+                <p:menuitem value="Assurance propriétaire non occupant" url="#" />
+                <p:menuitem value="Assurance maison en location" url="#" />
+                 <p:menuitem value="Assurance local copropriété et immeuble locatif" url="#" />
+            </p:submenu>
+        </p:column>
+        
+        <p:column>
+            <p:submenu label="Sinistre habitation">
+                <p:menuitem value="Déclarer un sinistre habitation" url="#" />
+                <p:menuitem value="Les solutions sinistres habitation" url="#" />
+                 <p:menuitem value="Que faire en cas de sinistre" url="#" />
+            </p:submenu>
+        </p:column>
+    </p:submenu>
+ 
+    <p:submenu label="Santé">
+        <p:column>
+            <p:submenu label="Assurer ma santé ">
+                <p:menuitem value="Assurance santé" url="#" />
+                <p:menuitem value="Assurance santé travailleurs non salariés " url="#" />
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+            <p:submenu label="Être protégé en cas d'accident" icon="ui-icon-help">
+                <p:menuitem value="Assurance accidents de la vie privée" url="#" />
+            </p:submenu>
+          
+        </p:column>
+    </p:submenu>
+ 
+</p:megaMenu>
+
+                <p:layoutUnit position="center" id="content">
+                    <ui:insert name="content"> </ui:insert>
+                </p:layoutUnit>
+
+            </p:layout>
+
+                </p:layoutUnit>
+
+        </p:layout>
+
+		
+
+				
+				
+			
+		
+
+		<!-- <p:layoutUnit id="right" position="east" size="250" header="Gallery" resizable="true" closable="false" collapsible="true"
+                              style="text-align:center">
+
+              
+                    <p:commandButton id="basic" value="Show Dialog" onclick="dlg1.show();" type="button" style="margin-top:10px"/>
+
+                </p:layoutUnit> -->
+
+		
+
+	
+
+	<p:dialog header="Basic Dialog" widgetVar="dlg1" modal="true">
+		<h:outputText value="Test Zeus UI Dialog Box" />
+	</p:dialog>
+
+	<!-- <script type="text/javascript">
+		jQuery().ready(function(){
+		 $("#top").css('background', 'red');
+	 }) 
+</script> 
+ -->
+	<!-- <script type="text/javascript">
+	 function handleChange(panel) {
+		 panel.css("color","red");
+	 }
+</script> -->
+	<script type="text/javascript">
+		$("a").click(
+				dlg1.show();
+				function() {
+					var th = $(this);
+					var tag = $(this).parent().parent().parent().parent();
+					tag.children().children().children().children("a").css(
+							"text-decoration", "none");
+					th.css("text-decoration", "overline");
+
+				});
+	</script>
+
+	<script>
+			PrimeFaces.locales['fr'] = {
+				closeText : 'Fermer',
+				prevText : 'Précédent',
+				nextText : 'Suivant',
+				monthNames : [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai',
+						'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+						'Novembre', 'Décembre' ],
+				monthNamesShort : [ 'Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun',
+						'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc' ],
+				dayNames : [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi',
+						'Vendredi', 'Samedi' ],
+				dayNamesShort : [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven',
+						'Sam' ],
+				dayNamesMin : [ 'D', 'L', 'M', 'M', 'J', 'V', 'S' ],
+				weekHeader : 'Semaine',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Choisir l\'heure',
+				timeText : 'Heure',
+				hourText : 'Heures',
+				minuteText : 'Minutes',
+				secondText : 'Secondes',
+				currentText : 'Maintenant',
+				ampm : false,
+				month : 'Mois',
+				week : 'Semaine',
+				day : 'Jour',
+				allDayText : 'Toute la journée'
+			};
+		</script>
+
+
+</h:body>
+
+
+
+</html>

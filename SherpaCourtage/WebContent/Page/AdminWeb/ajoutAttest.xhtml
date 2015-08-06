@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+<p:messages id="growl" sticky="true" showDetail="true" redisplay="FALSE" />
+		
+                        <p:dataTable id="categs"  var="categ" value="#{managedGestAttest.listcateg}" widgetVar="CategsTbl" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{managedGestAttest.selectedCateg}"
+                                      rowKey="#{categ.id}">
+                                     <p:ajax event="rowSelect" update=":form1:categs" listener="#{managedGestAttest.ligneSelected}" />
+                            
+                            <f:facet name="header">
+                                Liste de toutes les Attestations
+                            </f:facet>
+
+                            <p:column  filterBy="#{categ.id}" headerText="Code Categorie" filterMatchMode="startsWith">
+                                <h:outputText value="#{categ.id}" />
+                            </p:column>
+                            
+                            <p:column filterBy="#{categ.etat}" headerText="Etat de l'Attestation" 
+										 filterOptions="#{managedGestAttest.atestEtaOptions}" filterMatchMode="exact">
+										 <h:outputText value="#{categ.etat}" />
+							</p:column>
+
+                            <f:facet name="footer">
+										
+								<p:commandButton value="Add New Attestation" update=":addform:displayA" actionListener="#{managedGestAttest.preAddNw}" oncomplete="rowAction.hide();AddcategDlg.show();"/>
+											
+							</f:facet>
+
+                        </p:dataTable>
+                    
+                    
+                    
+
+</h:body>
+</html>

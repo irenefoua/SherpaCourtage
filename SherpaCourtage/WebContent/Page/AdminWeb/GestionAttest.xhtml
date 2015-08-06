@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+
+
+	<!--<ui:define name="menu">
+	    Add your footer here or delete to use the default
+	</ui:define> -->
+
+	<ui:define name="content">
+		
+		<h:form id="form1">
+			
+			<p:fieldset legend="Gestion des Attestations" toggleable="true" >
+				<ui:include  src="ajoutAttest.xhtml" />
+		 </p:fieldset>
+		 </h:form>
+		 <h:form id="form">
+		 <p:messages id="messages" />
+			<p:fieldset legend="Gestion des Attestations par point de Vente"
+				toggleable="true">
+				<h:panelGrid columns="2">
+					<h:outputText value="Choix du Point de Vente:" />
+
+					<p:selectOneMenu id="slctPtV" label="Point de Vente"
+						value="#{managedGestAttest.slctdPtVte}"
+						converter="#{ptdeVenteCvtr}" var="c" style="width:290px" >
+
+						<p:ajax listener="#{managedGestAttest.ptVteSlct}"
+							update=":form:action" />
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{ptdeVenteCvtr.pointVenteList}" var="ca"
+							itemLabel="#{ca.libellePointVente}" itemValue="#{ca}" />
+
+						<p:column>
+					 #{c.libellePointVente}
+				 </p:column>
+
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+				<p:outputPanel id="action">
+					<p:tabView dynamic="true"
+						rendered="#{managedGestAttest.showActions}">
+						<p:tab title="Fourniture de Stock">
+							<h:panelGrid columns="4">
+								<h:outputText value="Entrer la quantité d'attestion à fournir:" />
+								<p:inputText id="inpQtStk" value="#{managedGestAttest.qteStk}"
+									required="true" />
+								<p:message id="msgQtStk" for="inpQtStk" display="icon" />
+								<p:commandButton value="Constituer le stock"
+									actionListener="#{managedGestAttest.createStk}"
+									update=":form:action,:stkPbe" />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Vérifier l'Etat des Stocks">
+							<h:panelGrid columns="6">
+								<h:outputText value="Quantité Totale Initiale:" />
+								<h:outputText value="#{managedGestAttest.qtTotIni}" />
+								<h:outputText value="Quantité Totale Allouée" />
+								<h:outputText value="#{managedGestAttest.qtTotAll}" />
+								<h:outputText value="Quantité Totale Restante" />
+								<h:outputText value="#{managedGestAttest.qtTotRst}" />
+							</h:panelGrid>
+							<p:dataTable id="stkTabl" var="stk"
+									value="#{managedGestAttest.stockList}" widgetVar="stkTbl"
+									paginator="true" rows="10"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15" selectionMode="single"
+									selection="#{managedGestAttest.slctdStock}" rowKey="#{stk.id}">
+									<p:ajax event="rowSelect"/>
+
+									<f:facet name="header">
+										
+									</f:facet>
+									
+									<p:column  sortBy="#{stk.datestock}"
+										headerText="Date Creation" >
+										<h:outputText value="#{stk.datestock}">  
+							              <f:convertDateTime pattern="dd/MM/yyyy"/>  
+							          	</h:outputText>  
+									</p:column>
+									
+									<p:column filterBy="#{stk.situation}" headerText="Etat du Stock" 
+										 filterOptions="#{managedGestAttest.stkStateOptions}" filterMatchMode="exact">
+										 <h:outputText value="#{stk.situation}" />
+									 </p:column>
+
+									<p:column headerText="Qte Initiale">
+										<h:outputText value="#{stk.stkinit}" />
+									</p:column>
+									
+									<p:column headerText="Qte Restante">
+										<h:outputText value="#{stk.stkrst}" />
+									</p:column>
+									
+									<f:facet name="footer">
+										
+									</f:facet>
+
+								</p:dataTable>
+						</p:tab>
+						<p:tab title="Restituer Attestations">
+							<h:panelGrid columns="6">
+								<h:outputText value="Quantité Totale Initiale:" />
+								<h:outputText value="#{managedGestAttest.qtTotIni}" />
+								<h:outputText value="Quantité Totale Allouée" />
+								<h:outputText value="#{managedGestAttest.qtTotAll}" />
+								<h:outputText value="Quantité Totale Restante" />
+								<h:outputText value="#{managedGestAttest.qtTotRst}" />
+							</h:panelGrid>
+							<h:panelGrid columns="4">
+								<h:outputText value="Entrer la quantité d'attestion à restituer:" />
+								<p:inputText id="inpQtRstitu" value="#{managedGestAttest.qteRestitue}"
+									required="true" />
+								<p:message id="msgQtRstitu" for="inpQtRstitu" display="icon" />
+								<p:commandButton value="Restituer les attestations"
+									actionListener="#{managedGestAttest.restituerAttest}"
+									update=":form:action,:stkPbe" />
+							</h:panelGrid>
+						</p:tab>
+					</p:tabView>
+				</p:outputPanel>
+		   
+		   
+			 
+		 </p:fieldset>
+
+
+		</h:form>
+		<p:dialog header="Stock Problem!!" widgetVar="qtyWarn"
+			resizable="false" id="qtywarn" width="400" showEffect="fade"
+			hideEffect="explode" modal="true" appendTo="@(body)">
+			<h:form id="stkPbe">
+				<h:panelGrid>
+					<h:outputText value="#{managedGestAttest.msgCreateStk}" />
+					<p:commandButton value="OK" oncomplete="qtyWarn.hide()" update=":form:action"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation de Création du Stock"
+			widgetVar="cfrmStk" resizable="false" id="cfrmstk" width="400"
+			showEffect="fade" hideEffect="explode" modal="true"
+			appendTo="@(body)">
+			<p:ajax event="close" listener="#{managedGestAttest.cancelStk}" update=":form:action" />
+			<h:form>
+				<h:panelGrid>
+					<h:outputText value="Etes vous sur de creer ce Stock ." />
+					<h:panelGroup>
+						<p:commandButton value="Valider le stock"
+							actionListener="#{managedGestAttest.saveStk}"
+							oncomplete="cfrmStk.hide()" update=":form:action"/>
+						<p:commandButton value="Annuler"
+							actionListener="#{managedGestAttest.cancelStk}"
+							oncomplete="cfrmStk.hide()" update=":form:action"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Confirmation de Restitution des attestions"
+			widgetVar="cfrmRstitu" resizable="false" id="cfrmrstitu" width="400"
+			showEffect="fade" hideEffect="explode" modal="true"
+			appendTo="@(body)">
+			<p:ajax event="close" listener="#{managedGestAttest.restituerAttestCancel}" update=":form:action" />
+			<h:form>
+				<h:panelGrid>
+					<h:outputText value="Etes vous sur de restituer ces attestations." />
+					<h:panelGroup>
+						<p:commandButton value="Restituer les attestations"
+							actionListener="#{managedGestAttest.restituerAttestOK}"
+							oncomplete="cfrmRstitu.hide()" update=":form:action"/>
+						<p:commandButton value="Annuler"
+							actionListener="#{managedGestAttest.restituerAttestCancel}"
+							oncomplete="cfrmRstitu.hide()" update=":form:action"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Alerte!!" widgetVar="inputWarn" resizable="false"
+			id="inputwarn" width="400" showEffect="fade" hideEffect="explode"
+			modal="true" appendTo="@(body)">
+			<!--<h:form>-->
+			<h:form>
+				<h:panelGrid>
+					<h:outputText
+						value="Certaines Saisies que vous venez de faire ne sont pas conformes." />
+					<h:outputText
+						value="Les Champs concernés sont marqués par des indicateurs d'erreurs." />
+					<p:commandButton value="OK" oncomplete="inputWarn.hide()" />
+				</h:panelGrid>
+				<!--</h:form>-->
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Data Missing!" widgetVar="NoExist" resizable="false" id="noexist"
+                              width="400" showEffect="fade" hideEffect="explode" closeOnEscape="true"  onCloseUpdate=":form1:categs">
+                        <!--<h:form>--><h:form>
+                            <h:panelGrid >
+                                <h:outputText value="Les donn&eacute;es que vous tentez de consulter ou modifier n'existent plus dans la BD"/>
+                                <p:commandButton update=":form1:categs" value="OK"  oncomplete="NoExist.hide()" />
+                            </h:panelGrid>
+                            <!--</h:form>--></h:form>
+                    </p:dialog>
+
+                    <p:dialog header="Actions" widgetVar="rowAction" resizable="false" id="rowMAJ"
+                              width="200" showEffect="fade" hideEffect="explode" modal="true" appendTo="@(body)">
+                        <!--<h:form>--><h:form>
+                            <h:panelGrid columns="4" styleClass="actions" cellpadding="2">
+                                <p:commandButton update=":x1:displayV" actionListener="#{managedGestAttest.CheckExist}" oncomplete="rowAction.hide();checkExistV(xhr,status,args)" icon="ui-icon ui-icon-search" title="View" />
+                                <p:commandButton  actionListener="#{managedGestAttest.CheckExist}" oncomplete="rowAction.hide();checkExistD(xhr,status,args)" icon="ui-icon ui-icon-close" title="Delete"/>
+                                <p:commandButton update=":addform:displayA" actionListener="#{managedGestAttest.preAddNw}" oncomplete="rowAction.hide();AddcategDlg.show();" icon="ui-icon ui-icon-plusthick" title="New"/>
+                                <p:commandButton update=":edform:displayE" onclick="rowAction.hide();MdfcategDlg.show();" value="++" title="Add Multiple"/>
+                            </h:panelGrid>
+                            <!--</h:form>--></h:form>
+                    </p:dialog>
+
+                    <!--<p:outputPanel id="view">-->
+                    <p:dialog header="Details Categorie" widgetVar="DtlcategDlg" resizable="false" id="DetCatDlg"
+                              width="500" showEffect="fade" hideEffect="explode">
+                        <h:form id="x1">
+                        <h:panelGrid id="displayV" columns="2" cellpadding="4" style="margin:0 auto;">
+                            <f:facet name="header">
+                                <h:outputText value="code &zwj;:#{managedGestAttest.selectedCateg.id}" style="font-weight:bold" rendered="true"/>
+                            </f:facet>
+
+                            <h:outputText value="Etat de l'attestation:" />
+                            <h:outputText value="#{managedGestAttest.selectedCateg.etat}" style="font-weight:bold" />
+
+                        </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                    <!--</p:outputPanel>-->
+
+                    <p:dialog header="Ajout Multiple d'Attestation" widgetVar="MdfcategDlg" resizable="false" id="Modifcateg"
+                              width="700" showEffect="fade" hideEffect="explode" position="center" modal="true" appendTo="@(body)">
+                       <h:form id="edform" >
+                            <h:panelGrid id="displayE" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                                <h:outputText value="Entrez le nombre d'Attestations:" />
+                                <p:inputText id="libelle" value="#{managedGestAttest.nbMtipl}" required="true" label="Nombre d'Attestation"/>
+                                <p:message id="Msglib" for="libelle"  rendered="true" />
+
+                                
+                                <f:facet name="footer">
+                                    <p:commandButton update=":form1:categs,:edform:displayE,:form1:growl" value="Save" actionListener="#{managedGestAttest.addMtpl}"
+                                                     oncomplete="onEditComplete(xhr,status,args)" icon="ui-icon ui-icon-check"/>
+                                    <p:commandButton value="Cancel" onclick="MdfcategDlg.hide()" type="button" icon="ui-icon ui-icon-close"/>
+                                </f:facet>
+
+                            </h:panelGrid>
+                          </h:form>
+                    </p:dialog>
+                    
+                    <p:dialog header="Add Attestation" widgetVar="AddcategDlg" resizable="false" id="Addcateg"
+                              width="700" showEffect="fade" hideEffect="explode" position="center" modal="true" appendTo="@(body)">
+                        <!--<h:form>--><h:form id="addform" >
+                            <h:panelGrid id="displayA" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                                <f:facet name="header">
+                                    <h:outputText value="code &zwj;:#{managedGestAttest.newCateg.id}" style="font-weight:bold" rendered="true"/>
+                                </f:facet>
+
+                                <f:facet name="footer">
+                                   
+                                    <p:commandButton update=":form1:categs,:addform:displayA,:form1:growl" value="Save" actionListener="#{managedGestAttest.addNew}"
+                                                      icon="ui-icon ui-icon-check"/>
+                                    <p:commandButton value="Cancel" onclick="AddcategDlg.hide()" type="button" icon="ui-icon ui-icon-close"/>
+                                    
+                                </f:facet>
+
+                            </h:panelGrid>
+                            <!--</h:form>--></h:form>
+                    </p:dialog>
+
+
+                    <p:dialog width="400"
+                              showEffect="explode" hideEffect="explode"
+                               header="Suppression d'une Attestation"  widgetVar="confirmation" id="confirm" >
+                            <h:panelGrid columns="2" >   
+		                            <f:facet name="header">
+		                                    <h:outputText value="Etes-vous sur de vouloir supprimmer cette Attestation " style="font-weight:bold" rendered="true"/>
+		                            </f:facet>
+		                       <h:form>
+		                            <p:commandButton value="Yes sure" update=":form1:categs,:form1:growl"  actionListener="#{managedGestAttest.delete}" oncomplete="checkDeletable(xhr,status,args)"/>
+		                            <p:commandButton value="Not yet" onclick="confirmation.hide()" type="button" />
+		                       </h:form>
+                            </h:panelGrid>
+                    </p:dialog>
+                    <script type="text/javascript">
+                        function onEditComplete(xhr, status, args) {
+                            if(args.validationFailed || args.existSuch ) {
+                                jQuery('#Modifcateg').effect("shake", { times:3 }, 100);
+                            } else {
+                                MdfcategDlg.hide();
+                                //jQuery('#loginLink').fadeOut();
+                            }
+                        }
+                        function checkExistV(xhr, status, args) {
+                            if(args.exist) {
+                                DtlcategDlg.show();
+                            } else {
+                                NoExist.show();
+                            }
+                        }
+                        function checkExistE(xhr, status, args) {
+                            if(args.exist) {
+                                MdfcategDlg.show();
+                            } else {
+                                NoExist.show();
+                            }
+                        }
+                        function checkExistD(xhr, status, args) {
+                            if(args.exist) {
+                                confirmation.show();
+                            } else {
+                                NoExist.show();
+                            }
+                        }
+                        function checkDeletable(xhr, status, args) {
+                            if(args.deleted) {
+                                jQuery('#confirm').effect("shake", { times:3 }, 100);
+                            } else {
+                                confirmation.hide();
+                            }
+                        }
+                    </script>
+
+		<script type="text/javascript">
+			function fction() {
+				chx();
+			}
+		</script>
+
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

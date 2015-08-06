@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+		<ui:define name="content">
+		<h:form id="rech_risque">
+		<p:panel header="Gestion de risque">
+		
+					<!-- Pour les messages -->
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+					
+						<fieldset id="recher_risque" class="fieldset">		
+						<legend>Gestion de risque</legend>
+						
+						
+								<h:panelGrid id="grid_risque" columns="3" style="margin-bottom:10px" cellpadding="6">
+								<h:outputText value="Risque*" />							
+								<p:inputText value="#{managedRisque.libelleRisque}" id="id_libelleRisque" 
+								validatorMessage="Pas plus de 30 caractÃ¨re" required="true" requiredMessage="Aucun risque concernÃ© par cette action">
+							     <f:validateLength minimum="0" maximum="30" for="id_libelleRisque"/>
+							    </p:inputText>
+							    <p:message for="id_libelleRisque" display="icon" />
+							</h:panelGrid>
+							
+						<p:separator></p:separator>
+							
+							<h:panelGrid columns="4">
+						  <p:commandButton id="buttonadd" value="Enregistrer" action="#{managedRisque.validateadd}" update="grid_risque, Risques" />
+
+						    <p:commandButton id="buttonupdate" value="Modifier" actionListener="#{managedRisque.validateupdate}"/>
+						    
+						    <p:commandButton id="buttondelete" value="Supprimer" actionListener="#{managedRisque.validatedelete}" />
+						 </h:panelGrid>
+						 <div style="color:#cccccc">
+						 <h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+						 </div>
+							
+								<br />
+								<p:dataTable id="Risques" var="risque" value="#{managedRisque.risqueList}" rowKey="#{risque.codeRisque}" selection="#{managedRisque.risqueSup}" selectionMode="single">
+         <p:ajax event="rowSelect" listener="#{managedRisque.affecterRisque}"
+        >
+         </p:ajax>
+  
+        <f:facet name="header">  
+            Liste risque
+        </f:facet>  
+  
+        <p:column headerText="Code">  
+            #{risque.codeRisque}  
+        </p:column>  
+  
+        <p:column headerText="Risque">  
+            #{risque.libelleRisque}  
+        </p:column>  
+    </p:dataTable> 
+							    
+						    </fieldset>
+						   </p:panel>
+			</h:form>	
+		</ui:define>
+	</ui:composition>
+</html>

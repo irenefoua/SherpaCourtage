@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 12:VEHICULES DE TOURISME APPARTENANT A DES PERSONNES MORALES (Catégorie 12)">
+			
+			
+			
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="14">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column colspan="2">Puissance fiscale</p:column>
+            <p:column colspan="3">Prime de base</p:column>
+            <p:column colspan="9">Majoration ou réduction ( à appliquer sur la prime de base)</p:column>
+           
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Essence</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Diésel</p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Remorque</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Ancienneté de permis (1)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="6">Statut professionnel (2)</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">a</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">b</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">c</p:column>
+       
+        <p:column style="font-weight: bold;border: 1px solid black;">Autres</p:column>
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">1 à 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss12Dies1Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss12Dies1Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss12Dies1Zone3}"></p:inputText></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">3 à 6</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">2 à 4</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss36Dies24Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss36Dies24Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss36Dies24Zone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">7 à 9</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">5 à 6</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss79Dies56Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss79Dies56Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss79Dies56Zone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.tauxMajredt12Remorque}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.tauxMajredt12Permi1}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.tauxMajredt12Permis2}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.tauxMajredt12Statutproa}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.tauxMajredt12Statutprob}"  style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.tauxMajredt12Statutproc}"  style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.tauxMajredt12Statutproautres}"   style="width:30px"></p:inputText></p:column>
+     
+        
+        
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">10 à 11</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">7 à 8</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss1011Dies78Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss1011Dies78Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12.pfEss1011Dies78Zone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">12 et +</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">9 et +</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss12Dies9Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss12Dies9Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12.pfEss12Dies9Zone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+      
+    </p:row>
+   </p:panelGrid>	
+   		
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="13">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column>Puissance fiscale</p:column>
+            <p:column colspan="3">Prime de base</p:column>
+            <p:column colspan="9">Majoration ou réduction ( à appliquer sur la prime de base)</p:column>
+           
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Charge utile</p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Remorque</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Ancienneté de permis (1)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="6">Statut professionnel (2)</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">a</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">b</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">c</p:column>
+       
+        <p:column style="font-weight: bold;border: 1px solid black;">Autres</p:column>
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Jusqu’à 1T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12b.pfCu1t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12b.pfCu1t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12b.pfCu1t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black;"></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+       
+        
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 1,001T à 3T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu2t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu2t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif12.rcTarif12b.pfCu2t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 3,001 T à 5T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu3t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu3t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu3t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+        
+        
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 5,001T à 8T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu4t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu4t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu4t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+       
+         
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 8,001T à 11T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu5t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu5t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu5t12bZone3}"></p:inputText></p:column>
+       
+        <p:column style="font-weight: bold; border: 1px outset black; border-right: 1px solid black;"><p:inputText   value="#{managedTarif12.rcTarif12b.tauxMajredRemorquet12b}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; border: 1px outset black;"><p:inputText    value="#{managedTarif12.rcTarif12b.tauxMajredPermi1t12b}"  style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"><p:inputText value="#{managedTarif12.rcTarif12b.tauxMajredPermist12b}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"><p:inputText  value="#{managedTarif12.rcTarif12b.tauxMajredStatutproat12b}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"><p:inputText value="#{managedTarif12.rcTarif12b.tauxMajredStatutprobt12b}"  style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"><p:inputText  value="#{managedTarif12.rcTarif12b.tauxMajredStatutproct12b}" style="width:30px"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"><p:inputText  value="#{managedTarif12.rcTarif12b.tauxMajredStatutproautrest12b}" style="width:30px"></p:inputText></p:column>
+       
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 11,001T à 13T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu6t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu6t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu6t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+       
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 13,001T à 15T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu7t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu7t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu7t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Plus de 15T</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu8t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu8t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu8t12bZone3}"></p:inputText></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; "></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+      
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Tracteur routier</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu9t12bZone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu9t12bZone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.rcTarif12b.pfCu9t12bZone3}"></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        
+    </p:row>
+   </p:panelGrid>	
+   </p:panel>
+   <br />
+   
+   <h:panelGroup>
+	 <h:panelGrid columns="4">
+	 
+	 <h:panelGroup>
+		<fieldset><legend>SURPRIMES</legend> 
+		<h:panelGrid columns="3">
+		<h:outputText value="Passagers supplémentaires hors de la cabine  "></h:outputText>
+		<p:inputText  value="#{managedTarif12.rcTarif12b.surprimePassSupHcabt12b}" ></p:inputText>
+		<h:outputText value="Par place"></h:outputText>
+		<h:outputText value="Transport d’élève "></h:outputText>
+		<p:inputText value="#{managedTarif12.rcTarif12b.surprimeTranspElevt12b}"></p:inputText>
+		<h:outputText value="Par place"></h:outputText>
+		<h:outputText value="Transport d’employés en camion  "></h:outputText>
+		<p:inputText value="#{managedTarif12.rcTarif12b.surprimeTranspCamt12b}"></p:inputText>
+		<h:outputText value="Par place"></h:outputText>
+		<h:outputText value="Transport d’employés en autocar "></h:outputText>
+		<p:inputText value="#{managedTarif12.rcTarif12b.surpimeTranspAutocart12b}"></p:inputText>
+		<h:outputText value="Par place"></h:outputText>
+		<h:outputText value="Passagers clandestins "></h:outputText>
+		<p:inputText value="#{managedTarif12.rcTarif12b.tauxPassagerClandt12b}"></p:inputText>
+		<h:outputText value="% de la prime de base"></h:outputText>
+		<h:outputText value="Transport d’hydrocarbures"></h:outputText>
+		<p:inputText value="#{managedTarif12.rcTarif12b.tauxTranspHydrocart12b}"></p:inputText>
+		<h:outputText value="% de la prime de base"></h:outputText>
+		
+		
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+	 	
+			<h:panelGroup>
+		<fieldset><legend>DEFENSE ET RECOURS</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Garantie Dommage ou Garantie Dommage  Collision souscrite"></h:outputText>
+		<p:inputText value="#{managedTarif12.tarif.drDomage}"></p:inputText>
+		<h:outputText value="Absence de Garantie Dommage "></h:outputText>
+		<p:inputText value="#{managedTarif12.tarif.drSansDomage}"></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<fieldset><legend>IMMOBILISATION DU VEHICULE </legend> 
+		<h:panelGrid columns="1">
+		<h:outputText value="Forfait"></h:outputText>
+		<p:inputText  value="#{managedTarif12.tarif.immobVehicule}"></p:inputText>
+		</h:panelGrid>
+		</fieldset>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+		<fieldset><legend>GARANTIE REMBOURSEMENT ANTICIPE (GRA)</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Prime annuelle  "></h:outputText>
+		<p:inputText value="#{managedTarif12.tarif.graAnnuelle}"></p:inputText>
+		<h:outputText value="Prime annuelle avec fractionnement "></h:outputText>
+		<p:inputText value="#{managedTarif12.tarif.graCourt}"></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+			</h:panelGrid></h:panelGroup>
+			<br />
+			
+			
+			<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="4">BRIS DE GLACE</p:column>
+        </p:row>
+        <p:row>
+            <p:column >Option</p:column>
+            <p:column >Libellé</p:column>
+            <p:column >Prime</p:column>
+            <p:column >Franchise</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Avec réparateur conventionné</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif12.tarif.tauxBgOpt1}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Avec réparateur non conventionné</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif12.tarif.tauxBgOpt2}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column> 
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">3</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">Avec réparateur non conventionné</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif12.tarif.tauxBgOpt3}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column>
+        <p:column style="font-weight: bold; border:1px solid black;"><p:inputText value="#{managedTarif12.tarif.franchBgOpt1}"/><h:outputText value="% du montant des dommages"/></p:column>
+        
+        
+    </p:row>
+    </p:panelGrid>
+    
+    
+    <br />
+			
+			
+			<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="3">DOMMAGES </p:column>
+        </p:row>
+        <p:row>
+            <p:column >Garantie</p:column>
+            <p:column >Prime</p:column>
+            <p:column >Franchise</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Dommages collision (tierce collision)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.tarif.tauxPrimeDomCol}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Dommages tous accidents (tierce complète)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.tarif.tauxPrimeDomAcc}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column> 
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+    </p:panelGrid>
+		<br />	
+		
+		<p:panel header="VOL">
+		<p:panelGrid>
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="2">PRIMES  </p:column>
+        </p:row>
+        <p:row>
+            <p:column >Valeurs vénales des véhicules</p:column>
+            <p:column >Taux de prime Vol y compris Vol à main armée</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">0 à 10 000 000 </p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.tarif.tauxPrimeVol1}"/><h:outputText value="% "/></p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Plus de 10 000 000</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif12.tarif.tauxPrimeVol2}"/><h:outputText value="% "/></p:column> 
+    </p:row>
+    </p:panelGrid>
+    <br></br>
+		
+		<h:panelGrid columns="3">
+		<h:outputText value="Franchise"></h:outputText>
+		<p:inputText value="#{managedTarif12.tarif.tauxFranchVolAcc}"></p:inputText>
+		<h:outputText value="% du sinistre avec un minimum de 250 000"></h:outputText>
+		</h:panelGrid>
+		</p:panel>
+			
+			<br />	
+		
+    
+		<fieldset>
+<p:commandButton value="Enregistrer" onclick="confirm.show();" style="width:150px;height:40px; margin-left: 35px;font-size:15px;border-radius:20px;margin-left:250px"/>
+		</fieldset>
+		</h:form>
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif12.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

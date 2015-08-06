@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<ui:composition template="../../template/templateadmin.xhtml">
+	<ui:define name="content">
+		
+			<p:panel header="Gestion de la Zone Géographique">
+				<h:form id="rech_zonegeo">
+				<p:messages id="growl" showDetail="false" sticky="false" />
+					<fieldset id="recher_zonegeo" class="fieldset">
+
+						<legend>Gestion de la Zone géographique</legend>
+						<h:panelGrid columns="3" style="margin-bottom:10px"
+							cellpadding="6">
+
+
+
+
+
+							<h:outputText value="Code Zone géographique *" />
+
+
+							<p:inputText value="#{zoneGeographiqueMB.id}" id="id_zonegeo"
+								required="true"
+								requiredMessage="Le champ Code Zone géographique ne peut pas être vide!"
+								validatorMessage="Pas plus de 12 caractères">
+								<f:validateLength minimum="0" maximum="12" for="id_zonegeo"></f:validateLength>
+							</p:inputText>
+							<p:message for="id_zonegeo" />
+
+
+
+
+							<h:outputText value="Libelle Zone géographique" />
+							<p:inputText value="#{zoneGeographiqueMB.libelleZoneGeo}"
+								id="id_libellezonegeo"
+								validatorMessage="Pas plus de 30 caractères">
+								<f:validateLength minimum="0" maximum="30"
+									for="id_libellezonegeo"></f:validateLength>
+							</p:inputText>
+
+							<p:message for="id_libellezonegeo" />
+
+						</h:panelGrid>
+
+
+
+
+
+						<p:message for="buttonadd" />
+						<p:message for="buttonupdate" />
+						<p:message for="buttondelete" />
+						<h:commandButton id="buttonadd" value="Enregistrer"
+							binding="#{zoneGeographiqueMB.buttonadd}"
+							action="#{zoneGeographiqueMB.validateadd}" />
+
+
+						<h:commandButton id="buttonupdate" value="Modifier"
+							binding="#{zoneGeographiqueMB.buttonupdate}"
+							action="#{zoneGeographiqueMB.validateupdate}" />
+
+
+						<h:commandButton id="buttondelete" value="Supprimer"
+							binding="#{zoneGeographiqueMB.buttondelete}"
+							action="#{zoneGeographiqueMB.validatedelete}" />
+						<h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+					</fieldset>
+				</h:form>
+				<br></br>
+				<br></br>
+				<h:form>
+					<fieldset class="fieldset">
+						<legend>Liste des Zones géographiques </legend>
+
+
+
+						<h:panelGrid>
+							<p:dataTable id="Zonegeo" var="zonegeo"
+								value="#{zoneGeographiqueMB.zoneGeographiqueList}"
+								
+								scrollable="true"
+												scrollHeight="200"
+												scrollWidth="1050">
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Code ZoneGeo" />
+									</f:facet>
+									<h:outputText value="#{zonegeo.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Libelle ZoneGeo" />
+									</f:facet>
+									<h:outputText value="#{zonegeo.libelleZoneGeo}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</h:panelGrid>
+
+
+
+					</fieldset>
+
+
+				</h:form>
+			</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+				<title>SHERPA WebUser</title>
+				
+				<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+				<meta name="viewport" content="width=980"/>
+				
+				<style type="text/css">
+				h1 {color:black; text-align:center; margin-top:0;}
+				h1 a {text-decoration: none;color:black; text-align:center;}
+				p {color:#666; text-align:center;}
+				body {background: #f4f4f4;}
+				.wrapper {width:100%; margin: 0 auto; padding: 20px;}
+				.container {
+					background:none;
+					border-radius: 5px;
+					border: solid 0px #eee;
+					box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+					padding:40px;
+					width:900px;
+					height:auto;
+					margin:60px auto 0px auto;
+					position: relative;
+					z-index: 0;
+					border-radius: 15px;
+					
+				}
+				pre, code {
+					font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+					font-size: 12px;
+					color: #333;
+					-webkit-border-radius: 3px;
+					-moz-border-radius: 3px;
+					border-radius: 3px;
+				}
+				pre { border: 1px solid #CCC; background-color: #EEE; color: #333; padding: 10px; overflow: scroll; }
+				code { padding: 2px 4px; background-color: #F7F7F9; border: 1px solid #E1E1E8; color: #D14; }
+			</style>
+			
+			<h:outputStylesheet library="css" name="style.css" />
+			<h:outputStylesheet library="css" name="main.css" />
+	</h:head>
+
+		
+		
+		
+	<h:body>
+
+			<!-- Backstretch JS -->
+		    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		    <script src="../../resources/js/jquery.backstretch.js"></script>
+			<script>
+		        $.backstretch([
+		          "../../resources/images/pot-holder.jpg",
+		          "../../resources/images/coffee.jpg",
+		          "../../resources/images/dome.jpg"
+		        ], {
+		        	fade: 1000,		//Speed of Fade
+		        	duration: 10000 	//Time of image display
+		        });
+		    </script>
+		
+		
+		    <!-- Page Content -->
+		    <h:form id="gnl">
+		    <p:growl id="msgs" showDetail="true" />
+			<div class="wrapper">
+				<div class="container" align="center">
+					<p:dashboard id="board" model="#{managedIndexAuto.model}" >
+			            <p:ajax event="reorder" listener="#{managedIndexAuto.handleReorder}" update="msgs"/>
+			 
+			 
+			            <p:panel id="finance" header="Administration" style="width:400px; margin:20px">
+			                <h:panelGrid columns="2" cellpadding="10">
+			                	<p:commandLink id="subscribe" styleClass="souscrip" action="/Page/AdminWeb/Categorie?faces-redirect=true"/>
+			                	<h:outputText value="Paramètrez Sherpa Web" />
+			                </h:panelGrid>
+			                
+			                <f:facet name="actions">
+					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></h:commandLink>
+					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" action="/index.xhtml?faces-redirect=true"><h:outputText styleClass="ui-icon ui-icon-home" /></h:commandLink>
+					        </f:facet>
+			            </p:panel>
+			        </p:dashboard>
+			 
+			        <div style="clear:both" />
+				</div>
+			</div>
+				
+			</h:form>
+	</h:body>
+		
+		
+
+</html>

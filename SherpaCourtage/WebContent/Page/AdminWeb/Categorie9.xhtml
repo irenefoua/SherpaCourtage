@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 09 : ENGINS DE CHANTIER   (Catégorie 9)">
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="4">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column rowspan="2">Vehicule</p:column>
+            <p:column colspan="3">Prime de base</p:column>  
+        </p:row>
+    <p:row>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+    </p:row>
+    </f:facet>
+   
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" >Sans remorque</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText   value="#{managedTarif9.rcTarif9.vhlSrZone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif9.rcTarif9.vhlSrZone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText   value="#{managedTarif9.rcTarif9.vhlSrZone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" >Avec remorque</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif9.rcTarif9.vhlRemorqueZone1}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif9.rcTarif9.vhlRemorqueZone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif9.rcTarif9.vhlRemorqueZone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+   </p:panelGrid>	
+   </p:panel>
+   <br />
+   <h:panelGroup>
+	 <h:panelGrid columns="3">	
+			<h:panelGroup>
+		<fieldset><legend>DEFENSE ET RECOURS</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Garantie Dommage ou Garantie Dommage  Collision souscrite  "></h:outputText>
+		<p:inputText  value="#{managedTarif9.tarif.drDomage}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		<h:outputText value="Absence de Garantie Dommage "></h:outputText>
+		<p:inputText value="#{managedTarif9.tarif.drSansDomage}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<fieldset><legend>IMMOBILISATION DU VEHICULE </legend> 
+		<h:panelGrid columns="1">
+		<h:outputText value="Prime forfaitaire"></h:outputText>
+		<p:inputText value="#{managedTarif9.tarif.immobVehicule}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+		<fieldset><legend>GARANTIE REMBOURSEMENT ANTICIPE (GRA)</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Prime annuelle  "></h:outputText>
+		<p:inputText  value="#{managedTarif9.tarif.graAnnuelle}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		<h:outputText value="Prime annuelle avec fractionnement"></h:outputText>
+		<p:inputText value="#{managedTarif9.tarif.graCourt}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+			</h:panelGrid></h:panelGroup>
+			<br />
+			
+			<br />
+			
+			
+			<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="3">DOMMAGES </p:column>
+        </p:row>
+        <p:row>
+            <p:column >Garantie</p:column>
+            <p:column >Prime</p:column>
+            <p:column >Franchise</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Dommages collision (tierce collision)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><h:outputText value="-"/></p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;"><h:outputText value="-"/></p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Dommages tous accidents (tierce complète)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif9.tarif.tauxPrimeDomAcc}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column> 
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+    </p:panelGrid>
+		<br />	
+			
+			<fieldset><legend>LE VOL </legend>
+		<h:panelGrid columns="3">
+		<h:outputText value="Prime  Vol + Vol à main armée "></h:outputText>
+		<p:inputText value="#{managedTarif9.tarif.tauxPrimeVol1}"></p:inputText>
+		<h:outputText value="% de la valeur vénale"/>
+		<h:outputText value="Franchise"></h:outputText>
+		<p:inputText value="#{managedTarif9.tarif.tauxFranchVol}"></p:inputText>
+		<h:outputText value="du sinistre avec un minimum de 250 000"></h:outputText>
+		</h:panelGrid>
+		</fieldset>
+    
+    
+    <br />	
+			
+			<fieldset><legend>INCENDIE </legend>
+		<h:panelGrid columns="3">
+		<h:outputText value="Prime"></h:outputText>
+		<p:inputText   value="#{managedTarif9.tarif.tauxPrimeIncendie1}"></p:inputText>
+		<h:outputText value="% de la valeur vénale"/>
+		<h:outputText value="Franchise"></h:outputText>
+		<p:inputText value="Néant"></p:inputText>
+		</h:panelGrid>
+		</fieldset>
+		
+		<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="4">INDIVIDUELLE CHAUFFEUR</p:column>
+        </p:row>
+        
+        <p:row>
+            <p:column colspan="2">Option unique</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Décès</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif9.tarif.srDeces1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Ipt</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif9.tarif.srIpt1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Frais de traitement</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif9.tarif.srFraisTrait1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">PRIME</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif9.tarif.srPrime1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    </p:panelGrid>
+    <br />
+    
+		<fieldset>
+     <p:commandButton value="Enregistrer"  onclick="confirm.show();" style="width:150px;height:40px; margin-left: 35px;font-size:15px;border-radius:20px;margin-left:250px"/>
+		</fieldset>
+		</h:form>
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif9.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

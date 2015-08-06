@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 01 : VEHICULES DE TOURISME APPARTENANT A DES PERSONNES PHYSIQUES (Catégorie 1)">
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="14">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column colspan="2">Puissance fiscale</p:column>
+            <p:column colspan="3">Prime de base</p:column>
+            <p:column colspan="9">Majoration ou réduction ( à appliquer sur la prime de base)</p:column>
+           
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Essence</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Diésel</p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Remorque</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Ancienneté de permis (1)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="6">Statut professionnel (2)</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">a</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">b</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">c</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">d</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">e</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Autres</p:column>
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">1 à 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE12d1Zone1}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE12d1Zone2}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE12d1Zone3}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">3 à 6</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">2 à 4</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE36d24Zone1}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE36d24Zone2}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE36d24Zone3}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">7 à 9</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">5 à 6</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE79d56Zone1}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE79d56Zone2}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE79d56Zone3}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:30px" value="#{categorie1MB.rcTarif1.tauxMajredRemorque}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:30px" value="#{categorie1MB.rcTarif1.tauxMajredPermi1}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:30px" value="#{categorie1MB.rcTarif1.tauxMajredPermis2}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:17px" value="#{categorie1MB.rcTarif1.tauxMajredStatutproa}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:17px" value="#{categorie1MB.rcTarif1.tauxMajredStatutprob}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:17px" value="#{categorie1MB.rcTarif1.tauxMajredStatutproc}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:17px" value="#{categorie1MB.rcTarif1.tauxMajredStatutprod}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:17px" value="#{categorie1MB.rcTarif1.tauxMajredStatutproe}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"><p:inputText style="width:17px" value="#{categorie1MB.rcTarif1.tauxMajredStatutproautres}"></p:inputText><h:outputText value="% "/></p:column>   
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">10 à 11</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">7 à 8</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE1011d78Zone1}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;" ><p:inputText value="#{categorie1MB.rcTarif1.pfE1011d78Zone2}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{categorie1MB.rcTarif1.pfE1011d78Zone3}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+         <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">12 et +</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">9 et +</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;" ><p:inputText value="#{categorie1MB.rcTarif1.pfE12d9Zone1}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{categorie1MB.rcTarif1.pfE12d9Zone2}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.rcTarif1.pfE12d9Zone3}" style="width:70px"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-left: 1px solid black; border: 1px outset black;"></p:column>
+    </p:row>
+   </p:panelGrid>	
+   </p:panel>
+			
+		<h:panelGroup>
+	 <h:panelGrid columns="3">	
+			<h:panelGroup>
+		<fieldset><legend>DEFENSE ET RECOURS</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Garantie Dommage ou Garantie Dommage  Collision "></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.drDomage}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		<h:outputText value="Absence de Garantie Dommage "></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.drSansDomage}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<fieldset><legend>IMMOBILISATION DU VEHICULE </legend> 
+		<h:panelGrid columns="1">
+		<h:outputText value="Prime forfaitaire"></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.immobVehicule}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+		<fieldset><legend>GARANTIE REMBOURSEMENT ANTICIPE (GRA)</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Prime annuelle  "></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.graAnnuelle}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		<h:outputText value="Prime courte période "></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.graCourt}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+			</h:panelGroup>
+			</h:panelGrid></h:panelGroup>
+			<br />
+			
+			
+			<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="4">BRIS DE GLACE</p:column>
+        </p:row>
+        <p:row>
+            <p:column >Option</p:column>
+            <p:column >Libellé</p:column>
+            <p:column >Prime</p:column>
+            <p:column >Franchise</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Avec réparateur conventionné</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxBgOpt1}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Avec réparateur non conventionné</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxBgOpt2}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column> 
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">3</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">Avec réparateur non conventionné</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxBgOpt3}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column>
+        <p:column style="font-weight: bold; border:1px solid black;"><p:inputText value="#{categorie1MB.tarif.franchBgOpt1}"/><h:outputText value="% du montant des dommages"/></p:column>
+        
+        
+    </p:row>
+    </p:panelGrid>
+    
+    
+    <br />
+			
+			
+			<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="3">DOMMAGES </p:column>
+        </p:row>
+        <p:row>
+            <p:column >Garantie</p:column>
+            <p:column >Prime</p:column>
+            <p:column >Franchise</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Dommages collision (tierce collision)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeDomCol}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Dommages tous accidents (tierce complète)</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeDomAcc}"/><h:outputText value="% de la valeur neuve du véhicule"/></p:column> 
+         <p:column style="font-weight: bold;border: 1px solid black;">Néant</p:column>
+    </p:row>
+    </p:panelGrid>
+		<br />	
+		
+		<p:panel header="VOL">
+		<p:panelGrid>
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="2">Vol + vol à main armée  </p:column>
+        </p:row>
+        <p:row>
+            <p:column >Valeurs vénales des véhicules</p:column>
+            <p:column >Taux de  Prime</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">0 à 10 000 000 </p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeVol1}"/><h:outputText value="% "/></p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">10 000 001 F 0 20 000 000</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeVol2}"/><h:outputText value="% "/></p:column> 
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">20 000 001 et plus </p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeVol3}"/><h:outputText value="% "/></p:column>        
+    </p:row>
+    </p:panelGrid>
+    <br></br>
+		<h:panelGroup>
+		<h:panelGrid columns="3">
+		<h:panelGroup>
+		<h:panelGrid columns="3">
+		<h:outputText value="Franchise"></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.tauxFranchVol}"/>
+		<h:outputText value="% du sinistre avec un minimum de 250 000"></h:outputText>
+		</h:panelGrid>
+		</h:panelGroup>
+		
+		<h:panelGroup>
+		<fieldset><legend>Vol accessoires, radiocassette, climatiseurs </legend>
+		<h:panelGrid columns="2">
+		<h:outputText value="Prime : Montant des accessoires x "></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.tauxPrimeVolAcc}"></p:inputText>
+		<h:outputText value="Franchise"></h:outputText>
+		<p:inputText value="Néant"></p:inputText>
+		</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>
+		
+		<h:panelGroup>
+		<fieldset><legend>Vandalisme  </legend>
+		<h:panelGrid columns="2">
+		<h:outputText value="Prime : Forfait "></h:outputText>
+		<p:inputText value="#{categorie1MB.tarif.primeVandal}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		<h:outputText value="Franchise"></h:outputText>
+		<p:inputText value="Néant"></p:inputText>
+		</h:panelGrid>
+		</fieldset>
+		
+		</h:panelGroup>
+		</h:panelGrid>
+		</h:panelGroup>
+		</p:panel>
+			
+			<br />	
+		
+		
+		<p:panelGrid>
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="2">INCENDIE  </p:column>
+        </p:row>
+        <p:row>
+            <p:column >Valeurs vénales des véhicules</p:column>
+            <p:column >Taux de  Prime</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">0 à 10 000 000  </p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeIncendie1}"/><h:outputText value="% "/></p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">10 000 001 F 0 20 000 000</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeIncendie2}"/><h:outputText value="% "/></p:column> 
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">20 000 001 et plus </p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.tauxPrimeIncendie3}"/><h:outputText value="% "/></p:column>        
+    </p:row>
+    </p:panelGrid>
+    <br />
+		<h:outputText value="Franchise"></h:outputText>	<p:inputText value="Néant"></p:inputText>
+		
+		<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+          <p:row>
+            <p:column colspan="4">SECURITE ROUTIERE</p:column>
+        </p:row>
+        
+         <p:row>
+            <p:column >Désignation</p:column>
+            <p:column colspan="3">Montant</p:column>
+        </p:row>
+        <p:row>
+            <p:column >CAPITAUX GARANTIS</p:column>
+            <p:column >Option 1</p:column>
+            <p:column >Option 2</p:column>
+            <p:column >Option 3</p:column>
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Décès</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srDeces1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srDeces2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srDeces3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Ipt</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srIpt1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srIpt2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column> 
+         <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srIpt3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Frais de traitement</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srFraisTrait1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srFraisTrait2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border:1px solid black;"><p:inputText value="#{categorie1MB.tarif.srFraisTrait3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">PRIME</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srPrime1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{categorie1MB.tarif.srPrime2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border:1px solid black;"><p:inputText value="#{categorie1MB.tarif.srPrime3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    </p:panelGrid>
+    <br />
+    
+		<fieldset>
+  <p:commandButton value="Enregistrer" onclick="confirm.show();"   style="width:150px;height:40px; margin-left: 35px;font-size:15px;border-radius:20px;margin-left:250px"/>
+		</fieldset>
+		</h:form>
+		
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode" modal="true" appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{categorie1MB.addCategorie}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

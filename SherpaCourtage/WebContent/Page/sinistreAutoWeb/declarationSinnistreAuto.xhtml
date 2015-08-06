@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/templateWebAuto.xhtml">
+	
+	<ui:define name="content">
+	<h:form>
+	<p:breadCrumb>
+		    <p:menuitem value="Home" action="/index?faces-redirect=true" />
+		    <p:menuitem value="Auto" action="/Pages/AutoWeb/indexAuto?faces-redirect=true" />
+		    <p:menuitem value="Declaration de Sinistre" action="/Page/sinistreAutoWeb/declarationSinnistreAuto?faces-redirect=true" />
+		    
+		</p:breadCrumb>
+	</h:form>
+	 <h:form id="rech_contrat" enctype="multipart/form-data">
+	<p:messages id="growl" sticky="true" autoUpdate="true" closable="true"/>
+	
+	<p:wizard flowListener="#{managedSinistre.onFlowProcess}" nextLabel="Suivant" backLabel="Précédent">
+        <p:tab id="contr" title="Contrat">
+	<p:panel header="Contrat">
+	
+		<fieldset>
+	<legend > Critère</legend>
+
+	<p:selectOneRadio id="customRadio" value="#{managedSinistre.optionRech}" layout="custom"   >
+<f:selectItem itemLabel="Option 1" itemValue="1" />
+<f:selectItem itemLabel="Option 2" itemValue="2" />
+<f:selectItem itemLabel="Option 3" itemValue="3" />
+</p:selectOneRadio>
+
+	<h:panelGrid columns="6">
+		<p:radioButton id="opt1" for="customRadio" itemIndex="0"/>
+		<p:outputLabel for="opt1" value=" N° Police&nbsp;&nbsp;&nbsp;" />
+		<p:radioButton id="opt2" for="customRadio" itemIndex="1"/>
+		<p:outputLabel for="opt2" value=" Immatriculation" />
+		
+	<p:inputText value="#{managedSinistre.valeurDeRecherche}" style="width: 138px; margin-left: 60px;"  
+	 required="true" requiredMessage="Veuillez entrez un numero de police ou l'immatriculation du véhicule" placeholder="Entrer le critère" />
+	<p:commandButton id="rech_button" value="Rechercher" action="#{managedSinistre.rechercherDossierProduction}"   
+	style="width: 100px;" update="resulTable, infoGrid, growl, :sous_form"/>
+	</h:panelGrid>
+	<fieldset>
+	<br />
+	
+	<h:panelGrid id="infoGrid" columns="8">
+		<p:outputLabel for="policeContrat" value="Police"/>
+		<p:inputText id="policeContrat" value="#{managedSinistre.monContratResum.policeResum.numPolice}" readonly="true" required="true" requiredMessage="Aucunne police trouvée"/>
+		
+		<p:outputLabel value="Avenant"  style="margin-left: 15px;"/>
+		<p:inputText value="#{managedSinistre.monContratResum.avenantResum.numAvenant}"  readonly="true"/>
+	
+		<p:outputLabel value="N° souscripteur"  style="margin-left: 15px;"/>
+		<p:inputText value="#{managedSinistre.monContratResum.personneResum.numSouscripteur}"  readonly="true"/>
+		
+		<p:outputLabel value="Souscripteur"  style="margin-left: 15px;"/>
+		<p:inputText value="#{managedSinistre.monContratResum.personneResum.nomRaisonSociale} #{managedSinistre.monContratResum.physiqueResum.prenomPers}"  readonly="true"/>
+	</h:panelGrid>
+	
+	</fieldset>
+	<br/>
+	<fieldset style="background-color: #DDECDF">
+	 <p:dataTable id="resulTable" var="cr" value="#{managedSinistre.listeContratResum}" emptyMessage="" rowKey="#{cr.policeResum.numPolice}" 
+	 selection="#{managedSinistre.selectedContratResum}">
+		 <f:facet name="header"> Informations sur le contrat</f:facet>
+		 
+		 <p:column selectionMode="single" style="width:16px;text-align:center"/>
+  
+        <p:column headerText="Imatriculation">  
+            <h:outputText value="#{cr.vehiculeResum.numImmat}" style="color:#1652be" />
+         </p:column>   
+          
+        <p:column headerText="Effet">  
+            <h:outputText value="#{cr.avenantResum.effet}">
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </p:column>  
+        
+       <p:column headerText="Echeance">  
+            <h:outputText value="#{cr.avenantResum.echeance}">
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </p:column> 
+        
+      <p:column headerText="Assuré(e)"  rendered="false">  
+            <h:outputText value="#{cr.personneResum.nomRaisonSocial}  #{cr.physiqueResum.prenomPers}" />
+        </p:column> 
+        
+         <p:column headerText="Code GarantieChoisie" rendered="false"> 
+            <h:outputText value="#{cr.garantieChoisieResum.id}" />
+        </p:column> 
+        
+        <p:column style="width:4%">
+           <p:commandButton id="selectButton"  oncomplete="garDialog.show()" icon="ui-icon-search" 
+           title="Consulter les garanties" update=":rech_contrat:garDlg">
+           <f:setPropertyActionListener value="#{cr}"
+           target="#{managedSinistre.selectedContratResum}" />
+       	</p:commandButton> 
+        </p:column>
+    </p:dataTable> 
+    </fieldset> 
+	<br/>
+	</fieldset>
+	
+	
+	<!-- Pour afficher les detailsur les garanties -->
+	<p:dialog header="Garanties" widgetVar="garDialog" resizable="false" id="garDlg"
+                showEffect="fade"  modal="true" appendTo="@(body)">
+              <fieldset>
+              <legend>Informations de base</legend>
+              <h:panelGrid id="display" columns="4" cellpadding="2" style="margin:0 auto;">
+              <p:outputLabel value="Police"/>
+              	<p:inputText value="#{managedSinistre.monContratResum.policeResum.numPolice}" readonly="true"/>
+              	
+              	<p:outputLabel value="Imatriculation"/>
+              	<p:inputText value="#{managedSinistre.selectedContratResum.vehiculeResum.numImmat}" readonly="true"/>
+              </h:panelGrid>
+              
+              <h:panelGrid id="display1" columns="2" cellpadding="2">
+              <p:outputLabel value="Assuré(e)"/>
+              <p:inputText value="#{managedSinistre.monContratResum.personneResum.nomRaisonSociale} #{managedSinistre.monContratResum.physiqueResum.prenomPers}" readonly="true"/>
+              </h:panelGrid>
+              </fieldset>
+              
+              
+              <p:dataTable id="garantieTable" var="gr" value="#{managedSinistre.selectedContratResum.listGaratieResume}" >
+              	<f:facet name="header"> Garanties souscrites</f:facet>
+              	 <p:column headerText="Code"> 
+            		<h:outputText value="#{gr.id}" />
+       			 </p:column> 
+       			 
+       			 <p:column headerText="Garanties">  
+            		<h:outputText value="#{gr.libelleGarantie}" />
+       			 </p:column>
+              </p:dataTable>
+    </p:dialog>  
+	</p:panel>
+        </p:tab>
+        
+        <p:tab id="declaration" title="Declaration">
+        	<p:panel header="Déclaration du sinistre">
+        	
+          <div style="color: blue">Merci d’indiquer l’adresse e-mail et le numéro téléphone sur lesquels vous souhaitez être contacté pour ce sinistre.</div>
+           <br />
+          <h:panelGrid columns="4">
+          <p:outputLabel for="mail"  value="E-mail"/>
+          <p:inputText id="mail" required="true" value="#{managedSinistre.monContratResum.personneResum.email}" validatorMessage="Invalid email format" requiredMessage="Please enter your email address.">
+          	<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+          </p:inputText>
+          
+          <p:outputLabel for="tel"  value="Telephone" style="margin-left: 15px;"/>
+          <p:inputText id="tel" required="true" value="#{managedSinistre.monContratResum.personneResum.telephone}" /> 
+          </h:panelGrid>
+          
+                  	<hr style="color:white; background-color:#E6E6E6;" size="7"/>
+         
+					<fieldset >
+						<legend>Formulaire d'enregistrement</legend>
+						
+						<h:panelGrid columns="6" border="0">
+							<p:outputLabel for="date_survenance" value="Date survenance:" />
+							<p:calendar id="date_survenance" pattern="dd/MM/yyyy" locale="fr"
+								value="#{managedSinistre.sinistre.dateSurvenance}"
+								required="true"
+								requiredMessage="La date de survenance est obligatoire">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="fr_FR" />
+							</p:calendar>
+							
+							<p:outputLabel value="Date Déclaration:"  style="margin-left: 30px !important;" for="date_declaration"/>
+							<p:inputText  id="date_declaration" pattern="dd/MM/yyyy" locale="fr" value="#{managedSinistre.dateDeclaration}" style="height:10px" required="true"
+								requiredMessage="La date de déclaration obligatoire" readonly="true">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="fr"/>
+							</p:inputText>
+							
+							<p:outputLabel for="police" value="Numéro police:" style="margin-left: 30px !important;"/>
+							<p:inputText id="police" value="#{managedSinistre.monContratResum.policeResum.numPolice}" readonly="true"/>
+							
+
+							<p:outputLabel value="Avenant :"/>
+							<p:inputText value="#{managedSinistre.monContratResum.avenantResum.numAvenant}" readonly="true"/>
+							
+							<p:outputLabel value="Effet :" style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedSinistre.monContratResum.avenantResum.effet}" readonly="true">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="fr"/>
+							</p:inputText>
+							
+							<p:outputLabel value="Echeance :" style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedSinistre.monContratResum.avenantResum.echeance}" readonly="true">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="fr"/>
+							</p:inputText>
+							
+							<p:outputLabel for="imatriculation" value="Imatriculation véhicule:"/>
+							<p:inputText id="imatriculation"  value="#{managedSinistre.monContratResum.vehiculeResum.numImmat}" readonly="true"/>
+						
+							<p:outputLabel value="Type vehicule:" style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedSinistre.monContratResum.vehiculeResum.typeVehicule}" readonly="true" />
+							
+							<p:outputLabel value="Marque:" style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedSinistre.monContratResum.vehiculeResum.marque}" readonly="true" />
+							
+							<p:outputLabel value="Primme TTC:"/>
+							<p:inputText value=" " readonly="true" />
+							
+							<p:outputLabel value="Prime encaissée:" style="margin-left: 30px !important;"/>
+							<p:inputText value=" " readonly="true" />
+							
+							<p:outputLabel value="Solde:" style="margin-left: 30px !important;"/>
+							<p:inputText value=" " readonly="true" />
+						</h:panelGrid>
+					</fieldset>
+
+					<hr style="color:white; background-color:#E6E6E6;" size="7"/>
+
+					<fieldset>
+						<legend>Informations Sinistre</legend>
+						<h:panelGrid columns="4">
+						
+							<p:outputLabel value="Lieu du sinistre :" />
+							<h:inputTextarea value="#{managedSinistre.vehiculeSinistre.lieuSinistre}" cols="48" style="margin-left: 23px;" />
+								
+							<p:outputLabel value="Circonstance :" style="margin-left: 30px"/>
+							<h:inputTextarea value="#{managedSinistre.sinistre.circonstance}" cols="48" style="margin-left: 30px;" />
+						</h:panelGrid>
+						
+						<h:panelGrid columns="4">
+							<h:outputText value="Dommage corporel:" />
+							<h:inputTextarea value="#{managedSinistre.vehiculeSinistre.libelleDomageCorp}" cols="48"/>
+								
+							<h:outputText value="Dommage matériel:" style="margin-left: 30px !important;" />
+							<h:inputTextarea value="#{managedSinistre.vehiculeSinistre.libelleDomageMat}" cols="48"/>
+						</h:panelGrid>
+						
+							<br />
+						<h:panelGrid columns="6">
+							<h:outputText value="Blessés :"
+								style="margin-left: 65px !important;" />
+							<p:inputText value="#{managedSinistre.vehiculeSinistre.nbreBlesse}"
+								style="width: 25px;">
+								<f:convertNumber integerOnly="true" minIntegerDigits="0"/>
+							</p:inputText>
+							
+							<h:outputText value="Decès :"
+								style="margin-left: 5px !important;" />
+							<p:inputText value="#{managedSinistre.vehiculeSinistre.nbreDeces}"
+								style="width: 25px;">
+								<f:convertNumber integerOnly="true" minIntegerDigits="0" />
+							</p:inputText>
+							
+							<h:outputText value="RC Assure :"
+								style="margin-left: 5px !important;" />
+							<p:inputText value="#{managedSinistre.vehiculeSinistre.rcAssure}"
+								style="width: 25px;" />
+						</h:panelGrid>
+						
+					</fieldset>
+					
+				<hr style="color:white; background-color:#E6E6E6;" size="7"/>
+					
+			 </p:panel>
+        </p:tab>
+					
+			<p:tab id="conduc" title="Conducteur">
+        	<p:panel header="Conducteur lors du sinistre">
+
+					<fieldset> 
+						<legend>Informations Conducteur Sinistre</legend>
+						
+						<p:selectOneRadio id="customRadio1" value="#{managedSinistre.optionConducteur}" layout="custom">
+							<f:selectItem itemLabel="Option 1" itemValue="1" />
+							<f:selectItem itemLabel="Option 2" itemValue="2" />
+						</p:selectOneRadio>
+							
+							<h:panelGrid columns="4">
+								<p:radioButton id="opt11" for="customRadio1" itemIndex="0"/>
+								<p:outputLabel for="opt11" value="Conducteur habituel" />
+								<p:radioButton id="opt22" for="customRadio1" itemIndex="1"/>
+								<p:outputLabel for="opt22" value="Autre conducteur"/>
+							</h:panelGrid>
+						
+						<h:panelGrid columns="6">
+							
+							<p:outputLabel for="nomCon" value="Nom :" />
+							<p:inputText id="nomCon" value="#{managedSinistre.conducteurSinistre.nomCondSinistre}" required="true" />
+							
+							<p:outputLabel for="prenCond" value="Prénom :" style="margin-left: 30px !important;"/>
+							<p:inputText id="prenCond" value="#{managedSinistre.conducteurSinistre.prenomCondSinistre}" required="true" />
+							
+							<h:outputText value="Date de naissance :" style="margin-left: 30px !important;" />
+							<p:calendar pattern="dd/MM/yyyy" locale="fr"
+								value="#{managedSinistre.conducteurSinistre.dateNaissCondSinistre}">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="fr" />
+							</p:calendar>
+							
+							<p:outputLabel for="numPer" value="Numéro de permis :" />
+							<p:inputText id="numPer" value="#{managedSinistre.conducteurSinistre.numPermis}" required="true" />
+							
+							<p:outputLabel value="Catégorie de permis :"
+								style="margin-left: 30px !important;" for="catePermis" />
+							<p:selectOneMenu
+								value="#{managedSinistre.conducteurSinistre.categoriePermis}"
+								style="width:50px" required="true" id="catePermis">
+								<f:selectItem itemLabel="Choisir" itemValue=" " />
+								<f:selectItem itemLabel="A" itemValue="A" />
+								<f:selectItem itemLabel="B" itemValue="B" />
+								<f:selectItem itemLabel="C" itemValue="C" />
+								<f:selectItem itemLabel="D" itemValue="D"/>
+								<f:selectItem itemLabel="E" itemValue="E"/>
+								<f:selectItem itemLabel="BCDE" itemValue="BCDE" />
+							</p:selectOneMenu>
+							
+							<h:outputText value="Adresse :" style="margin-left: 30px !important;"/>
+							<p:inputText
+								value="#{managedSinistre.conducteurSinistre.adresse}" />
+							
+							<h:outputText value="Tel fixe :"/>
+							<p:inputText
+								value="#{managedSinistre.conducteurSinistre.telFixe}" />
+							
+							<h:outputText value="Tel portable :" style="margin-left: 30px !important;"/>
+							<p:inputText
+								value="#{managedSinistre.conducteurSinistre.telCell}" />
+							
+							<h:outputText value="Email :" style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedSinistre.conducteurSinistre.email}" validatorMessage="L'email est incorrect">
+								<f:validateRegex
+									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</p:inputText>
+						</h:panelGrid>						
+					</fieldset>	
+					
+						<br />
+									
+					
+            </p:panel>
+        </p:tab>
+        
+        <p:tab id="piec" title="piece">
+        	<p:panel header="Pièces">
+
+					<fieldset> 
+						<legend>Pièces jointes</legend>
+						
+			<h:panelGrid columns="6" border="0" id="doc">
+						
+			<p:selectBooleanCheckbox value="#{managedSinistre.bPv}"  itemLabel="Proces Verbal" >
+			<p:ajax event="change" listener="#{managedSinistre.ChangeValueChexBox}" update=":rech_contrat:fpv"/>
+			</p:selectBooleanCheckbox>
+			<p:fileUpload value="#{managedSinistre.filePv}" mode="simple" skinSimple="true" disabled="#{managedSinistre.etatPv}" id="fpv">
+			 <f:validator validatorId="com.j3a.assurance.utilitaire.ValidateurPdf" />
+			</p:fileUpload>
+			<p:selectOneMenu value="#{managedSinistre.idIntervenant}" style="width:150px">
+							<f:selectItem itemValue="Choisir" itemLabel="Choisir" > </f:selectItem>
+							<f:selectItems value="#{managedSinistre.elementsNomInt}" />
+							<p:ajax event="change"  listener="#{managedSinistre.RecupInt}" > </p:ajax>
+			</p:selectOneMenu>
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			
+			<p:selectBooleanCheckbox value="#{managedSinistre.bRap}"  itemLabel="Rapport Intervenant" >
+			<p:ajax event="change" listener="#{managedSinistre.ChangeValueChexBox}" update=":rech_contrat:frap"/>
+			</p:selectBooleanCheckbox>
+			<p:fileUpload value="#{managedSinistre.fileRap}" mode="simple" skinSimple="true" disabled="#{managedSinistre.etatRap}" id="frap">
+			<f:validator validatorId="com.j3a.assurance.utilitaire.ValidateurPdf" />
+			</p:fileUpload>
+			<p:selectOneMenu value="#{managedSinistre.idIntervenant}" style="width:150px">
+							<f:selectItem itemValue="Choisir" itemLabel="Choisir" > </f:selectItem>
+							<f:selectItems value="#{managedSinistre.elementsNomInt}" />
+							<p:ajax event="change"  listener="#{managedSinistre.RecupInt}" > </p:ajax>
+			</p:selectOneMenu>
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			
+			<p:selectBooleanCheckbox value="#{managedSinistre.bActMed}" itemLabel="Acte medical" >
+			<p:ajax event="change" listener="#{managedSinistre.ChangeValueChexBox}" update=":rech_contrat:fact"/>
+			</p:selectBooleanCheckbox>
+			<p:fileUpload value="#{managedSinistre.fileActMed}" mode="simple" skinSimple="true" disabled="#{managedSinistre.etatActMed}" id="fact">
+			<f:validator validatorId="com.j3a.assurance.utilitaire.ValidateurPdf" />
+			</p:fileUpload>
+			<p:selectOneMenu value="#{managedSinistre.idMedecin}" style="width:150px">
+							<f:selectItem itemValue="Choisir" itemLabel="Choisir" > </f:selectItem>
+							<f:selectItems value="#{managedSinistre.elementsNomMed}" />
+							<p:ajax event="change"  listener="#{managedSinistre.RecupMed}" > </p:ajax>
+			</p:selectOneMenu>
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			</h:panelGrid>
+							
+					</fieldset>	
+					
+						<br />
+									
+					<p:commandButton value="Enregistrer" actionListener="#{managedSinistre.creeSinitre}" style="width:100px;margin-left: 400px !important;" update=":rech_contrat">
+						<p:confirm header="Confirmation" message="Confirmez-vous l'enregistrement?" icon="ui-icon-alert"/>
+					</p:commandButton>
+					
+            </p:panel>
+        </p:tab>
+    </p:wizard>
+    
+    
+    <!-- Confirmation de validation -->
+	<p:confirmDialog global="true">
+		<p:commandButton value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+		<p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+	</p:confirmDialog>
+	</h:form>
+	
+	<p:dialog appendTo="@(body)" header="Liste des polices" widgetVar="contrat_Dialog" resizable="false">
+	 	<h:form id="sous_form">
+	 	<fieldset id="liste_contrat" class="fieldset" style="width:1200px">
+			<legend>Resultats de recherche par le numéro d'imatriculation</legend>
+				<p:dataTable var="var" value="#{managedSinistre.listContratVehicule}" emptyMessage="" rowKey="#{var.policeResum.numPolice}" selection="#{managedSinistre.selectedContratResumVeh}">
+								
+				<p:column selectionMode="single" style="width:16px;text-align:center"/>
+				
+				<p:column headerText="Police">
+			    <h:outputText value="#{var.policeResum.numPolice}" style="text-align:center"/>
+				</p:column>
+				
+			    <p:column headerText="N° Souscripteur">
+			    <h:outputText value="#{var.personneResum.numSouscripteur}" style="text-align:center"/>
+			    </p:column>
+			    
+			    <p:column headerText="Nom  Prénoms">
+			    <h:outputText value="#{var.personneResum.nomRaisonSociale} #{var.physiqueResum.prenomPers}" style="text-align:center"/>
+			    </p:column>
+			    
+			    <p:column headerText="Date Naissance">
+					<h:outputText value="#{var.physiqueResum.dateNaissPers}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				
+				</p:dataTable>
+				
+				<p:commandButton value="Valider" action="#{managedSinistre.chargerlechoix}" onclick="contrat_Dialog.hide()" update=":rech_contrat">
+				</p:commandButton>
+		</fieldset>					
+		</h:form>
+	</p:dialog>
+	</ui:define>
+	
+</ui:composition>
+</html>

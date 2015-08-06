@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<ui:composition template="../../template/templateadmin.xhtml">
+	<ui:define name="content">
+		<p:tabView id="tabView">
+			<p:tab id="tab1" title="Gestion des Types  Personnes">
+				<h:form id="tab_typpr">
+				<p:messages id="growl" showDetail="false" sticky="false" />
+					<fieldset id="tab_typpr" class="fieldset">
+
+
+						<legend>Type Personne</legend>
+						<h:panelGrid columns="3" style="margin-bottom:10px"
+							cellpadding="6">
+
+							<h:outputText value="Code Type Personne" />
+							<p:inputText value="#{typePersonneMB.id}" id="id_TypePersonne" converterMessage="Le Code doit être un Nombre entier Positif!"
+								required="true"
+								requiredMessage="Le champ Code Type Personne ne peut pas être vide!"
+								validatorMessage="ce code est compris entre 1 et 12!">
+					
+								<f:validateLength minimum="1" maximum="12" for="id_TypePersonne"></f:validateLength>
+							</p:inputText>
+							<p:message for="id_TypePersonne" />
+
+
+							<h:outputText value="Libellé Type Personne" />
+							<p:inputText value="#{typePersonneMB.libelleTypePers}"
+								id="id_libelleTypePers"
+								validatorMessage="Pas plus de 30 caractères">
+								<f:validateLength minimum="0" maximum="30"
+									for="id_libelleTypePers"></f:validateLength>
+							</p:inputText>
+
+							<p:message for="id_libelleTypePers" />
+
+						</h:panelGrid>
+
+
+
+
+	
+						<p:message for="buttonadd" />
+						<p:message for="buttonupdate" />
+						<p:message for="buttondelete" />
+						<h:commandButton id="buttonadd" value="Enregistrer"
+							binding="#{typePersonneMB.buttonadd}" action="#{typePersonneMB.validateadd}" 
+							/>
+
+
+						<h:commandButton id="buttonupdate" value="Modifier"
+							binding="#{typePersonneMB.buttonupdate}"
+							action="#{typePersonneMB.validateupdate}" 
+							/>
+
+
+						<h:commandButton id="buttondelete" value="Supprimer"
+							binding="#{typePersonneMB.buttondelete}"
+							action="#{typePersonneMB.validatedelete}"
+							/>
+                       <h:outputText value=" (*) Champ obligatoire!" style="color:red"/>
+					</fieldset>
+				</h:form>
+				<br></br>
+				<br></br>
+				<h:form>
+					<fieldset class=" fieldset">
+						<legend>Liste des Types de Personne </legend>
+
+
+						<h:panelGrid>
+							<p:dataTable id="TypePersonne" var="typepersonne"
+								value="#{typePersonneMB.listTypePersonne}" style="width: 10%">
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Code Type Personne" />
+									</f:facet>
+									<h:outputText value="#{typepersonne.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Libelle de Type Personne" />
+									</f:facet>
+									<h:outputText value="#{typepersonne.libelleTypePers}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</h:panelGrid>
+
+
+
+					</fieldset>
+
+
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+</html>

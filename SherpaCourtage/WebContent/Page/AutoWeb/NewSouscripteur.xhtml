@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"  />
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Qui êtes vous?" url="#" />
+		</p:menubar>
+	</h:form>
+	
+
+			<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus> 
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+			
+					
+					<p:panel header="Coordonnées">
+					<fieldset  >
+					<legend>Vos informations </legend>
+							<h:panelGrid id="clientGrid_Eng" columns="6">
+
+												<p:outputLabel for="nameP" value="Nom"  />
+												<p:inputText id="nameP" styleClass="uppercase"
+												 value="#{cotationAuto.clientMB.maPersonne.nomRaisonSociale}" required="true" 
+												 requiredMessage="Le nom doit être obligatoirement renseigné" placeholder="Saisir le nom">
+												 
+												 <p:ajax  event="blur" listener="#{cotationAuto.clientMB.chargeClient}"
+									  update="@this, clientGrid_Eng" />
+									  </p:inputText>
+													 
+												<p:outputLabel for="prenoms" value="Prénoms" style="margin-left:80px"/>
+												<p:inputText id="prenoms" required="true" value="#{cotationAuto.clientMB.monPhysique.prenomPers}"
+												requiredMessage="Le prenom doit etre obligatoirement renseigné" styleClass="uppercase"></p:inputText>
+													
+													
+												<p:outputLabel for="dateN" value="Née le" style="margin-left:80px"/>
+												<p:inputMask mask="99/99/9999"  id="dateN" value="#{cotationAuto.clientMB.monPhysique.dateNaissPers}" required="true" requiredMessage="La date de naissance doit etre obligatoirement renseigné">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</p:inputMask>
+												
+
+												<p:outputLabel for="lieuNais" value="Lieu naissance"/>
+												<p:inputText  value="#{cotationAuto.clientMB.monPhysique.lieuNaissPers}" required="true" requiredMessage="La lieu de naissance doit etre obligatoirement renseigné"
+													id="lieuNais"/>
+											
+
+												<p:outputLabel for="cb_prof" value="Profession"  style="margin-left:80px"/>
+												<p:selectOneMenu id="cb_prof" value="#{cotationAuto.clientMB.monPhysique.profession}"
+													effect="drop" 
+													>
+													<f:selectItem itemLabel="Select One" itemValue="" />
+													<f:selectItem itemLabel="Instituteur" itemValue="Instituteur"/>
+													<f:selectItem itemLabel="Informaticien" itemValue="Informaticien"/>
+													<f:selectItem itemLabel="Medecin" itemValue="Medecin"/>
+													<f:selectItem itemLabel="Phamarcien" itemValue="Phamarcien"/>
+													<f:selectItem itemLabel="Comptable" itemValue="Comptable"/>
+												</p:selectOneMenu>
+												
+												
+												<p:outputLabel for="cb_sexe" value="Sexe" style="margin-left:80px"/>
+												<p:selectOneMenu id="cb_sexe" label="Sexe" 
+											value="#{cotationAuto.clientMB.slctsexe}"
+											 required="false" requiredMessage="Veillez renseigner le sexe !"
+											style="width:130px">
+											
+											<f:selectItems
+												value="#{cotationAuto.clientMB.sexeList}"
+												var="ca" itemLabel="#{ca.libelleSexe}" itemValue="#{ca.codeSexe}" />
+											</p:selectOneMenu>
+
+
+												<p:outputLabel for="cb_sitMat" value="Situation matrimoniale"/>
+												<p:selectOneMenu id="cb_sitMat"
+													value="#{cotationAuto.clientMB.monPhysique.situationMatPers}" effect="drop" editable="false">
+													<f:selectItem itemLabel="Select One" itemValue=" " />
+													<f:selectItem itemLabel="Célibataire" itemValue="celibataire" />
+													<f:selectItem itemLabel="Marié(e)" itemValue="marie" />
+					                             </p:selectOneMenu>
+												
+												
+												<p:outputLabel for="typePiece" value="Type piece" style="margin-left:75px"/>
+												<p:selectOneMenu id="typePiece" value="#{cotationAuto.clientMB.monPhysique.typePiece}"
+													effect="drop" editable="false" >
+													<f:selectItem itemLabel="Select One" itemValue="" />
+													<f:selectItem itemLabel="CNI" itemValue="CNI"/>
+													<f:selectItem itemLabel="Attestation identité" itemValue="Attestation"/>
+													<f:selectItem itemLabel="Passeport" itemValue="Passeport"/>
+												</p:selectOneMenu>
+												
+												
+												<p:outputLabel  value="N° Pièce" style="margin-left:80px"/>
+												<p:inputText value="#{cotationAuto.clientMB.monPhysique.numPiecePers}" id="numPiece"
+												/>
+											
+									
+												<p:outputLabel for="adrs" value="Adresse"/>
+												<p:inputText id="adrs" 
+													value="#{cotationAuto.clientMB.maPersonne.adresse}"/>
+													
+												<p:outputLabel for="tel" value="Tel " style="margin-left:80px" />
+												<p:inputText id="tel"  value="#{cotationAuto.clientMB.maPersonne.telephone}"   required="true" requiredMessage="Vous devez entrer un numero de telephone"
+												 maxlength="8" />
+					
+												<p:outputLabel for="mail" value="Mail" style="margin-left:80px" />
+												<p:inputText id="mail" value="#{cotationAuto.clientMB.maPersonne.email}"  validatorMessage="L'email est incorrect" required="true" >
+								       <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							           </p:inputText>
+													
+												<h:outputText value="Fax"/>
+												<p:inputText value="#{cotationAuto.clientMB.maPersonne.fax}" />
+													
+												<h:outputText value="Adr géo" style="margin-left:80px"/>
+												<p:inputTextarea rows="1" cols="20" value="#{cotationAuto.clientMB.maPersonne.adresseGeo}" />
+												
+																																					
+													<h:outputText value="etes vous le conducteur? " style="margin-left:60px; font-size:9px;" rendered="false"></h:outputText>
+													<p:selectBooleanCheckbox value="#{cotationAuto.clientMB.etatClient}" rendered="false"/>
+                                            
+							                </h:panelGrid>
+							                <br /><br /><br />
+							                
+							                <fieldset><legend>ENTREZ VOS PARAMETRES DE CONNEXION</legend>
+							                
+							                <h:panelGrid columns="2" style="border-radius:100px;">
+							                
+							               	<p:outputLabel  value="Login" style="margin-left:150px"/>
+						             		<p:inputText value="#{cotationAuto.clientMB.maPersonne.loginPers}"/> 
+						                        
+												
+												
+											 <h:outputLabel for="pwd1" value="Mot de passe: *" style="margin-left:150px"/>
+                                              <p:password id="pwd1" value="#{cotationAuto.clientMB.maPersonne.motPassePers}" promptLabel="Veillez saisir votre mot de passe" match="pwd2" label="mot de passe 1" feedback="true" required="true" validatorMessage="Veuillez saisir le meme mot de passe"
+                                              weakLabel="faible" goodLabel="Bien" strongLabel="Très bien" />
+ 
+                                             <h:outputLabel for="pwd2" value="Confirmez : *" style="margin-left:150px"/>
+                                           <p:password id="pwd2" value="#{cotationAuto.clientMB.maPersonne.motPassePers}" label="Mot de passe 2" required="true" />
+																			
+							                </h:panelGrid>
+							                </fieldset>
+							                <br />
+							                
+				                        <h:commandButton value="Payer en ligne" action="#{cotationAuto.clientMB.validerClient}"  style="width:150px;height:40px; margin-left:350px;font-size:12px;border-radius:100px;"/> 
+				 	                    </fieldset>
+											</p:panel>	
+											
+											
+	<p:dialog id="modalDialog" header="Enregistrement client"
+			appendTo="@(body)" widgetVar="personne_Eng" modal="true"
+			height="50">
+			<h:outputText value="Personne déjà enregistré." />
+		</p:dialog>
+											
+											
+											
+											
+			                            </h:form>
+			                            
+	    
+	</ui:define>
+</ui:composition>
+</html>

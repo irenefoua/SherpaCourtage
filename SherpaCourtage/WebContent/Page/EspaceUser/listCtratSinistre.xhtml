@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateUserSpace.xhtml">
+	<ui:define name="i-page">
+		<p:menuitem value="Espace Personnel -Mes contrats/Mes Sinistres-" url="#"  />
+	</ui:define>
+	
+	<ui:define name="content">
+		<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus> 
+		<h:form id="gnl">
+			<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+				
+				<p:contextMenu for="ctraList" >
+			        <p:menuitem value="Consulter le(s) véhicule(s) assuré(s)" icon="ui-icon-search" actionListener="#{managedUserCtraSinList.consultVehiAss}" update=":vehiForm" />
+			        <p:menuitem value="Consulter tous les sinistres" icon="ui-icon-search" actionListener="#{managedUserCtraSinList.consultSin}" update=":vehiSinForm"/>
+			    </p:contextMenu>
+			    
+				 <p:dataTable id="ctraList" var="ctrCrs" value="#{managedUserCtraSinList.listCtrat}"
+				 			  rowKey="#{ctrCrs.ctrat.numPolice}" selection="#{managedUserCtraSinList.slctdCtraRw}"
+				 			  filteredValue="#{managedUserCtraSinList.fltrdCtraLst}" 
+				 			  selectionMode="single" widgetVar="ctraTable">
+					 <f:facet name="header">
+						 Liste de vos  Contrats (Click droit pour les details et les options)
+					 </f:facet>
+					 <p:column headerText="N° Police" style="width:16%;" filterBy="#{ctrCrs.ctrat.numPolice}">
+							 <h:outputText value="#{ctrCrs.ctrat.numPolice}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Effet" sortBy="lastAven.effet" style="width:10%;">
+					 	<h:outputText value="#{ctrCrs.lastAven.effet}">
+					 		<f:convertDateTime pattern="dd/MM/yyyy"/>
+					 	</h:outputText>
+					 </p:column>
+					 <p:column headerText="Echéance" sortBy="lastAven.echeance" style="width:10%;">
+					 	<h:outputText value="#{ctrCrs.lastAven.echeance}">
+					 		<f:convertDateTime pattern="dd/MM/yyyy"/>
+					 	</h:outputText>
+					 </p:column>
+					 <p:column headerText="Montant Net Payé" sortBy="netPaid" style="width:10%;">
+						 <h:outputText value="#{ctrCrs.netPaid}"/>
+					 </p:column>
+					 <p:column headerText="Branche" filterBy="#{ctrCrs.ctrat.risque.libelleRisque}" style="width:20%;">
+					 	<h:outputText value="#{ctrCrs.ctrat.risque.libelleRisque}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Progression" style="width:34%;" sortBy="progress">
+					 	<p:progressBar value="#{ctrCrs.progress}" displayOnly="true" /> 
+					 </p:column>
+				</p:dataTable>
+	
+			
+		</h:form>
+		
+		
+		<p:dialog header="Vehicules" widgetVar="dlg" showEffect="explode" height="300" width="800" appendTo="@(body)" modal="true">
+		    <h:form id="vehiForm">
+		    	<p:dataTable id="vehiList" var="vehi" value="#{managedUserVehiAssList.listVehiAssur}"
+				 			  rowKey="#{vehi.vehi.codeVehicule}" selection="#{managedUserVehiAssList.slctdVehiAss}"
+				 			  selectionMode="single" widgetVar="vehiTable">
+				 	 <p:ajax event="rowToggle" listener="#{managedUserVehiAssList.onRowToggle}"  />
+					 <f:facet name="header">
+						 Vehicules du Contrat "#{managedUserCtraSinList.slctdCtraRw.ctrat.numPolice}" (Derouler pour voir les garanties souscrites)
+					 </f:facet>
+					 <p:column style="width:16px">
+			            <p:rowToggler />
+			        </p:column>
+					 <p:column headerText="N° Immaticulation" >
+							 <h:outputText value="#{vehi.vehi.numImmat}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Numero Chassis">
+					 	<h:outputText value="#{vehi.vehi.chassis}"/>
+					 </p:column>
+					 <p:column headerText="Marque">
+					 	<h:outputText value="#{vehi.vehi.marque}"/>
+					 </p:column>
+					 <p:column headerText="Couleur">
+						 <h:outputText value="#{vehi.vehi.couleur}"/>
+					 </p:column>
+					 
+					 <p:rowExpansion>
+					 <h:panelGrid>
+			 			<p:dataTable id="vehiGar" var="gar" value="#{vehi.infoGarList}"
+				 			  rowKey="#{gar.garantie.codeGarantie}" >
+							 <f:facet name="header">
+								 Garanties souscrites pour le Véhicule immatriculé - #{vehi.vehi.numImmat} -
+							 </f:facet>
+							 <p:column headerText="Intitulé de la Garantie" >
+									 <h:outputText value="#{gar.garantie.libelleGarantie}"/>
+							 </p:column>
+							 
+							 <p:column headerText="Prime Nette Annuelle">
+							 	<h:outputText value="#{gar.primeNetteAnnuelle}"/>
+							 </p:column>
+							 <p:column headerText="Prime Nette pour la durée du contrat">
+							 	<h:outputText value="#{gar.primeNetteProrata}"/>
+							 </p:column>
+							 
+			 			</p:dataTable>
+			 			<f:facet name="footer">
+				 			<p:commandButton id="toSin" 
+				 							 value="Consulter les sinistres de ce véhicule"
+											 actionListener="#{managedUserCtraSinList.consultSin}" update=":vehiSinForm">
+											 
+							</p:commandButton>
+						</f:facet>
+					</h:panelGrid>
+			 			
+			        </p:rowExpansion>
+				</p:dataTable>
+		    </h:form>
+		</p:dialog>
+		
+		
+		<p:dialog header="Sinitres" widgetVar="dlgSin" showEffect="explode"  height="300" width="800" appendTo="@(body)" modal="true">
+			<h:form id="vehiSinForm">
+			<p:dataTable id="vehiSinList" var="sin" value="#{managedUserVehiSinList.listVehiSin}"
+				 			  rowKey="#{sin.id.codeSinistre}" 
+				 			  filteredValue="#{managedUserVehiSinList.fltrdVehiSin}" 
+				 			   widgetVar="sinTable" emptyMessage="Saisissez au moins un espace dans les champs de critère" >
+				 	 <f:facet name="header">
+						 Liste des Sinitres
+					 </f:facet>
+					 <p:column headerText="Vehicule en cause" filterBy="#{sin.vehicule.numImmat}">
+							 <h:outputText value="#{sin.vehicule.numImmat}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Numero du Sinistre" filterBy="#{sin.sinistre.codeSinistre}">
+							 <h:outputText value="#{sin.sinistre.codeSinistre}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Etat du Dossier" filterBy="#{sin.sinistre.positionDossier}">
+					 	<h:outputText value="#{sin.sinistre.positionDossier}"/>
+					 </p:column>
+					 <p:column headerText="Evaluation nette du sinistre XoF" sortBy="sinistre.evaluationNette">
+					 	<h:outputText value="#{sin.sinistre.evaluationNette}"/>
+					 </p:column>
+					 <p:column headerText="Votre responsabilité ds le sinistre" sortBy="rcAssure">
+						 <h:outputText value="#{sin.rcAssure}"/>
+					 </p:column>
+					 
+					 
+				</p:dataTable>
+				</h:form>
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

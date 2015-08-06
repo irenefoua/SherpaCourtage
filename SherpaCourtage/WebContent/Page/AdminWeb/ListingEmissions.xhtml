@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+
+	<!--<ui:define name="menu">
+	    Add your footer here or delete to use the default
+	</ui:define> -->
+
+	<ui:define name="content">
+		
+		
+		
+		<h:form id="form">
+		<p:messages id="messages" showDetail="false" autoUpdate="true"/>
+		
+			<fieldset class="fieldsetPilotage" >
+			<legend>Selection des critères</legend>
+			<h:panelGrid id="criteresDat" columns="2" columnClasses="halfleft,halfleft" style="width:100%">
+				
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			       <p:inputMask
+						value="#{managedListEmissions.dateDeb}"
+						required="true"
+						requiredMessage="Debut de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+					<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			       <p:inputMask
+						value="#{managedListEmissions.dateFin}"
+						required="true"
+						requiredMessage="Fin de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+			        <h:outputText value=""/>
+			        </h:panelGroup>
+			        
+			    </h:panelGrid>		
+			    			
+				<p:panelGrid id="criteres" columns="3" style="width:100%" columnClasses="tiersLeft,tiersLeft,tiersLeft">
+					
+				    			<h:outputText value="Choix des Points de Vente" style="font-weight:bold;"/>
+				    			<h:outputText value="Choix des Risques" style="font-weight:bold;"/>
+				    			<h:outputText value="Choix des types de mouvement" style="font-weight:bold;"/>
+				    			
+				    			<p:selectCheckboxMenu  id="slctPointV" label="Point de Vente"
+									value="#{managedListEmissions.slctdPtVtes}" converter="#{ptdeVenteCvtr}" style="width:100%" 
+									showCheckbox="true">
+						            <f:selectItems value="#{ptdeVenteCvtr.pointVenteList}" var="pointv"
+										itemLabel="#{pointv.libellePointVente}" itemValue="#{pointv}" />
+						        </p:selectCheckboxMenu>
+					 	
+						        
+				 				<p:selectCheckboxMenu  id="slctRisq" label="Risque"
+									value="#{managedListEmissions.slctdRisques}" converter="#{risqCvtr}" style="width:100%" 
+									showCheckbox="true">
+						            <f:selectItems value="#{risqCvtr.risqList}" var="risq"
+										itemLabel="#{risq.libelleRisque}" itemValue="#{risq}" />
+						        </p:selectCheckboxMenu>
+				 			
+				 				<p:selectCheckboxMenu id="mvmId" value="#{managedListEmissions.slctdMvmts}"  style="width:100%" >
+						            <f:selectItem itemLabel="Affaire Nouvelle" itemValue="Affaire Nouvelle" />
+						            <f:selectItem itemLabel="Incorporation" itemValue="Incorporation" />
+						            <f:selectItem itemLabel="Retrait" itemValue="Retrait" />
+						            <f:selectItem itemLabel="Modification de Garanties" itemValue="Modification de Garanties" />
+						            <f:selectItem itemLabel="Annulation" itemValue="Annulation" />
+						            <f:selectItem itemLabel="Reemission" itemValue="Reemission" />
+						            <f:selectItem itemLabel="Suspension" itemValue="Suspension" />
+						            <f:selectItem itemLabel="Remise en vigueur" itemValue="Remise en vigueur" />
+						            <f:selectItem itemLabel="Resiliation" itemValue="Resiliation" />
+						            <f:selectItem itemLabel="Modification de prise d'effet" itemValue="Modification Prise Effet" />
+						            <f:selectItem itemLabel="Renouvellement" itemValue="Renouvellement" />
+						         </p:selectCheckboxMenu>
+				 			
+				 		
+				 	<f:facet name="footer">
+				        
+				            <p:commandButton  value="OK" action="#{managedListEmissions.submitCriterias}" icon="ui-icon-search"
+											ajax="true" process=":form:criteres, :form:criteresDat, @this" update=":form:emiss, :form:emiss:rep" global="true">
+												
+							</p:commandButton>
+				      
+				 	</f:facet>
+					
+
+			</p:panelGrid>
+			
+			 </fieldset>
+			 
+			
+			 
+				 <p:dataTable var="ptVte" value="#{managedListEmissions.listStatByPtVte}">
+					        <f:facet name="header">
+					            STATISTIQUE DE PRODUCTION PAR POINT DE VENTE
+					        </f:facet>
+			            <p:subTable var="stats" value="#{ptVte.listDynAvenRisqRw}">
+				            <f:facet name="header">
+				                <h:outputText  value="#{ptVte.pointVente.libellePointVente}-#{ptVte.totalCA}" />
+				            </f:facet>
+				            <p:columns value="#{managedListEmissions.columns}" var="col" sortBy="#{stats[col.property]}" headerText="#{stats[col.header]}" >
+					            <h:outputText value="#{stats[col.property]}" />
+					        </p:columns>
+				        </p:subTable>
+				     
+			            
+			    </p:dataTable>
+
+				
+				
+			
+				<p:dataTable id="emiss"  var="em" value="#{managedListEmissions.listAvenByPtvte}" widgetVar="emissTbl" paginator="true" rows="10"
+		                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                                     rowsPerPageTemplate="5,10,15" 
+		                                      rowKey="#{em.avenant.numAvenant}" 
+		                                      style="width:100%"   
+		                                      filteredValue="#{managedListEmissions.filteredavenByPtvte}">
+		                                     
+		                            
+		                            <f:facet name="header">
+		                                Liste des mouvements selon les critères selectionnés
+		                            </f:facet>
+		
+		                            <p:column  filterBy="#{em.ptVte.libellePointVente}" headerText="Point de Vente" filterMatchMode="startsWith"  style="width:8%">
+		                                <h:outputText value="#{em.ptVte.libellePointVente}" />
+		                            </p:column>
+		                            
+		                            <p:column filterBy="#{em.exercice.codeexercice}" headerText="Exercice"  filterMatchMode="startsWith" style="width:8%">
+												 <h:outputText value="#{em.exercice.codeexercice}" />
+									</p:column>
+									
+									<p:column filterBy="#{em.contrat.risque.libelleRisque}" headerText="Risque"  filterMatchMode="startsWith" style="width:8%">
+												 <h:outputText value="#{em.contrat.risque.libelleRisque}" />
+									</p:column>
+									
+									<p:column filterBy="#{em.contrat.numPolice}" headerText="Police" filterMatchMode="startsWith" style="width:8%">
+												 <h:outputText value="#{em.contrat.numPolice}" />
+									</p:column>
+									
+									<p:column filterBy="#{em.nomRsClient} #{em.prenomClient}" headerText="Souscripteur"  filterMatchMode="startsWith" style="width:8%">
+												 <h:outputText value="#{em.nomRsClient} #{em.prenomClient}" />
+									</p:column>
+									
+									<p:column filterBy="#{em.avenant.numAvenant}" headerText="N° Avenant" filterMatchMode="startsWith" style="width:8%">
+												 <h:outputText value="#{em.avenant.numAvenant}" />
+									</p:column>
+									
+									<p:column filterBy="#{em.avenant.mouvement}" headerText="Mouvement"  filterMatchMode="startsWith" style="width:8%">
+												 <h:outputText value="#{em.avenant.mouvement}" />
+									</p:column>
+									
+									<p:column headerText="Date Effet" style="width:8%">
+												 <h:outputText value="#{em.avenant.effet}" >
+												 	<f:convertDateTime pattern="dd.MM.yyyy" />
+												 </h:outputText>
+									</p:column>
+									
+									<p:column headerText="Date Echeance" style="width:8%">
+												 <h:outputText value="#{em.avenant.echeance}">
+												 	<f:convertDateTime pattern="dd.MM.yyyy" />
+												 </h:outputText>
+									</p:column>
+									
+									<p:column headerText="Net a Payer" style="width:8%">
+										<h:outputText value="#{em.quittance.netAPayer}" />
+									</p:column>
+									
+									<p:column filterBy="#{em.quittance.etatQuittance}" headerText="Etat Quittance" 
+												 filterOptions="#{managedListEmissions.etatQuitOptions}" filterMatchMode="exact" style="width:8%">
+												 <h:outputText value="#{em.quittance.etatQuittance}" />
+									</p:column>
+									
+									<f:facet name="footer">
+										<p:commandButton id="rep"  value="Imprimer le report" action="#{managedListEmissions.imprimerPDF}" icon="ui-icon-search" />
+										<p:commandButton id="graph" rendered="true" value="Afficher les graphes" oncomplete="callGraphStat.show()"/>
+									</f:facet>
+		
+		         </p:dataTable>
+		         
+		         
+		         
+		         
+		 </h:form>
+		
+		 	<p:dialog  widgetVar="callGraphStat" height="900px" width="1200px" closable="true">
+		 <h:form>
+		 <p:outputPanel id="alertForm" autoUpdate="true" global="false">
+			
+			 	<p:fieldset legend="CAMEMBERTS DE REPARTION DU CHIFFRE D'AFFAIRE" toggleable="true" >
+			 		<h:panelGrid id="charts" columns="2" style="width:100%" columnClasses="HalfLeft,HalfLeft">
+				        
+						 
+							 <p:pieChart value="#{managedListEmissions.modelPtvte}" title="REPARTION DU CHIFFRE D'AFFAIRE PAR POINTS DE VENTE" legendCols="2" legendPosition="e" showDataLabels="true"/>
+							 
+							 <p:pieChart value="#{managedListEmissions.modelRisque}" title="REPARTION DU CHIFFRE D'AFFAIRE PAR RISQUES" legendPosition="e" legendCols="2" showDataLabels="true"/>
+							 
+							 <p:pieChart  value="#{managedListEmissions.modelMvmt}" title="REPARTION DU CHIFFRE D'AFFAIRE PAR MOUVEMENT" legendPosition="w" legendCols="2" showDataLabels="true"/>
+							
+							 <h:outputText value=""/>	
+						 
+					</h:panelGrid>
+		         </p:fieldset>
+		         <p:fieldset legend="PROGRESSION TEMPORELLE DU CHIFFRE D'AFFAIRE" toggleable="true" collapsed="true">
+		         
+			         <p:panel>
+			         	<p:lineChart value="#{managedListEmissions.modelTemp}" legendPosition="e" animate="true" 
+			         				 showDatatip="true" breakOnNull="false" maxY="#{managedListEmissions.minY}" 
+			         				 minY="#{managedListEmissions.maxY}" 
+								 	title="COURBE D'EVOLUTION DES CHIFFRES D'AFFAIRE PAR POINT DE VENTE"  xaxisAngle="90" />
+						</p:panel>
+		         </p:fieldset>
+			
+		</p:outputPanel>
+		 
+		 
+		 </h:form>
+			</p:dialog>
+	
+				
+					
+				
+		   
+		
+		
+		
+
+   
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<ui:composition template="../../template/templateadmin.xhtml">
+	<ui:define name="content">
+		
+				<h:form id="enregistrement_sc">
+				<p:messages autoUpdate="true" showDetail="false" />
+				<p:panel header="Enregistrement de la société">
+					<fieldset id="enregistrement_sc" class="fieldset">
+
+
+						<!-- <p:tab id="ongletVehicule" title="Véhicule"> -->
+						<!-- 						<fieldset >		 -->
+
+
+
+
+						<legend>Enregistrement de la société</legend>
+						<h:panelGrid id="grid" columns="6" style="margin-bottom:10px">
+
+							<h:outputText value="Nom de la Société*" />
+							<p:inputText value="#{managedSocieteAssurance.nomSocieteAssurance}"
+								id="nomsociete" validatorMessage="Pas plus de 30 caractère" required="true" requiredMessage="Veuillez entre le nom de la société">
+								<f:validateLength minimum="0" maximum="30" for="nomsociete"></f:validateLength>
+							</p:inputText>
+							<p:message for="nomsociete"  display="icon"/>
+
+							<h:outputText value="Abrégé*" style="margin-left:80px" />
+							<p:inputText value="#{managedSocieteAssurance.abrege}" id="abrege"
+								validatorMessage="Pas plus de 8 caractère" required="true" requiredMessage="veuillez entrer l'abréviation">
+								<f:validateLength minimum="0" maximum="8" for="abrege"></f:validateLength>
+							</p:inputText>
+							<p:message for="abrege" display="icon" />
+
+							<h:outputText value="Adresse Postale"/>
+							<p:inputText value="#{managedSocieteAssurance.adressePostale}"
+								id="adresse" validatorMessage="Pas plus de 30 caractère">
+								<f:validateLength minimum="0" maximum="30" for="adresse"></f:validateLength>
+							</p:inputText>
+							<p:message for="adresse" />
+
+							<h:outputText value="Devise Utilisé" style="margin-left:80px"/>
+							<p:inputText value="#{managedSocieteAssurance.deviseUtilise}"
+								id="devise" validatorMessage="Pas plus de 30 caractère">
+								<f:validateLength minimum="0" maximum="30" for="devise"></f:validateLength>
+							</p:inputText>
+							<p:message for="devise" />
+
+						</h:panelGrid>
+
+						<p:message for="buttonupdate" />
+						<p:message for="buttondelete" /><br />
+						<h:commandButton id="buttonadd" value="Enregistrer"
+							binding="#{managedSocieteAssurance.buttonadd}"
+							action="#{managedSocieteAssurance.validateadd}" />
+
+
+						<h:commandButton id="buttonupdate" value="Modifier"
+							binding="#{managedSocieteAssurance.buttonupdate}"
+							action="#{managedSocieteAssurance.validateupdate}" />
+
+
+						<h:commandButton id="buttondelete" value="Supprimer"
+							binding="#{managedSocieteAssurance.buttondelete}"
+							action="#{managedSocieteAssurance.validatedelete}" />
+							
+						<h:commandButton  value="initialiser" action="#{managedSocieteAssurance.reset}"/>
+						<h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+					</fieldset>
+				
+				<br></br>
+				<br></br>
+					<fieldset class="fieldset">
+						<legend>Liste des Société d'assurance </legend>
+					<h:panelGrid>
+							<p:dataTable id="societeTB" var="societe" value="#{managedSocieteAssurance.societeAssuranceList}" rowKey="#{societe.id}"  
+                 selection="#{managedSocieteAssurance.societeAssuranceMod}" selectionMode="single" scrollable="true"
+												scrollHeight="100"
+												scrollWidth="1050">
+								<p:ajax event="rowSelect" listener="#{managedSocieteAssurance.chargerSelection}">
+        					 	</p:ajax>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Code société" />
+									</f:facet>
+									<h:outputText value="#{societe.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Nom de la Société" />
+									</f:facet>
+									<h:outputText value="#{societe.nomSocieteAssurance}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Abrégé" />
+									</f:facet>
+									<h:outputText value="#{societe.abrege}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Adresse Postale" />
+									</f:facet>
+									<h:outputText value="#{societe.adressePostale}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Devise utilisé" />
+									</f:facet>
+									<h:outputText value="#{societe.deviseUtilise}" />
+								</p:column>
+
+							</p:dataTable>
+						</h:panelGrid>
+
+
+
+					</fieldset>
+
+				</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

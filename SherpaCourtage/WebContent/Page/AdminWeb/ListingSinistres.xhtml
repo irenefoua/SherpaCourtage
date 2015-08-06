@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+
+		<h:form id="form">
+		<p:breadCrumb>
+		    <p:menuitem value="Home" action="/index?faces-redirect=true"/>
+		</p:breadCrumb>
+		
+			<p:messages id="messages" showDetail="false" closable="true"/>
+			<fieldset class="fieldsetPilotage" >
+			<legend>Selection des critères</legend>
+			<h:panelGrid id="criteresDat" columns="2" columnClasses="halfleft,halfleft" style="width:100%">
+				
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			       <p:inputMask
+						value="#{managedListSinistres.dateDeb}"
+						required="true"
+						requiredMessage="Debut de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+					<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			       <p:inputMask
+						value="#{managedListSinistres.dateFin}"
+						required="true"
+						requiredMessage="Fin de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+			        <h:outputText value=""/>
+			        </h:panelGroup>
+			        
+			    </h:panelGrid>		
+			    			
+				<h:panelGrid id="criteres" columns="2" style="width:50%" columnClasses="garLeft,garLeft">
+				    			<h:outputText value="Choix des Points de vente" style="font-weight:bold;"/>
+				    			<h:outputText value="Choix des Risques" style="font-weight:bold;"/>
+							<p:selectCheckboxMenu value="#{managedListSinistres.selectedPointVente}" converter="#{entityConverter}" label="Point de vente" 
+        						filter="true" filterMatchMode="startsWith" panelStyle="width:250px" style="width:100%">
+           						 <f:selectItems value="#{managedListSinistres.listPointVente}" var="tata" itemLabel="#{tata.libellePointVente}" itemValue="#{tata}"/>
+        					</p:selectCheckboxMenu>
+				 			
+					 			<p:selectCheckboxMenu  value="#{managedListSinistres.selectedRisque}" converter="#{entityConverter}" label="Risque" 
+        						filter="true" filterMatchMode="startsWith" panelStyle="width:250px" style="width:100%">
+            					<f:selectItems value="#{managedListSinistres.listRisque}" var="tata" itemLabel="#{tata.libelleRisque}" itemValue="#{tata}"/>
+        						</p:selectCheckboxMenu>
+				 	<f:facet name="footer">
+				        
+				            <p:commandButton  value="Valider Les Critères" action="#{managedListSinistres.REcherchSinistre}"  update="messages, :form:tablesinistre" icon="ui-icon-search"/>
+				      
+				 	</f:facet>
+					
+
+			</h:panelGrid>
+			
+			 </fieldset>
+ <p:separator style="width:500px;height:20px" />
+ 	<p:dataTable id="tablesinistre" var="tata" value="#{managedListSinistres.listesinistrestriee}" emptyMessage="" widgetVar="sinTbl" paginator="true" rows="10" 
+		                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                                     rowsPerPageTemplate="5,10,15" 
+		                                      style="width:100%"   
+		                                 >
+		                                     
+		                            
+		                            <f:facet name="header">
+		                                Liste des sinistres selon les critères selectionnés
+		                            </f:facet>
+			 <p:column headerText="Points de vente">
+		        <h:outputText value="#{tata.pointVente}" />
+		    </p:column>
+		    
+		 	<p:column headerText="Sinistre">
+		        <h:outputText value="#{tata.sinistre}" />
+		    </p:column>
+		    
+		    <p:column headerText="Risque">
+		        <h:outputText value="#{tata.risque}"  />
+		    </p:column>
+		    
+		    <p:column headerText="Reglement">
+		        <h:outputText value="#{tata.reglement}" />
+		    </p:column>
+		    
+		    <p:column headerText="Remboursement">
+		        <h:outputText value="#{tata.remboursement}" />
+		    </p:column>
+	
+		<f:facet name="footer">
+										
+			<p:commandButton  value="Afficher Le Graphe"
+                                           style="width:200px"
+								                actionListener="#{managedListSinistres.callGraphStat}"/>	 
+									</f:facet>
+		
+		         </p:dataTable>
+			
+	
+	<br />
+	
+		</h:form>
+
+		 
+	</ui:define>
+</ui:composition>
+</html>

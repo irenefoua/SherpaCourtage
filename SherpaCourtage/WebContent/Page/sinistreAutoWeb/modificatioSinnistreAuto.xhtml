@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/templateWebAuto.xhtml">
+	
+	<ui:define name="content">
+	<h:form>
+	<p:breadCrumb>
+		    <p:menuitem value="Home" action="/index?faces-redirect=true" />
+		    <p:menuitem value="Auto" action="/Pages/AutoWeb/indexAuto?faces-redirect=true" />
+		    <p:menuitem value="Declaration de Sinistre" action="/Page/sinistreAutoWeb/declarationSinnistreAuto?faces-redirect=true" />
+		</p:breadCrumb>
+	</h:form>
+	 <h:form id="rech_contrat" enctype="multipart/form-data">
+	<p:messages id="growl" sticky="true" autoUpdate="true" closable="true"/>
+	
+	
+    <!-- Confirmation de validation -->
+	<p:confirmDialog global="true">
+		<p:commandButton value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+		<p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+	</p:confirmDialog>
+	</h:form>
+	</ui:define>
+	
+</ui:composition>
+</html>

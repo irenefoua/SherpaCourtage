@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+     
+    <h:head>
+        <title>GRAPHIQUE STATISTIQUES</title> 
+    </h:head>
+     
+    <h:body>
+
+		<h:panelGrid  columns="1" style="width:100%; height: 100%" columnClasses="garColum">
+			<p:pieChart id="char" type="pie" title="REPARTITION DES CLIENTS PAR POINT DE VENTE" value="#{managedRapportClient.pieChartModel}" 
+			legendPosition="w" style="width:600px; heigth:600px"/>
+		</h:panelGrid>
+    </h:body>
+</html>

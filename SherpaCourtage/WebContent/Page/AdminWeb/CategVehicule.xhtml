@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../../template/templateadmin.xhtml"> 
+
+ 
+	<!--<ui:define name="menu">
+	    Add your footer here or delete to use the default
+	</ui:define> -->
+
+	<ui:define name="content">
+	<p:messages id="growl" sticky="true" showDetail="true" redisplay="FALSE" />
+		<h:form id="datab">
+                        <p:dataTable id="categs"  var="categ" value="#{managedCatVehi.listcateg}" widgetVar="CategsTbl" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{managedCatVehi.selectedCateg}"
+                                      rowKey="#{categ.id}">
+                                     <p:ajax event="rowSelect" update=":datab:categs" listener="#{managedCatVehi.ligneSelected}" />
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Search all fields:" />
+                                    <h:inputText id="globalFilter" onkeyup="CategsTbl.filter()" />
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column  filterBy="#{categ.id}" headerText="Code Categorie" filterMatchMode="startsWith">
+                                <h:outputText value="#{categ.id}" />
+                            </p:column>
+
+                            <p:column  filterBy="#{categ.libelleSousCatVehicule}" headerText="Libelle" filterMatchMode="startsWith">
+                                <h:outputText value="#{categ.libelleSousCatVehicule}" />
+                            </p:column>
+							
+							<f:facet name="footer">
+										
+								<p:commandButton value="Add New CategorieVehicule" update=":addform:displayA" actionListener="#{managedCatVehi.preAddNw}" oncomplete="rowAction.hide();AddcategDlg.show();"/>
+											
+							</f:facet>
+                        </p:dataTable>
+                    </h:form>
+                    
+                    <p:dialog header="Data Missing!" widgetVar="NoExist" resizable="false" id="noexist"
+                              width="400" showEffect="fade" hideEffect="explode" closeOnEscape="true"  onCloseUpdate=":datab:categs">
+                        <!--<h:form>--><h:form>
+                            <h:panelGrid >
+                                <h:outputText value="Les donn&eacute;es que vous tentez de consulter ou modifier n'existent plus dans la BD"/>
+                                <p:commandButton update=":datab:categs" value="OK"  oncomplete="NoExist.hide()" />
+                            </h:panelGrid>
+                            <!--</h:form>--></h:form>
+                    </p:dialog>
+
+                    <p:dialog header="Actions" widgetVar="rowAction" resizable="false" id="rowMAJ"
+                              width="200" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">
+                       <h:form>
+                            <h:panelGrid columns="4" styleClass="actions" cellpadding="2">
+                                <p:commandButton update=":x1:displayV" actionListener="#{managedCatVehi.CheckExist}" oncomplete="rowAction.hide();checkExistV(xhr,status,args)" icon="ui-icon ui-icon-search" title="View" />
+                                <p:commandButton update=":edform:displayE" actionListener="#{managedCatVehi.CheckExist}" oncomplete="rowAction.hide();checkExistE(xhr,status,args)" icon="ui-icon ui-icon-pencil" title="Edit"/>
+                                <p:commandButton  actionListener="#{managedCatVehi.CheckExist}" oncomplete="rowAction.hide();checkExistD(xhr,status,args)" icon="ui-icon ui-icon-close" title="Delete">
+                                </p:commandButton>
+                                <p:commandButton update=":addform:displayA" actionListener="#{managedCatVehi.preAddNw}" oncomplete="rowAction.hide();AddcategDlg.show();" icon="ui-icon ui-icon-plusthick" title="New"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--<p:outputPanel id="view">-->
+                    <p:dialog header="Details Categorie" widgetVar="DtlcategDlg" resizable="false" id="DetCatDlg"
+                              width="500" showEffect="fade" hideEffect="explode">
+                        <h:form id="x1">
+                        <h:panelGrid id="displayV" columns="2" cellpadding="4" style="margin:0 auto;">
+                            <f:facet name="header">
+                                <h:outputText value="code &zwj;:#{managedCatVehi.selectedCateg.id}" style="font-weight:bold" rendered="true"/>
+                            </f:facet>
+
+                            <h:outputText value="Libelle de la categorie:" />
+                            <h:outputText value="#{managedCatVehi.selectedCateg.libelleSousCatVehicule}" style="font-weight:bold" />
+
+                        </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                    <!--</p:outputPanel>-->
+
+                    <p:dialog header="Modif Categorie" widgetVar="MdfcategDlg" resizable="false" id="Modifcateg"
+                              width="700" showEffect="fade" hideEffect="explode" position="center" modal="true" appendToBody="true">
+                        <!--<h:form>--><h:form id="edform" >
+                            <h:panelGrid id="displayE" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                                <f:facet name="header">
+                                    <h:outputText value="code &zwj;:#{managedCatVehi.selectedCateg.id}" style="font-weight:bold" rendered="true"/>
+                                </f:facet>
+
+                                <h:outputText value="Libelle de la categorie:" />
+                                <p:inputText id="libelle" value="#{managedCatVehi.selectedCateg.libelleSousCatVehicule}" required="true" label="Libelle Categorie"/>
+                                <p:message id="Msglib" for="libelle"  rendered="true" />
+
+                                
+                                <f:facet name="footer">
+                                    <!--<p:outputPanel layout="block" style="text-align:right">-->
+                                    <p:commandButton update=":datab:categs,:edform:displayE,:growl" value="Save" actionListener="#{managedCatVehi.save}"
+                                                     oncomplete="onEditComplete(xhr,status,args)" icon="ui-icon ui-icon-check"/>
+                                    <p:commandButton value="Cancel" onclick="MdfcategDlg.hide()" type="button" icon="ui-icon ui-icon-close"/>
+                                    <!--</p:outputPanel>-->
+                                </f:facet>
+
+                            </h:panelGrid>
+                            <!--</h:form>--></h:form>
+                    </p:dialog>
+                    
+                    <p:dialog header="Add Categorie" widgetVar="AddcategDlg" resizable="false" id="Addcateg"
+                              width="700" showEffect="fade" hideEffect="explode" position="center" modal="true" appendToBody="true">
+                        <!--<h:form>--><h:form id="addform" >
+                            <h:panelGrid id="displayA" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                                <f:facet name="header">
+                                    <h:outputText value="code &zwj;:#{managedCatVehi.newCateg.id}" style="font-weight:bold" rendered="true"/>
+                                </f:facet>
+
+                                <h:outputText value="Libelle de la categorie:" />
+                                <p:inputText id="libelle" value="#{managedCatVehi.newCateg.libelleSousCatVehicule}" required="true" label="Libelle Categorie"/>
+                                <p:message id="Msglib" for="libelle"  rendered="true" />
+
+                                
+                                <f:facet name="footer">
+                                    <!--<p:outputPanel layout="block" style="text-align:right">-->
+                                    <p:commandButton update=":datab:categs,:addform:displayA,:growl" value="Save" actionListener="#{managedCatVehi.addNew}"
+                                                      icon="ui-icon ui-icon-check"/>
+                                    <p:commandButton value="Cancel" onclick="AddcategDlg.hide()" type="button" icon="ui-icon ui-icon-close"/>
+                                    <!--</p:outputPanel>-->
+                                </f:facet>
+
+                            </h:panelGrid>
+                            <!--</h:form>--></h:form>
+                    </p:dialog>
+
+
+                    <p:dialog width="400"
+                              showEffect="explode" hideEffect="explode"
+                               header="Suppression d'une catégorie"  widgetVar="confirmation" id="confirm" >
+                            <h:panelGrid columns="2" >   
+		                            <f:facet name="header">
+		                                    <h:outputText value="Etes-vous sur de vouloir supprimmer cette Categorie " style="font-weight:bold" rendered="true"/>
+		                            </f:facet>
+		                        <!--<h:form>--><h:form>
+		                            <p:commandButton value="Yes sure" update=":datab:categs,:growl"  actionListener="#{managedCatVehi.delete}" oncomplete="checkDeletable(xhr,status,args)"/>
+		                            <p:commandButton value="Not yet" onclick="confirmation.hide()" type="button" />
+		                            <!--</h:form>--></h:form>
+                            </h:panelGrid>
+                    </p:dialog>
+                    <script type="text/javascript">
+                        function onEditComplete(xhr, status, args) {
+                            if(args.validationFailed || args.existSuch ) {
+                                jQuery('#Modifcateg').effect("shake", { times:3 }, 100);
+                            } else {
+                                MdfcategDlg.hide();
+                                //jQuery('#loginLink').fadeOut();
+                            }
+                        }
+                        function checkExistV(xhr, status, args) {
+                            if(args.exist) {
+                                DtlcategDlg.show();
+                            } else {
+                                NoExist.show();
+                            }
+                        }
+                        function checkExistE(xhr, status, args) {
+                            if(args.exist) {
+                                MdfcategDlg.show();
+                            } else {
+                                NoExist.show();
+                            }
+                        }
+                        function checkExistD(xhr, status, args) {
+                            if(args.exist) {
+                                confirmation.show();
+                            } else {
+                                NoExist.show();
+                            }
+                        }
+                        function checkDeletable(xhr, status, args) {
+                            if(args.deleted) {
+                                jQuery('#confirm').effect("shake", { times:3 }, 100);
+                            } else {
+                                confirmation.hide();
+                            }
+                        }
+                    </script>
+	</ui:define>
+
+
+</ui:composition>
+</html>

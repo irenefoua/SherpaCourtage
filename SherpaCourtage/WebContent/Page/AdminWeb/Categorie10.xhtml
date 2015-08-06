@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 10 : VEHICULES SPECIAUX (Catégorie 10)">
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="5">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column colspan="5">AMBULANCES, CORBILLARDS, FOURGONS FUNERAIRES</p:column>
+        </p:row>
+        <p:row>
+            <p:column  colspan="2">Puissance administrative</p:column>
+            <p:column colspan="3">Prime de base</p:column>  
+        </p:row>
+    <p:row>
+           <p:column style="font-weight: bold; border: 1px solid black;">Diesel</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">Essence</p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Zone 3</p:column>
+    </p:row>
+    </f:facet>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">1 à  2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">1 </p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE12D1Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE12D1Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE12D1Zone3}"></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">3 à  6</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">2 à 4</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif10.rcTarif10.paE36D24Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE36D24Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE36D24Zone3}"></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">7 à 9</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">5 à 6</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE79D56Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE79D56Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE79D56Zone3}"></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">10 à  11</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">7 à 8</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif10.rcTarif10.paE1011D78Zone1}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE1011D78Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE1011D78Zone3}"></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">12 et plus</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">9 et plus</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE12D9Zone1}" ></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE12D9Zone2}"></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif10.rcTarif10.paE12D9Zone3}"></p:inputText></p:column>  
+    </p:row>
+   </p:panelGrid>	
+   </p:panel>
+   <br />
+   
+		<fieldset><legend>AUTRES GARANTIES</legend>
+    <h:outputText value="Selon le type de véhicule appliquer les tarifs de la catégorie 1, 2 ou 3"></h:outputText>
+		</fieldset>
+		<br />
+    
+		<fieldset>
+<p:commandButton value="Enregistrer" onclick="confirm.show();"  style="width:150px;height:40px; margin-left: 35px;font-size:15px;border-radius:20px;margin-left:250px"/>
+		</fieldset>
+		</h:form>
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif10.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

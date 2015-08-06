@@ -1,0 +1,177 @@
+
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+<h:form id="formG">
+		
+		<p:messages id="messages" showDetail="false"/>
+		
+			<fieldset class="fieldsetPilotage" >
+			<legend>Selection des critères</legend>
+			<h:panelGrid id="criteresDat" columns="2" columnClasses="halfleft,halfleft" style="width:100%">
+				
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			       <p:inputMask
+						value="#{pilotageGarantie.dateDebut}"
+						required="true"
+						requiredMessage="Debut de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+					<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			       <p:inputMask
+						value="#{pilotageGarantie.dateFin}"
+						required="true"
+						requiredMessage="Fin de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+			        <h:outputText value=""/>
+			        </h:panelGroup>
+			        
+			    </h:panelGrid>		
+			    			
+				<h:panelGrid id="criteres" columns="3" style="width:100%" columnClasses="garLeft,garLeft,garLeft">
+					
+				    			<h:outputText value="Choix des Risques" style="font-weight:bold;"/>
+				    			<h:outputText value="Choix des Catégories" style="font-weight:bold;"/>
+				    			<h:outputText value="Choix des Garanties" style="font-weight:bold;"/>
+							<p:panelGrid columns="2" columnClasses="garLeftSmall,garRight">
+				 				<p:selectCheckboxMenu  
+									value="#{pilotageGarantie.slctdRisques}" widgetVar="nodeList" layout="grid" columns="1" converter="#{risqCvtr}" style="width:100%" 
+									filter="true" filterMatchMode="startsWith" >
+						            <f:selectItems value="#{risqCvtr.risqList}" var="risq"
+										itemLabel="#{risq.libelleRisque}" itemValue="#{risq}" />
+										   </p:selectCheckboxMenu>
+						         <p:commandButton  value="Ok" actionListener="#{pilotageGarantie.choixRisque}" icon="ui-icon-search"
+										 process=":formG:criteres" update=":formG:criteres, :formG:chartsOp"/>
+				 			</p:panelGrid>
+				 			
+					 			<p:selectCheckboxMenu  value="#{pilotageGarantie.slctdCategorie}" layout="grid" columns="1" converter="#{categorieCvtr}" style="width:100%"
+					 			filter="true" filterMatchMode="startsWith">
+						            <f:selectItems value="#{categorieCvtr.listCategorieCopie}" var="ca"
+										itemLabel="#{ca.libelleCategorie}" itemValue="#{ca}"  />
+						        </p:selectCheckboxMenu>
+
+						        
+						        <p:selectCheckboxMenu  value="#{pilotageGarantie.slctdGarantie}" layout="grid" columns="1" converter="#{garantieCvtr}" style="width:100%"
+						        filter="true" filterMatchMode="startsWith">
+						            <f:selectItems value="#{garantieCvtr.listGarantieCopie}" var="ga"
+										itemLabel="#{ga.libelleGarantie}" itemValue="#{ga}"  />
+						        </p:selectCheckboxMenu>
+				 		
+				 	<f:facet name="footer">
+				        
+				            <p:commandButton  value="Valider Les Critères" actionListener="#{pilotageGarantie.submitCriterias}" icon="ui-icon-search"
+											process="@this, :formG:criteresDat, :formG:criteres" update=":formG:criteres, :formG:chartsOp, :formG:garId"/>
+				      
+				 	</f:facet>
+					
+
+			</h:panelGrid>
+			
+			 </fieldset>
+			 <p:separator style="width:500px;height:20px" />
+			<p:outputPanel id="chartsOp">
+			
+			<p:dataTable id="garId" emptyMessage="" var="gar" value="#{pilotageGarantie.garantiesListSelectd}" widgetVar="garTbl" paginator="true" rows="10" 
+		                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                                     rowsPerPageTemplate="5,10,15" 
+		                                      style="width:100%"   
+		                                 >
+		                                     
+		                            
+		                            <f:facet name="header">
+		                                Liste des garanties selon les critères selectionnés
+		                            </f:facet>
+		
+									<p:column headerText="Risque"  filterMatchMode="startsWith" style="width:15%">
+												 <h:outputText value="#{gar.risque.libelleRisque}" />
+									</p:column>
+									
+									<p:column  headerText="Catégorie" filterMatchMode="startsWith" style="width:25%">
+												 <h:outputText value="#{gar.categorie.libelleCategorie}" />
+									</p:column>
+									
+							
+									<p:column  headerText="Garantie" filterMatchMode="startsWith" style="width:12%">
+												 <h:outputText value="#{gar.codeGarantie}" />
+									</p:column>
+									
+									<p:column  headerText="Libelle Garantie"  filterMatchMode="startsWith" style="width:35%">
+												 <h:outputText value="#{gar.libelleGarantie}" />
+									</p:column>
+									
+									<p:column headerText="Prime" style="width:13%">
+										<h:outputText value="#{gar.prime}" />
+									</p:column>
+	
+									<f:facet name="footer">
+										
+								<p:commandButton  value="Afficher Les Graphes" oncomplete="callGraphStat.show()"
+                                             
+											 style="width:200px"
+								               />	 
+									</f:facet>
+		
+		         </p:dataTable>
+			
+		         <p:separator style="width:500px;height:20px" />
+		      
+		         </p:outputPanel>
+		                  
+		 </h:form>
+		 
+		 <p:dialog widgetVar="callGraphStat" height="100%" width="100%" closable="true"><h:form>
+		 <h:panelGrid  style="width:100%">	
+
+<h:panelGrid  columns="1" style="width:100%; height: 100%" columnClasses="garColum">
+			        <p:pieChart type="pie" value="#{pilotageGarantie.modelRisque}"
+						  legendCols="2"
+	 					 legendPosition="e"
+	 					 title="REPARTION DES PRIMES GARANTIES PAR RISQUE"
+	 					 diameter="200"
+	 					 showDataLabels="true"/>
+			         
+						 <p:pieChart type="pie" value="#{pilotageGarantie.modelCategorie}"
+						  legendCols="3"
+	 					 legendPosition="e"
+	 					 title="REPARTION DES PRIMES GARANTIES PAR CATEGORIE"
+	 					  diameter="200"
+	 					 showDataLabels="true"/>
+	 				
+						 <p:pieChart type="pie" value="#{pilotageGarantie.modelGarantie}"
+						  legendCols="3"
+						  style="height: 700px"
+	 					 legendPosition="e"
+	 					 title="REPARTION DES PRIMES GARANTIES PAR GARANTIE"
+	 					  diameter="300"
+	 					 showDataLabels="true"/>
+
+						</h:panelGrid>
+						</h:panelGrid>
+		 
+		 
+		 
+		 
+		 </h:form></p:dialog>
+			
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+
+
+	<!--<ui:define name="menu">
+	    Add your footer here or delete to use the default
+	</ui:define> -->
+
+	<ui:define name="content">
+
+		<h:form id="form">
+			<p:messages id="messages" showDetail="false" />
+			
+			<p:panel id="basic" header="Critères"  style="margin-bottom:10px">
+			<fieldset class="fieldset" >
+			<legend>Détermination de la période</legend>
+			<h:panelGrid id="criteresDat" columns="2" columnClasses="halfleft,halfleft" style="width:100%">
+				
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			        <p:inputMask mask="99/99/9999" value="#{managedListingMvtParCategCima.dateDeb}" required="true" requiredMessage="Debut de Période non renseignée"  style="width:100%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+					<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			      <p:inputMask mask="99/99/9999" value="#{managedListingMvtParCategCima.datefin}" required="true" requiredMessage="Fin de Période non renseignée" style="width:100%;">
+					<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>	
+					</p:inputMask>
+			        <h:outputText value=""/>
+			        </h:panelGroup>
+			        </h:panelGrid>
+			        
+			<p:panelGrid id="criteres" columns="2" style="width:100%" columnClasses="tiersLeft,tiersLeft,tiersLeft">
+			<h:panelGroup>
+			<!-- <h:outputText value="Choisir le Point de vente" style="font-weight:bold;"> </h:outputText>
+			<p:selectOneMenu value="#{managedListingMvtParCategCima.idPvt}"  >
+			<f:selectItems value="#{managedListingMvtParCategCima.elements}" var="pvt" itemLabel="#{pvt.libellePointVente}" itemValue="#{pvt.id}" />
+			</p:selectOneMenu> -->
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<!-- <h:outputText value="Choisir la Catégorie" style="font-weight:bold;"> </h:outputText>
+			<p:selectOneMenu value="#{managedListingMvtParCategCima.idCategCima}" requiredMessage="Sélectionner Une catégorie" >
+			<f:selectItems value="#{managedListingMvtParCategCima.elementsCategCima}"  var="categ" itemLabel="#{categ.libelleRisque}" itemValue="#{categ.id}" />
+			</p:selectOneMenu> -->
+			</h:panelGroup>
+			</p:panelGrid>
+			<f:facet name="footer">
+			<p:commandButton  value="Valider les critères" actionListener="#{managedListingMvtParCategCima.req}" update=":form:basic3, :form:basic2, :form:basic1, :form:dial, :form:dial2"   icon="ui-icon-search"/>
+			</f:facet>
+			</fieldset>
+			</p:panel>
+			
+			<p:panel id="basic3" header="Résultats Global pour la période du #{managedListingMvtParCategCima.dateDeb} au #{managedListingMvtParCategCima.datefin}"  style="margin-bottom:10px">
+			<p:dataTable id="tblresult3" emptyMessage="Aucun Résultat" value="#{managedListingMvtParCategCima.listreqResult}" var="globalR" >
+			<p:column headerText="Risque">
+			<h:outputText value="#{globalR.libelle}"></h:outputText>
+			</p:column>
+			<p:column headerText="Evaluation Brute">
+			<h:outputText value="#{globalR.totalBrute}"></h:outputText>
+			</p:column>
+			<p:column headerText="Evaluation Nette">
+			<h:outputText value="#{globalR.totalNette}"></h:outputText>
+			</p:column>
+			<f:facet name="footer">
+            <p:commandButton rendered="true" actionListener="#{managedListingMvtParCategCima.callGraphStat}"  icon="ui-icon-search" value="afficher graphique"  />
+        </f:facet>
+			</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="basic2" header="Résultats / point de vente pour la période du #{managedListingMvtParCategCima.dateDeb} au #{managedListingMvtParCategCima.datefin}"  style="margin-bottom:10px">
+			<p:dataTable id="tblresult2" emptyMessage="Aucun Résultat" value="#{managedListingMvtParCategCima.listreqResultpvt}" var="globalpvt" selectionMode="single" selection="#{managedListingMvtParCategCima.selectedListnistre}"  rowKey="#{globalpvt.libellepvt}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" >
+			 <p:ajax event="rowSelect" listener="#{managedListingMvtParCategCima.onRowSelect}" update=":form:basic1" />
+			<p:column headerText="Point de Vente">
+			<h:outputText value="#{globalpvt.libellepvt}"></h:outputText>
+			</p:column>
+			<p:column headerText="Evaluation Brute">
+			<h:outputText value="#{globalpvt.totalBrute}"></h:outputText>
+			</p:column>
+			<p:column headerText="Evaluation Nette">
+			<h:outputText value="#{globalpvt.totalNette}"></h:outputText>
+			</p:column>
+			<f:facet name="footer">
+            <p:commandButton process="@this" update=":form:carDetail2" icon="ui-icon-search" value="afficher graphique" oncomplete="PF('carDialog2').show()" />
+        </f:facet>
+			</p:dataTable>
+			</p:panel>
+			
+			<p:panel id="basic1" header="Résultats pour le point de vente: #{managedListingMvtParCategCima.pvtslect}"   style="margin-bottom:10px">
+			<p:dataTable id="tblresult" emptyMessage="Aucun Résultat" var="glopvt" value="#{managedListingMvtParCategCima.listreqResultpvtU}" >
+			<p:column headerText="Risque">
+			<h:outputText value="#{glopvt.libelle}"></h:outputText>
+			</p:column>
+			<p:column headerText="Evaluation Brute">
+			<h:outputText value="#{glopvt.totalBrute}"></h:outputText>
+			</p:column>
+			<p:column headerText="Evaluation Nette">
+			<h:outputText value="#{glopvt.totalNette}"></h:outputText>
+			</p:column>
+			
+			</p:dataTable>
+			</p:panel>
+			
+			 <p:dialog header="Graphique" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true" id="dial" appendTo="@(body)">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+        <p:pieChart legendPosition="E" type="pie" title="Risque" showDataLabels="true" value="#{managedListingMvtParCategCima.pieModel1}" style="width:500px;height:400px" />
+        
+       </p:outputPanel>
+       </p:dialog>
+       
+        <p:dialog header="Graphique" widgetVar="carDialog2" modal="true" showEffect="fade" hideEffect="fade" resizable="true" id="dial2" appendTo="@(body)">
+        <p:outputPanel id="carDetail2" style="text-align:center;">
+        <p:pieChart legendPosition="E" type="pie" title="Point de vente" showDataLabels="true" value="#{managedListingMvtParCategCima.pieModel2}" style="width:500px;height:400px" />
+        
+       </p:outputPanel>
+       </p:dialog>
+			</h:form>
+			
+		</ui:define>
+</ui:composition>			
+</html>

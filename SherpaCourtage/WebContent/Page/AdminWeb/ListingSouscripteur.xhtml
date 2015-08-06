@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="form">
+		<p:breadCrumb>
+		    <p:menuitem value="Home" action="/index?faces-redirect=true"/>
+		    <p:menuitem value="Rapport client" action="/pages/Pilotage/ListingEmissions?faces-redirect=true"/>
+		</p:breadCrumb>
+		
+			<p:messages id="messages" showDetail="false" closable="true"/>
+
+			<fieldset class="fieldsetPilotage" >
+			<legend>Selection des critères</legend>
+			<br></br>
+			<h:panelGrid id="criteresDat" columns="2" columnClasses="halfleft,halfleft" style="width:100%">
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			       <p:inputMask
+						value="#{managedRapportClient.dateDeb}"
+						required="true"
+						requiredMessage="Debut de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+				<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			       <p:inputMask
+						value="#{managedRapportClient.dateFin}"
+						required="true"
+						requiredMessage="Fin de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+			        <h:outputText value=""/>
+			    </h:panelGroup>
+			    </h:panelGrid>	
+		
+			<h:panelGrid columns="3" cellpadding="5">
+        	<p:selectCheckboxMenu value="#{managedRapportClient.selectedPointVente}" converter="#{entityConverter}" label="Point de vente" 
+        		filter="true" filterMatchMode="startsWith" panelStyle="width:250px" style="width:200px">
+            <f:selectItems value="#{managedRapportClient.listPointVente}" var="tata" itemLabel="#{tata.libellePointVente}" itemValue="#{tata}"/>
+        	</p:selectCheckboxMenu>
+        	
+        	<p:selectCheckboxMenu  value="#{managedRapportClient.selectedRisque}" converter="#{entityConverter}" label="Risque" 
+        		filter="true" filterMatchMode="startsWith" panelStyle="width:250px" style="width:200px">
+            	<f:selectItems value="#{managedRapportClient.listRisque}" var="tata" itemLabel="#{tata.libelleRisque}" itemValue="#{tata}"/>
+        	</p:selectCheckboxMenu>
+
+        	<p:commandButton value="Valider" action="#{managedRapportClient.submitCriterias}"  update="form" icon="ui-icon-search"/>
+        </h:panelGrid>	
+        
+			</fieldset>
+
+		<p:dataTable id="tableau" var="tata" value="#{managedRapportClient.listClientPVs}" emptyMessage="Aucun enregistrement">
+			<f:facet name="header"> Liste </f:facet>
+		    <p:column headerText="Points de vente">
+		        <h:outputText value="#{tata.pointVente}" />
+		    </p:column>
+		 
+		    <p:column headerText="Mouvements">
+		        <h:outputText value="#{tata.mouvement}" />
+		    </p:column>
+		    
+		    <p:column headerText="Totaux">
+		        <h:outputText value="#{tata.totalSouscripteur}"/>
+		    </p:column>
+		    
+		</p:dataTable>	
+		<br />	
+		<p:commandButton value="Voir graphe" type="button" onclick="graph.show();" />
+		<p:commandButton value="Consulter graph" oncomplete="viewCarsCustomized.show();"/>
+		</h:form>
+		
+		<p:dialog widgetVar="viewCarsCustomized" height="800px" width="800px" closable="true">
+		<h:form>
+		
+		<h:panelGrid  columns="1" style="width:100%; height: 100%" columnClasses="garColum">
+			<p:pieChart id="char" type="pie" title="REPARTITION DES CLIENTS PAR POINT DE VENTE" value="#{managedRapportClient.pieChartModel}" 
+			legendPosition="w" style="width:600px; heigth:600px"/>
+		</h:panelGrid>
+		
+		</h:form>
+		
+		
+		
+		</p:dialog>
+		
+		
+		
+		
+		
+		
+		
+	</ui:define>
+</ui:composition>
+</html>

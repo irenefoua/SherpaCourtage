@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+     
+    <h:head>
+        <title>GRAPHIQUE STATISTIQUES</title> 
+    </h:head>
+     
+    <h:body>
+        <p:outputPanel id="alertForm" autoUpdate="true" global="false">
+			<h:panelGrid id="charts" columns="2" style="width:100%" columnClasses="HalfLeft,HalfLeft">
+		         <f:facet name="header">
+							 GRAPHIQUES STATISTIQUES
+				 </f:facet>
+				 
+					  <p:pieChart type="pie"  value="#{managedListSinistres.modelrisqPV1}" title="REPARTION DES RISQUE PAR POINTS DE VENTE BUREAU D" legendCols="2" legendPosition="e" showDataLabels="true"/>
+                     <p:pieChart  type="pie" value="#{managedListSinistres.modelrisqPV2}"  title="REPARTION DES RISQUE PAR POINTS DE VENTE BUREAU AA" legendCols="2" legendPosition="w" showDataLabels="true" />
+	  
+				 
+				 <h:outputText value=""/>	 
+			 </h:panelGrid>
+		</p:outputPanel>
+    </h:body>
+     
+</html>

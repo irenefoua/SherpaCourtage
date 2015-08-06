@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+				<title>SHERPA WebUser</title>
+				
+				<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+				<meta name="viewport" content="width=980"/>
+				
+				<style type="text/css">
+				h1 {color:black; text-align:center; margin-top:0;}
+				h1 a {text-decoration: none;color:black; text-align:center;}
+				p {color:#666; text-align:center;}
+				body {background: #f4f4f4;}
+				.wrapper {width:100%; margin: 0 auto; padding: 20px;}
+				.container {
+					background-image:url(resources/images/SherpaWUSplashBase.png);
+					border-radius: 5px;
+					border: solid 0px #eee;
+					box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+					padding:40px;
+					width:900px;
+					height:260px;
+					margin:60px auto 0px auto;
+					position: relative;
+					z-index: 0;
+					border-radius: 15px;
+					
+				}
+				pre, code {
+					font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+					font-size: 12px;
+					color: #333;
+					-webkit-border-radius: 3px;
+					-moz-border-radius: 3px;
+					border-radius: 3px;
+				}
+				pre { border: 1px solid #CCC; background-color: #EEE; color: #333; padding: 10px; overflow: scroll; }
+				code { padding: 2px 4px; background-color: #F7F7F9; border: 1px solid #E1E1E8; color: #D14; }
+			</style>
+			
+			<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+
+		
+		
+		
+	<h:body>
+
+			<!-- Backstretch JS -->
+		    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		    <script src="resources/js/jquery.backstretch.js"></script>
+			<script>
+		        $.backstretch([
+		          "resources/images/pot-holder.jpg",
+		          "resources/images/coffee.jpg",
+		          "resources/images/dome.jpg"
+		        ], {
+		        	fade: 1000,		//Speed of Fade
+		        	duration: 10000 	//Time of image display
+		        });
+		    </script>
+		
+		
+		    <!-- Page Content -->
+		    <h:form id="gnl">
+			<div class="wrapper">
+				<div class="container">
+					<div class="divSous">
+						<p:commandLink id="subscribe" styleClass="souscrip">
+						</p:commandLink>
+						
+						<p:overlayPanel id="souscripChx" for=":gnl:subscribe" widgetVar="sousCripWidVar" showCloseIcon="true" style=" width:400px; padding:5px;" >
+						 <h:panelGrid columns="3" columnClasses="wu_Ppl_Left_tales,wu_Ppl_Left_tales,wu_Ppl_Left_tales" style="width:100%" cellspacing="10">
+							<f:facet name="header">
+										QUELLE BRANCHE D'ASSURANCE 
+								</f:facet>
+							<p:commandLink id="souscripAuto" action="/Page/AutoWeb/devisAuto?faces-redirect=true" styleClass="tooltip">
+							  <p:graphicImage 
+								            value="#{resource['images:auto.png']}"
+								            width="60"
+								            height="60">
+								</p:graphicImage>
+								<span>
+							        <img class="callout" src="./resources/images/callout_black.gif" />
+							        <strong>CSS only Tooltip</strong><br />
+							        Pure CSS popup tooltips with clean semantic XHTML.
+							    </span>
+
+							</p:commandLink>
+							
+							
+							
+							<p:commandLink id="souscripMrh" styleClass="tooltip">
+							 <p:graphicImage 
+								            value="#{resource['images:mrh.png']}"
+								            width="60"
+								            height="60">
+								  </p:graphicImage>
+								  <span>
+							        <img class="callout" src="./resources/images/callout_black.gif" />
+							        <strong>Souscrire à une police d'assurance en Mutlirisque Habitation</strong><br />
+							        Pure CSS popup tooltips with clean semantic XHTML.
+							   	  </span>
+							</p:commandLink>
+							
+							
+							
+							<p:commandLink id="souscripIA" styleClass="tooltip">
+							  <p:graphicImage 
+								            value="#{resource['images:indivAcc.png']}"
+								            width="60"
+								            height="60">
+								  </p:graphicImage>
+								  <span>
+							        <img class="callout" src="./resources/images/callout_black.gif" />
+							        <strong>Souscrire à une police d'assurance en Individuel Accident</strong><br />
+							        Pure CSS popup tooltips with clean semantic XHTML.
+							   	  </span>
+							</p:commandLink>
+							
+						</h:panelGrid>
+					</p:overlayPanel>
+						
+					</div>
+					<div class="divDecla" >
+						<p:commandLink id="sinDeclar" styleClass="declarSin">
+						</p:commandLink>
+						
+						<p:overlayPanel id="logCnxSin" for=":gnl:sinDeclar" widgetVar="LoginWidVar" showCloseIcon="TRUE"  
+										style="height:200px; width:400px; padding:5px;" >
+										
+									
+							 <h:panelGrid columns="3"  columnClasses="libelOneLine, inputOneLine, msgOneline" style="width:100%" cellspacing="10">
+									<f:facet name="header">
+											VOS PARAMETRES DE CONNEXION 
+									</f:facet>
+										
+										
+									<h:outputText value="Login"/>
+									<p:inputText value="#{managedIndexConnex.login}" style="width:100%"/>
+									<h:outputText value=""/>
+									
+									<h:outputText value="Mot de passe"/>
+									<p:password value="#{managedIndexConnex.password}" style="width:100%" />
+									<h:outputText value=""/>
+									
+									<h:outputText value=""/>
+									<p:commandLink value="Mot de passe oublié ?" rendered="#{managedIndexConnex.askMdpForgot}"/>
+									<h:outputText value=""/>
+									
+									
+									
+									<f:facet name="footer">
+										<p:commandButton value="OK" actionListener="#{managedIndexConnex.logIn}" />
+									</f:facet>		
+							</h:panelGrid>
+						</p:overlayPanel>
+					</div>
+					<div class="divConnex" >
+						<p:commandLink id="login" styleClass="connex">
+						</p:commandLink>
+						
+						<p:overlayPanel id="logCnx" for=":gnl:login" widgetVar="LoginWidVar" showCloseIcon="TRUE"  
+										style="height:200px; width:400px; padding:5px;" >
+										
+									
+							 <h:panelGrid columns="3"  columnClasses="libelOneLine, inputOneLine, msgOneline" style="width:100%" cellspacing="10">
+									<f:facet name="header">
+											VOS PARAMETRES DE CONNEXION 
+									</f:facet>
+										
+										
+									<h:outputText value="Login"/>
+									<p:inputText value="#{managedIndexConnex.login}" style="width:100%"/>
+									<h:outputText value=""/>
+									
+									<h:outputText value="Mot de passe"/>
+									<p:password value="#{managedIndexConnex.password}" style="width:100%" />
+									<h:outputText value=""/>
+									
+									<h:outputText value=""/>
+									<p:commandLink value="Mot de passe oublié ?" rendered="#{managedIndexConnex.askMdpForgot}"/>
+									<h:outputText value=""/>
+									
+									
+									
+									<f:facet name="footer">
+										<p:commandButton value="OK" actionListener="#{managedIndexConnex.logIn}" />
+									</f:facet>		
+							</h:panelGrid>
+						</p:overlayPanel>
+						
+					</div>
+					<div class="divCota">
+						<p:commandLink id="cota"  styleClass="cotation">
+						</p:commandLink>
+						
+						<p:overlayPanel id="cotationChx" for="cota" widgetVar="cotaWidVar" showCloseIcon="true"  style=" width:400px; padding:5px;">
+							 <h:panelGrid columns="3" columnClasses="wu_Ppl_Left_tales,wu_Ppl_Left_tales,wu_Ppl_Left_tales" style="width:100%" cellspacing="10">
+								<f:facet name="header">
+											QUELLE BRANCHE D'ASSURANCE 
+									</f:facet>
+								
+								<p:commandLink id="cotaAuto"  action="/Page/AutoWeb/devisAuto?faces-redirect=true" styleClass="tooltip">
+								  <p:graphicImage 
+									            value="#{resource['images:auto.png']}"
+									            width="60"
+									            height="60">
+									  </p:graphicImage>
+									  
+									  <span>
+									        <img class="callout" src="./resources/images/callout_black.gif" />
+									        <strong>Cotation en Automobile</strong><br />
+									        Pure CSS popup tooltips with clean semantic XHTML.
+									    </span>
+								</p:commandLink>
+								
+								<p:commandLink id="cotaMrh" styleClass="tooltip">
+									 <p:graphicImage 
+										            value="#{resource['images:mrh.png']}"
+										            width="60"
+										            height="60">
+									</p:graphicImage>
+									<span>
+								        <img class="callout" src="./resources/images/callout_black.gif" />
+								        <strong>Cotation en MultiRisqie Habitation</strong><br />
+								        Pure CSS popup tooltips with clean semantic XHTML.
+								    </span>
+								</p:commandLink>
+								
+								<p:commandLink id="cotaIA" styleClass="tooltip">
+								  <p:graphicImage 
+									            value="#{resource['images:indivAcc.png']}"
+									            width="60"
+									            height="60">
+									  </p:graphicImage>
+									  <span>
+								        <img class="callout" src="./resources/images/callout_black.gif" />
+								        <strong>Cotation en Individuel Accident</strong><br />
+								        Pure CSS popup tooltips with clean semantic XHTML.
+								    </span>
+								</p:commandLink>
+								
+							</h:panelGrid>
+						</p:overlayPanel>
+					</div>
+					
+					
+				
+					
+				</div>
+			</div>
+				
+			</h:form>
+	</h:body>
+		
+		
+
+</html>

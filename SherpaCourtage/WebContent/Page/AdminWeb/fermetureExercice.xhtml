@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition template="/template/templateadmin.xhtml">
+
+	<ui:define name="content">
+
+	<p:panel header="Fermeture Exercice">
+	<br></br>
+	<h:form id="form">
+	 <p:messages id="growl" showDetail="true" sticky="true" />
+	
+	<h:panelGrid columns="4">
+	<h:outputText value="Saisir l'année"/>
+      <p:inputText value="#{manadegExercice.exerciceOuvert.id}" />
+	</h:panelGrid>
+		<br/>
+		<p:commandButton value="Cloturer exercice" actionListener="#{manadegExercice.ferme}" update="form" />
+							
+		</h:form>					
+	</p:panel>
+	</ui:define>
+	</ui:composition> 
+</html>

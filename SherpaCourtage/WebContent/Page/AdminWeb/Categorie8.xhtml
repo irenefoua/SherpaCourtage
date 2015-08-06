@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateadmin.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 08: VEHICULES DE LOCATION (Catégorie 8)">
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="5">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column rowspan="2" colspan="2">Vehicule</p:column>
+            <p:column colspan="3">Prime de base</p:column>  
+        </p:row>
+    <p:row>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+    </p:row>
+    </f:facet>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;" colspan="2" >Véhicule de tourisme</p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;" colspan="3" ></p:column>
+    </p:row>
+    
+     <p:row>
+       <p:column style="font-weight: bold; border: 1px solid black;">Diesel</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;">Essence</p:column>
+        <p:column colspan="3" style="font-weight: bold; border: 1px solid black;"/>
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">1 à 2 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies0Ess12Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies0Ess12Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies0Ess12Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">2 à 4 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">3 à 6 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies24Ess36Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies24Ess36Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies24Ess36Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">5 à 6 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">7 à 9 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies56Ess79Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies56Ess79Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies56Ess79Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">7 à 8 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">10 à 11 CV</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies78Ess1011Zone1}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies78Ess1011Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies78Ess1011Zone3}"></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">9 CV et plus</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">12 CV et plus</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies9Ess12Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies9Ess12Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlTourDies9Ess12Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+    <p:column colspan="5" style="font-weight: bold; font-size:14px ;border: 1px solid black;">VEHICULE DE LA CATEGORIE 2</p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Jusqu’à 1 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat21Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat21Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat21Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">1,001 à 3 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat22Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat22Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat22Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">3,001 à 5 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat23Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat23Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat23Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">5,001 à 8 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat24Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat24Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat24Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">8,001 à 11 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat25Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat25Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat25Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">11,001 à 13 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat26Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat26Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat26Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">13,001 à 15 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat27Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat27Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat27Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Pus de 15 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat28Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat28Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat28Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Tracteur routier</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat29Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat29Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif8.rcTarif8.vhlCat29Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+    <p:column colspan="5" style="font-weight: bold; font-size:14px;border: 1px solid black;">VEHICULE DE LA CATEGORIE 3</p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Jusqu’à 1 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat31Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat31Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat31Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">1,001 à 3 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat32Zone1}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat32Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat33Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">3,001 à 5 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat33Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat33Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat33Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">5,001 à 9 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat34Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat34Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat34Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">9,001 à 12 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat35Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat35Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat35Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">12,001 T à 15 T</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat36Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat36Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat36Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">15 T et plus et tracteur routier</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat37Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat37Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText value="#{managedTarif8.rcTarif8.vhlCat37Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+   </p:panelGrid>	
+   </p:panel>
+   <br />
+   
+		<fieldset><legend>AUTRES GARANTIES</legend>
+    <h:outputText value="Selon le type de véhicule appliquer les tarifs de la catégorie 1, 2 ou 3"></h:outputText>
+		</fieldset>
+		<br />
+    
+		<fieldset>
+<p:commandButton value="Valider"  onclick="confirm.show();"  style="width:80px;height:30px;margin-left: 450px; font-size:12px; border-radius:10px;"/>
+		</fieldset>
+		</h:form>
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif8.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

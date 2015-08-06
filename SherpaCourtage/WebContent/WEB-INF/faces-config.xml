@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>redirection</from-outcome>
+   <to-view-id>/Page/AutoWeb/pageRedirectConnection.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>vehicule</from-outcome>
+   <to-view-id>/Page/AutoWeb/vehicule.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>Validation</from-outcome>
+   <to-view-id>/Page/AutoWeb/Validation.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+ 	<from-outcome>inscriptionPaypalNewSous</from-outcome>
+ 		<to-view-id>/Page/Paypal/ inscriptionPaypalNewSous.xhtml</to-view-id>
+ 		<redirect></redirect>
+ 	</navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/Page/sinistreAutoWeb/pageConnexion.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>declarationSinnistreAuto</from-outcome>
+   <to-view-id>/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ 
+ 	
+ 	
+ 	
+ 
+ <application>
+  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+ </application>
+</faces-config>

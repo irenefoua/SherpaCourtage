@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<ui:composition template="../../template/templateadmin.xhtml">
+	<ui:define name="content">
+		<p:panel header="ville">
+				<h:form id="ville">
+				<p:messages id="growl" showDetail="false" sticky="false" />
+					<fieldset id="ville" class="fieldset">
+						<legend>Gestion des Villes</legend>
+						<h:panelGrid columns="6" style="margin-bottom:10px">
+
+							<h:outputText value="Code ville * " />
+							<p:inputText value="#{managedVille.id}" id="id_ville" required="true"  converterMessage="Le Code doit être un Nombre entier Positif!"
+								requiredMessage="Le champ Code ville ne peut pas être vide!"
+								validatorMessage="Pas plus de 12 caractères">
+								<f:validateLength minimum="0" maximum="12" for="id_ville"></f:validateLength>
+							</p:inputText>
+							<p:message for="id_ville" />
+
+							<h:outputText value="Code Zone Geo * " style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedVille.codeZoneGeo.id}"
+								id="id_codeZoneGeo" required="true"
+								validatorMessage="Pas plus de 15 caractères">
+								<f:validateLength minimum="0" maximum="15" for="id_codeZoneGeo"></f:validateLength>
+							</p:inputText>
+							<p:message for="id_codeZoneGeo" />
+
+
+							<h:outputText value="Code province * " />
+							<p:inputText value="#{managedVille.codeProvince.id}" id="id_province"
+								required="true" validatorMessage="Pas plus de 15 caractères">
+								<f:validateLength minimum="0" maximum="15" for="id_province"></f:validateLength>
+							</p:inputText>
+							<p:message for="id_province" />
+
+
+							<h:outputText value="Libellé  de la ville" style="margin-left: 30px !important;"/>
+							<p:inputText value="#{managedVille.libelleVille}" id="nomville"
+								validatorMessage="Pas plus de 30 caractères">
+								<f:validateLength minimum="0" maximum="30" for="nomvillee"></f:validateLength>
+							</p:inputText>
+							<p:message for="nomville" />
+
+
+
+
+
+						</h:panelGrid>
+
+						<p:message for="buttonadd" />
+						<p:message for="buttonupdate" />
+						<p:message for="buttondelete" /><br />
+						<h:commandButton id="buttonadd" value="Enregistrer"
+							binding="#{managedVille.buttonadd}" action="#{managedVille.validateadd}" />
+
+
+						<h:commandButton id="buttonupdate" value="Modifier"
+							binding="#{managedVille.buttonupdate}"
+							action="#{managedVille.validateupdate}" />
+
+
+						<h:commandButton id="buttondelete" value="Supprimer"
+							binding="#{managedVille.buttondelete}"
+							action="#{managedVille.validatedelete}" />
+						<h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+					</fieldset>
+				</h:form>
+				<br></br>
+				
+				<h:form>
+					<fieldset class="fieldset">
+						<legend>Liste des Villes </legend>
+
+
+						<h:panelGrid>
+							<h:outputText value="Liste des Villes : "></h:outputText>
+							<p:dataTable id="Ville" var="ville" value="#{managedVille.villeList}"
+								scrollable="true"
+												scrollHeight="120"
+												scrollWidth="1050">
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Id" />
+									</f:facet>
+									<h:outputText value="#{ville.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="CodeZoneGeo" />
+									</f:facet>
+									<h:outputText value="#{ville.codeZoneGeo.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="CodeProvince" />
+									</f:facet>
+									<h:outputText value="#{ville.codeProvince.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="LibelleVille" />
+									</f:facet>
+									<h:outputText value="#{ville.libelleVille}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</h:panelGrid>
+
+
+
+					</fieldset>
+
+
+				</h:form>
+			</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

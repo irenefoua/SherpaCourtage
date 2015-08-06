@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"  />
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Souscription :Inscription Paypal" url="#" />
+		</p:menubar>
+	</h:form>
+	
+	
+<p:panel header="PAIEMENT EN LIGNE	" style="font-size:15px"/>
+					<br />
+					
+					
+	<fieldset style="margin-left: 100px;margin-right: 100px" >
+	<legend> Paiement </legend> <fieldset  style="margin-left: 200px;margin-right: 200px ;border:0px" >
+          <p:panelGrid columns="2"  >
+          
+			<h:outputText value="Types de paiement"></h:outputText><h:graphicImage value="/resources/images/paie.GIF"  />
+			 <f:facet name="header">Paiement securisé </f:facet>
+			</p:panelGrid>
+			
+			<br />
+	
+        
+        
+       
+		
+		
+		<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden"  name="upload" value="1" />
+       <input type="hidden" name="return" value="http://localhost:8080/SherpaWebUse/Page/Paypal/succes.xhtml"/>
+       <input name="amount" type="hidden" value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.netteApayer}" />
+       <!-- Indication du type d'action -->
+        <input  type="hidden" name="cmd"  value="_xclick" />
+        <input  type="hidden" name="business" value="fouairene-facilitator@yahoo.fr"/>
+         <input name="currency_code" type="hidden" value="EUR"/>
+         
+         <!--   Indication de l'URL de retour si annulation du paiement -->
+    <input name="cancel_return" type="hidden" value="http://localhost:8080/SherpaWebUse/Page/AutoWeb/Validation.xhtml"/>
+    
+    <!-- Indication de l'URL de retour pour contrôler le paiement -->
+    <input name="notify_url" type="hidden" value="http://localhost:8080/SherpaWebUse/Page/paypal/ipn.xhtml" />
+    
+    <!--   Indication du libellé de la commande qui apparaitra sur Paypal -->
+   <input name="item_name" type="hidden" value="La prime nette à payer" />
+   
+    <!-- Indication de la langue -->
+<input name="lc" type="hidden" value="FR" />
+
+<!-- Indication du type de paiement -->
+<input name="bn" type="hidden" value="PP-BuyNowBF" />
+       
+  
+  <input alt="Effectuez vos paiements via PayPal : une solution rapide, gratuite et sécurisée" name="submit" 
+        src="../../resources/images/paypal.GIF" type="image"  style="margin-left:120px ;" />
+             
+   
+   
+   
+ </form>
+		
+		
+		
+		 </fieldset>
+	</fieldset>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/templateWebAuto.xhtml">
+	
+	<ui:define name="content">
+	
+	 <h:form id="form">
+	 <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar">
+     <h:outputText value="Souscriptions:#{notificationBean.nbrsouscription}   Déclaration sinistre:" style="font-size:20px;" />
+	 </p:notificationBar>
+
+	<p:commandButton value="Show" onclick="PF('bar').show()" type="button" icon="ui-icon-arrow-1-s"/>
+	<p:commandButton value="Hide" onclick="PF('bar').hide()" type="button" icon="ui-icon-arrow-1-n"/>
+	 	
+		<p:dataTable var="CT" value="#{notificationBean.listAffairesNouvelles}" scrollable="true" scrollHeight="20">
+		<f:facet name="header">Soucriptions</f:facet>
+	    <p:column headerText="Police">
+	        <h:outputText value="#{CT.contrat.numPolice}"/>
+	    </p:column>
+	 
+	    <p:column headerText="N° souscripteur">
+	        <h:outputText value="#{CT.utilisateur.codeUtilisateur}"/>
+	    </p:column>
+	 
+	    <p:column headerText="Date souscription">
+	        <h:outputText value="#{CT.dateAvenant}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+	        </h:outputText>
+	    </p:column>
+			    </p:dataTable>
+			
+		<br />       
+		<hr />	
+		
+		    
+		<p:dataTable var="DS" value="" scrollable="true" scrollHeight="20">
+		<f:facet name="header">Déclaration de sinitre</f:facet>
+	    <p:column headerText="Police">
+	        <h:outputText value=""/>
+	    </p:column>
+	 
+	    <p:column headerText="N° souscripteur">
+	        <h:outputText value=""/>
+	    </p:column>
+	 
+	    <p:column headerText="Date sinistre">
+	        <h:outputText value="">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+	        </h:outputText>
+	    </p:column>
+		</p:dataTable>
+		
+	 </h:form>
+	</ui:define>
+	
+</ui:composition>
+</html>

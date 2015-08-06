@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+<ui:composition template="/template/templateadmin.xhtml">
+
+	<ui:define name="content">
+		
+
+
+		<h:form id="form">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"  />
+				<fieldset class="fieldsetPilotage" >
+			<legend>Selection des critères</legend>
+				
+			<h:panelGrid id="criteresDat" columns="2" columnClasses="halfleft,halfleft" style="width:100%">
+				
+				<h:panelGroup>
+					<h:outputText style="font-weight:bold;" value="Debut de Période:" />
+			       <p:inputMask
+						value="#{managedCApporteur.dateDeb}"
+						required="true"
+						requiredMessage="Debut de Période non renseignée" 
+						mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+					<h:outputText value=""/>
+				</h:panelGroup>
+					
+					<h:panelGroup>
+					<h:outputText value="Fin de Période:" style="font-weight:bold;"/>
+			       <p:inputMask
+						value="#{managedCApporteur.dateFin}"
+						required="true"
+						requiredMessage="Fin de Période non renseignée" mask="99/99/9999"
+						 style="width:100%;"
+						>
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+			        <h:outputText value=""/>
+			        </h:panelGroup>
+			        
+				</h:panelGrid>
+			    			
+				<h:panelGrid id="criteres" columns="2" columnClasses="halfleft,halfleft" style="width:100%" >
+					
+				    			
+				    	<h:outputText value="Choix du Point de Vente" style="font-weight:bold;"/>
+				    			
+				 		<h:outputText style="width:100%"></h:outputText>		
+						<p:selectOneMenu id="cbPte" converter="#{ptdeVenteCvtr}" value="#{managedCApporteur.pointVente}"  style="width:100%" filter="true" filterMatchMode="startsWith"> 	 
+                    <f:selectItem itemLabel="" itemValue=""></f:selectItem>
+                     <f:selectItems value="#{ptdeVenteCvtr.pointVenteList}" var="ca"  itemLabel="#{ca.libellePointVente}" itemValue="#{ca}" />
+						</p:selectOneMenu>
+						
+						
+				 			<h:outputText style="width:100%"></h:outputText>
+				 				
+				 			<f:facet name="footer">
+				        
+				            <p:commandButton  value="Valider Les Critères" icon="ui-icon-search"
+								actionListener="#{managedCApporteur.valider}" update=":form:app"	/>
+				      
+				 	</f:facet>
+					
+
+			</h:panelGrid>
+			
+			
+			 </fieldset>
+			 <p:separator style="width:500px;height:20px" />
+			<p:outputPanel id="chartsOp" autoUpdate="true">
+               
+			<p:dataTable  var="var" paginator="true" rows="10" widgetVar="app" id ="app"
+		     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		     rowsPerPageTemplate="5,10,15" 
+		     style="width:100%;height: 200px "   
+			value="#{managedCApporteur.listAvenByPtvte}"
+		     	scrollable="true"
+				scrollHeight="150"
+				
+				emptyMessage="Aucune Données"
+				
+			>
+			 
+			 <p:ajax event="rowSelect" global="false"
+			 
+			update=":form:mont" />
+			 
+			 <f:facet name="header">
+		                                Liste des Apporteurs du Point de vente
+		                            </f:facet>
+			 <p:column headerText="Code Apporteur" style="width:40px">
+				<h:outputText value="#{var.apporteur.id}" />
+				</p:column>
+
+				<p:column headerText="Nom Apporteur" style="width:200px">
+				<h:outputText value="#{var.apporteur.libelleApporteur}" />
+				</p:column>
+				
+				<p:column headerText="Contact Apporteur" style="width:60px">
+				<h:outputText value="#{var.apporteur.id}" >
+						<f:convertNumber pattern="##,###.##"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+                 </p:dataTable>
+                 
+                 <br /><br /><br /><br /><br />
+            
+           <p:dataTable id="mont" var="com" widgetVar="mont"
+								value="#{managedCApporteur.listAvenByPtvte.apporteur}"
+		                         style="width:100%;height: 200px "
+								scrollable="true"
+								scrollHeight="200px"
+								emptyMessage=""
+			                  >
+			                   <f:facet name="header">
+		                                Détail des contrats par apporteur
+		                            </f:facet>
+								
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Contrat" />
+									</f:facet>
+									<h:outputText value="" />
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Date" />
+									</f:facet>	
+									<h:outputText value="" />
+								</p:column>
+									<p:column>
+									<f:facet name="header">
+										<h:outputText value="Taux Apporteur" />
+									</f:facet>
+									<h:outputText value="" />
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Montant Apporteur" />
+									</f:facet>	
+									<h:outputText value="" />
+								</p:column>
+	
+						
+                       </p:dataTable>
+				
+		
+				 <p:separator style="width:500px;height:20px" />
+		         
+		         	<h:panelGrid id="charts" columns="2" style="width:100%" columnClasses="HalfLeft,HalfLeft">
+			         <f:facet name="header">
+								 GRAPHIQUES STATISTIQUES
+					 </f:facet>
+	
+		
+					 
+					 
+			         </h:panelGrid>
+			
+			
+			 </p:outputPanel>
+			
+		         
+		         	
+		</h:form>
+
+	</ui:define>
+</ui:composition></h:body>
+</html>

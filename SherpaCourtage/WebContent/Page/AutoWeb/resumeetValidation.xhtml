@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	
+	
+	
+	<p:tab id="ongletQuittance" title="Quittance">
+	
+	
+	
+	<p:columnGroup>
+
+										
+										<p:panel header="Informations Clients" />
+					<br />
+											
+											<h:panelGrid columns="6">
+
+												<h:outputText value="Nom " style="margin-right:65px;"></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.clientMB.maPersonne.nomRaisonSociale}"
+													style="width:150px;margin-right:20px;"  readonly="true">
+												</p:inputText>
+
+												<h:outputText value="Prenom:" style="margin-right:35px;" 
+													></h:outputText>
+												<p:inputText style="width:150px;margin-right:35px;"
+													value="#{cotationAuto.clientMB.monPhysique.prenomPers}"
+													readonly="true">
+													
+													<p:ajax  
+									  				update="@this" global="false"/>
+												</p:inputText>
+												
+                                                   <h:outputText value="Numero telephone:" style="margin-right:15px;" 
+													></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.clientMB.maPersonne.telephone}"
+													style="width:150px;" readonly="true">
+													
+													<p:ajax  
+									  				update="@this" global="false"/>
+												</p:inputText>
+                                                 
+                                                 
+													
+												 <h:outputText value="Adresse Client:"  
+													></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.clientMB.maPersonne.adresse}"
+													style="width:150px;" readonly="true">
+													
+													<p:ajax  event="blur"
+									  				update="@this" global="false"/>
+												</p:inputText>
+												<h:outputText value="Date de naissance: " />
+												<p:inputText  
+													value="#{cotationAuto.clientMB.monPhysique.dateNaissPers}"
+													style="width:150px;" readonly="true">
+													
+													<p:ajax  event="blur"
+									  				update="@this" global="false"/>
+												</p:inputText>
+
+                                                  
+										
+												
+											</h:panelGrid>
+										
+                                 </p:columnGroup>
+	
+	
+	
+	
+	
+	
+                     <h:panelGroup>
+					
+										<p:panel header="Contrat" />
+					                       <br />
+											
+											<h:panelGrid columns="6">
+
+												<h:outputText value="Mouvement"  style="margin-right: 20px;"></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.contratMB.mouvement}"
+													readonly="true"  style="width:150px;"/>
+
+
+												<h:outputText
+													value="Risque" style="margin-left: 20px;margin-right: 15px;"></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.contratMB.risque.libelleRisque}"
+													readonly="true" style="width:150px;margin-left: 55px;" />
+
+
+												
+
+												
+
+											
+												
+											
+                           </h:panelGrid>
+
+									</h:panelGroup>
+
+
+
+
+								
+
+								<h:panelGrid>
+
+									<h:panelGroup>
+										<p:panel header="Couverture" />
+					<br />
+											
+											<h:panelGrid columns="6">
+
+												<h:outputText value="Date Emission" style="margin-right: 0px;"></h:outputText>
+												<p:inputMask
+													value="#{cotationAuto.contratMB.emission}"
+													readonly="true" mask="99/99/9999" style="margin-right:20px;width:150px;"
+													>
+													<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+												</p:inputMask>
+
+												<h:outputText value="Date Effet" style="margin-right: 50px;"
+													></h:outputText>
+												<p:inputMask style="margin-right:20px;width:150px;"
+													value="#{cotationAuto.contratMB.effet}"
+													readonly="true" mask="99/99/9999"  
+													>
+													<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+												</p:inputMask>
+													
+
+
+												<h:outputText value="Durée (jours)" style="margin-right:30px;margin-left:40px;"
+													></h:outputText>
+												<p:inputText
+													value="#{cotationAuto.contratMB.avenant.duree}"
+													readonly="true"  style="margin-right:20px;width:150px;"/>
+												
+
+												<h:outputText value="Date Echéance"  
+													/>
+												<p:inputMask
+													value="#{cotationAuto.contratMB.echeance}"
+													readonly="true" mask="99/99/9999" style="margin-right:0px;width:150px;" >
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+
+												</p:inputMask>
+
+											</h:panelGrid>
+
+
+										</h:panelGroup>
+									
+									
+									
+								<p:panel header="Voiture à assurer" />
+					<br />
+											
+											<h:panelGrid columns="6">
+									
+		
+									<h:outputText value="Marque" style="margin-right: 45px;" />
+												<p:inputText   
+													value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.marque}"
+													readonly="true" size="9"  style="width:150px;margin-right: 20px;">
+													
+												</p:inputText>
+
+											 <h:outputText value="Energie" style="margin-right: 60px;" />
+												<p:inputText style="margin-right:20px; width:150px;"
+													value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.energie}"
+													readonly="false"  >
+													
+												</p:inputText>
+
+
+												
+
+												<h:outputText value="Puissance fiscale" style="margin-right:30px;margin-left:25px;"
+													 />
+												<p:inputText 
+													value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.puissFisc}"
+													readonly="true" size="9"  style="width:150px;">
+													
+												</p:inputText>
+									<h:outputText value="Sous categorie" style="margin-left: 0px;"
+													 />
+												<p:inputText 
+													value="#{cotationAuto.carteGriseMB.slctdVehiRw.souCatVehi.categorie.libelleCategorie}"
+													readonly="true" size="9"  style="width:150px;">
+													
+												</p:inputText>
+									
+									</h:panelGrid>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+
+									<h:panelGroup>
+									<p:panel header="Tarif Quittance" />
+					                       <br />
+
+
+											<h:panelGrid columns="6" cellspacing="1">
+
+												<h:outputText value="Prime Nette" style="margin-right: 30px;" />
+												<p:inputText   
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.primeNette}"
+													readonly="true" size="9"  style="width:150px;margin-right: 20px;">
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+													
+												</p:inputText>
+
+											 <h:outputText value="Accessoires" style="margin-right: 30px;" />
+												<p:inputText style="margin-right:20px; width:150px;" id="totalAcc"
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.totalAccessoire}"
+													readonly="false"  >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</p:inputText>
+
+
+												
+
+												<h:outputText value=" Taxe " style="margin-right:40px;margin-left:30px;"
+													 />
+												<p:inputText  style="width:150px;margin-left:30px"
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.taxeEnr}"
+													readonly="true"  >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</p:inputText>
+
+												<h:outputText value="FGA"  style="margin-right: 40px;margin-left: 20px;"/>
+												<p:inputText style="margin-right:0px; width:150px;"
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.taxeFGA}"
+													readonly="true"  >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</p:inputText>
+
+												<h:outputText value="Prime Cedée"/>
+												<p:inputText
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.primeCedee}"
+													readonly="true" size="9" style="width:150px; margin-right: 20px;" >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</p:inputText>
+
+                                                <h:outputText value="NET A PAYER" style="margin-right:20px;margin-left:30px;"/>
+												<p:inputText
+													value="#{cotationAuto.managedQuittanceAuto.quittanceAuto.netteApayer}"
+													readonly="true" size="9" style="width:150px; margin-left: 30px;font-size:15px;" 
+													 styleClass="outputPayer" >
+													<f:convertNumber pattern="##,###.##"></f:convertNumber>
+												</p:inputText>
+
+                               			 
+
+
+												
+
+												
+											</h:panelGrid>
+	
+									</h:panelGroup>
+
+								</h:panelGrid>
+							<p:separator></p:separator>
+				
+							<h:panelGrid  columns="4">
+										
+											<p:commandButton id="addContrats1"   value="Recevez le devis" style="width:150px;font-size:15px;"/>
+											<p:commandButton id="addContrats2"  value="Souscrivez en ligne" style="width:150px; margin-left: 30px;font-size:15px;"/>
+
+
+							</h:panelGrid>
+						
+
+
+
+				</p:tab>
+
+
+			
+
+			
+
+
+
+		</h:form>
+	
+	
+
+
+	</ui:define>
+</ui:composition>
+</html>

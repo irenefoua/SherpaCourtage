@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+		
+			<p:panel header="Paiement">
+			
+			<fieldset><legend>Choix du mode de paiement</legend>
+			
+			<p:panelGrid columns="2" >
+			<h:outputText value="Types de paiement"></h:outputText><h:graphicImage value="/resources/images/paie.GIF"/>
+			<f:facet name="header">Paiement securisé</f:facet>
+			</p:panelGrid>
+			<h:panelGrid columns="2">
+			<h:outputText value="Numero carte"></h:outputText>
+			<p:inputText></p:inputText>
+			<h:outputText value="Date d'expiration"></h:outputText>
+			<p:calendar></p:calendar>
+			<h:outputText value="Cryptogramme visuel"></h:outputText>
+			<p:inputText></p:inputText>
+			<h:outputText value="Adresse de facturation"></h:outputText>
+			<p:inputText ></p:inputText>
+			</h:panelGrid>
+			</fieldset>
+
+		<fieldset style="background-color: maroon;">	
+	 <h:commandButton value="Valider Paiement" style="margin-left:350px"></h:commandButton>
+		</fieldset>		           
+	 
+			
+        </p:panel>
+
+			</h:form>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+	</ui:define>
+</ui:composition>
+</html>

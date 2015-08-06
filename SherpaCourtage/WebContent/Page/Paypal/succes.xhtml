@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		<h:form  >
+		
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"  />
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Souscription :Paiement effectué!!" url="#" />
+		</p:menubar>
+	</h:form  >
+		<h:form id="gnl"  target="_blank">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	
+	
+	<p:panel header="EDITION PIECES	" style="font-size:15px"/>
+					<br />
+					
+					<div style="margin-left: 100px;margin-right: 100px" >
+					
+					<h:outputLabel     style="margin-left:150px ;font-size:15px ;color:red ;"  value="Vous avez effectuer le paiement avec succès!"/> <br />
+										<fieldset style="font-size:14px">	
+										<legend> Impressions Pieces  </legend>
+	
+	
+	
+	
+		
+		<br />
+		<h:outputLabel     style="font-size:15px"  value=" Vous pouvez recuperer les pièces provisoires!"/>
+		<br /><br /><br />
+				<p:commandButton value="Imprimer les pièces provisoires"  actionListener="#{cotationAuto.succes}" ajax="false" type="submit" style="width:200px;height:50px; margin-left: 250px;font-size:14px;text-align:center;border-radius:20px;"></p:commandButton>   
+				<br />        
+	 <h:outputLabel     style="margin-left:00px ;font-size:12px"  value="Veuillez passer à l'agence avant 7jours pour recuperer vos differentes pièces définitifs !"/>
+			<br />
+         </fieldset>
+
+			
+			
+		</div>	
+			
+			
+			
+			
+			
+			
+			
+			</h:form>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+	</ui:define>
+</ui:composition>
+</html>

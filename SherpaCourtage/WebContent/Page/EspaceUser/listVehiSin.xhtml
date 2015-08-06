@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="vehiSinForm">
+<p:dataTable id="vehiSinList" var="sin" value="#{managedUserVehiSinList.listVehiSin}"
+				 			  rowKey="#{sin.sinistre.codeSinistre}" 
+				 			  filteredValue="#{managedUserVehiSinList.fltrdVehiSin}" 
+				 			   widgetVar="sinTable">
+				 	 <f:facet name="header">
+						 Liste des Sinitres
+					 </f:facet>
+					 <p:column headerText="Vehicule en cause" filterBy="#{sin.vehicule.numImmat}">
+							 <h:outputText value="#{sin.vehicule.numImmat}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Numero du Sinistre" filterBy="#{sin.sinistre.codeSinistre}">
+							 <h:outputText value="#{sin.sinistre.codeSinistre}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Etat du Dossier" filterBy="#{sin.sinistre.positionDossier}">
+					 	<h:outputText value="#{sin.sinistre.positionDossier}"/>
+					 </p:column>
+					 <p:column headerText="Evaluation nette du sinistre XoF" sortBy="sinistre.evaluationNette">
+					 	<h:outputText value="#{sin.sinistre.evaluationNette}"/>
+					 </p:column>
+					 <p:column headerText="Votre responsabilité dans le sinistre" sortBy="rcAssure">
+						 <h:outputText value="#{sin.rcAssure}"/>
+					 </p:column>
+					 
+					 
+				</p:dataTable>
+				</h:form>
+
+</html>

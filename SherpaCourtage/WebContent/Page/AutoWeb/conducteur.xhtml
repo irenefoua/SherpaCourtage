@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+			
+			
+					<p:panel header="Informations sur le conducteur">
+					<br />
+					<h:panelGrid id="cducgrid" columns="9">
+											
+												<h:outputText value="Code"  />
+												<p:inputText id="num_cond" 
+												style="margin-left: 20px; width: 178px">
+													<p:ajax listener="#{cotationAuto.clientMB.majconducteur}"
+															process="@this" update="" global="false"/>
+												</p:inputText>
+												
+												<h:outputText value="" />
+						
+												<h:outputText value="Nom*" style="margin-left: 20px;" />
+												<p:inputText id="nameC" value="#{cotationAuto.clientMB.conducteur.nonCond}"
+													style="width:175px"/>
+												<p:message id="msgnameC" for="nameC" display="icon" />
+						
+												<h:outputText value="Prénoms*" style="margin-left: 20px;" />
+												<p:inputText id="prenC" value="#{cotationAuto.clientMB.conducteur.prenomsCond}"
+													style="width:168px" />
+												<p:message id="msgprenC" for="prenC" display="icon" />
+						                      
+						                      
+						                      
+												<h:outputText value="Né le"  />
+												<p:inputMask value="#{cotationAuto.clientMB.conducteur.dateNaissCond}"
+													id="dateC" style="width:178px ;margin-left: 20px;" mask="99/99/9999">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</p:inputMask>
+												<p:message id="msgdateNaissCond" for="dateC" display="icon" />
+						
+												<h:outputText value="Lieu naissance" style="margin-left: 20px;"/>
+												<p:inputText value="#{cotationAuto.clientMB.conducteur.lieuNaisCond}"
+													id="lieuNaisC" style="width:175px;"/>
+												<p:message id="msgdateC" for="dateC" display="icon" />
+												
+												<h:outputText value="Permis" style="margin-left: 20px;"/>
+													<p:selectOneMenu value="#{cotationAuto.clientMB.conducteur.typpermiscond}"
+												id="permC" required="false" style="width:145px">
+												<f:selectItem itemLabel="Permis BCDE" itemValue="BCDE" />
+												<f:selectItem itemLabel="Permis B" itemValue="B" />
+												<f:selectItem itemLabel="Permis A" itemValue="A" />
+												<f:selectItem itemLabel="Autre" itemValue="Autre" />
+											</p:selectOneMenu>	
+												<p:message id="msgpermC" for="permC" display="icon" />
+												
+												
+												<h:outputText value="N° Permis"/>
+												<p:inputText value="#{cotationAuto.clientMB.conducteur.numpermiscond}"
+													id="numPermC" style="width:178px; margin-left: 20px;"/>
+												<p:message id="msgnumPermC" for="numPermC" display="icon" />
+												
+												<h:outputText value="Durée du permis" style="margin-left: 20px;"/>
+												<p:inputText value="#{cotationAuto.clientMB.conducteur.dureepermiscond}"
+													id="durpermC" style="width:175px;"/>
+												<p:message id="msgdurpermC" for="durpermC" display="icon" />
+												
+												<h:outputText value="Catégorie Socio-Professionnelle" style="margin-left: 20px;"/>
+												<p:selectOneMenu value="#{cotationAuto.clientMB.conducteur.categsocioprocond}"
+													 style="width:154px"
+													id="catProCd" required="false">
+													
+													<f:selectItem itemLabel="a" itemValue="a" />
+													<f:selectItem itemLabel=" b" itemValue="b" />
+													<f:selectItem itemLabel="c" itemValue="c" />
+													<f:selectItem itemLabel="d" itemValue="d" />
+													<f:selectItem itemLabel="e" itemValue="e" />
+												</p:selectOneMenu>
+												<p:message id="msgcatProCd" for="catProCd" display="icon" />
+												
+												
+												
+											</h:panelGrid>
+					
+					                		</p:panel>	
+					                		<br />
+											<p:panel header="Informations sur le contratMB">
+											<br />
+											<h:panelGrid columns="6">
+
+											<h:outputText value="Date Emission*" />
+											<p:inputMask value="#{cotationAuto.contratMB.emission}"
+												required="true" readonly="true"
+												requiredMessage="Date d'émission non renseignée" mask="99/99/9999"
+												 style="width:135px;"
+												>
+												<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+												</p:inputMask>
+
+
+											<h:outputText value="Date Effet*" style="margin-left:25px" />
+											<p:inputMask value="#{cotationAuto.contratMB.effet}"
+												requiredMessage="Date d'effet non renseignée"	
+												mask="99/99/9999 99:99"
+												style="width:150px;"
+												>
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+												<p:ajax event="blur" update="ech, nbj"></p:ajax>
+												</p:inputMask>
+
+
+
+											<h:outputText value="Durée (Mois)*"
+												style="margin-left:25px" />
+											<p:selectOneMenu value="#{cotationAuto.contratMB.duree}">
+												<f:selectItem itemLabel="15 jours" itemValue="0.5" />
+												<f:selectItem itemLabel="1 mois" itemValue="1.0" />
+												<f:selectItem itemLabel="2 mois" itemValue="2.0" />
+												<f:selectItem itemLabel="3 mois" itemValue="3.0" />
+												<f:selectItem itemLabel="4 mois" itemValue="4.0" />
+												<f:selectItem itemLabel="5 mois" itemValue="5.0" />
+												<f:selectItem itemLabel="6 mois" itemValue="6.0" />
+												<f:selectItem itemLabel="7 mois" itemValue="7.0" />
+												<f:selectItem itemLabel="8 mois" itemValue="8.0" />
+												<f:selectItem itemLabel="9 mois" itemValue="9.0" />
+												<f:selectItem itemLabel="10 mois" itemValue="10.0" />
+												<f:selectItem itemLabel="11 mois" itemValue="11.0" />
+												<f:selectItem itemLabel="12 mois" itemValue="12.0" />
+												<p:ajax listener="#{cotationAuto.contratMB.majEcheance}" update="ech,nbj"/>
+											</p:selectOneMenu>
+
+											<h:outputText value="Date Echéance*" style="margin-right:20px;" />
+											<p:inputMask value="#{cotationAuto.contratMB.echeance}"
+												requiredMessage="Date d'échéance non renseignée"
+												 id="ech" size="17" 
+ 												style="width:135px;"
+												>
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+												</p:inputMask>
+
+											
+											
+											<h:outputText value="Nombre de Jours"  style="margin-left:25px"/>
+											<p:inputText value="#{cotationAuto.contratMB.dureeEnjour}"
+												id="nbj" style="width:150px;" />
+
+									
+											<h:outputText value="Reconduction"  style="margin-left:25px"
+												></h:outputText>
+											<p:selectOneMenu id="modeR" value="#{cotationAuto.contratMB.modeReconduction}"
+												 panelStyle="width:180px" style="width:160px"
+												 >
+												<f:selectItem itemLabel="Selectionner" itemValue="." />
+												<f:selectItem itemLabel="TERME(avec tacite reconduction Revisable)" itemValue="avec tacite reconduction Revisable" />
+												<f:selectItem itemLabel="SANS TACITE RECONDUCTION"
+													itemValue="SANS TACITE RECONDUCTION" />
+
+											</p:selectOneMenu>
+
+										
+												
+											</h:panelGrid>
+											<fieldset style="background-color: maroon;">
+											<h:commandButton value="test" actionListener="#{cotationAuto.valider}"></h:commandButton>
+				                        <h:commandButton value="Choix de la formule" style="margin-left:350px" action="formule"></h:commandButton>
+				                           </fieldset>
+				 	                 
+											</p:panel>
+											
+												
+			</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

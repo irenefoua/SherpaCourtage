@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateUserSpace.xhtml">
+	<ui:define name="content">
+	<ui:define name="i-page">
+		<p:menuitem value="Espace Personnel -Mes documents-" url="#"  />
+	</ui:define>
+
+			<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus> 
+		<h:form id="gnl">
+			<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

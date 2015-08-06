@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateUserSpace.xhtml">
+	<ui:define name="i-page">
+		<p:menuitem value="Espace Personnel -Parametres du compte-" url="#"/>
+	</ui:define>
+	<ui:define name="content">
+	
+
+			<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus> 
+		<h:form id="form">
+	 <h:panelGrid  >
+	 <p:commandLink oncomplete="garDialog.show()">
+		<h:outputText value="Modifier votre Login"  />
+	 </p:commandLink>
+	 
+	 <p:commandLink>
+		<h:outputText value="Modifier votre mot de passe"/>
+	 </p:commandLink>
+	 </h:panelGrid>
+	 
+	 <fieldset>
+		 <h:panelGrid columns="2" >
+		 <legend>Modification de Login</legend>
+		 <p:outputLabel for="login_inp" value="Login"/>
+		 <p:inputText id="login_inp" value="#{modificationCompte.personneModif.loginPers}"> </p:inputText>
+		 <p:commandButton value="Valider" action="#{modificationCompte.modifierLogin}"></p:commandButton>
+		 </h:panelGrid>
+	 </fieldset>
+	 
+	 	<!-- Dialog pour le changement de Login -->
+	 </h:form>
+	 
+	 	<p:dialog header="Garanties" widgetVar="garDialog" resizable="false" id="garDlg" showEffect="fade"  modal="true" appendTo="@(body)">
+	 	<h:form id="form_login_mod">
+	 	<fieldset>
+              <legend>Modification de Login</legend>
+              <h:panelGrid id="display" columns="4" cellpadding="2" style="margin:0 auto;">
+              	 <p:outputLabel for="login_input" value="Entrez le nouveau Login"/>
+	 			<p:inputText id="login_input" value="#{modificationCompte.loginmodif}" maxlength="10"> </p:inputText>
+	 			<p:commandButton value="Valider" action="#{modificationCompte.modifierLogin}" ></p:commandButton>
+              </h:panelGrid>          
+          </fieldset>
+          </h:form>
+    </p:dialog>  
+	 
+	 
+	</ui:define>
+</ui:composition>
+</html>
