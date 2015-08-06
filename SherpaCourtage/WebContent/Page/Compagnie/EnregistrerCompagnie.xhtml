@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+			
+			
+					<p:panel header="Informations sur la compagnie">
+					<br />
+					<h:panelGrid id="cducgrid" columns="6">
+											
+												<h:outputText value="Code Compagnie"  />
+												<p:inputText id="num_cond" 
+												style="width: 178px">
+												</p:inputText>
+												
+												
+						
+												<h:outputText value="Nom Compagnie*" style="margin-left: 20px;" />
+												<p:inputText id="nameC" style="width:175px"/>
+												
+						
+												<h:outputText value="Adresse*" style="margin-left: 20px;" />
+												<p:inputText 
+													style="width:168px" />
+												
+						                      
+												<h:outputText value="Dévise" style="margin-left: 20px;"/>
+												<p:inputText 
+													id="devise" style="width:175px;"/>
+												
+												
+												<h:outputText value="Site web" style="margin-left: 20px;"/>
+												<p:inputText 
+													id="lieuNaisC" style="width:175px;"/>	
+												
+												
+												<h:outputText value="Code Pays"  style="margin-left: 20px;"/>
+												<p:inputText 
+													id="numPermC" style="width:178px;"/>
+												
+												
+												<h:outputText value="Téléphone du pays" style="margin-left: 20px;"/>
+												<p:inputText  style="width:175px;"/>
+											</h:panelGrid>
+											<br/>
+											<br/>
+					
+					            <fieldset><legend>ENTREZ VOS PARAMETRES DE CONNEXION</legend>
+							                
+							                <h:panelGrid columns="2" style="border-radius:100px;">
+							                
+							               	<p:outputLabel  value="Login" style="margin-left:150px"/>
+						             		<p:inputText /> 
+						                        
+												
+												
+											 <h:outputLabel for="pwd1" value="Mot de passe: *" style="margin-left:150px"/>
+                                              <p:password id="pwd1"  promptLabel="Veillez saisir votre mot de passe" match="pwd2" label="mot de passe 1" feedback="true" required="true" 
+                                              validatorMessage="Veuillez saisir le meme mot de passe"
+                                              weakLabel="faible" goodLabel="Bien" strongLabel="Très bien" />
+ 
+                                             <h:outputLabel for="pwd2" value="Confirmez : *" style="margin-left:150px"/>
+                                           <p:password id="pwd2" label="Mot de passe 2" required="true" />
+																			
+							                </h:panelGrid>
+							                </fieldset>
+							                <br />
+							                
+				 	                    
+					                		</p:panel>	
+					                		
+												
+			</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
