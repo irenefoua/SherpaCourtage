@@ -1,12 +1,15 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,7 +22,7 @@ import javax.persistence.TemporalType;
 public class Ria implements java.io.Serializable {
 
 	private String codeCria;
-	private String codeEtatCima;
+	private EtatCima etatCima;
 	private BigDecimal reporExoPrDeb;
 	private BigDecimal pertesDeLExerciceDebit;
 	private BigDecimal dividendeDeb;
@@ -44,7 +47,7 @@ public class Ria implements java.io.Serializable {
 		this.codeCria = codeCria;
 	}
 
-	public Ria(String codeCria, String codeEtatCima, BigDecimal reporExoPrDeb,
+	public Ria(String codeCria, EtatCima etatCima, BigDecimal reporExoPrDeb,
 			BigDecimal pertesDeLExerciceDebit, BigDecimal dividendeDeb,
 			BigDecimal tantiemDeb, BigDecimal afectResDeb,
 			BigDecimal afectAutrResDeb, BigDecimal autreRepartDeb,
@@ -53,7 +56,7 @@ public class Ria implements java.io.Serializable {
 			BigDecimal prevResCred, BigDecimal reporNvCred,
 			BigDecimal totalCred, String libelleRia, Date dateRia) {
 		this.codeCria = codeCria;
-		this.codeEtatCima = codeEtatCima;
+		this.etatCima = etatCima;
 		this.reporExoPrDeb = reporExoPrDeb;
 		this.pertesDeLExerciceDebit = pertesDeLExerciceDebit;
 		this.dividendeDeb = dividendeDeb;
@@ -82,13 +85,14 @@ public class Ria implements java.io.Serializable {
 		this.codeCria = codeCria;
 	}
 
-	@Column(name = "CODE_ETAT_CIMA", length = 20)
-	public String getCodeEtatCima() {
-		return this.codeEtatCima;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_ETAT_CIMA")
+	public EtatCima getEtatCima() {
+		return this.etatCima;
 	}
 
-	public void setCodeEtatCima(String codeEtatCima) {
-		this.codeEtatCima = codeEtatCima;
+	public void setEtatCima(EtatCima etatCima) {
+		this.etatCima = etatCima;
 	}
 
 	@Column(name = "REPOR_EXO_PR_DEB", precision = 15, scale = 3)

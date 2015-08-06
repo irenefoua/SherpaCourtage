@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -84,7 +84,7 @@ public class PointVente implements java.io.Serializable {
 		this.typePointVente = typePointVente;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODE_VILLE", nullable = false)
 	public Ville getVille() {
 		return this.ville;

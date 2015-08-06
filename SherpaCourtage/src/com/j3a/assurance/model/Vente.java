@@ -1,11 +1,14 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +19,7 @@ import javax.persistence.Table;
 public class Vente implements java.io.Serializable {
 
 	private String codePortefeilles;
+	private Portefeuilles portefeuilles;
 	private String natureVente;
 	private String acquereurVente;
 	private BigDecimal montantVente;
@@ -23,13 +27,15 @@ public class Vente implements java.io.Serializable {
 	public Vente() {
 	}
 
-	public Vente(String codePortefeilles) {
+	public Vente(String codePortefeilles, Portefeuilles portefeuilles) {
 		this.codePortefeilles = codePortefeilles;
+		this.portefeuilles = portefeuilles;
 	}
 
-	public Vente(String codePortefeilles, String natureVente,
-			String acquereurVente, BigDecimal montantVente) {
+	public Vente(String codePortefeilles, Portefeuilles portefeuilles,
+			String natureVente, String acquereurVente, BigDecimal montantVente) {
 		this.codePortefeilles = codePortefeilles;
+		this.portefeuilles = portefeuilles;
 		this.natureVente = natureVente;
 		this.acquereurVente = acquereurVente;
 		this.montantVente = montantVente;
@@ -43,6 +49,16 @@ public class Vente implements java.io.Serializable {
 
 	public void setCodePortefeilles(String codePortefeilles) {
 		this.codePortefeilles = codePortefeilles;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_PORTEFEILLES", unique = true, nullable = false, insertable = false, updatable = false)
+	public Portefeuilles getPortefeuilles() {
+		return this.portefeuilles;
+	}
+
+	public void setPortefeuilles(Portefeuilles portefeuilles) {
+		this.portefeuilles = portefeuilles;
 	}
 
 	@Column(name = "NATURE_VENTE", length = 20)

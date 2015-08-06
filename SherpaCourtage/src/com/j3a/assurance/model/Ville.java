@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +21,7 @@ import javax.persistence.Table;
 public class Ville implements java.io.Serializable {
 
 	private String codeVille;
+	private Pays pays;
 	private Province province;
 	private ZoneGeographique zoneGeographique;
 	private String libelleVille;
@@ -29,17 +30,19 @@ public class Ville implements java.io.Serializable {
 	public Ville() {
 	}
 
-	public Ville(String codeVille, Province province,
+	public Ville(String codeVille, Pays pays, Province province,
 			ZoneGeographique zoneGeographique) {
 		this.codeVille = codeVille;
+		this.pays = pays;
 		this.province = province;
 		this.zoneGeographique = zoneGeographique;
 	}
 
-	public Ville(String codeVille, Province province,
+	public Ville(String codeVille, Pays pays, Province province,
 			ZoneGeographique zoneGeographique, String libelleVille,
 			Set<PointVente> pointVentes) {
 		this.codeVille = codeVille;
+		this.pays = pays;
 		this.province = province;
 		this.zoneGeographique = zoneGeographique;
 		this.libelleVille = libelleVille;
@@ -54,6 +57,16 @@ public class Ville implements java.io.Serializable {
 
 	public void setCodeVille(String codeVille) {
 		this.codeVille = codeVille;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_PAYS", nullable = false)
+	public Pays getPays() {
+		return this.pays;
+	}
+
+	public void setPays(Pays pays) {
+		this.pays = pays;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

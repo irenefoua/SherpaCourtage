@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -71,7 +71,7 @@ public class VehiculesAssures implements java.io.Serializable {
 		this.avenants = avenants;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "vehiculesAssures")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "vehiculesAssures")
 	public Set<Vehicule> getVehicules() {
 		return this.vehicules;
 	}

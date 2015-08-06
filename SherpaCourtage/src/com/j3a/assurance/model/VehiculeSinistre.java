@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -77,7 +77,7 @@ public class VehiculeSinistre implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODE_SINISTRE", nullable = false, insertable = false, updatable = false)
 	public Sinistre getSinistre() {
 		return this.sinistre;
@@ -87,7 +87,7 @@ public class VehiculeSinistre implements java.io.Serializable {
 		this.sinistre = sinistre;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODE_VEHICULE", nullable = false, insertable = false, updatable = false)
 	public Vehicule getVehicule() {
 		return this.vehicule;

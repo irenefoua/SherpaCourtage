@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 public class Avenant implements java.io.Serializable {
 
 	private String numAvenant;
+	private CompagnieAssurance compagnieAssurance;
 	private Contrat contrat;
 	private Exercice exercice;
 	private Utilisateur utilisateur;
@@ -61,11 +62,11 @@ public class Avenant implements java.io.Serializable {
 		this.utilisateur = utilisateur;
 	}
 
-	public Avenant(String numAvenant, Contrat contrat, Exercice exercice,
-			Utilisateur utilisateur, VehiculesAssures vehiculesAssures,
-			Date dateAvenant, Date effet, Date dateEmission, Date echeance,
-			Short duree, Date resiliation, String observation,
-			Short envoyerMail, String mouvement,
+	public Avenant(String numAvenant, CompagnieAssurance compagnieAssurance,
+			Contrat contrat, Exercice exercice, Utilisateur utilisateur,
+			VehiculesAssures vehiculesAssures, Date dateAvenant, Date effet,
+			Date dateEmission, Date echeance, Short duree, Date resiliation,
+			String observation, Short envoyerMail, String mouvement,
 			Set<AvListeCorpsEngin> avListeCorpsEngins,
 			Set<AvenantListeGestionConfie> avenantListeGestionConfies,
 			Set<AvListeHabitation> avListeHabitations,
@@ -74,6 +75,7 @@ public class Avenant implements java.io.Serializable {
 			Set<AvenantRisqueNta> avenantRisqueNtas, Set<AvTrafic> avTrafics,
 			Set<Quittance> quittances) {
 		this.numAvenant = numAvenant;
+		this.compagnieAssurance = compagnieAssurance;
 		this.contrat = contrat;
 		this.exercice = exercice;
 		this.utilisateur = utilisateur;
@@ -108,6 +110,16 @@ public class Avenant implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
+	public CompagnieAssurance getCompagnieAssurance() {
+		return this.compagnieAssurance;
+	}
+
+	public void setCompagnieAssurance(CompagnieAssurance compagnieAssurance) {
+		this.compagnieAssurance = compagnieAssurance;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "NUM_POLICE", nullable = false)
 	public Contrat getContrat() {
 		return this.contrat;
@@ -117,7 +129,7 @@ public class Avenant implements java.io.Serializable {
 		this.contrat = contrat;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODEEXERCICE")
 	public Exercice getExercice() {
 		return this.exercice;
@@ -137,7 +149,7 @@ public class Avenant implements java.io.Serializable {
 		this.utilisateur = utilisateur;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_VEHICULES_ASSURES")
 	public VehiculesAssures getVehiculesAssures() {
 		return this.vehiculesAssures;
@@ -297,7 +309,7 @@ public class Avenant implements java.io.Serializable {
 		this.avTrafics = avTrafics;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
 	public Set<Quittance> getQuittances() {
 		return this.quittances;
 	}

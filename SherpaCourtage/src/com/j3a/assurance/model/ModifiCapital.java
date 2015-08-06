@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -9,7 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +22,7 @@ import javax.persistence.Table;
 public class ModifiCapital implements java.io.Serializable {
 
 	private String codeModifCap;
-	private int codeexercice;
+	private Exercice exercice;
 	private BigDecimal capitalSocialInitial;
 	private BigDecimal versements;
 	private BigDecimal appels;
@@ -28,23 +30,25 @@ public class ModifiCapital implements java.io.Serializable {
 	private BigDecimal fondEtablissementInitial;
 	private BigDecimal amortissements;
 	private BigDecimal fondEtablissementFinExo;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<ModifcapitalExercice> modifcapitalExercices = new HashSet<ModifcapitalExercice>(
+			0);
 
 	public ModifiCapital() {
 	}
 
-	public ModifiCapital(String codeModifCap, int codeexercice) {
+	public ModifiCapital(String codeModifCap, Exercice exercice) {
 		this.codeModifCap = codeModifCap;
-		this.codeexercice = codeexercice;
+		this.exercice = exercice;
 	}
 
-	public ModifiCapital(String codeModifCap, int codeexercice,
+	public ModifiCapital(String codeModifCap, Exercice exercice,
 			BigDecimal capitalSocialInitial, BigDecimal versements,
 			BigDecimal appels, BigDecimal capitalSocialFinExo,
 			BigDecimal fondEtablissementInitial, BigDecimal amortissements,
-			BigDecimal fondEtablissementFinExo, Set<EtatCima> etatCimas) {
+			BigDecimal fondEtablissementFinExo,
+			Set<ModifcapitalExercice> modifcapitalExercices) {
 		this.codeModifCap = codeModifCap;
-		this.codeexercice = codeexercice;
+		this.exercice = exercice;
 		this.capitalSocialInitial = capitalSocialInitial;
 		this.versements = versements;
 		this.appels = appels;
@@ -52,7 +56,7 @@ public class ModifiCapital implements java.io.Serializable {
 		this.fondEtablissementInitial = fondEtablissementInitial;
 		this.amortissements = amortissements;
 		this.fondEtablissementFinExo = fondEtablissementFinExo;
-		this.etatCimas = etatCimas;
+		this.modifcapitalExercices = modifcapitalExercices;
 	}
 
 	@Id
@@ -65,13 +69,14 @@ public class ModifiCapital implements java.io.Serializable {
 		this.codeModifCap = codeModifCap;
 	}
 
-	@Column(name = "CODEEXERCICE", nullable = false)
-	public int getCodeexercice() {
-		return this.codeexercice;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODEEXERCICE", nullable = false)
+	public Exercice getExercice() {
+		return this.exercice;
 	}
 
-	public void setCodeexercice(int codeexercice) {
-		this.codeexercice = codeexercice;
+	public void setExercice(Exercice exercice) {
+		this.exercice = exercice;
 	}
 
 	@Column(name = "CAPITAL_SOCIAL_INITIAL", precision = 15, scale = 3)
@@ -137,13 +142,14 @@ public class ModifiCapital implements java.io.Serializable {
 		this.fondEtablissementFinExo = fondEtablissementFinExo;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "modifiCapitals")
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiCapital")
+	public Set<ModifcapitalExercice> getModifcapitalExercices() {
+		return this.modifcapitalExercices;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setModifcapitalExercices(
+			Set<ModifcapitalExercice> modifcapitalExercices) {
+		this.modifcapitalExercices = modifcapitalExercices;
 	}
 
 }

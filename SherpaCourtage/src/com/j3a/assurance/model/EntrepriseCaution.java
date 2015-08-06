@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +23,8 @@ public class EntrepriseCaution implements java.io.Serializable {
 	private String prenomsEntrepCaut;
 	private String qualificationEntrepCaut;
 	private String objetEntrepCaut;
-	private Set<EtatCima> etatCimas = new HashSet<EtatCima>(0);
+	private Set<EntreprisecautionExercice> entreprisecautionExercices = new HashSet<EntreprisecautionExercice>(
+			0);
 
 	public EntrepriseCaution() {
 	}
@@ -34,13 +35,14 @@ public class EntrepriseCaution implements java.io.Serializable {
 
 	public EntrepriseCaution(String codeEntrepCaut, String nomsEntrepCaut,
 			String prenomsEntrepCaut, String qualificationEntrepCaut,
-			String objetEntrepCaut, Set<EtatCima> etatCimas) {
+			String objetEntrepCaut,
+			Set<EntreprisecautionExercice> entreprisecautionExercices) {
 		this.codeEntrepCaut = codeEntrepCaut;
 		this.nomsEntrepCaut = nomsEntrepCaut;
 		this.prenomsEntrepCaut = prenomsEntrepCaut;
 		this.qualificationEntrepCaut = qualificationEntrepCaut;
 		this.objetEntrepCaut = objetEntrepCaut;
-		this.etatCimas = etatCimas;
+		this.entreprisecautionExercices = entreprisecautionExercices;
 	}
 
 	@Id
@@ -89,13 +91,14 @@ public class EntrepriseCaution implements java.io.Serializable {
 		this.objetEntrepCaut = objetEntrepCaut;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "entrepriseCautions")
-	public Set<EtatCima> getEtatCimas() {
-		return this.etatCimas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "entrepriseCaution")
+	public Set<EntreprisecautionExercice> getEntreprisecautionExercices() {
+		return this.entreprisecautionExercices;
 	}
 
-	public void setEtatCimas(Set<EtatCima> etatCimas) {
-		this.etatCimas = etatCimas;
+	public void setEntreprisecautionExercices(
+			Set<EntreprisecautionExercice> entreprisecautionExercices) {
+		this.entreprisecautionExercices = entreprisecautionExercices;
 	}
 
 }

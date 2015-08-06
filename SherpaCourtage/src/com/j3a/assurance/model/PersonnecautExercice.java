@@ -1,12 +1,15 @@
 package com.j3a.assurance.model;
 
-// Generated 6 juil. 2015 11:25:44 by Hibernate Tools 4.3.1
+// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,12 +20,17 @@ import javax.persistence.Table;
 public class PersonnecautExercice implements java.io.Serializable {
 
 	private PersonnecautExerciceId id;
+	private EtatCima etatCima;
+	private PersonneCaution personneCaution;
 
 	public PersonnecautExercice() {
 	}
 
-	public PersonnecautExercice(PersonnecautExerciceId id) {
+	public PersonnecautExercice(PersonnecautExerciceId id, EtatCima etatCima,
+			PersonneCaution personneCaution) {
 		this.id = id;
+		this.etatCima = etatCima;
+		this.personneCaution = personneCaution;
 	}
 
 	@EmbeddedId
@@ -35,6 +43,26 @@ public class PersonnecautExercice implements java.io.Serializable {
 
 	public void setId(PersonnecautExerciceId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_ETAT_CIMA", nullable = false, insertable = false, updatable = false)
+	public EtatCima getEtatCima() {
+		return this.etatCima;
+	}
+
+	public void setEtatCima(EtatCima etatCima) {
+		this.etatCima = etatCima;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_PERS_CAUT", nullable = false, insertable = false, updatable = false)
+	public PersonneCaution getPersonneCaution() {
+		return this.personneCaution;
+	}
+
+	public void setPersonneCaution(PersonneCaution personneCaution) {
+		this.personneCaution = personneCaution;
 	}
 
 }
