@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 6 août 2015 16:35:56 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
