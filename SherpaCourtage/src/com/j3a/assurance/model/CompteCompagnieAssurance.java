@@ -1,15 +1,18 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,6 +30,8 @@ public class CompteCompagnieAssurance implements java.io.Serializable {
 	private BigDecimal totamPrimeRecu;
 	private BigDecimal primeAVersee;
 	private Date dateCreaCompte;
+	private Set<ReglementCompagnieAssurance> reglementCompagnieAssurances = new HashSet<ReglementCompagnieAssurance>(
+			0);
 
 	public CompteCompagnieAssurance() {
 	}
@@ -40,13 +45,15 @@ public class CompteCompagnieAssurance implements java.io.Serializable {
 	public CompteCompagnieAssurance(String codeCompteCompAss,
 			CompagnieAssurance compagnieAssurance, BigDecimal totalPrimeDue,
 			BigDecimal totamPrimeRecu, BigDecimal primeAVersee,
-			Date dateCreaCompte) {
+			Date dateCreaCompte,
+			Set<ReglementCompagnieAssurance> reglementCompagnieAssurances) {
 		this.codeCompteCompAss = codeCompteCompAss;
 		this.compagnieAssurance = compagnieAssurance;
 		this.totalPrimeDue = totalPrimeDue;
 		this.totamPrimeRecu = totamPrimeRecu;
 		this.primeAVersee = primeAVersee;
 		this.dateCreaCompte = dateCreaCompte;
+		this.reglementCompagnieAssurances = reglementCompagnieAssurances;
 	}
 
 	@Id
@@ -104,6 +111,16 @@ public class CompteCompagnieAssurance implements java.io.Serializable {
 
 	public void setDateCreaCompte(Date dateCreaCompte) {
 		this.dateCreaCompte = dateCreaCompte;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compteCompagnieAssurance")
+	public Set<ReglementCompagnieAssurance> getReglementCompagnieAssurances() {
+		return this.reglementCompagnieAssurances;
+	}
+
+	public void setReglementCompagnieAssurances(
+			Set<ReglementCompagnieAssurance> reglementCompagnieAssurances) {
+		this.reglementCompagnieAssurances = reglementCompagnieAssurances;
 	}
 
 }

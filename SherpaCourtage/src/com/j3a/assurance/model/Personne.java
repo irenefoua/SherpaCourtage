@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
 public class Personne implements java.io.Serializable {
 
 	private String numSouscripteur;
+	private Pays pays;
 	private UserRole userRole;
 	private Date datePers;
 	private String nomRaisonSociale;
@@ -51,13 +52,14 @@ public class Personne implements java.io.Serializable {
 		this.userRole = userRole;
 	}
 
-	public Personne(String numSouscripteur, UserRole userRole, Date datePers,
-			String nomRaisonSociale, String adresseGeo, String adresse,
-			String telephone, String fax, String email, String loginPers,
-			String motPassePers, Boolean enable, Set<Contrat> contrats,
-			Set<Etre> etres, Physique physique, Morale morale,
-			Set<PersonneNationalite> personneNationalites) {
+	public Personne(String numSouscripteur, Pays pays, UserRole userRole,
+			Date datePers, String nomRaisonSociale, String adresseGeo,
+			String adresse, String telephone, String fax, String email,
+			String loginPers, String motPassePers, Boolean enable,
+			Set<Contrat> contrats, Set<Etre> etres, Physique physique,
+			Morale morale, Set<PersonneNationalite> personneNationalites) {
 		this.numSouscripteur = numSouscripteur;
+		this.pays = pays;
 		this.userRole = userRole;
 		this.datePers = datePers;
 		this.nomRaisonSociale = nomRaisonSociale;
@@ -84,6 +86,16 @@ public class Personne implements java.io.Serializable {
 
 	public void setNumSouscripteur(String numSouscripteur) {
 		this.numSouscripteur = numSouscripteur;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_PAYS")
+	public Pays getPays() {
+		return this.pays;
+	}
+
+	public void setPays(Pays pays) {
+		this.pays = pays;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,8 @@ public class UserRole implements java.io.Serializable {
 
 	private int userRoleId;
 	private String autority;
+	private Set<SocieteAssurance> societeAssurances = new HashSet<SocieteAssurance>(
+			0);
 	private Set<Personne> personnes = new HashSet<Personne>(0);
 
 	public UserRole() {
@@ -29,9 +31,11 @@ public class UserRole implements java.io.Serializable {
 		this.userRoleId = userRoleId;
 	}
 
-	public UserRole(int userRoleId, String autority, Set<Personne> personnes) {
+	public UserRole(int userRoleId, String autority,
+			Set<SocieteAssurance> societeAssurances, Set<Personne> personnes) {
 		this.userRoleId = userRoleId;
 		this.autority = autority;
+		this.societeAssurances = societeAssurances;
 		this.personnes = personnes;
 	}
 
@@ -52,6 +56,15 @@ public class UserRole implements java.io.Serializable {
 
 	public void setAutority(String autority) {
 		this.autority = autority;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole")
+	public Set<SocieteAssurance> getSocieteAssurances() {
+		return this.societeAssurances;
+	}
+
+	public void setSocieteAssurances(Set<SocieteAssurance> societeAssurances) {
+		this.societeAssurances = societeAssurances;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole")

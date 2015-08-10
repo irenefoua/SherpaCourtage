@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,42 +24,45 @@ import javax.persistence.TemporalType;
 public class SocieteAssurance implements java.io.Serializable {
 
 	private String codeSocieteAssurance;
+	private UserRole userRole;
 	private String abrege;
 	private String nomSocieteAssurance;
 	private String adressePostale;
 	private String deviseUtilise;
 	private String modPass;
 	private String mailSocieteAssurancePublic;
-	private Date dateConstitution;
-	private String referenceStattut;
-	private Boolean modifiStatut;
 	private String pays;
+	private Date dateConstitution;
+	private String referenceStatut;
+	private Boolean modifiStatut;
 	private Set<Contrat> contrats = new HashSet<Contrat>(0);
 
 	public SocieteAssurance() {
 	}
 
-	public SocieteAssurance(String codeSocieteAssurance) {
+	public SocieteAssurance(String codeSocieteAssurance, UserRole userRole) {
 		this.codeSocieteAssurance = codeSocieteAssurance;
+		this.userRole = userRole;
 	}
 
-	public SocieteAssurance(String codeSocieteAssurance, String abrege,
-			String nomSocieteAssurance, String adressePostale,
+	public SocieteAssurance(String codeSocieteAssurance, UserRole userRole,
+			String abrege, String nomSocieteAssurance, String adressePostale,
 			String deviseUtilise, String modPass,
-			String mailSocieteAssurancePublic, Date dateConstitution,
-			String referenceStattut, Boolean modifiStatut, String pays,
-			Set<Contrat> contrats) {
+			String mailSocieteAssurancePublic, String pays,
+			Date dateConstitution, String referenceStatut,
+			Boolean modifiStatut, Set<Contrat> contrats) {
 		this.codeSocieteAssurance = codeSocieteAssurance;
+		this.userRole = userRole;
 		this.abrege = abrege;
 		this.nomSocieteAssurance = nomSocieteAssurance;
 		this.adressePostale = adressePostale;
 		this.deviseUtilise = deviseUtilise;
 		this.modPass = modPass;
 		this.mailSocieteAssurancePublic = mailSocieteAssurancePublic;
-		this.dateConstitution = dateConstitution;
-		this.referenceStattut = referenceStattut;
-		this.modifiStatut = modifiStatut;
 		this.pays = pays;
+		this.dateConstitution = dateConstitution;
+		this.referenceStatut = referenceStatut;
+		this.modifiStatut = modifiStatut;
 		this.contrats = contrats;
 	}
 
@@ -69,6 +74,16 @@ public class SocieteAssurance implements java.io.Serializable {
 
 	public void setCodeSocieteAssurance(String codeSocieteAssurance) {
 		this.codeSocieteAssurance = codeSocieteAssurance;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
+	public UserRole getUserRole() {
+		return this.userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	@Column(name = "ABREGE", length = 10)
@@ -125,6 +140,15 @@ public class SocieteAssurance implements java.io.Serializable {
 		this.mailSocieteAssurancePublic = mailSocieteAssurancePublic;
 	}
 
+	@Column(name = "PAYS", length = 60)
+	public String getPays() {
+		return this.pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATE_CONSTITUTION", length = 10)
 	public Date getDateConstitution() {
@@ -135,13 +159,13 @@ public class SocieteAssurance implements java.io.Serializable {
 		this.dateConstitution = dateConstitution;
 	}
 
-	@Column(name = "REFERENCE_STATTUT", length = 25)
-	public String getReferenceStattut() {
-		return this.referenceStattut;
+	@Column(name = "REFERENCE_STATUT", length = 25)
+	public String getReferenceStatut() {
+		return this.referenceStatut;
 	}
 
-	public void setReferenceStattut(String referenceStattut) {
-		this.referenceStattut = referenceStattut;
+	public void setReferenceStatut(String referenceStatut) {
+		this.referenceStatut = referenceStatut;
 	}
 
 	@Column(name = "MODIFI_STATUT")
@@ -151,15 +175,6 @@ public class SocieteAssurance implements java.io.Serializable {
 
 	public void setModifiStatut(Boolean modifiStatut) {
 		this.modifiStatut = modifiStatut;
-	}
-
-	@Column(name = "PAYS", length = 60)
-	public String getPays() {
-		return this.pays;
-	}
-
-	public void setPays(String pays) {
-		this.pays = pays;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "societeAssurance")

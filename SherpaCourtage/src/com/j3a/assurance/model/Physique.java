@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,9 +31,18 @@ public class Physique implements java.io.Serializable {
 	private String numSouscripteur;
 	private Personne personne;
 	private Sexe sexe;
+	private String codePays;
 	private Integer userRoleId;
 	private Date datePers;
 	private String nomRaisonSociale;
+	private String adresseGeo;
+	private String adresse;
+	private String telephone;
+	private String fax;
+	private String email;
+	private String loginPers;
+	private String motPassePers;
+	private Boolean enable;
 	private String prenomPers;
 	private Date dateNaissPers;
 	private String lieuNaissPers;
@@ -43,14 +52,6 @@ public class Physique implements java.io.Serializable {
 	private String profession;
 	private String categorieProfessionnelle;
 	private String typePiece;
-	private String adresseGeo;
-	private String adresse;
-	private String telephone;
-	private String fax;
-	private String email;
-	private Boolean enable;
-	private String loginPers;
-	private String motPassePers;
 	private Set<Permis> permises = new HashSet<Permis>(0);
 
 	public Physique() {
@@ -61,19 +62,28 @@ public class Physique implements java.io.Serializable {
 		this.sexe = sexe;
 	}
 
-	public Physique(Personne personne, Sexe sexe, Integer userRoleId,
-			Date datePers, String nomRaisonSociale, String prenomPers,
-			Date dateNaissPers, String lieuNaissPers, String situationMatPers,
-			String numPiecePers, String titre, String profession,
-			String categorieProfessionnelle, String typePiece,
+	public Physique(Personne personne, Sexe sexe, String codePays,
+			Integer userRoleId, Date datePers, String nomRaisonSociale,
 			String adresseGeo, String adresse, String telephone, String fax,
-			String email, Boolean enable, String loginPers,
-			String motPassePers, Set<Permis> permises) {
+			String email, String loginPers, String motPassePers,
+			Boolean enable, String prenomPers, Date dateNaissPers,
+			String lieuNaissPers, String situationMatPers, String numPiecePers,
+			String titre, String profession, String categorieProfessionnelle,
+			String typePiece, Set<Permis> permises) {
 		this.personne = personne;
 		this.sexe = sexe;
+		this.codePays = codePays;
 		this.userRoleId = userRoleId;
 		this.datePers = datePers;
 		this.nomRaisonSociale = nomRaisonSociale;
+		this.adresseGeo = adresseGeo;
+		this.adresse = adresse;
+		this.telephone = telephone;
+		this.fax = fax;
+		this.email = email;
+		this.loginPers = loginPers;
+		this.motPassePers = motPassePers;
+		this.enable = enable;
 		this.prenomPers = prenomPers;
 		this.dateNaissPers = dateNaissPers;
 		this.lieuNaissPers = lieuNaissPers;
@@ -83,14 +93,6 @@ public class Physique implements java.io.Serializable {
 		this.profession = profession;
 		this.categorieProfessionnelle = categorieProfessionnelle;
 		this.typePiece = typePiece;
-		this.adresseGeo = adresseGeo;
-		this.adresse = adresse;
-		this.telephone = telephone;
-		this.fax = fax;
-		this.email = email;
-		this.enable = enable;
-		this.loginPers = loginPers;
-		this.motPassePers = motPassePers;
 		this.permises = permises;
 	}
 
@@ -126,6 +128,15 @@ public class Physique implements java.io.Serializable {
 		this.sexe = sexe;
 	}
 
+	@Column(name = "CODE_PAYS", length = 15)
+	public String getCodePays() {
+		return this.codePays;
+	}
+
+	public void setCodePays(String codePays) {
+		this.codePays = codePays;
+	}
+
 	@Column(name = "USER_ROLE_ID")
 	public Integer getUserRoleId() {
 		return this.userRoleId;
@@ -152,6 +163,78 @@ public class Physique implements java.io.Serializable {
 
 	public void setNomRaisonSociale(String nomRaisonSociale) {
 		this.nomRaisonSociale = nomRaisonSociale;
+	}
+
+	@Column(name = "ADRESSE_GEO", length = 75)
+	public String getAdresseGeo() {
+		return this.adresseGeo;
+	}
+
+	public void setAdresseGeo(String adresseGeo) {
+		this.adresseGeo = adresseGeo;
+	}
+
+	@Column(name = "ADRESSE", length = 60)
+	public String getAdresse() {
+		return this.adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	@Column(name = "TELEPHONE", length = 16)
+	public String getTelephone() {
+		return this.telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	@Column(name = "FAX", length = 16)
+	public String getFax() {
+		return this.fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	@Column(name = "EMAIL", length = 60)
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "LOGIN_PERS", length = 20)
+	public String getLoginPers() {
+		return this.loginPers;
+	}
+
+	public void setLoginPers(String loginPers) {
+		this.loginPers = loginPers;
+	}
+
+	@Column(name = "MOT_PASSE_PERS", length = 10)
+	public String getMotPassePers() {
+		return this.motPassePers;
+	}
+
+	public void setMotPassePers(String motPassePers) {
+		this.motPassePers = motPassePers;
+	}
+
+	@Column(name = "ENABLE")
+	public Boolean getEnable() {
+		return this.enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 
 	@Column(name = "PRENOM_PERS", length = 70)
@@ -234,78 +317,6 @@ public class Physique implements java.io.Serializable {
 
 	public void setTypePiece(String typePiece) {
 		this.typePiece = typePiece;
-	}
-
-	@Column(name = "ADRESSE_GEO", length = 75)
-	public String getAdresseGeo() {
-		return this.adresseGeo;
-	}
-
-	public void setAdresseGeo(String adresseGeo) {
-		this.adresseGeo = adresseGeo;
-	}
-
-	@Column(name = "ADRESSE", length = 60)
-	public String getAdresse() {
-		return this.adresse;
-	}
-
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
-
-	@Column(name = "TELEPHONE", length = 16)
-	public String getTelephone() {
-		return this.telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	@Column(name = "FAX", length = 16)
-	public String getFax() {
-		return this.fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-
-	@Column(name = "EMAIL", length = 60)
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name = "ENABLE")
-	public Boolean getEnable() {
-		return this.enable;
-	}
-
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
-	}
-
-	@Column(name = "LOGIN_PERS", length = 20)
-	public String getLoginPers() {
-		return this.loginPers;
-	}
-
-	public void setLoginPers(String loginPers) {
-		this.loginPers = loginPers;
-	}
-
-	@Column(name = "MOT_PASSE_PERS", length = 10)
-	public String getMotPassePers() {
-		return this.motPassePers;
-	}
-
-	public void setMotPassePers(String motPassePers) {
-		this.motPassePers = motPassePers;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "physique")

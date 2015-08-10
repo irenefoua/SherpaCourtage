@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 09:53:29 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -25,6 +25,7 @@ public class Morale implements java.io.Serializable {
 
 	private String numSouscripteur;
 	private Personne personne;
+	private String codePays;
 	private Integer userRoleId;
 	private Date datePers;
 	private String nomRaisonSociale;
@@ -48,12 +49,13 @@ public class Morale implements java.io.Serializable {
 		this.personne = personne;
 	}
 
-	public Morale(Personne personne, Integer userRoleId, Date datePers,
-			String nomRaisonSociale, String adresseGeo, String adresse,
-			String telephone, String fax, String email, String loginPers,
-			String motPassePers, Boolean enable, String dirigeant,
-			String numCc, String numRc, String mailDirigeant) {
+	public Morale(Personne personne, String codePays, Integer userRoleId,
+			Date datePers, String nomRaisonSociale, String adresseGeo,
+			String adresse, String telephone, String fax, String email,
+			String loginPers, String motPassePers, Boolean enable,
+			String dirigeant, String numCc, String numRc, String mailDirigeant) {
 		this.personne = personne;
+		this.codePays = codePays;
 		this.userRoleId = userRoleId;
 		this.datePers = datePers;
 		this.nomRaisonSociale = nomRaisonSociale;
@@ -91,6 +93,15 @@ public class Morale implements java.io.Serializable {
 
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
+	}
+
+	@Column(name = "CODE_PAYS", length = 15)
+	public String getCodePays() {
+		return this.codePays;
+	}
+
+	public void setCodePays(String codePays) {
+		this.codePays = codePays;
 	}
 
 	@Column(name = "USER_ROLE_ID")
