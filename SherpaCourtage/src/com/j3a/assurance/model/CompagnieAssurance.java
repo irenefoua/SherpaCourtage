@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:53:59 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +22,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 
 	private String codeCompagnieAssurance;
 	private Pays pays;
+	private UserRole userRole;
 	private String raisonSocialeCompAss;
 	private String adresseCompAss;
 	private String telCompAss;
@@ -29,6 +30,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 	private String deviseCompAss;
 	private String loginCompAss;
 	private String motPasseCompAss;
+	private Boolean activiteCompagnie;
 	private Set<Tarif> tarifs = new HashSet<Tarif>(0);
 	private Set<Avenant> avenants = new HashSet<Avenant>(0);
 	private Set<CompteCompagnieAssurance> compteCompagnieAssurances = new HashSet<CompteCompagnieAssurance>(
@@ -37,19 +39,23 @@ public class CompagnieAssurance implements java.io.Serializable {
 	public CompagnieAssurance() {
 	}
 
-	public CompagnieAssurance(String codeCompagnieAssurance, Pays pays) {
+	public CompagnieAssurance(String codeCompagnieAssurance, Pays pays,
+			UserRole userRole) {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
 		this.pays = pays;
+		this.userRole = userRole;
 	}
 
 	public CompagnieAssurance(String codeCompagnieAssurance, Pays pays,
-			String raisonSocialeCompAss, String adresseCompAss,
-			String telCompAss, String siteWebCompAss, String deviseCompAss,
-			String loginCompAss, String motPasseCompAss, Set<Tarif> tarifs,
+			UserRole userRole, String raisonSocialeCompAss,
+			String adresseCompAss, String telCompAss, String siteWebCompAss,
+			String deviseCompAss, String loginCompAss, String motPasseCompAss,
+			Boolean activiteCompagnie, Set<Tarif> tarifs,
 			Set<Avenant> avenants,
 			Set<CompteCompagnieAssurance> compteCompagnieAssurances) {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
 		this.pays = pays;
+		this.userRole = userRole;
 		this.raisonSocialeCompAss = raisonSocialeCompAss;
 		this.adresseCompAss = adresseCompAss;
 		this.telCompAss = telCompAss;
@@ -57,6 +63,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.deviseCompAss = deviseCompAss;
 		this.loginCompAss = loginCompAss;
 		this.motPasseCompAss = motPasseCompAss;
+		this.activiteCompagnie = activiteCompagnie;
 		this.tarifs = tarifs;
 		this.avenants = avenants;
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
@@ -80,6 +87,16 @@ public class CompagnieAssurance implements java.io.Serializable {
 
 	public void setPays(Pays pays) {
 		this.pays = pays;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
+	public UserRole getUserRole() {
+		return this.userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	@Column(name = "RAISON_SOCIALE_COMP_ASS", length = 225)
@@ -143,6 +160,15 @@ public class CompagnieAssurance implements java.io.Serializable {
 
 	public void setMotPasseCompAss(String motPasseCompAss) {
 		this.motPasseCompAss = motPasseCompAss;
+	}
+
+	@Column(name = "ACTIVITE_COMPAGNIE")
+	public Boolean getActiviteCompagnie() {
+		return this.activiteCompagnie;
+	}
+
+	public void setActiviteCompagnie(Boolean activiteCompagnie) {
+		this.activiteCompagnie = activiteCompagnie;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")

@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 15:05:20 by Hibernate Tools 4.3.1
+// Generated 10 août 2015 15:53:59 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,8 @@ public class UserRole implements java.io.Serializable {
 
 	private int userRoleId;
 	private String autority;
+	private Set<CompagnieAssurance> compagnieAssurances = new HashSet<CompagnieAssurance>(
+			0);
 	private Set<SocieteAssurance> societeAssurances = new HashSet<SocieteAssurance>(
 			0);
 	private Set<Personne> personnes = new HashSet<Personne>(0);
@@ -32,9 +34,11 @@ public class UserRole implements java.io.Serializable {
 	}
 
 	public UserRole(int userRoleId, String autority,
+			Set<CompagnieAssurance> compagnieAssurances,
 			Set<SocieteAssurance> societeAssurances, Set<Personne> personnes) {
 		this.userRoleId = userRoleId;
 		this.autority = autority;
+		this.compagnieAssurances = compagnieAssurances;
 		this.societeAssurances = societeAssurances;
 		this.personnes = personnes;
 	}
@@ -56,6 +60,16 @@ public class UserRole implements java.io.Serializable {
 
 	public void setAutority(String autority) {
 		this.autority = autority;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole")
+	public Set<CompagnieAssurance> getCompagnieAssurances() {
+		return this.compagnieAssurances;
+	}
+
+	public void setCompagnieAssurances(
+			Set<CompagnieAssurance> compagnieAssurances) {
+		this.compagnieAssurances = compagnieAssurances;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole")
