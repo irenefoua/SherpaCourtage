@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 15:53:59 by Hibernate Tools 4.3.1
+// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;

@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 15:53:59 by Hibernate Tools 4.3.1
+// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 	private String loginCompAss;
 	private String motPasseCompAss;
 	private Boolean activiteCompagnie;
-	private Set<Tarif> tarifs = new HashSet<Tarif>(0);
+	private Set<Tarifweb> tarifwebs = new HashSet<Tarifweb>(0);
 	private Set<Avenant> avenants = new HashSet<Avenant>(0);
 	private Set<CompteCompagnieAssurance> compteCompagnieAssurances = new HashSet<CompteCompagnieAssurance>(
 			0);
@@ -50,7 +50,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 			UserRole userRole, String raisonSocialeCompAss,
 			String adresseCompAss, String telCompAss, String siteWebCompAss,
 			String deviseCompAss, String loginCompAss, String motPasseCompAss,
-			Boolean activiteCompagnie, Set<Tarif> tarifs,
+			Boolean activiteCompagnie, Set<Tarifweb> tarifwebs,
 			Set<Avenant> avenants,
 			Set<CompteCompagnieAssurance> compteCompagnieAssurances) {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
@@ -64,7 +64,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.loginCompAss = loginCompAss;
 		this.motPasseCompAss = motPasseCompAss;
 		this.activiteCompagnie = activiteCompagnie;
-		this.tarifs = tarifs;
+		this.tarifwebs = tarifwebs;
 		this.avenants = avenants;
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
 	}
@@ -172,12 +172,12 @@ public class CompagnieAssurance implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")
-	public Set<Tarif> getTarifs() {
-		return this.tarifs;
+	public Set<Tarifweb> getTarifwebs() {
+		return this.tarifwebs;
 	}
 
-	public void setTarifs(Set<Tarif> tarifs) {
-		this.tarifs = tarifs;
+	public void setTarifwebs(Set<Tarifweb> tarifwebs) {
+		this.tarifwebs = tarifwebs;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")

@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 15:53:59 by Hibernate Tools 4.3.1
+// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,6 +27,7 @@ public class SousCatVehicule implements java.io.Serializable {
 	private String libelleSousCatVehicule;
 	private String tarif_1;
 	private Set<Vehicule> vehicules = new HashSet<Vehicule>(0);
+	private Set<Tarifweb> tarifwebs = new HashSet<Tarifweb>(0);
 
 	public SousCatVehicule() {
 	}
@@ -36,13 +38,14 @@ public class SousCatVehicule implements java.io.Serializable {
 
 	public SousCatVehicule(String codeSousCatVehicule, Categorie categorie,
 			Tarif tarif, String libelleSousCatVehicule, String tarif_1,
-			Set<Vehicule> vehicules) {
+			Set<Vehicule> vehicules, Set<Tarifweb> tarifwebs) {
 		this.codeSousCatVehicule = codeSousCatVehicule;
 		this.categorie = categorie;
 		this.tarif = tarif;
 		this.libelleSousCatVehicule = libelleSousCatVehicule;
 		this.tarif_1 = tarif_1;
 		this.vehicules = vehicules;
+		this.tarifwebs = tarifwebs;
 	}
 
 	@Id
@@ -100,6 +103,15 @@ public class SousCatVehicule implements java.io.Serializable {
 
 	public void setVehicules(Set<Vehicule> vehicules) {
 		this.vehicules = vehicules;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "sousCatVehicules")
+	public Set<Tarifweb> getTarifwebs() {
+		return this.tarifwebs;
+	}
+
+	public void setTarifwebs(Set<Tarifweb> tarifwebs) {
+		this.tarifwebs = tarifwebs;
 	}
 
 }

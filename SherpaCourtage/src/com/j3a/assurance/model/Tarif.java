@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 10 août 2015 15:53:59 by Hibernate Tools 4.3.1
+// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -22,7 +22,6 @@ import javax.persistence.Table;
 public class Tarif implements java.io.Serializable {
 
 	private String codeTarif;
-	private CompagnieAssurance compagnieAssurance;
 	private RcTarif1 rcTarif1;
 	private RcTarif10 rcTarif10;
 	private RcTarif12 rcTarif12;
@@ -103,6 +102,7 @@ public class Tarif implements java.io.Serializable {
 	private BigDecimal srPrime1;
 	private BigDecimal srPrime2;
 	private BigDecimal srPrime3;
+	private Set<Tarifweb> tarifwebs = new HashSet<Tarifweb>(0);
 	private Set<SousCatVehicule> sousCatVehicules = new HashSet<SousCatVehicule>(
 			0);
 
@@ -113,43 +113,42 @@ public class Tarif implements java.io.Serializable {
 		this.codeTarif = codeTarif;
 	}
 
-	public Tarif(String codeTarif, CompagnieAssurance compagnieAssurance,
-			RcTarif1 rcTarif1, RcTarif10 rcTarif10, RcTarif12 rcTarif12,
-			RcTarif12b rcTarif12b, RcTarif2 rcTarif2, RcTarif3 rcTarif3,
-			RcTarif4 rcTarif4, RcTarif5 rcTarif5, RcTarif6 rcTarif6,
-			RcTarif7 rcTarif7, RcTarif8 rcTarif8, RcTarif9 rcTarif9,
-			String libelleTarif, BigDecimal drDomage, BigDecimal drSansDomage,
-			Float tauxDrPrimeFinale, BigDecimal primeBaseDr,
-			BigDecimal immobVehicule, BigDecimal graAnnuelle,
-			BigDecimal graCourt, Float tauxBgOpt1, Float franchBgOpt1,
-			Float tauxBgOpt2, Float franchBgOpt2, Float tauxBgOpt3,
-			Float francBgOpt3, Float tauxPrimeDomCol, Float tauxFranchDomCol,
-			Float tauxPrimeDomAcc, Float tauxFranchDomAcc, Float tauxPrimeVol1,
-			Float tauxPrimeVol2, Float tauxPrimeVol3, Float tauxFranchVol,
-			Float tauxPrimeVolAcc, Float tauxFranchVolAcc,
-			BigDecimal primeVol11, BigDecimal primeVol12,
-			BigDecimal primeVol13, BigDecimal primeVol14,
-			BigDecimal primeVol15, BigDecimal primeVol21,
-			BigDecimal primeVol22, BigDecimal primeVol23,
-			BigDecimal primeVol24, BigDecimal primeVol25, Float tauxVandal,
-			BigDecimal primeVandal, Float franchVandal,
-			Float tauxPrimeIncendie1, Float tauxPrimeIncendie2,
-			Float tauxPrimeIncendie3, Float tauxFranchIncendie,
-			BigDecimal primeIncendie11, BigDecimal primeIncendie12,
-			BigDecimal primeIncendie13, BigDecimal primeIncendie14,
-			BigDecimal primeIncendie15, BigDecimal primeIncendie21,
-			BigDecimal primeIncendie22, BigDecimal primeIncendie23,
-			BigDecimal primeIncendie24, BigDecimal primeIncendie25,
-			Float surprimeTranspHyd, BigDecimal srDeces1, BigDecimal srDeces2,
-			BigDecimal srDeces3, BigDecimal indivChauffDeces,
-			BigDecimal indivChauffLpt, BigDecimal indivChaufFraisTrait,
-			BigDecimal primeIndivChauff, BigDecimal srIpt1, BigDecimal srIpt2,
-			BigDecimal srIpt3, BigDecimal srFraisTrait1,
-			BigDecimal srFraisTrait2, BigDecimal srFraisTrait3,
-			BigDecimal srPrime1, BigDecimal srPrime2, BigDecimal srPrime3,
+	public Tarif(String codeTarif, RcTarif1 rcTarif1, RcTarif10 rcTarif10,
+			RcTarif12 rcTarif12, RcTarif12b rcTarif12b, RcTarif2 rcTarif2,
+			RcTarif3 rcTarif3, RcTarif4 rcTarif4, RcTarif5 rcTarif5,
+			RcTarif6 rcTarif6, RcTarif7 rcTarif7, RcTarif8 rcTarif8,
+			RcTarif9 rcTarif9, String libelleTarif, BigDecimal drDomage,
+			BigDecimal drSansDomage, Float tauxDrPrimeFinale,
+			BigDecimal primeBaseDr, BigDecimal immobVehicule,
+			BigDecimal graAnnuelle, BigDecimal graCourt, Float tauxBgOpt1,
+			Float franchBgOpt1, Float tauxBgOpt2, Float franchBgOpt2,
+			Float tauxBgOpt3, Float francBgOpt3, Float tauxPrimeDomCol,
+			Float tauxFranchDomCol, Float tauxPrimeDomAcc,
+			Float tauxFranchDomAcc, Float tauxPrimeVol1, Float tauxPrimeVol2,
+			Float tauxPrimeVol3, Float tauxFranchVol, Float tauxPrimeVolAcc,
+			Float tauxFranchVolAcc, BigDecimal primeVol11,
+			BigDecimal primeVol12, BigDecimal primeVol13,
+			BigDecimal primeVol14, BigDecimal primeVol15,
+			BigDecimal primeVol21, BigDecimal primeVol22,
+			BigDecimal primeVol23, BigDecimal primeVol24,
+			BigDecimal primeVol25, Float tauxVandal, BigDecimal primeVandal,
+			Float franchVandal, Float tauxPrimeIncendie1,
+			Float tauxPrimeIncendie2, Float tauxPrimeIncendie3,
+			Float tauxFranchIncendie, BigDecimal primeIncendie11,
+			BigDecimal primeIncendie12, BigDecimal primeIncendie13,
+			BigDecimal primeIncendie14, BigDecimal primeIncendie15,
+			BigDecimal primeIncendie21, BigDecimal primeIncendie22,
+			BigDecimal primeIncendie23, BigDecimal primeIncendie24,
+			BigDecimal primeIncendie25, Float surprimeTranspHyd,
+			BigDecimal srDeces1, BigDecimal srDeces2, BigDecimal srDeces3,
+			BigDecimal indivChauffDeces, BigDecimal indivChauffLpt,
+			BigDecimal indivChaufFraisTrait, BigDecimal primeIndivChauff,
+			BigDecimal srIpt1, BigDecimal srIpt2, BigDecimal srIpt3,
+			BigDecimal srFraisTrait1, BigDecimal srFraisTrait2,
+			BigDecimal srFraisTrait3, BigDecimal srPrime1, BigDecimal srPrime2,
+			BigDecimal srPrime3, Set<Tarifweb> tarifwebs,
 			Set<SousCatVehicule> sousCatVehicules) {
 		this.codeTarif = codeTarif;
-		this.compagnieAssurance = compagnieAssurance;
 		this.rcTarif1 = rcTarif1;
 		this.rcTarif10 = rcTarif10;
 		this.rcTarif12 = rcTarif12;
@@ -230,27 +229,18 @@ public class Tarif implements java.io.Serializable {
 		this.srPrime1 = srPrime1;
 		this.srPrime2 = srPrime2;
 		this.srPrime3 = srPrime3;
+		this.tarifwebs = tarifwebs;
 		this.sousCatVehicules = sousCatVehicules;
 	}
 
 	@Id
-	@Column(name = "CODE_TARIF", unique = true, nullable = false, length = 16)
+	@Column(name = "CODE_TARIF", unique = true, nullable = false, length = 30)
 	public String getCodeTarif() {
 		return this.codeTarif;
 	}
 
 	public void setCodeTarif(String codeTarif) {
 		this.codeTarif = codeTarif;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
-	public CompagnieAssurance getCompagnieAssurance() {
-		return this.compagnieAssurance;
-	}
-
-	public void setCompagnieAssurance(CompagnieAssurance compagnieAssurance) {
-		this.compagnieAssurance = compagnieAssurance;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -983,6 +973,15 @@ public class Tarif implements java.io.Serializable {
 
 	public void setSrPrime3(BigDecimal srPrime3) {
 		this.srPrime3 = srPrime3;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tarif")
+	public Set<Tarifweb> getTarifwebs() {
+		return this.tarifwebs;
+	}
+
+	public void setTarifwebs(Set<Tarifweb> tarifwebs) {
+		this.tarifwebs = tarifwebs;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tarif")
