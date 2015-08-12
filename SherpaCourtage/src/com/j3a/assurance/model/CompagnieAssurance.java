@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
+// Generated 12 août 2015 16:21:18 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +35,8 @@ public class CompagnieAssurance implements java.io.Serializable {
 	private Set<Avenant> avenants = new HashSet<Avenant>(0);
 	private Set<CompteCompagnieAssurance> compteCompagnieAssurances = new HashSet<CompteCompagnieAssurance>(
 			0);
+	private Set<OptionsGarantie> optionsGaranties = new HashSet<OptionsGarantie>(
+			0);
 
 	public CompagnieAssurance() {
 	}
@@ -52,7 +54,8 @@ public class CompagnieAssurance implements java.io.Serializable {
 			String deviseCompAss, String loginCompAss, String motPasseCompAss,
 			Boolean activiteCompagnie, Set<Tarifweb> tarifwebs,
 			Set<Avenant> avenants,
-			Set<CompteCompagnieAssurance> compteCompagnieAssurances) {
+			Set<CompteCompagnieAssurance> compteCompagnieAssurances,
+			Set<OptionsGarantie> optionsGaranties) {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
 		this.pays = pays;
 		this.userRole = userRole;
@@ -67,6 +70,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.tarifwebs = tarifwebs;
 		this.avenants = avenants;
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
+		this.optionsGaranties = optionsGaranties;
 	}
 
 	@Id
@@ -197,6 +201,15 @@ public class CompagnieAssurance implements java.io.Serializable {
 	public void setCompteCompagnieAssurances(
 			Set<CompteCompagnieAssurance> compteCompagnieAssurances) {
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")
+	public Set<OptionsGarantie> getOptionsGaranties() {
+		return this.optionsGaranties;
+	}
+
+	public void setOptionsGaranties(Set<OptionsGarantie> optionsGaranties) {
+		this.optionsGaranties = optionsGaranties;
 	}
 
 }

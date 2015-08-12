@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
+// Generated 12 août 2015 16:21:18 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,7 +26,8 @@ public class SousCatVehicule implements java.io.Serializable {
 	private String libelleSousCatVehicule;
 	private String tarif_1;
 	private Set<Vehicule> vehicules = new HashSet<Vehicule>(0);
-	private Set<Tarifweb> tarifwebs = new HashSet<Tarifweb>(0);
+	private Set<TarifwebSousCat> tarifwebSousCats = new HashSet<TarifwebSousCat>(
+			0);
 
 	public SousCatVehicule() {
 	}
@@ -38,14 +38,14 @@ public class SousCatVehicule implements java.io.Serializable {
 
 	public SousCatVehicule(String codeSousCatVehicule, Categorie categorie,
 			Tarif tarif, String libelleSousCatVehicule, String tarif_1,
-			Set<Vehicule> vehicules, Set<Tarifweb> tarifwebs) {
+			Set<Vehicule> vehicules, Set<TarifwebSousCat> tarifwebSousCats) {
 		this.codeSousCatVehicule = codeSousCatVehicule;
 		this.categorie = categorie;
 		this.tarif = tarif;
 		this.libelleSousCatVehicule = libelleSousCatVehicule;
 		this.tarif_1 = tarif_1;
 		this.vehicules = vehicules;
-		this.tarifwebs = tarifwebs;
+		this.tarifwebSousCats = tarifwebSousCats;
 	}
 
 	@Id
@@ -105,13 +105,13 @@ public class SousCatVehicule implements java.io.Serializable {
 		this.vehicules = vehicules;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "sousCatVehicules")
-	public Set<Tarifweb> getTarifwebs() {
-		return this.tarifwebs;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sousCatVehicule")
+	public Set<TarifwebSousCat> getTarifwebSousCats() {
+		return this.tarifwebSousCats;
 	}
 
-	public void setTarifwebs(Set<Tarifweb> tarifwebs) {
-		this.tarifwebs = tarifwebs;
+	public void setTarifwebSousCats(Set<TarifwebSousCat> tarifwebSousCats) {
+		this.tarifwebSousCats = tarifwebSousCats;
 	}
 
 }

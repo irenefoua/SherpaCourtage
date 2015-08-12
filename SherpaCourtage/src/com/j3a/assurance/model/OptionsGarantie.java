@@ -1,10 +1,16 @@
 package com.j3a.assurance.model;
 
-// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
+// Generated 12 août 2015 16:21:18 by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +21,10 @@ import javax.persistence.Table;
 public class OptionsGarantie implements java.io.Serializable {
 
 	private String codeOptionsGarantie;
+	private CompagnieAssurance compagnieAssurance;
 	private String libelleOptionsGarantie;
+	private String descriptionOptGaranties;
+	private Set<GarantieOption> garantieOptions = new HashSet<GarantieOption>(0);
 
 	public OptionsGarantie() {
 	}
@@ -25,9 +34,14 @@ public class OptionsGarantie implements java.io.Serializable {
 	}
 
 	public OptionsGarantie(String codeOptionsGarantie,
-			String libelleOptionsGarantie) {
+			CompagnieAssurance compagnieAssurance,
+			String libelleOptionsGarantie, String descriptionOptGaranties,
+			Set<GarantieOption> garantieOptions) {
 		this.codeOptionsGarantie = codeOptionsGarantie;
+		this.compagnieAssurance = compagnieAssurance;
 		this.libelleOptionsGarantie = libelleOptionsGarantie;
+		this.descriptionOptGaranties = descriptionOptGaranties;
+		this.garantieOptions = garantieOptions;
 	}
 
 	@Id
@@ -40,6 +54,16 @@ public class OptionsGarantie implements java.io.Serializable {
 		this.codeOptionsGarantie = codeOptionsGarantie;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
+	public CompagnieAssurance getCompagnieAssurance() {
+		return this.compagnieAssurance;
+	}
+
+	public void setCompagnieAssurance(CompagnieAssurance compagnieAssurance) {
+		this.compagnieAssurance = compagnieAssurance;
+	}
+
 	@Column(name = "LIBELLE_OPTIONS_GARANTIE", length = 80)
 	public String getLibelleOptionsGarantie() {
 		return this.libelleOptionsGarantie;
@@ -47,6 +71,24 @@ public class OptionsGarantie implements java.io.Serializable {
 
 	public void setLibelleOptionsGarantie(String libelleOptionsGarantie) {
 		this.libelleOptionsGarantie = libelleOptionsGarantie;
+	}
+
+	@Column(name = "DESCRIPTION_OPT_GARANTIES", length = 225)
+	public String getDescriptionOptGaranties() {
+		return this.descriptionOptGaranties;
+	}
+
+	public void setDescriptionOptGaranties(String descriptionOptGaranties) {
+		this.descriptionOptGaranties = descriptionOptGaranties;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "optionsGarantie")
+	public Set<GarantieOption> getGarantieOptions() {
+		return this.garantieOptions;
+	}
+
+	public void setGarantieOptions(Set<GarantieOption> garantieOptions) {
+		this.garantieOptions = garantieOptions;
 	}
 
 }

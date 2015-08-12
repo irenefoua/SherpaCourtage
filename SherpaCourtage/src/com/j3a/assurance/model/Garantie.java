@@ -1,6 +1,6 @@
 package com.j3a.assurance.model;
 
-// Generated 11 août 2015 12:07:31 by Hibernate Tools 4.3.1
+// Generated 12 août 2015 16:21:18 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +44,7 @@ public class Garantie implements java.io.Serializable {
 			0);
 	private Set<GarantieGarantieChoisieNta> garantieGarantieChoisieNtas = new HashSet<GarantieGarantieChoisieNta>(
 			0);
+	private Set<GarantieOption> garantieOptions = new HashSet<GarantieOption>(0);
 
 	public Garantie() {
 	}
@@ -67,7 +68,8 @@ public class Garantie implements java.io.Serializable {
 			Set<GarantieGarantieChoisieCorps> garantieGarantieChoisieCorpses,
 			Set<GarantieGarantieChoisie> garantieGarantieChoisies,
 			Set<GarantieGarantieChoisieIa> garantieGarantieChoisieIas,
-			Set<GarantieGarantieChoisieNta> garantieGarantieChoisieNtas) {
+			Set<GarantieGarantieChoisieNta> garantieGarantieChoisieNtas,
+			Set<GarantieOption> garantieOptions) {
 		this.codeGarantie = codeGarantie;
 		this.risque = risque;
 		this.libelleGarantie = libelleGarantie;
@@ -83,6 +85,7 @@ public class Garantie implements java.io.Serializable {
 		this.garantieGarantieChoisies = garantieGarantieChoisies;
 		this.garantieGarantieChoisieIas = garantieGarantieChoisieIas;
 		this.garantieGarantieChoisieNtas = garantieGarantieChoisieNtas;
+		this.garantieOptions = garantieOptions;
 	}
 
 	@Id
@@ -227,6 +230,15 @@ public class Garantie implements java.io.Serializable {
 	public void setGarantieGarantieChoisieNtas(
 			Set<GarantieGarantieChoisieNta> garantieGarantieChoisieNtas) {
 		this.garantieGarantieChoisieNtas = garantieGarantieChoisieNtas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "garantie")
+	public Set<GarantieOption> getGarantieOptions() {
+		return this.garantieOptions;
+	}
+
+	public void setGarantieOptions(Set<GarantieOption> garantieOptions) {
+		this.garantieOptions = garantieOptions;
 	}
 
 }
