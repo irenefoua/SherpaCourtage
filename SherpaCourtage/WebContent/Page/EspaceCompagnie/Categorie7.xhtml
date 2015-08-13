@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 07 : AUTO ECOLE   (Catégorie 7)">
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="4">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column rowspan="2">Vehicule</p:column>
+            <p:column colspan="3">Prime de base</p:column>  
+        </p:row>
+    <p:row>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+    </p:row>
+    </f:facet>
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="4">VEHICULE  AVEC DOUBLE COMMANDE</p:column>  
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Véhicule de tourisme</p:column> 
+        <p:column style="font-weight: bold; border: 1px solid black;" colspan="3"><h:outputText value="Tarif de la catégorie 1 majorée de "/> <p:inputText value="#{managedTarif7.rcTarif7.tauxVhldcTourisme}"></p:inputText>
+        <h:outputText value="%"/>
+        </p:column>
+        
+    </p:row>
+    
+     <p:row>
+       <p:column style="font-weight: bold; border: 1px solid black;">Utilitaire / Transport en commun</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;" colspan="3"><h:outputText value="Tarif de la catégorie 2 majorée de "/> <p:inputText  value="#{managedTarif7.rcTarif7.tauxVhldcUtilTransp}"></p:inputText>
+        <h:outputText value="%"/>
+        </p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="4">VEHICULE SANS DOUBLE COMMANDE</p:column>  
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Véhicule de tourisme</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;" colspan="3"><h:outputText value="Tarif de la catégorie 1 majorée de "/> <p:inputText value="#{managedTarif7.rcTarif7.tauxVhlTourismeZone}"></p:inputText>
+        <h:outputText value="%"/>
+        </p:column>
+        
+    </p:row>
+    
+     <p:row>
+       <p:column style="font-weight: bold; border: 1px solid black;">Utilitaire / Transport en commun</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;" colspan="3"><h:outputText value="Tarif de la catégorie 2 majorée de "/> <p:inputText value="#{managedTarif7.rcTarif7.tauxVhlUtilTranspZone}"></p:inputText>
+        <h:outputText value="%"/>
+        </p:column>
+    </p:row>
+    
+    
+   </p:panelGrid>	
+   </p:panel>
+   <br />
+   
+		<fieldset><legend>AUTRES GARANTIES</legend>
+    <h:outputText value="Selon le type de véhicule appliquer les tarifs de la catégorie 1, 2 ou 3"></h:outputText>
+		</fieldset>
+		<br />
+    
+		<fieldset>
+<p:commandButton value="Valider" onclick="confirm.show();" style="width:80px;height:30px;margin-left: 450px; font-size:12px; border-radius:10px;" />
+		</fieldset>
+		
+		</h:form>
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif7.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

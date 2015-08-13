@@ -6,6 +6,7 @@ import java.util.List;
 import com.j3a.assurance.model.ApporteurVehicule;
 import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.AyantDroit;
+import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.ConduireVehicule;
 import com.j3a.assurance.model.Contrat;
 import com.j3a.assurance.model.Exercice;
@@ -20,6 +21,7 @@ import com.j3a.assurance.model.Quittance;
 import com.j3a.assurance.model.Risque;
 import com.j3a.assurance.model.Sinistre;
 import com.j3a.assurance.model.SocieteAssurance;
+import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeSinistre;
 import com.j3a.assurance.model.VehiculeZoneGeographique;
@@ -71,7 +73,7 @@ public void addObject(Object objet);
 	public Quittance findQuittanceByAvenant(String numAvenant);
 	public Quittance findQuittance(String police) ;
 	public Avenant DernierAvenant(String paramPolice);
-
+	public List<Tarif>listTarif(CompagnieAssurance compagnieAssurance);
 	public Risque findRisque(String police) ;
 	public List<Avenant> findAvenant(String souscripteur);
 	public List<Quittance> findquitQuittance(String souscripteur);
@@ -95,5 +97,6 @@ public void addObject(Object objet);
 	public Personne RecupererUtilisateurCourrant();
 	public List <Personne> personneByLogin(String login);
 	public boolean chercherLogin(String paramLogin);
-
+	public boolean chercherLoginCompagnie(String paramLogin);
+	public CompagnieAssurance RecupererCompagnieCourrant();
 }

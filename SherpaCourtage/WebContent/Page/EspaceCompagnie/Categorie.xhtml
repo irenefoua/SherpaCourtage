@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+		<ui:define name="content">
+		<h:form id="rech_risque">
+		<p:panel header="Gestion des Catégories">
+		
+					<!-- Pour les messages -->
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+					
+						<fieldset id="recher_risque" class="fieldset">		
+						<legend>Gestion de Catégorie</legend>
+						
+						
+								<h:panelGrid id="grid_cat" columns="3" style="margin-bottom:10px" cellpadding="6">
+								<h:outputText value="Categorie*" />							
+								<p:inputText value="#{mnagedCategorie.libelleCategorie}" id="id_libelleCategorie" 
+								validatorMessage="Pas plus de 30 caractÃ¨re" required="true" requiredMessage="Aucune CatÃ©gorie concernÃ©e par cette action">
+							     <f:validateLength minimum="0" maximum="30" for="id_libelleCategorie"/>
+							    </p:inputText>
+							    <p:message for="id_libelleCategorie" display="icon" />
+							    
+							    <h:outputText value="Risque*" />	
+							    <p:selectOneMenu id="cb_risque" label="Risque" 
+											value="#{mnagedCategorie.slctRisque}"
+											 required="true" requiredMessage="Veillez renseigner le risque !">
+											
+											<f:selectItems
+												value="#{mnagedCategorie.risqueList}"
+												var="risque" itemLabel="#{risque.libelleRisque}" 
+												itemValue="#{risque.codeRisque}" />
+											</p:selectOneMenu>						
+							                <p:message for="cb_risque" display="icon" />
+							    
+							    
+							</h:panelGrid>
+							
+						<p:separator></p:separator>
+							
+							<h:panelGrid columns="4">
+						  <p:commandButton id="buttonadd" value="Enregistrer" action="#{mnagedCategorie.validateadd}" update="grid_cat, Categories" />
+
+						    <p:commandButton id="buttonupdate" value="Modifier" actionListener="#{mnagedCategorie.validateupdate}"/>
+						    
+						    <p:commandButton id="buttondelete" value="Supprimer" actionListener="#{mnagedCategorie.validatedelete}" />
+						 </h:panelGrid>
+						 <div style="color:#cccccc">
+						 <h:outputText value=" (*) Champ obligatoire!" style="color:red" />
+						 </div>
+							
+								<br />
+								<p:dataTable id="Categories" var="categorie" value="#{mnagedCategorie.categorieList}" rowKey="#{categorie.codeCategorie}" 
+								selection="#{mnagedCategorie.categorieSup}" selectionMode="single">
+         <p:ajax event="rowSelect" listener="#{mnagedCategorie.affecterCategorie}"
+        >
+         </p:ajax>
+  
+        <f:facet name="header">  
+            Liste Catégories
+        </f:facet>  
+  
+        <p:column headerText="Code">  
+            #{categorie.codeCategorie}  
+        </p:column>  
+  
+        <p:column headerText="CatÃ©gories">  
+            #{categorie.libelleCategorie}  
+        </p:column>  
+    </p:dataTable> 
+							    
+						    </fieldset>
+						   </p:panel>
+			</h:form>	
+		</ui:define>
+	</ui:composition>
+</html>

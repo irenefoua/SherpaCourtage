@@ -9,8 +9,15 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.j3a.assurance.model.CompagnieAssurance;
+import com.j3a.assurance.model.RcTarif2;
+import com.j3a.assurance.model.RcTarif6;
 import com.j3a.assurance.model.RcTarif7;
+import com.j3a.assurance.model.SousCatVehicule;
 import com.j3a.assurance.model.Tarif;
+import com.j3a.assurance.model.Tarifweb;
+import com.j3a.assurance.model.TarifwebSousCat;
+import com.j3a.assurance.model.TarifwebSousCatId;
 import com.j3a.assurance.objetService.ObjectService;
 import com.j3a.assurance.utilitaires.IdGenerateur;
 
@@ -29,53 +36,90 @@ public class ManagedTarif7 implements Serializable{
 		IdGenerateur idGenerateur;
 		private Tarif tarif = new Tarif();
 		private RcTarif7 rcTarif7 = new RcTarif7();
+		private CompagnieAssurance compagnieAssuranceConnecte=new CompagnieAssurance();
+		private Tarifweb tarifweb=new Tarifweb();
+		private TarifwebSousCatId tarifwebSousCatId=new TarifwebSousCatId();
+		private TarifwebSousCat tarifwebSousCat=new TarifwebSousCat();
 		
 		
-		@PostConstruct
-		public void PostConst(){
-				setRcTarif7( (RcTarif7) getObjectService().getObjectById("Rctarif7", "RcTarif7"));
-				setTarif( (Tarif) getObjectService().getObjectById("tarif7", "Tarif"));
-				try { 
-					if((rcTarif7 !=null) && (tarif !=null) ){ 
-					setRcTarif7(rcTarif7 );
-					setTarif(tarif);
-					}
-					
-					else{
-					    rcTarif7=new RcTarif7();
-						rcTarif7.setCodeRcTarif7("Rctarif7");
-						rcTarif7.setTauxVhldcTourisme((float) 0);
-						tarif=new Tarif();
-						tarif.setCodeTarif("tarif7");
+		public void PostConst(CompagnieAssurance compagnieAssurancee){
+			setRcTarif7( (RcTarif7) getObjectService().getObjectById("R7"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "RcTarif7"));
+			setTarif( (Tarif) getObjectService().getObjectById("T7"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "Tarif"));
+		    setTarifweb((Tarifweb) getObjectService().getObjectById("T7"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "Tarifweb"));
+			try { 
+						if((rcTarif7 !=null) && (tarif !=null) && (tarifweb !=null) ){ 
+						setRcTarif7(getRcTarif7());
+						setTarif(tarif);
+						setTarifweb(getTarifweb());
+						}
 						
-					}
-					
-				} catch (NullPointerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("non ok !Enregistrement non recuperée");		
-			}		
-			
-			}
+						else{
+						    rcTarif7=new RcTarif7();
+							rcTarif7.setCodeRcTarif7("R7"+compagnieAssurancee.getCodeCompagnieAssurance()+ "");
+							tarif=new Tarif();
+							tarif.setCodeTarif("T7"+compagnieAssurancee.getCodeCompagnieAssurance()+ "");
+							tarifweb=new Tarifweb();
+							tarif.setCodeTarif("T7"+compagnieAssurancee.getCodeCompagnieAssurance()+ "");
+						}
+						
+					} catch (NullPointerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println("non ok !Enregistrement non recuperée");		
+				}
+							
+				
+				}
 		
 		
 		public  void enregistrer(){
 		try{
-			code ="Rctarif7";
-			codetar ="tarif7";
-		RcTarif7 rcTarif7Tempon = (RcTarif7) getObjectService().getObjectById(code, "RcTarif7");
+
+			setCompagnieAssuranceConnecte(getObjectService().RecupererCompagnieCourrant());
+			code ="R7"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"";
+			codetar ="T7"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"";
+		RcTarif7 rcTarif1Tempon = (RcTarif7) getObjectService().getObjectById(code, "RcTarif7");
 		Tarif tarifTempon = (Tarif) getObjectService().getObjectById(codetar, "Tarif");
-		if((rcTarif7Tempon==null) && (tarifTempon==null)){
-		rcTarif7.setCodeRcTarif7("RcTarif7");
-		getObjectService().addObject(rcTarif7);
-		tarif.setCodeTarif("tarif7");
-		tarif.setLibelleTarif("Tarif 7");
-		getObjectService().addObject(tarif);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Succes", "Enregistrement effectué"));
+		
+		if((rcTarif1Tempon==null) && (tarifTempon==null)){
+			rcTarif7.setCodeRcTarif7("R7"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"");	
+			getObjectService().addObject(rcTarif7);	
+			tarif.setCodeTarif("T7"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"");
+			tarif.setRcTarif7(rcTarif7);
+			tarif.setLibelleTarif("Tarif 7");
+			//tarif.setCompagnieAssurance(getCompagnieAssuranceConnecte());
+			getObjectService().addObject(tarif);
+			
+			SousCatVehicule sousCatVehicule=new SousCatVehicule();
+			sousCatVehicule.setCodeSousCatVehicule("SCAT7");
+			
+			tarifweb.setCodeTarifWeb(codetar);
+			tarifweb.setCompagnieAssurance(getCompagnieAssuranceConnecte());
+			tarifweb.setTarif(getTarif());
+			tarifweb.setLibelleTarifWeb("Tarif 7");
+			getObjectService().addObject(tarifweb);
+			
+			tarifwebSousCatId=new TarifwebSousCatId();
+			tarifwebSousCatId.setCodeSousCatVehicule(sousCatVehicule.getCodeSousCatVehicule());
+			tarifwebSousCatId.setCodeTarifWeb(getTarifweb().getCodeTarifWeb());
+			
+			tarifwebSousCat=new TarifwebSousCat();
+			tarifwebSousCat.setId(tarifwebSousCatId);
+			tarifwebSousCat.setSousCatVehicule(sousCatVehicule);
+			tarifwebSousCat.setTarifweb(tarifweb);
+			getObjectService().addObject(tarifwebSousCat);
+			
+			sousCatVehicule.getTarifwebSousCats().add(tarifwebSousCat);
+			tarifweb.getTarifwebSousCats().add(tarifwebSousCat);
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Success", "Enregistrement effectué"));
 		}
+		
 		else {
 			getObjectService().updateObject(rcTarif7);
 			getObjectService().updateObject(tarif);
+			getObjectService().updateObject(tarifweb);
+			getObjectService().updateObject(tarifwebSousCat);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("succes", "La mise à jour a été bien effectuée"));
 		}
 		} catch (Exception e) {
@@ -83,7 +127,9 @@ public class ManagedTarif7 implements Serializable{
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Echec", "Enregistrement non effectué"));		
 
-		}		
+		}
+		
+	
 		
 		}
 
@@ -99,7 +145,18 @@ public class ManagedTarif7 implements Serializable{
 		
 		
 
-//getters et setters
+public CompagnieAssurance getCompagnieAssuranceConnecte() {
+			return compagnieAssuranceConnecte;
+		}
+
+
+		public void setCompagnieAssuranceConnecte(
+				CompagnieAssurance compagnieAssuranceConnecte) {
+			this.compagnieAssuranceConnecte = compagnieAssuranceConnecte;
+		}
+
+
+		//getters et setters
 		public ObjectService getObjectService() {
 			return objectService;
 		}
@@ -207,6 +264,36 @@ public class ManagedTarif7 implements Serializable{
 
 		public void setCodetar(String codetar) {
 			this.codetar = codetar;
+		}
+
+
+		public Tarifweb getTarifweb() {
+			return tarifweb;
+		}
+
+
+		public void setTarifweb(Tarifweb tarifweb) {
+			this.tarifweb = tarifweb;
+		}
+
+
+		public TarifwebSousCatId getTarifwebSousCatId() {
+			return tarifwebSousCatId;
+		}
+
+
+		public void setTarifwebSousCatId(TarifwebSousCatId tarifwebSousCatId) {
+			this.tarifwebSousCatId = tarifwebSousCatId;
+		}
+
+
+		public TarifwebSousCat getTarifwebSousCat() {
+			return tarifwebSousCat;
+		}
+
+
+		public void setTarifwebSousCat(TarifwebSousCat tarifwebSousCat) {
+			this.tarifwebSousCat = tarifwebSousCat;
 		}
 
 

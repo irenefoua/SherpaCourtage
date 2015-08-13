@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.j3a.assurance.model.ApporteurVehicule;
 import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.AyantDroit;
+import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.ConduireVehicule;
 import com.j3a.assurance.model.Contrat;
 import com.j3a.assurance.model.Exercice;
@@ -34,6 +35,7 @@ import com.j3a.assurance.model.Quittance;
 import com.j3a.assurance.model.Risque;
 import com.j3a.assurance.model.Sinistre;
 import com.j3a.assurance.model.SocieteAssurance;
+import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeSinistre;
 import com.j3a.assurance.model.VehiculeZoneGeographique;
@@ -639,6 +641,30 @@ public class Dao implements IDao {
 						return connected;
 		}
 		
+		@Override
+		public CompagnieAssurance RecupererCompagnieCourrant() {
+			// Recupération du login de l'utilisateur courant
+						String paramLogin = "";
+						if (FacesContext.getCurrentInstance().getExternalContext()
+								.getUserPrincipal() != null) {
+							paramLogin = FacesContext.getCurrentInstance().getExternalContext()
+									.getUserPrincipal().getName();
+							System.out.println("paramLogin:"+paramLogin);
+
+						}
+						String query = "SELECT * FROM compagnie_assurance WHERE LOGIN_COMP_ASS='"+ paramLogin + "'";
+						CompagnieAssurance connected  = new CompagnieAssurance();
+						try {
+
+							connected = (CompagnieAssurance) getSessionFactory().getCurrentSession()
+									.createSQLQuery(query).addEntity(CompagnieAssurance.class)
+									.uniqueResult();
+						} catch (Exception e) {
+							logger.error(" Erreur sur la recupération de l'utilisateur");
+						}
+						return connected;
+		}
+		
 
 		@SuppressWarnings("unchecked")
 		@Override
@@ -667,5 +693,41 @@ public class Dao implements IDao {
 				logger.error(" Problème de Base de données", e);
 			}
 			return etat;
+		}
+		
+		
+		public boolean chercherLoginCompagnie(String paramLogin) {
+			boolean etat;
+			String str = paramLogin;
+			etat = false;
+			try {
+
+				String query = "SELECT * FROM `compagnie_assurance` WHERE `LOGIN_COMP_ASS`='"
+						+ str + "'";
+				List list = (List) getSessionFactory().getCurrentSession()
+						.createSQLQuery(query).addEntity(Personne.class).list();
+				if (list.size() >= 1) {
+					etat = true;
+				}
+				System.out.println("Etat de la requête:" + etat);
+			} catch (Exception e) {
+				logger.error(" Problème de Base de données", e);
+			}
+			return etat;
+		}
+		
+		
+		public List<Tarif>listTarif(CompagnieAssurance compagnieAssurance){
+			
+			List listTarif=null;
+			try {
+				String query="select t.*,c.CODE_COMPAGNIE_ASSURANCE from tarif t, compagnie_assurance c where c.CODE_COMPAGNIE_ASSURANCE=t.CODE_COMPAGNIE_ASSURANCE and c.LOGIN_COMP_ASS='"
+						+ compagnieAssurance.getLoginCompAss() + "'";
+				listTarif = getSessionFactory().getCurrentSession().createSQLQuery(query).addEntity(Tarif.class).list();
+			} catch (HibernateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listTarif;
 		}
 }

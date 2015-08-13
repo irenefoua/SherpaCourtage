@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.j3a.assurance.model.ApporteurVehicule;
 import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.AyantDroit;
+import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.ConduireVehicule;
 import com.j3a.assurance.model.Contrat;
 import com.j3a.assurance.model.Exercice;
@@ -24,6 +25,7 @@ import com.j3a.assurance.model.Quittance;
 import com.j3a.assurance.model.Risque;
 import com.j3a.assurance.model.Sinistre;
 import com.j3a.assurance.model.SocieteAssurance;
+import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeSinistre;
 import com.j3a.assurance.model.VehiculeZoneGeographique;
@@ -296,6 +298,24 @@ public class Service implements ObjectService {
 			
 			public void setDao(IDao dao) {
 				this.dao = dao;
+			}
+
+			@Override
+			public boolean chercherLoginCompagnie(String paramLogin) {
+				// TODO Auto-generated method stub
+				return getDao().chercherLoginCompagnie(paramLogin);
+			}
+
+			@Override
+			public CompagnieAssurance RecupererCompagnieCourrant() {
+				// TODO Auto-generated method stub
+				return getDao().RecupererCompagnieCourrant();
+			}
+
+			@Override
+			public List<Tarif> listTarif(CompagnieAssurance compagnieAssurance) {
+				// TODO Auto-generated method stub
+				return getDao().listTarif(compagnieAssurance);
 			}
 
 }

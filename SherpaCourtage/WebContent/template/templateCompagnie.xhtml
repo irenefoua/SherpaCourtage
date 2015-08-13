@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>SHERPA</title>
+	<h:outputStylesheet library="css" name="main.css" />
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"
+		type="text/javascript"></script>
+
+	<!-- <link href="main.css" rel="stylesheet" type="text/css" media="screen" /> -->
+	<link rel="shortcut icon" type="image/x-icon" href="../../resources/images/favicon.ico" />
+</h:head>
+
+<h:body>
+	<p:ajaxStatus onstart="statusDialog.show();"
+		onsuccess="statusDialog.hide();" />
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false" appendTo="@(body)"
+		showHeader="false" resizable="false">
+		<h:graphicImage value="../../resources/images/ajax-loader.gif" />
+	</p:dialog>
+	<h:outputStylesheet library="css" name="style.css" />
+	<p:layout fullPage="true">
+		<!-- Le Header de la page -->
+
+		<p:layoutUnit id="top" position="north" size="75" style="">
+
+			<ui:insert name="top">
+				<div style=" font-family:verdana;padding:0px;border-radius:10px;border:1px solid silver;background-color:threedlightshadow">
+			<h:panelGrid columns="3" columnClasses="non,eseLabel" style="width:100%;height:100%;padding:0px;">
+				<h:panelGrid columns="2">
+				
+					<h:graphicImage name="images/logo_j3a.jpg" style="margin:0px;"/>
+					<h:panelGrid columns="1">
+						<h:outputText value="#{managedConnexion.societeAssurance.nomSocieteAssurance}"></h:outputText>
+						<h:outputText value="#{managedConnexion.pointVente.libellePointVente}"></h:outputText>
+					</h:panelGrid>
+				</h:panelGrid>
+		
+				<div style="color:#40B3DF; font-size:18px; margin-left: 3%; margin-right: 20%;"> <span style="background-color:#B4009E;color:#ffffff; font-size: 18px ">SHERPA</span></div>
+				
+					<h:panelGrid >
+						<h:outputText value="#{managedConnexion.utilisateur.id}"/>
+						<h:outputText value="#{managedConnexion.utilisateur.nomUtilisateur}  #{managedConnexion.utilisateur.prenomUtilisateur}"/>
+					</h:panelGrid>
+				</h:panelGrid>
+				</div>
+
+			</ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="bottom" position="south" size="70"
+			styleClass="myLayoutStyleClass">
+			<ui:insert name="bottom">
+
+				<h:panelGrid columns="2" columnClasses="non,eseLabel"
+					style="width:100%;height:100%;padding:0px;border-color:silver;background-color: threedlightshadow;">
+
+					
+					<a href="../../../../SherpaCourtage/" style="color: blue">Menu
+						Principal</a>
+						
+					<a href="../../../SherpaCourtage/Page/AdminWeb/"
+						style="color: blue">Menu Admin</a>
+					
+					<a href="../../../../../../SherpaCourtage/pages/springsecurity/logout.jsf"
+						style="color: red">Déconnecter</a>
+
+					<h:outputLink value="http://www.j3atechnologies.com/" hreflang=""
+						style="text-decoration: none;font-size: 13px;margin-left: 20%;margin-right: 20%;"
+						target="_bank">
+						<h:outputText value="J3A SOFTWARE GROUP, " style="color:red;" />
+						<h:outputText value="Créateur de Valeurs Ajoutées Technologiques"
+							style="font-style: italic;" />
+					</h:outputLink>
+					<br />
+					<h:outputText value="Copyright :  J3A SOFTWARE GROUP"
+						style="float: right;font-size: 12px;" />
+
+				</h:panelGrid>
+
+			</ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="left" position="west" size="200" resizable="true"
+			closable="false" collapsible="true" header="Menu Principal"
+			minSize="200" style="border: ridge;	border-color: red;">
+			<ui:insert name="Menu">
+				<h:form>
+				
+				
+				<p:panelMenu style="width:208px">
+				
+				
+				
+					<p:submenu label="Gestion des Tarifs">
+					
+							<p:menuitem value="Tarif1" outcome="/Page/EspaceCompagnie/Tarif1"/>
+							<p:menuitem value="Tarif2" outcome="/Page/EspaceCompagnie/Categorie2"/>
+							<p:menuitem value="Tarif3" outcome="/Page/EspaceCompagnie/Tarif3"/>
+							<p:menuitem value="Tarif4" outcome="/Page/EspaceCompagnie/Tarif4"/>
+							<p:menuitem value="Tarif5" outcome="/Page/EspaceCompagnie/Categorie5"/>
+							<p:menuitem value="Tarif6" outcome="/Page/EspaceCompagnie/Categorie6"/>
+							<p:menuitem value="Tarif7" outcome="/Page/EspaceCompagnie/Categorie7"/>
+							<p:menuitem value="Tarif8" outcome="/Page/EspaceCompagnie/Categorie8"/>
+							<p:menuitem value="Tarif9" outcome="/Page/EspaceCompagnie/Categorie9"/>
+							<p:menuitem value="Tarif10" outcome="/Page/EspaceCompagnie/Categorie10"/>
+							<p:menuitem value="Tarif11" outcome="/Page/EspaceCompagnie/Categorie12"/>
+							</p:submenu>
+					</p:panelMenu>
+			</h:form>
+			</ui:insert>
+		</p:layoutUnit>
+
+		<!-- <p:layoutUnit id="right" position="east" size="250" header="Gallery" resizable="true" closable="false" collapsible="true"
+                              style="text-align:center">
+
+              
+                    <p:commandButton id="basic" value="Show Dialog" onclick="dlg1.show();" type="button" style="margin-top:10px"/>
+
+                </p:layoutUnit> -->
+
+		<p:layoutUnit id="center" position="center">
+			<ui:insert name="content">
+
+			</ui:insert>
+		</p:layoutUnit>
+
+	</p:layout>
+
+	<p:dialog header="Basic Dialog" widgetVar="dlg1" modal="true">
+		<h:outputText value="Test Zeus UI Dialog Box" />
+	</p:dialog>
+
+	<!-- <script type="text/javascript">
+		jQuery().ready(function(){
+		 $("#top").css('background', 'red');
+	 }) 
+</script> 
+ -->
+	<!-- <script type="text/javascript">
+	 function handleChange(panel) {
+		 panel.css("color","red");
+	 }
+</script> -->
+	<script type="text/javascript">
+		$("a").click(
+				dlg1.show();
+				function() {
+					var th = $(this);
+					var tag = $(this).parent().parent().parent().parent();
+					tag.children().children().children().children("a").css(
+							"text-decoration", "none");
+					th.css("text-decoration", "overline");
+
+				});
+	</script>
+
+
+</h:body>
+
+
+
+</html>
