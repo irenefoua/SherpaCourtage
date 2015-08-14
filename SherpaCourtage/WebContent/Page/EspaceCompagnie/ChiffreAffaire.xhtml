@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+			    
+				 <p:dataTable id="listeCa" var="ca" value="#{managedCompagnie.listChiffreAffaireRow}"
+				 			  rowKey="#{ca.coExercice}"
+				 			  selectionMode="single" widgetVar="ctraTable">
+					 <f:facet name="header">
+						 CHIFFRE D'AFFAIRE PAR ANNEE
+					 </f:facet>
+					 <p:column headerText="Année d'exercice" style="width:16%;">
+							 <h:outputText value="#{ca.coExercice}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Chiffre d'affaire" style="width:16%;">
+							 <h:outputText value="#{ca.ca}"/>
+					 </p:column> 
+					 
+				</p:dataTable>
+				
+				<br/>
+				
+			<p:dataTable id="liste" var="ca" value="#{managedCompagnie.listChiffreAffaireRows}"
+				 			  rowKey="#{ca.coExercice}"
+				 			  selectionMode="single" widgetVar="ctraTable">
+					 <f:facet name="header">
+						 CHIFFRE D'AFFAIRE MENSUEL
+					 </f:facet>
+					 <p:column headerText="Année d'exercice" style="width:16%;">
+							 <h:outputText value="#{ca.coExercice}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Année d'exercice" style="width:16%;">
+							 <h:outputText value="#{ca.mois}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Chiffre d'affaire" style="width:16%;">
+							 <h:outputText value="#{ca.ca}"/>
+					 </p:column> 
+					 
+				</p:dataTable>
+	
+			
+			</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

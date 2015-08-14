@@ -95,10 +95,10 @@
 					        </f:facet>
 			            </p:panel>
 			 
-			            <p:panel id="compte" header="Parametrer mon Compte" style="width:400px; margin:20px">
+			            <p:panel id="compte" header="Liste de vos contrats" style="width:400px; margin:20px">
 			                <h:panelGrid columns="2" cellpadding="10">
-			                	<h:outputText value="Un espace dédié au parametrage de vos préférences d'utilisation" />
-			                	<p:commandLink id="cpte" styleClass="paramCpte" action="/Page/EspaceUser/userAccount?faces-redirect=true"/>
+			                	<h:outputText value="Un espace dédié à la visualisation de vos différents contrats" />
+			                	<p:commandLink id="cpte" styleClass="paramCpte" action="#{managedCompagnie.ChargerAvenantCompagnie}"/>
 			                </h:panelGrid>
 			                
 			                <f:facet name="actions">
@@ -107,10 +107,10 @@
 					        </f:facet>
 			            </p:panel>
 			 
-			            <p:panel id="docs" header="Mes documents" style="width:400px; margin:20px">
+			            <p:panel id="docs" header="Ciffre D'affaire" style="width:400px; margin:20px">
 			                <h:panelGrid columns="2" cellpadding="10">
-				                <h:outputText value="Consultez tous les documents relatifs à vos polices d'assurance"  />
-				                <p:commandLink id="docmt" styleClass="documents" action="/Page/EspaceUser/userDocuments?faces-redirect=true"/>
+				                <h:outputText value="Consultez la liste de vos chiffres d'affaires"  />
+				                <p:commandLink id="docmt" styleClass="documents" action="#{managedCompagnie.exeQuery}"/>
 			                </h:panelGrid>
 			                <f:facet name="actions">
 					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></h:commandLink>

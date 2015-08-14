@@ -87,7 +87,7 @@ public class Contrat implements java.io.Serializable {
 		this.numPolice = numPolice;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_APPORTEUR")
 	public Apporteur getApporteur() {
 		return this.apporteur;
@@ -97,7 +97,7 @@ public class Contrat implements java.io.Serializable {
 		this.apporteur = apporteur;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "NUM_SOUSCRIPTEUR", nullable = false)
 	public Personne getPersonne() {
 		return this.personne;

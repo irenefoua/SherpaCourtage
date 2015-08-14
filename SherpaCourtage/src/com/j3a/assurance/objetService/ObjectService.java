@@ -1,5 +1,6 @@
 package com.j3a.assurance.objetService;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -99,4 +100,6 @@ public void addObject(Object objet);
 	public boolean chercherLogin(String paramLogin);
 	public boolean chercherLoginCompagnie(String paramLogin);
 	public CompagnieAssurance RecupererCompagnieCourrant();
+	public List<Avenant> listAvenantCompagnie(String compagnieAssurance);
+	public List<BigDecimal> chiffreAffaire(String compagnieAssurance);
 }

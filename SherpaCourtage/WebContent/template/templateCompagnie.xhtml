@@ -9,7 +9,7 @@
 
 
 <h:head>
-	<title>SHERPA</title>
+	<title>SHERPACOURTAGE</title>
 	<h:outputStylesheet library="css" name="main.css" />
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"
 		type="text/javascript"></script>
@@ -98,11 +98,7 @@
 				
 				
 				<p:panelMenu style="width:208px">
-				
-				
-				
 					<p:submenu label="Gestion des Tarifs">
-					
 							<p:menuitem value="Tarif1" outcome="/Page/EspaceCompagnie/Tarif1"/>
 							<p:menuitem value="Tarif2" outcome="/Page/EspaceCompagnie/Categorie2"/>
 							<p:menuitem value="Tarif3" outcome="/Page/EspaceCompagnie/Tarif3"/>
@@ -115,6 +111,14 @@
 							<p:menuitem value="Tarif10" outcome="/Page/EspaceCompagnie/Categorie10"/>
 							<p:menuitem value="Tarif11" outcome="/Page/EspaceCompagnie/Categorie12"/>
 							</p:submenu>
+							
+							<p:submenu label="Liste des Contrats">
+							<p:menuitem value="Afficher Liste" outcome="/Page/EspaceCompagnie/listeContrat"/>
+							</p:submenu>
+							<p:submenu label="Chiffre d'Affaire">
+							<p:menuitem value="Afficher Liste" outcome="/Page/EspaceCompagnie/listeContrat"/>
+							</p:submenu>
+							
 					</p:panelMenu>
 			</h:form>
 			</ui:insert>

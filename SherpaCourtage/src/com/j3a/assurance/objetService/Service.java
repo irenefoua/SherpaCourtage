@@ -1,5 +1,6 @@
 package com.j3a.assurance.objetService;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -316,6 +317,18 @@ public class Service implements ObjectService {
 			public List<Tarif> listTarif(CompagnieAssurance compagnieAssurance) {
 				// TODO Auto-generated method stub
 				return getDao().listTarif(compagnieAssurance);
+			}
+
+			@Override
+			public List<Avenant> listAvenantCompagnie(String compagnieAssurance) {
+				// TODO Auto-generated method stub
+				return getDao().listAvenantCompagnie(compagnieAssurance);
+			}
+
+			@Override
+			public List<BigDecimal> chiffreAffaire(String compagnieAssurance) {
+				// TODO Auto-generated method stub
+				return getDao().chiffreAffaire(compagnieAssurance);
 			}
 
 }

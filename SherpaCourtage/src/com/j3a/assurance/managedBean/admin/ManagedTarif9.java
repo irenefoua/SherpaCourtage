@@ -27,8 +27,7 @@ public class ManagedTarif9 implements Serializable{
 	 * 
 	 */
 		private static final long serialVersionUID = 1L;
-		@Autowired
-		private ManagedCompagnie managedCompagnie;
+		
 		@Autowired
 		ObjectService objectService;
 		@Autowired
@@ -270,13 +269,7 @@ public class ManagedTarif9 implements Serializable{
 			this.tarifweb = tarifweb;
 		}
 
-		public ManagedCompagnie getManagedCompagnie() {
-			return managedCompagnie;
-		}
-
-		public void setManagedCompagnie(ManagedCompagnie managedCompagnie) {
-			this.managedCompagnie = managedCompagnie;
-		}
+	
 
 		public TarifwebSousCatId getTarifwebSousCatId() {
 			return tarifwebSousCatId;

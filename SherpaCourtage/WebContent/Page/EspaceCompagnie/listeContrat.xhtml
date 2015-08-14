@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+			    
+				 <p:dataTable id="lissteContrat" var="ctrCrs" value="#{managedCompagnie.listAvenant}"
+				 			  rowKey="#{ctrCrs.numAvenant}"
+				 			  selectionMode="single" widgetVar="ctraTable">
+					 <f:facet name="header">
+						 LISTE DES CONTRATS
+					 </f:facet>
+					 <p:column headerText="Code Avenant" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.numAvenant}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Contrat" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.contrat.numPolice}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Date émission" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.dateEmission}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Effet" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.effet}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Echéance" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.echeance}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Durée" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.duree}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Souscripteur" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.contrat.personne.nomRaisonSociale}"/>
+					 </p:column>
+					 
+					 
+					 
+					 
+				</p:dataTable>
+	
+			
+			</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

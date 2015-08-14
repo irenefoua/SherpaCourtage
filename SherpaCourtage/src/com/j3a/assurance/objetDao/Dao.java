@@ -1,5 +1,6 @@
 package com.j3a.assurance.objetDao;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -730,4 +731,30 @@ public class Dao implements IDao {
 			}
 			return listTarif;
 		}
+		
+		public List<Avenant> listAvenantCompagnie(String compagnieAssurance){
+			List listAvenant=null;
+			try {
+				String query="SELECT A.*,CT.*,C.RAISON_SOCIALE_COMP_ASS FROM AVENANT A,compagnie_assurance C,CONTRAT CT where C.CODE_COMPAGNIE_ASSURANCE=A.CODE_COMPAGNIE_ASSURANCE and CT.NUM_POLICE=A.NUM_POLICE and C.CODE_COMPAGNIE_ASSURANCE='"+ compagnieAssurance+"'";
+				listAvenant = getSessionFactory().getCurrentSession().createSQLQuery(query).addEntity(Avenant.class).list();
+			} catch (HibernateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listAvenant;
+
+		
+		}
+		public List<BigDecimal> chiffreAffaire(String compagnieAssurance){	
+			List ca=null;
+			try {
+				String myQuery = "SELECT SUM(q.NET_A_PAYER)as ca, a.CODEEXERCICE FROM avenant a,quittance q,compagnie_assurance c WHERE a.num_avenant=q.num_avenant and c.CODE_COMPAGNIE_ASSURANCE=a.CODE_COMPAGNIE_ASSURANCE and c.CODE_COMPAGNIE_ASSURANCE='"+compagnieAssurance+"' group by a.CODEEXERCICE";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return ca;
+	}
+		
+		
 }

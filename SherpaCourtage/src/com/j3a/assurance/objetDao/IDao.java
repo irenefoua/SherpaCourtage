@@ -1,5 +1,6 @@
 package com.j3a.assurance.objetDao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -92,5 +93,6 @@ public interface IDao {
 	public boolean chercherLogin(String paramLogin);
 	public boolean chercherLoginCompagnie(String paramLogin);
 	public CompagnieAssurance RecupererCompagnieCourrant();
-
+	public List<Avenant> listAvenantCompagnie(String compagnieAssurance);
+	public List<BigDecimal> chiffreAffaire(String compagnieAssurance);
 	}
