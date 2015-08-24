@@ -7,7 +7,7 @@
 
 
 <security:http auto-config="true">
-		<security:intercept-url pattern="/Page/EspaceCompagnie/**" access="ROLE_COMPAGNIE"/>
+		<security:intercept-url pattern="/Page/EspaceAdminCompagnie/**" access="ROLE_COMPAGNIE"/>
 	    <security:form-login login-page="/loginCompagnie.jsp" authentication-failure-url="/loginCompagnie-failure.jsp"/>
 		<security:logout logout-url="/logoutCompagnie.jsp" logout-success-url="/index.xhtml"/>
 		<security:intercept-url pattern="/page/sinistreAutoWeb/declarationSinnistreAuto.xhtml" access="ROLE_WEBUSER"/>

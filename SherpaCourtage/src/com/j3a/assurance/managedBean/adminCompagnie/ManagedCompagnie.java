@@ -149,7 +149,7 @@ public class ManagedCompagnie implements Serializable{
 		managedTarif9.PostConst(getCompagnieAssuranceConnecte());
 		managedTarif10.PostConst(getCompagnieAssuranceConnecte());
 		managedTarif12.PostConst(getCompagnieAssuranceConnecte());	
-		return "/Page/EspaceCompagnie/Tarif1?faces-redirect=true";
+		return "/Page/EspaceAdminCompagnie/Tarif1?faces-redirect=true";
 	}
 	
 	public String ChargerAvenantCompagnie(){
@@ -164,7 +164,7 @@ public class ManagedCompagnie implements Serializable{
 				   getListAvenant().add(avenant);  
 			   }
 			   }
-		return "/Page/EspaceCompagnie/listeContrat?faces-redirect=true";
+		return "/Page/EspaceAdminCompagnie/listeContrat?faces-redirect=true";
 	}
 	
 	public String ChargerClientCompagnie(){
@@ -181,7 +181,7 @@ public class ManagedCompagnie implements Serializable{
 				   System.out.println("persoooooooooooo"+personne.getNomRaisonSociale());
 			   }*/
 			  // }
-		return "/Page/EspaceCompagnie/ListeClient?faces-redirect=true";
+		return "/Page/EspaceAdminCompagnie/ListeClient?faces-redirect=true";
 	} 
 	
 	List<Pays> paysList(){
@@ -212,7 +212,7 @@ public class ManagedCompagnie implements Serializable{
    public String exeQuery(){
 	   listeCaAn();
 	   listeCaMois();
-	return "/Page/EspaceCompagnie/ChiffreAffaire?faces-redirect=true";
+	return "/Page/EspaceAdminCompagnie/ChiffreAffaire?faces-redirect=true";
 	
 }
 	
