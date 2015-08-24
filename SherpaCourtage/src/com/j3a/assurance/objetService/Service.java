@@ -331,4 +331,10 @@ public class Service implements ObjectService {
 				return getDao().chiffreAffaire(compagnieAssurance);
 			}
 
+			@Override
+			public List<Personne> listClientCompagnie(String compagnieAssurance) {
+				// TODO Auto-generated method stub
+				return getDao().listClientCompagnie(compagnieAssurance);
+			}
+
 }

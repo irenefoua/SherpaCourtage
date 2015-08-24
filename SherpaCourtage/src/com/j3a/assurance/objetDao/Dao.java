@@ -36,6 +36,7 @@ import com.j3a.assurance.model.Quittance;
 import com.j3a.assurance.model.Risque;
 import com.j3a.assurance.model.Sinistre;
 import com.j3a.assurance.model.SocieteAssurance;
+import com.j3a.assurance.model.SousCatVehicule;
 import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeSinistre;
@@ -755,6 +756,22 @@ public class Dao implements IDao {
 			}
 			return ca;
 	}
+		
+		
+		public List<Personne>listClientCompagnie(String compagnieAssurance){
+			List listClient=null;
+			try {
+				String query="SELECT distinct P.*,A.*,CT.*,C.RAISON_SOCIALE_COMP_ASS FROM AVENANT A,compagnie_assurance C,CONTRAT CT,PERSONNE P where C.CODE_COMPAGNIE_ASSURANCE=A.CODE_COMPAGNIE_ASSURANCE and CT.NUM_POLICE=A.NUM_POLICE and CT.NUM_SOUSCRIPTEUR=P.NUM_SOUSCRIPTEUR and C.CODE_COMPAGNIE_ASSURANCE='"+ compagnieAssurance+"'";
+				listClient = getSessionFactory().getCurrentSession().createSQLQuery(query).addEntity(Personne.class).list();
+			System.out.println("lillllllllll"+listClient.size());
+			} catch (HibernateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listClient;
+
+		
+		}
 		
 		
 }

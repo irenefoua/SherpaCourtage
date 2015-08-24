@@ -46,7 +46,7 @@ public void addObject(Object objet);
 	public String getCodeTable(String pseudo, int taillCar, int taillChifr,
 			String nomTable, String nomCOL);
 	public List<Object> getListGarantieByRisque(String codeRisque);
-	
+	public List<Personne>listClientCompagnie(String compagnieAssurance);
 	public Object getByIdPK(Object object, String table);
 	
 	public Object getById(String Table, String key, String id, Class TableClass);

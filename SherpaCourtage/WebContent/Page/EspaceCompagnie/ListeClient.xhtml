@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+			    
+				 <p:dataTable var="ctrCrs" value="#{managedCompagnie.listClient}"
+				 			  rowKey="#{ctrCrs.numSouscripteur}"
+				 			  selectionMode="single" widgetVar="ctraTable">
+					 <f:facet name="header">
+						 LISTE DES CLIENTS
+					 </f:facet>
+					 <p:column headerText="Code Client" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.numSouscripteur}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Noms" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.nomRaisonSociale}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Adresse" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.adresse}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Téléphone" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.telephone}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Mail" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.email}"/>
+					 </p:column>
+					 
+				</p:dataTable>
+	
+			
+			</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

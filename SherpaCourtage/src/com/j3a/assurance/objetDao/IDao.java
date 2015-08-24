@@ -46,7 +46,7 @@ public interface IDao {
 	public VehiculeZoneGeographique recupDerniereZoneGeo(String codeVehicule);
 	public GarantieChoisie recuperGarantiChoisie(String codeVehicule, String numAvenant);
 	public Exercice exerciceOuvert();
-	
+	public List<Personne>listClientCompagnie(String compagnieAssurance);
 
 	public List<GarantieGarantieChoisie> recupGartGartChoisie(String codeGartChoisi);
 	public ConduireVehicule recupConducteur(String codeVehicule);

@@ -53,6 +53,7 @@ import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.CompteCompagnieAssurance;
 import com.j3a.assurance.model.Pays;
+import com.j3a.assurance.model.Personne;
 import com.j3a.assurance.model.UserRole;
 import com.j3a.assurance.objetService.ObjectService;
 import com.j3a.assurance.utilitaires.AvenantByPointVenteRow;
@@ -101,7 +102,7 @@ public class ManagedCompagnie implements Serializable{
 	private String choixPays;
 	UserRole userRole=new UserRole();
 	private List<Avenant> listAvenant=new ArrayList<Avenant>();
-	
+	private List<Personne> listClient=new ArrayList<Personne>();
 	
 	
 	
@@ -166,7 +167,24 @@ public class ManagedCompagnie implements Serializable{
 		return "/Page/EspaceCompagnie/listeContrat?faces-redirect=true";
 	}
 	
-	public List<Pays> paysList(){
+	public String ChargerClientCompagnie(){
+		//List<Personne> listpers=new ArrayList<>();
+		listClient=getObjectService().listClientCompagnie(getCompagnieAssuranceConnecte().getCodeCompagnieAssurance());
+		/* if (getListClient().size()==0){
+			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"0", "Aucun Enregistrement!"));
+			  }
+			  else{
+			   for(Iterator it=listpers.iterator();it.hasNext();){
+				   Personne personne=(Personne) it.next();
+				  
+				   getListClient().add(personne);  
+				   System.out.println("persoooooooooooo"+personne.getNomRaisonSociale());
+			   }*/
+			  // }
+		return "/Page/EspaceCompagnie/ListeClient?faces-redirect=true";
+	} 
+	
+	List<Pays> paysList(){
 		pays=new ArrayList<Pays>();
 		for(Object pa:getObjectService().getojects("Pays")){
 			pays.add((Pays) pa);
@@ -385,6 +403,16 @@ public class ManagedCompagnie implements Serializable{
 
 	public void setListChiffreAffaireRows(List<ChiffreAffaireRow> listChiffreAffaireRows) {
 		this.listChiffreAffaireRows = listChiffreAffaireRows;
+	}
+
+
+	public List<Personne> getListClient() {
+		return listClient;
+	}
+
+
+	public void setListClient(List<Personne> listClient) {
+		this.listClient = listClient;
 	}
 
 	
