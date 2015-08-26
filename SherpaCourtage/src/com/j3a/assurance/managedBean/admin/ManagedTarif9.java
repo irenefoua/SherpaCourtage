@@ -35,7 +35,7 @@ public class ManagedTarif9 implements Serializable{
 		private Tarif tarif = new Tarif();
 		private RcTarif9 rcTarif9 = new RcTarif9();
 		private  String code;
-		private  String codetar;
+		private  String codetar,codetarw;
 		private CompagnieAssurance compagnieAssuranceConnecte=new CompagnieAssurance();
         private Tarifweb tarifweb=new Tarifweb();
 		
@@ -46,7 +46,7 @@ public class ManagedTarif9 implements Serializable{
         public void PostConst(CompagnieAssurance compagnieAssurancee){
     		setRcTarif9( (RcTarif9) getObjectService().getObjectById("R9"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "RcTarif9"));
     		setTarif( (Tarif) getObjectService().getObjectById("T9"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "Tarif"));
-    	    setTarifweb((Tarifweb) getObjectService().getObjectById("T9"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "Tarifweb"));
+    	    setTarifweb((Tarifweb) getObjectService().getObjectById("TW9"+compagnieAssurancee.getCodeCompagnieAssurance()+"", "Tarifweb"));
     		try { 
     					if((rcTarif9 !=null) && (tarif !=null) && (tarifweb !=null) ){ 
     					setRcTarif9(getRcTarif9());
@@ -60,7 +60,7 @@ public class ManagedTarif9 implements Serializable{
     						tarif=new Tarif();
     						tarif.setCodeTarif("T9"+compagnieAssurancee.getCodeCompagnieAssurance()+ "");
     						tarifweb=new Tarifweb();
-    						tarif.setCodeTarif("T9"+compagnieAssurancee.getCodeCompagnieAssurance()+ "");
+    						tarifweb.setCodeTarifWeb("TW9"+compagnieAssurancee.getCodeCompagnieAssurance()+ "");
     					}
     					
     				} catch (NullPointerException e) {
@@ -77,10 +77,13 @@ public class ManagedTarif9 implements Serializable{
 			setCompagnieAssuranceConnecte(getObjectService().RecupererCompagnieCourrant());
 			code ="R9"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"";
 			codetar ="T9"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"";
+			codetarw ="TW9"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+"";
+
 		RcTarif9 rcTarif1Tempon = (RcTarif9) getObjectService().getObjectById(code, "RcTarif9");
 		Tarif tarifTempon = (Tarif) getObjectService().getObjectById(codetar, "Tarif");
 		
-		if((rcTarif1Tempon==null) && (tarifTempon==null)){
+		Tarifweb tarifweb1=(Tarifweb) getObjectService().getObjectById(codetarw, "Tarifweb");
+		if((rcTarif1Tempon==null) && (tarifTempon==null) && (tarifweb1==null)){
 			rcTarif9.setCodeRcTarif9("R9"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+ "");	
 			getObjectService().addObject(rcTarif9);	
 			tarif.setCodeTarif("T9"+compagnieAssuranceConnecte.getCodeCompagnieAssurance()+ "");
@@ -92,7 +95,7 @@ public class ManagedTarif9 implements Serializable{
 			SousCatVehicule sousCatVehicule=new SousCatVehicule();
 			sousCatVehicule.setCodeSousCatVehicule("SCAT9");
 			
-			tarifweb.setCodeTarifWeb(codetar);
+			tarifweb.setCodeTarifWeb(codetarw);
 			tarifweb.setCompagnieAssurance(getCompagnieAssuranceConnecte());
 			tarifweb.setTarif(getTarif());
 			tarifweb.setLibelleTarifWeb("Tarif 9");
@@ -285,6 +288,14 @@ public class ManagedTarif9 implements Serializable{
 
 		public void setTarifwebSousCat(TarifwebSousCat tarifwebSousCat) {
 			this.tarifwebSousCat = tarifwebSousCat;
+		}
+
+		public String getCodetarw() {
+			return codetarw;
+		}
+
+		public void setCodetarw(String codetarw) {
+			this.codetarw = codetarw;
 		}
 
 

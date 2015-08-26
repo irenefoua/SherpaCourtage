@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>SHERPA WebUser</title>
+	<h:outputStylesheet library="css" name="main.css" />
+	<link rel="icon" type="image/x-icon"
+		href="../../../resources/images/favicon.ico" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=980" />
+
+	<style type="text/css">"WebContent/template/templateEspaceCompagnie.xhtml"
+h1 {
+	color: black;
+	text-align: center;
+	margin-top: 0;
+}
+
+h1 a {
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+
+p {
+	color: #666;
+	text-align: center;
+}
+
+body {
+	background: #f4f4f4;
+}
+
+.wrapper {
+	width: 100%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.container {
+	background-color: white;
+	border-radius: 5px;
+	border: solid 0px #eee;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+	padding: 10px;
+	width: 1000px;
+	height: 600px;
+	margin: 60px auto 0px auto;
+	position: relative;
+	z-index: 0;
+	border-radius: 15px;
+}
+
+pre, code {
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+	font-size: 12px;
+	color: #333;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+pre {
+	border: 1px solid #CCC;
+	background-color: #EEE;
+	color: #333;
+	padding: 10px;
+	overflow: scroll;
+}
+
+code {
+	padding: 2px 4px;
+	background-color: #F7F7F9;
+	border: 1px solid #E1E1E8;
+	color: #D14;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:outputStylesheet library="css" name="style.css" />
+	<!-- Backstretch JS -->
+
+	<h:outputScript name="js/jquery.backstretch.js" />
+
+	<script>
+		        $.backstretch([
+		          "../../resources/images/pot-holder.jpg",
+		          
+		          "../../resources/images/dome.jpg",
+		          "../../resources/images/Black_Car_Driver_Color.jpg"
+		        ], {
+		        	fade: 1000,		//Speed of Fade
+		        	duration: 10000 	//Time of image display
+		        });
+		    </script>
+
+
+	<!-- Page Content -->
+
+	<div class="wrapper">
+		<div class="container">
+			<p:layout fullPage="false" style="width:990px;height:600px">
+				<!-- Le Header de la page -->
+
+				<p:layoutUnit id="top" position="north" size="75">
+
+					<ui:insert name="top">
+						<div
+							style="font-family: verdana; padding: 0px; border-radius: 10px; border: 1px solid red; background-color: #D6D6D6">
+							<h:panelGrid columns="3" columnClasses="headerlogo,headerName,headerUser"  
+								style="width:100%;height:100%;padding:0px;">
+								<h:graphicImage name="images/logo_j3a.jpg" style="margin:0px;" />
+								<div style="color: #40B3DF; font-size: 18px; margin-left: 3%; ">
+									<span style="background-color: #B4009E; color: #ffffff; font-size: 18px">ESPACE COMPAGNIE</span>
+								</div>
+								<h:panelGrid>
+									<h:outputText value="Compagnie: --#{managedCompagnie.compagnieAssuranceConnecte.codeCompagnieAssurance}-- connecté"  />
+									<p:commandLink value="Deconnexion"/>
+									<a href="/SherpaCourtage/logoutCompagnie.jsf" style="color: red">Deconnexion</a>
+								</h:panelGrid>
+							</h:panelGrid>
+						</div>
+					</ui:insert>
+
+				</p:layoutUnit>
+
+
+				<p:layoutUnit position="south" size="75">
+
+					<ui:insert name="bottom">
+						<div
+							style="font-family: verdana; padding: 0px; border-radius: 10px; border: 1px solid red; background-color: #D6D6D6; height: 60px;">
+							<h:panelGrid columns="2" columnClasses="HalfLeft,.HalfLeft"
+								style="width:100%">
+
+
+
+								<h:outputLink value="http://www.j3atechnologies.com/"
+									target="_bank">
+											J3A SOFTWARE GROUP
+										</h:outputLink>
+
+								<h:outputText
+									value="Créateur de Valeurs Ajoutées Technologiques"
+									style="font-style: italic;" />
+								<br />
+
+
+							</h:panelGrid>
+						</div>
+					</ui:insert>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="center" id="content" size="700">
+					<h:form>
+						
+						
+						<p:menubar>
+							<p:submenu label="Acceuil" icon="ui-icon-home">
+								<p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+								<p:menuitem value="Assurance Automobile"
+									action="/Page/AutoWeb/indexAuto?faces-redirect=true" />
+								<p:menuitem value="Espace Personnel"
+									action="/Page/EspaceAdminCompagnie/indexCompagnie?faces-redirect=true" />
+							</p:submenu>
+
+							<p:separator />
+
+							<p:submenu label="Espace Personnel">
+								<p:menuitem value="Espace Personnel -Acceuil-"
+									action="/Page/EspaceAdminCompagnie/indexCompagnie?faces-redirect=true" />
+								<p:menuitem
+									value="Espace Personnel -Mes Contrats/Mes Sinistres-"
+									action="/Page/EspaceAdminCompagnie/listeContrat?faces-redirect=true" />
+								
+							</p:submenu>
+
+							<p:separator />
+
+							<ui:insert name="i-page">
+							</ui:insert>
+						</p:menubar>
+					</h:form>
+
+					<ui:insert name="content">
+					</ui:insert>
+				</p:layoutUnit>
+
+			</p:layout>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<p:dialog header="Basic Dialog" widgetVar="dlg1" modal="true">
+		<h:outputText value="Test Zeus UI Dialog Box" />
+	</p:dialog>
+
+	<!-- <script type="text/javascript">
+		jQuery().ready(function(){
+		 $("#top").css('background', 'red');
+	 }) 
+</script> 
+ -->
+	<!-- <script type="text/javascript">
+	 function handleChange(panel) {
+		 panel.css("color","red");
+	 }
+</script> -->
+	<script type="text/javascript">
+		$("a").click(
+				dlg1.show();
+				function() {
+					var th = $(this);
+					var tag = $(this).parent().parent().parent().parent();
+					tag.children().children().children().children("a").css(
+							"text-decoration", "none");
+					th.css("text-decoration", "overline");
+
+				});
+	</script>
+
+	<script>
+			PrimeFaces.locales['fr'] = {
+				closeText : 'Fermer',
+				prevText : 'Précédent',
+				nextText : 'Suivant',
+				monthNames : [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai',
+						'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+						'Novembre', 'Décembre' ],
+				monthNamesShort : [ 'Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun',
+						'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc' ],
+				dayNames : [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi',
+						'Vendredi', 'Samedi' ],
+				dayNamesShort : [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven',
+						'Sam' ],
+				dayNamesMin : [ 'D', 'L', 'M', 'M', 'J', 'V', 'S' ],
+				weekHeader : 'Semaine',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Choisir l\'heure',
+				timeText : 'Heure',
+				hourText : 'Heures',
+				minuteText : 'Minutes',
+				secondText : 'Secondes',
+				currentText : 'Maintenant',
+				ampm : false,
+				month : 'Mois',
+				week : 'Semaine',
+				day : 'Jour',
+				allDayText : 'Toute la journée'
+			};
+		</script>
+
+
+</h:body>
+
+
+
+</html>
