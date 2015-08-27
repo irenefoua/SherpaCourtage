@@ -117,7 +117,7 @@ public class Contrat implements java.io.Serializable {
 		this.pointVente = pointVente;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RISQUE", nullable = false)
 	public Risque getRisque() {
 		return this.risque;
