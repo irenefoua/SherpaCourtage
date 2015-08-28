@@ -88,6 +88,8 @@ public class VehiculeRow {
 	private GarantieChoisie gcIa = new GarantieChoisie();
 	private List<GarantieGarantieChoisie> ggca=new ArrayList<GarantieGarantieChoisie>();
 	
+	private List<TarifCompagnieRow> tarifCompagnieRow = new ArrayList<TarifCompagnieRow>();
+	
 	
 	
 	
@@ -213,6 +215,12 @@ public class VehiculeRow {
 	}
 	public void setGgca(List<GarantieGarantieChoisie> ggca) {
 		this.ggca = ggca;
+	}
+	public List<TarifCompagnieRow> getTarifCompagnieRow() {
+		return tarifCompagnieRow;
+	}
+	public void setTarifCompagnieRow(List<TarifCompagnieRow> tarifCompagnieRow) {
+		this.tarifCompagnieRow = tarifCompagnieRow;
 	}
 		
 	

@@ -105,7 +105,7 @@ public class SousCatVehicule implements java.io.Serializable {
 		this.vehicules = vehicules;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sousCatVehicule")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sousCatVehicule")
 	public Set<TarifwebSousCat> getTarifwebSousCats() {
 		return this.tarifwebSousCats;
 	}

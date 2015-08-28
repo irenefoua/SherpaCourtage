@@ -54,7 +54,7 @@ public class Tarifweb implements java.io.Serializable {
 		this.codeTarifWeb = codeTarifWeb;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
 	public CompagnieAssurance getCompagnieAssurance() {
 		return this.compagnieAssurance;
@@ -64,7 +64,7 @@ public class Tarifweb implements java.io.Serializable {
 		this.compagnieAssurance = compagnieAssurance;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_TARIF")
 	public Tarif getTarif() {
 		return this.tarif;

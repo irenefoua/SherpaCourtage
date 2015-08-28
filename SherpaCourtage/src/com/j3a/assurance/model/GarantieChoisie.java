@@ -237,7 +237,7 @@ public class GarantieChoisie implements java.io.Serializable {
 		this.surprime = surprime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "garantieChoisie")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "garantieChoisie")
 	public Set<GarantieGarantieChoisie> getGarantieGarantieChoisies() {
 		return this.garantieGarantieChoisies;
 	}
