@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+	
+	
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+	<ui:define name="content">
+		<h:form id="tarif4">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 04 : TRANSPORT PUBLIC DE VOYAGEURS (Catégorie 4)">
+			
+			
+			
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="7">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+            
+            <br />
+        </p:row>
+        <p:row>
+            <p:column rowspan="3">NOMBRE DE PLACES</p:column>
+            <p:column colspan="3">Prime de base</p:column>
+            <p:column colspan="3">Majoration ou réduction ( à appliquer sur la prime de base)</p:column>
+           
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+    <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2"></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 2</p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Zone 3</p:column>
+        
+        <p:column style="font-weight: bold;border: 1px solid black;" rowspan="2">Remorque</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="2">Ancienneté de permis (1)</p:column>
+        
+    </p:row>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Classe 2</p:column>
+       
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">TAXI</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="3"></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"></p:column>
+        
+        
+        
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Jusqu’à 4 places</p:column>
+        
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlTaxi1Zone1}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlTaxi1Zone2}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText   value="#{managedTarif4.rcTarif4.nbPlTaxi1Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+       
+       
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">8 places</p:column>
+        
+        <p:column style="font-weight: bold; border: 1px solid black;">  <p:inputText value="#{managedTarif4.rcTarif4.nbPlTaxi2Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"> <p:inputText  value="#{managedTarif4.rcTarif4.nbPlTaxi2Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"> <p:inputText value="#{managedTarif4.rcTarif4.nbPlTaxi2Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        
+        
+        
+        
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">CARS</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;" colspan="3"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black;"><p:inputText  value="#{managedTarif4.rcTarif4.tauxRemorquet4}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.tauxPermis1t4}"></p:inputText><h:outputText value="% "/></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.tauxPermis2t4}"></p:inputText><h:outputText value="% "/></p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 9 à 22</p:column>
+       
+        <p:column style="font-weight: bold; border: 1px solid black;border-right: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar1Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black; border-right: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar1Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar1Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black; border-left: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black;"></p:column>
+    
+        
+    </p:row>
+    
+  <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 23 à 40</p:column>
+       
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar2Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar2Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar2Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;  border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; "></p:column>
+    
+        
+    </p:row>
+    
+    
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">41 et plus</p:column>
+       
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar3Zone1}" ><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar3Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif4.rcTarif4.nbPlCar3Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black;"></p:column>
+        <p:column style="font-weight: bold; border: 1px outset black; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold;border-right: 1px solid black; border: 1px outset black;"></p:column>
+    
+        
+    </p:row>
+    
+    
+    
+</p:panelGrid>
+				
+			
+			</p:panel>
+			<br />
+			<fieldset >	
+			<legend> Validation  </legend>
+			<p:commandButton   value="Valider "  onclick="confirm.show();"   style="width:80px;height:30px;margin-left: 450px; font-size:12px; border-radius:10px;"/>
+				
+			 </fieldset>
+			
+		</h:form>
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif4.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

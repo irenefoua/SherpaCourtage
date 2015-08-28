@@ -1,11 +1,13 @@
 package com.j3a.assurance.objetDao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import com.j3a.assurance.model.ApporteurVehicule;
 import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.AyantDroit;
+import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.ConduireVehicule;
 import com.j3a.assurance.model.Contrat;
 import com.j3a.assurance.model.Exercice;
@@ -20,6 +22,7 @@ import com.j3a.assurance.model.Quittance;
 import com.j3a.assurance.model.Risque;
 import com.j3a.assurance.model.Sinistre;
 import com.j3a.assurance.model.SocieteAssurance;
+import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeSinistre;
 import com.j3a.assurance.model.VehiculeZoneGeographique;
@@ -43,7 +46,7 @@ public interface IDao {
 	public VehiculeZoneGeographique recupDerniereZoneGeo(String codeVehicule);
 	public GarantieChoisie recuperGarantiChoisie(String codeVehicule, String numAvenant);
 	public Exercice exerciceOuvert();
-	
+	public List<Personne>listClientCompagnie(String compagnieAssurance);
 
 	public List<GarantieGarantieChoisie> recupGartGartChoisie(String codeGartChoisi);
 	public ConduireVehicule recupConducteur(String codeVehicule);
@@ -69,7 +72,7 @@ public interface IDao {
 	public Risque findRisque(String police) ;
 	public List<Avenant> findAvenant(String souscripteur);
 	public List<Quittance> findquitQuittance(String souscripteur);
-
+	public List<Tarif>listTarif(CompagnieAssurance compagnieAssurance);
 	public VehiculeSinistre infoSinistreAuto(String param);			
 	public List <ApporteurVehicule> infoapporteuVehicule(String codevehicule,String debut,String fin);
     public List <Avenant> listeAvenant(String debut,String fin) ;
@@ -88,4 +91,8 @@ public interface IDao {
 	public Personne RecupererUtilisateurCourrant();
 	public List <Personne> personneByLogin(String login);
 	public boolean chercherLogin(String paramLogin);
+	public boolean chercherLoginCompagnie(String paramLogin);
+	public CompagnieAssurance RecupererCompagnieCourrant();
+	public List<Avenant> listAvenantCompagnie(String compagnieAssurance);
+	public List<BigDecimal> chiffreAffaire(String compagnieAssurance);
 	}

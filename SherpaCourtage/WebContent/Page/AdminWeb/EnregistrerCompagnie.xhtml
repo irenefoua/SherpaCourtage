@@ -17,8 +17,15 @@
 					<p:panel header="Informations sur la compagnie">
 					<br />
 					<h:panelGrid id="cducgrid" columns="6">
+					
+					<h:outputText value="Pays"  style="margin-left: 20px;"/>
+					<p:selectOneMenu value="#{managedCompagnie.choixPays}" label="Liste des pays">
+					<f:selectItems value="#{managedCompagnie.pays}"
+					var="pa" itemLabel="#{pa.libellePays}" itemValue="#{pa.codePays}" />
+					</p:selectOneMenu>
+												
 											
-												<h:outputText value="Code Compagnie"  />
+												<h:outputText value="Code Compagnie"  style="margin-left: 20px;"/>
 												<p:inputText id="num_cond" value="#{managedCompagnie.compagnieAssurance.codeCompagnieAssurance}"
 												style="width: 178px">
 												</p:inputText>
@@ -44,9 +51,7 @@
 													id="lieuNaisC" style="width:175px;"/>	
 												
 												
-												<h:outputText value="Code Pays"  style="margin-left: 20px;"/>
-												<p:inputText value="#{managedCompagnie.compagnieAssurance.pays}"
-													id="numPermC" style="width:178px;"/>
+												
 												
 												
 												<h:outputText value="Téléphone du pays" style="margin-left: 20px;"/>
@@ -55,7 +60,7 @@
 											<br/>
 											<br/>
 					
-					            <fieldset><legend>ENTREZ VOS PARAMETRES DE CONNEXION</legend>
+					                   <fieldset><legend>LES PARAMETRES DE CONNEXION</legend>
 							                
 							                <h:panelGrid columns="2" style="border-radius:100px;">
 							                
@@ -76,13 +81,14 @@
 							                </h:panelGrid>
 							                </fieldset>
 							                <br />
-							                
-				 	                    
 					                		</p:panel>	
+					                		<br/>
+					                		<h:commandButton value="Enregistrer" actionListener="#{managedCompagnie.ajouterCompagnie}" style="width:150px;height:40px; margin-left: 400px;font-size:15px;border-radius:20px;"></h:commandButton>
+					                											
 					                		
 												
 			</h:form>
 
 	</ui:define>
-</ui:composition>
-</html>
+    </ui:composition>
+    </html>

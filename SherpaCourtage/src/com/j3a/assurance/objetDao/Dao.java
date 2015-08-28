@@ -1,5 +1,6 @@
 package com.j3a.assurance.objetDao;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.j3a.assurance.model.ApporteurVehicule;
 import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.AyantDroit;
+import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.ConduireVehicule;
 import com.j3a.assurance.model.Contrat;
 import com.j3a.assurance.model.Exercice;
@@ -34,6 +36,8 @@ import com.j3a.assurance.model.Quittance;
 import com.j3a.assurance.model.Risque;
 import com.j3a.assurance.model.Sinistre;
 import com.j3a.assurance.model.SocieteAssurance;
+import com.j3a.assurance.model.SousCatVehicule;
+import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeSinistre;
 import com.j3a.assurance.model.VehiculeZoneGeographique;
@@ -639,6 +643,30 @@ public class Dao implements IDao {
 						return connected;
 		}
 		
+		@Override
+		public CompagnieAssurance RecupererCompagnieCourrant() {
+			// Recupération du login de l'utilisateur courant
+						String paramLogin = "";
+						if (FacesContext.getCurrentInstance().getExternalContext()
+								.getUserPrincipal() != null) {
+							paramLogin = FacesContext.getCurrentInstance().getExternalContext()
+									.getUserPrincipal().getName();
+							System.out.println("paramLogin:"+paramLogin);
+
+						}
+						String query = "SELECT * FROM compagnie_assurance WHERE LOGIN_COMP_ASS='"+ paramLogin + "'";
+						CompagnieAssurance connected  = new CompagnieAssurance();
+						try {
+
+							connected = (CompagnieAssurance) getSessionFactory().getCurrentSession()
+									.createSQLQuery(query).addEntity(CompagnieAssurance.class)
+									.uniqueResult();
+						} catch (Exception e) {
+							logger.error(" Erreur sur la recupération de l'utilisateur");
+						}
+						return connected;
+		}
+		
 
 		@SuppressWarnings("unchecked")
 		@Override
@@ -668,4 +696,82 @@ public class Dao implements IDao {
 			}
 			return etat;
 		}
+		
+		
+		public boolean chercherLoginCompagnie(String paramLogin) {
+			boolean etat;
+			String str = paramLogin;
+			etat = false;
+			try {
+
+				String query = "SELECT * FROM `compagnie_assurance` WHERE `LOGIN_COMP_ASS`='"
+						+ str + "'";
+				List list = (List) getSessionFactory().getCurrentSession()
+						.createSQLQuery(query).addEntity(Personne.class).list();
+				if (list.size() >= 1) {
+					etat = true;
+				}
+				System.out.println("Etat de la requête:" + etat);
+			} catch (Exception e) {
+				logger.error(" Problème de Base de données", e);
+			}
+			return etat;
+		}
+		
+		
+		public List<Tarif>listTarif(CompagnieAssurance compagnieAssurance){
+			
+			List listTarif=null;
+			try {
+				String query="select t.*,c.CODE_COMPAGNIE_ASSURANCE from tarif t, compagnie_assurance c where c.CODE_COMPAGNIE_ASSURANCE=t.CODE_COMPAGNIE_ASSURANCE and c.LOGIN_COMP_ASS='"
+						+ compagnieAssurance.getLoginCompAss() + "'";
+				listTarif = getSessionFactory().getCurrentSession().createSQLQuery(query).addEntity(Tarif.class).list();
+			} catch (HibernateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listTarif;
+		}
+		
+		public List<Avenant> listAvenantCompagnie(String compagnieAssurance){
+			List listAvenant=null;
+			try {
+				String query="SELECT A.*,CT.*,C.RAISON_SOCIALE_COMP_ASS FROM AVENANT A,compagnie_assurance C,CONTRAT CT where C.CODE_COMPAGNIE_ASSURANCE=A.CODE_COMPAGNIE_ASSURANCE and CT.NUM_POLICE=A.NUM_POLICE and C.CODE_COMPAGNIE_ASSURANCE='"+ compagnieAssurance+"'";
+				listAvenant = getSessionFactory().getCurrentSession().createSQLQuery(query).addEntity(Avenant.class).list();
+			} catch (HibernateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listAvenant;
+
+		
+		}
+		public List<BigDecimal> chiffreAffaire(String compagnieAssurance){	
+			List ca=null;
+			try {
+				String myQuery = "SELECT SUM(q.NET_A_PAYER)as ca, a.CODEEXERCICE FROM avenant a,quittance q,compagnie_assurance c WHERE a.num_avenant=q.num_avenant and c.CODE_COMPAGNIE_ASSURANCE=a.CODE_COMPAGNIE_ASSURANCE and c.CODE_COMPAGNIE_ASSURANCE='"+compagnieAssurance+"' group by a.CODEEXERCICE";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return ca;
+	}
+		
+		
+		public List<Personne>listClientCompagnie(String compagnieAssurance){
+			List listClient=null;
+			try {
+				String query="SELECT distinct P.*,A.*,CT.*,C.RAISON_SOCIALE_COMP_ASS FROM AVENANT A,compagnie_assurance C,CONTRAT CT,PERSONNE P where C.CODE_COMPAGNIE_ASSURANCE=A.CODE_COMPAGNIE_ASSURANCE and CT.NUM_POLICE=A.NUM_POLICE and CT.NUM_SOUSCRIPTEUR=P.NUM_SOUSCRIPTEUR and C.CODE_COMPAGNIE_ASSURANCE='"+ compagnieAssurance+"'";
+				listClient = getSessionFactory().getCurrentSession().createSQLQuery(query).addEntity(Personne.class).list();
+			System.out.println("lillllllllll"+listClient.size());
+			} catch (HibernateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return listClient;
+
+		
+		}
+		
+		
 }

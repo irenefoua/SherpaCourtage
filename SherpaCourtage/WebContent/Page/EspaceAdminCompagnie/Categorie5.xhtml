@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCompagnie.xhtml">
+	<ui:define name="content">
+		<h:form id="cat">
+		<p:messages id="growl" autoUpdate="true" showDetail="true" />
+			<p:panel header="TARIF 05: VEHICULES MOTORISES à 2 OU 3 ROUES (Catégorie 5)">
+				<p:panelGrid style="margin-top:20px;">
+          <f:facet name="header">
+        <p:row>
+            <p:column colspan="4">ASSURANCE DE RESPONSABILITE CIVILE OBLIGATOIRE (RC)</p:column>
+        </p:row>
+        <p:row>
+            <p:column>Puissance</p:column>
+            <p:column colspan="3">Prime de base</p:column>  
+        </p:row>
+ 
+    </f:facet>
+ 
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black; font-size:15px">Cylindrée en cm3</p:column>
+         <p:column style="font-weight: bold;border: 1px solid black;">Zone 1</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Zone 2</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;">Zone 3</p:column>
+    </p:row>
+  
+    
+    <p:row>
+        <p:column style="font-weight: bold;border: 1px solid black;">Jusqu’à 50</p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText    value="#{managedTarif5.rcTarif5.cyl1Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText    value="#{managedTarif5.rcTarif5.cyl1Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold;border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.cyl1Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>  
+    </p:row>
+    
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 51 à 99</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.cyl2Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl2Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl2Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 100 à 175</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl3Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl3Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl3Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">De 176 à 350</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.cyl4Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.cyl4Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.cyl4Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+     <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">350 et plus</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl5Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl5Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.cyl5Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black; font-size:15px">Tandems en cm3</p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+        <p:column style="font-weight: bold; border-right: 1px solid black;"></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">Jusqu’à 175</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.tandems1Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.tandems1Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.tandems1Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+    
+    <p:row>
+        <p:column style="font-weight: bold; border: 1px solid black;">175 et plus</p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText  value="#{managedTarif5.rcTarif5.tandems2Zone1}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.tandems2Zone2}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+        <p:column style="font-weight: bold; border: 1px solid black;"><p:inputText value="#{managedTarif5.rcTarif5.tandems2Zone3}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText></p:column>
+    </p:row>
+   </p:panelGrid>	
+   </p:panel>
+			<br />
+			<fieldset><legend>DEFENSE ET RECOURS</legend> 
+		<h:panelGrid columns="2">
+		<h:outputText value="Prime de base "></h:outputText>
+		<p:inputText   value="#{managedTarif5.tarif.primeBaseDr}"><f:convertNumber pattern="##,###.##"></f:convertNumber><p:ajax update="@this" global="false"/></p:inputText>
+		</h:panelGrid>
+		</fieldset>	
+    
+		<fieldset>
+   <p:commandButton value="Valider"   onclick="confirm.show();"  style="width:80px;height:30px;margin-left: 450px; font-size:12px; border-radius:10px;"/>
+		</fieldset>
+		</h:form>
+		
+		<p:dialog header="Confirmer" widgetVar="confirm" resizable="false"
+			id="conf" width="400" showEffect="fade" hideEffect="explode"  appendTo="@(body)">
+			<h:form id="ca1">
+				<h:panelGrid>
+					<f:facet name="header">
+						<h:outputText value="Veillez confirmer" />
+					</f:facet>
+					<h:panelGrid columns="2">
+					<p:commandButton id="ok" value="Enregistrer" actionListener="#{managedTarif5.enregistrer}"  oncomplete="confirm.hide();"/>
+					<p:commandButton id="non" value="Annuler"  oncomplete="confirm.hide();"/>
+					</h:panelGrid>
+					</h:panelGrid>
+								
+			</h:form></p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

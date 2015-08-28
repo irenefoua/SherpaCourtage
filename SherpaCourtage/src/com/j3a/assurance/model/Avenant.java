@@ -109,7 +109,7 @@ public class Avenant implements java.io.Serializable {
 		this.numAvenant = numAvenant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
 	public CompagnieAssurance getCompagnieAssurance() {
 		return this.compagnieAssurance;
@@ -119,7 +119,7 @@ public class Avenant implements java.io.Serializable {
 		this.compagnieAssurance = compagnieAssurance;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "NUM_POLICE", nullable = false)
 	public Contrat getContrat() {
 		return this.contrat;
@@ -129,7 +129,7 @@ public class Avenant implements java.io.Serializable {
 		this.contrat = contrat;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODEEXERCICE")
 	public Exercice getExercice() {
 		return this.exercice;
@@ -139,7 +139,7 @@ public class Avenant implements java.io.Serializable {
 		this.exercice = exercice;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_UTILISATEUR", nullable = false)
 	public Utilisateur getUtilisateur() {
 		return this.utilisateur;
@@ -149,7 +149,7 @@ public class Avenant implements java.io.Serializable {
 		this.utilisateur = utilisateur;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_VEHICULES_ASSURES")
 	public VehiculesAssures getVehiculesAssures() {
 		return this.vehiculesAssures;
@@ -245,7 +245,7 @@ public class Avenant implements java.io.Serializable {
 		this.mouvement = mouvement;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvListeCorpsEngin> getAvListeCorpsEngins() {
 		return this.avListeCorpsEngins;
 	}
@@ -254,7 +254,7 @@ public class Avenant implements java.io.Serializable {
 		this.avListeCorpsEngins = avListeCorpsEngins;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvenantListeGestionConfie> getAvenantListeGestionConfies() {
 		return this.avenantListeGestionConfies;
 	}
@@ -264,7 +264,7 @@ public class Avenant implements java.io.Serializable {
 		this.avenantListeGestionConfies = avenantListeGestionConfies;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvListeHabitation> getAvListeHabitations() {
 		return this.avListeHabitations;
 	}
@@ -273,7 +273,7 @@ public class Avenant implements java.io.Serializable {
 		this.avListeHabitations = avListeHabitations;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvListeAssureIa> getAvListeAssureIas() {
 		return this.avListeAssureIas;
 	}
@@ -282,7 +282,7 @@ public class Avenant implements java.io.Serializable {
 		this.avListeAssureIas = avListeAssureIas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvListeAdherent> getAvListeAdherents() {
 		return this.avListeAdherents;
 	}
@@ -291,7 +291,7 @@ public class Avenant implements java.io.Serializable {
 		this.avListeAdherents = avListeAdherents;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvenantRisqueNta> getAvenantRisqueNtas() {
 		return this.avenantRisqueNtas;
 	}
@@ -300,7 +300,7 @@ public class Avenant implements java.io.Serializable {
 		this.avenantRisqueNtas = avenantRisqueNtas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<AvTrafic> getAvTrafics() {
 		return this.avTrafics;
 	}
@@ -309,7 +309,7 @@ public class Avenant implements java.io.Serializable {
 		this.avTrafics = avTrafics;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "avenant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avenant")
 	public Set<Quittance> getQuittances() {
 		return this.quittances;
 	}

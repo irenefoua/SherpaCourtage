@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateEspaceCompagnie.xhtml">
+	<ui:define name="i-page">
+		<p:menuitem value="Espace Personnel -Mes Tarifs" url="#"  />
+	</ui:define>
+	
+	<ui:define name="content">
+		<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus> 
+		<h:form id="gnl">
+			<p:messages id="growl" showDetail="false" autoUpdate="true" closable="true"/>
+			
+			    
+				 <p:dataTable id="listTarif" var="ctrCrs" value="#{managedCompagnie.listTarif}"
+				 			  rowKey="#{ctrCrs.codeTarif}"
+				 			  selectionMode="single" widgetVar="ctraTable">
+					 <f:facet name="header">
+						 Liste de vos  Contrats (Click droit pour les details et les options)
+					 </f:facet>
+					 <p:column headerText="Code tarif" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.codeTarif}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Code rcTarif1" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.rcTarif1.codeRcTarif1}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Code rcTarif2" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.rcTarif2}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Code rcTarif3" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.rcTarif3}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Code rcTarif4" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.rcTarif4}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Code rcTarif5" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.rcTarif5}"/>
+					 </p:column>
+					 
+					  <p:column headerText="Code rcTarif6" style="width:16%;">
+							 <h:outputText value="#{ctrCrs.rcTarif6}"/>
+					 </p:column>
+					 
+					 <p:column headerText="Libellé"  style="width:10%;">
+					 	<h:outputText value="#{ctrCrs.libelleTarif}"/>
+					 	
+					 </p:column>
+					 <p:column headerText="Dommage"  style="width:10%;">
+					 	<h:outputText value="#{ctrCrs.drDomage}"/>
+					 		
+					 </p:column>
+					 <p:column headerText="drSansDomage" style="width:10%;">
+						 <h:outputText value="#{ctrCrs.drSansDomage}"/>
+					 </p:column>
+					 <p:column headerText="tauxDrPrimeFinale" style="width:20%;">
+					 	<h:outputText value="#{ctrCrs.tauxDrPrimeFinale}"/>
+					 </p:column>
+					 
+					 
+				</p:dataTable>
+	
+			
+		</h:form>
+		
+		
+		
+	</ui:define>
+</ui:composition>
+</html>
