@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"/>
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Validation" url="#" />
+		</p:menubar>
+	</h:form>
+	
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	
+	
+	
+	<p:tab id="ongletQuittance" title="Quittance">
+	<br /><br />
+	
+	<h:outputLabel value="Vous pouvez choisir l'offre qui vous convient le mieux !Cliquer pour avoir plus d'informations" style="margin-left:200px ;font-size:15px; color:red" />
+	
+	<br /><br />
+	<fieldset style="border-radius:5px;">
+	<legend>RECAPITULATIF </legend>
+
+		<br />
+		<h:outputLabel     style="font-size:15px"  value="le vehicule à assurer est :#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.marque}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.energie}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.carrosserie}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.puissFisc}CV"/>
+			<br /><br />
+								
+        <p:dataTable var="voiture"  value="">
+      
+    <p:column headerText="Compagnies">
+    
+    <h:panelGrid columns="1"  style="text-align: center;  "> 
+       <p:graphicImage value="/resources/images/sidam.jpg" />
+        <h:outputText value=" Sidam Assurance" /> 
+    </h:panelGrid>
+    </p:column>
+ 
+    <p:column headerText="Tarif mensuel">
+        <h:outputText value="tatol" />
+    </p:column>
+ 
+    <p:column headerText="Tarif annuel" >
+        <h:outputText value="test" />
+    </p:column>
+ 
+    <p:column headerText="Plus de details">
+    
+    
+    
+    
+    
+   
+    <p:accordionPanel multiple="true" style="border-radius:50px">
+        <p:tab title="plus d'informations " >
+         
+                <p:graphicImage value="/resources/images/sidam.jpg" />
+                <h:outputText
+                    value="Cette offre est interessante............." />
+            
+        </p:tab>
+       
+    </p:accordionPanel>
+        
+    </p:column>
+     <p:column headerText="choisir" style="text-align :center">
+        <h:commandButton  action="validationchoix" value=" Valider choix " style="color:white; width:150px;height:30px;font-size:15px;border-radius:10px;text-align :center ; background-color: #F71B1B;border:1px solid black;" />
+    </p:column>
+</p:dataTable> </fieldset>
+								
+	<br />				                    
+<p:commandLink id="addCont"  action="Precedant" value="Revenir à la première page du formulaire" />
+											
+										
+									
+
+								
+
+				</p:tab>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
