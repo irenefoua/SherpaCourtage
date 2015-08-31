@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title></title>
+</h:head>
+<ui:composition template="/template/templateWebAuto.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"  />
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Informations du Vehicule" url="#" />
+		</p:menubar>
+	</h:form>
+	
+	<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus>  
+
+			<h:form id="VehiculeProp">
+	
+
+				<p:messages id="messages"  autoUpdate="true" closable="true" showSummary="true"/>
+
+				<table
+					style="border-style: dashed; border-width: 1px; border-color: red;">
+					<tr>
+						<td><h:panelGrid border="0" columns="3" cellpadding="6">
+								<h:outputLabel value="Entrer le numéro de quittance"/>
+								
+
+							</h:panelGrid></td>
+						<td>
+							<fieldset
+								style="width: 465px; border: 2px solid #93DAFE; border-radius: 6px;">
+								<p:panel header="Options d'edition de pièces"
+									style="margin-bottom:10px" cellpadding="5">
+								
+								</p:panel>
+							</fieldset>
+						</td>
+					</tr>
+				</table>
+				<br />
+				
+				<br></br>
+			<h:commandButton id="validerPrime" value="Test de Garantie Courtage !!!"
+								actionListener="#{garantiesCompagnies.testCourtage}"
+								process="@this"
+								 icon="ui-icon-check"  style="width:150px;height:40px;margin-left:250px;font-size:12px;border-radius:20px;" 
+								 />
+				
+				</h:form>
+ 
+</ui:define>
+
+</ui:composition>
+</html>
