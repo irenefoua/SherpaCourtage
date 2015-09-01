@@ -214,7 +214,7 @@ public class ManagedCompagnie implements Serializable{
 	 public Number chiaff(){
    	    BigDecimal X = BigDecimal.ZERO; 
 			for(ChiffreAffaireRow ChiffreAffaire:listChiffreAffaireRows){
-				//System.out.println("vvvvvvvvvvvvvvvv"+ChiffreAffaire.getAvenant());
+			System.out.println("vvvvvvvvvvvvvvvv"+ChiffreAffaire.getCa());
 			if(compagnieAssuranceConnecte.getCodeCompagnieAssurance() != null){
 					X = X.add(ChiffreAffaire.getCa());
 	   				}
