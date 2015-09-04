@@ -13,35 +13,7 @@
 				<meta name="viewport" content="width=980"/>
 				
 				<style type="text/css">
-				h1 {color:black; text-align:center; margin-top:0;}
-				h1 a {text-decoration: none;color:black; text-align:center;}
-				p {color:#666; text-align:center;}
-				body {background: #f4f4f4;}
-				.wrapper {width:100%; margin: 0 auto; padding: 20px;}
-				.container {
-					background:none;
-					border-radius: 5px;
-					border: solid 0px #eee;
-					box-shadow: 0px 0px 10px rgba(0,0,0,.5);
-					padding:40px;
-					width:900px;
-					height:auto;
-					margin:60px auto 0px auto;
-					position: relative;
-					z-index: 0;
-					border-radius: 15px;
-					
-				}
-				pre, code {
-					font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-					font-size: 12px;
-					color: #333;
-					-webkit-border-radius: 3px;
-					-moz-border-radius: 3px;
-					border-radius: 3px;
-				}
-				pre { border: 1px solid #CCC; background-color: #EEE; color: #333; padding: 10px; overflow: scroll; }
-				code { padding: 2px 4px; background-color: #F7F7F9; border: 1px solid #E1E1E8; color: #D14; }
+				
 			</style>
 			
 			<h:outputStylesheet library="css" name="style.css" />
@@ -64,63 +36,25 @@
 						    <p:commandLink value="Deconnexion" style="text-align: right;"/>
 					    </h:panelGrid>
 					</p:notificationBar>
+					<br></br>
 		    <p:growl id="msgs" showDetail="true" />
-			<div class="wrapper">
-				<div class="container">
-					<p:dashboard id="board" model="#{managedIndexUserSpace.model}" >
-			            <p:ajax event="reorder" listener="#{managedIndexCompagnieSpace.handleReorder}" update="msgs"/>
-			 
-			            <p:panel id="ctras" header="Mes Tarifs" style="width:400px; margin:20px">
-			                <h:panelGrid columns="2" cellpadding="10">
-					            <h:outputText
-					                value="Naviguez vers une interface taillée et pensée pour la gestion de vos tarifications" />
-					            <p:commandLink id="ctraInterf" styleClass="ctraSin" action="#{managedCompagnie.chargerT1}"/>
-					        </h:panelGrid>
+		    <p:panel header="Menu">
+			
+					            <p:commandLink id="ctraInterf" value="Vos tarifications"   action="#{managedCompagnie.chargerT1}" style="margin-left:400px; font-size:40px"/>
+					      <br></br>
 					        
-					        <f:facet name="actions">
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></h:commandLink>
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" action="/index.xhtml?faces-redirect=true"><h:outputText styleClass="ui-icon ui-icon-home" /></h:commandLink>
-					        </f:facet>
-			            </p:panel>
-			 
-			            <p:panel id="compte" header="Liste de vos contrats" style="width:400px; margin:20px">
-			                <h:panelGrid columns="2" cellpadding="10">
-			                	<h:outputText value="Un espace dédié à la visualisation de vos différents contrats" />
-			                	<p:commandLink id="cpte" styleClass="paramCpte" action="#{managedCompagnie.ChargerAvenantCompagnie}"/>
-			                </h:panelGrid>
+					       
+			                	<p:commandLink id="cpte" value="Vos contrats"  action="#{managedCompagnie.ChargerAvenantCompagnie}" style="margin-left:400px; font-size:40px"/>
+			              
 			                
-			                <f:facet name="actions">
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></h:commandLink>
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" action="/index.xhtml?faces-redirect=true"><h:outputText styleClass="ui-icon ui-icon-home" /></h:commandLink>
-					        </f:facet>
-			            </p:panel>
+			                <br></br>
+				                <p:commandLink id="docmt"  value=" Vos chiffres d'affaire"  action="#{managedCompagnie.exeQuery}" style="margin-left:400px; font-size:40px"/>
+			               <br></br>
+			                	
+			                	 <p:commandLink id="docm" value="La liste de vos clients"  action="#{managedCompagnie.ChargerClientCompagnie}" style="margin-left:400px; font-size:40px"/>
+			               
 			 
-			            <p:panel id="docs" header="Ciffre D'affaire" style="width:400px; margin:20px">
-			                <h:panelGrid columns="2" cellpadding="10">
-				                <h:outputText value="Consultez la liste de vos chiffres d'affaires"  />
-				                <p:commandLink id="docmt" styleClass="documents" action="#{managedCompagnie.exeQuery}"/>
-			                </h:panelGrid>
-			                <f:facet name="actions">
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></h:commandLink>
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" action="/index.xhtml?faces-redirect=true"><h:outputText styleClass="ui-icon ui-icon-home" /></h:commandLink>
-					        </f:facet>
-			            </p:panel>
-			            
-			             <p:panel id="alerts" header="Liste de vos clients" style="width:400px; margin:20px">
-			                <h:panelGrid columns="2" cellpadding="10">
-			                	<h:outputText value="Visualisez la liste de vos clients" />
-			                	 <p:commandLink id="docm" styleClass="documents" action="#{managedCompagnie.ChargerClientCompagnie}"/>
-			                </h:panelGrid>
-			                <f:facet name="actions">
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></h:commandLink>
-					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" action="/index.xhtml?faces-redirect=true"><h:outputText styleClass="ui-icon ui-icon-home" /></h:commandLink>
-					        </f:facet>
-					        </p:panel>
-			        </p:dashboard>
-			 
-			        <div style="clear:both" />
-				</div>
-			</div>
+			      </p:panel>
 				
 			</h:form>
 	</h:body>
