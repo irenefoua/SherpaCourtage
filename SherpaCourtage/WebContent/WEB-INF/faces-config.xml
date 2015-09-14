@@ -7,6 +7,13 @@
 
  <navigation-rule>
   <from-view-id>*</from-view-id>
+  
+   <navigation-case>
+   <from-outcome>validationchoixOK</from-outcome>
+   <to-view-id>/Page/AutoWeb/validationchoix.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
   <navigation-case>
    <from-outcome>redirection</from-outcome>
    <to-view-id>/Page/AutoWeb/pageRedirectConnection.xhtml</to-view-id>

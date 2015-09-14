@@ -56,8 +56,8 @@
       
         
        <h:panelGrid columns="1"  >
-       <p:graphicImage value="/resources/images/sidam.jpg" />
-       <h:outputText value=" Sidam Assurance" />   </h:panelGrid>
+       <p:graphicImage value="/resources/images/#{garantiesCompagnies.selectedTarifWeb.compagnieAssurance.loginCompAss}.jpg" />
+       <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.compagnieAssurance.raisonSocialeCompAss}" />   </h:panelGrid>
         
        
         
@@ -65,10 +65,13 @@
       
        <h:panelGrid columns="2" >
           <h:outputText value="Formule: " />   
-          <h:outputText value="Tous risque "  style="color:red  "/>
+          <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.formule}"  style="color:red  "/>
         
           <h:outputText value="TARIF MENSUEL :"  style=";font-weight : bold;  "/> 
-          <h:outputText value=" 15000   "  style="font-weight : bold;color:red ;font-size:15px"/>  
+          <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.primeMensuelle}"  style="font-weight : bold;color:red ;font-size:15px"/>
+          
+           <h:outputText value="TARIF ANNUEL :"  style=";font-weight : bold;  "/> 
+          <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.primeAnnuelle}"  style="font-weight : bold;color:red ;font-size:15px"/>   
       </h:panelGrid></h:panelGrid>
     
  

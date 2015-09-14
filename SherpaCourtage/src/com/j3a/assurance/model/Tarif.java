@@ -243,7 +243,7 @@ public class Tarif implements java.io.Serializable {
 		this.codeTarif = codeTarif;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF1")
 	public RcTarif1 getRcTarif1() {
 		return this.rcTarif1;
@@ -253,7 +253,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif1 = rcTarif1;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF10")
 	public RcTarif10 getRcTarif10() {
 		return this.rcTarif10;
@@ -263,7 +263,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif10 = rcTarif10;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF12")
 	public RcTarif12 getRcTarif12() {
 		return this.rcTarif12;
@@ -273,7 +273,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif12 = rcTarif12;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF12B")
 	public RcTarif12b getRcTarif12b() {
 		return this.rcTarif12b;
@@ -283,7 +283,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif12b = rcTarif12b;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF2")
 	public RcTarif2 getRcTarif2() {
 		return this.rcTarif2;
@@ -293,7 +293,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif2 = rcTarif2;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF3")
 	public RcTarif3 getRcTarif3() {
 		return this.rcTarif3;
@@ -303,7 +303,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif3 = rcTarif3;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF4")
 	public RcTarif4 getRcTarif4() {
 		return this.rcTarif4;
@@ -313,7 +313,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif4 = rcTarif4;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF5")
 	public RcTarif5 getRcTarif5() {
 		return this.rcTarif5;
@@ -323,7 +323,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif5 = rcTarif5;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF6")
 	public RcTarif6 getRcTarif6() {
 		return this.rcTarif6;
@@ -333,7 +333,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif6 = rcTarif6;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF7")
 	public RcTarif7 getRcTarif7() {
 		return this.rcTarif7;
@@ -343,7 +343,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif7 = rcTarif7;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF8")
 	public RcTarif8 getRcTarif8() {
 		return this.rcTarif8;
@@ -353,7 +353,7 @@ public class Tarif implements java.io.Serializable {
 		this.rcTarif8 = rcTarif8;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_RC_TARIF9")
 	public RcTarif9 getRcTarif9() {
 		return this.rcTarif9;

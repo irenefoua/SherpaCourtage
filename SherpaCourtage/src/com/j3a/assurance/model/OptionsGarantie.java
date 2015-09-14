@@ -22,6 +22,7 @@ public class OptionsGarantie implements java.io.Serializable {
 
 	private String codeOptionsGarantie;
 	private CompagnieAssurance compagnieAssurance;
+	private FormuleGarantie formuleGarantie;
 	private String libelleOptionsGarantie;
 	private String descriptionOptGaranties;
 	private Set<GarantieOption> garantieOptions = new HashSet<GarantieOption>(0);
@@ -35,10 +36,11 @@ public class OptionsGarantie implements java.io.Serializable {
 
 	public OptionsGarantie(String codeOptionsGarantie,
 			CompagnieAssurance compagnieAssurance,
-			String libelleOptionsGarantie, String descriptionOptGaranties,
-			Set<GarantieOption> garantieOptions) {
+			FormuleGarantie formuleGarantie, String libelleOptionsGarantie,
+			String descriptionOptGaranties, Set<GarantieOption> garantieOptions) {
 		this.codeOptionsGarantie = codeOptionsGarantie;
 		this.compagnieAssurance = compagnieAssurance;
+		this.formuleGarantie = formuleGarantie;
 		this.libelleOptionsGarantie = libelleOptionsGarantie;
 		this.descriptionOptGaranties = descriptionOptGaranties;
 		this.garantieOptions = garantieOptions;
@@ -54,7 +56,7 @@ public class OptionsGarantie implements java.io.Serializable {
 		this.codeOptionsGarantie = codeOptionsGarantie;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
 	public CompagnieAssurance getCompagnieAssurance() {
 		return this.compagnieAssurance;
@@ -64,6 +66,16 @@ public class OptionsGarantie implements java.io.Serializable {
 		this.compagnieAssurance = compagnieAssurance;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CODE_FORMULE_GARANTIE")
+	public FormuleGarantie getFormuleGarantie() {
+		return this.formuleGarantie;
+	}
+
+	public void setFormuleGarantie(FormuleGarantie formuleGarantie) {
+		this.formuleGarantie = formuleGarantie;
+	}
+	
 	@Column(name = "LIBELLE_OPTIONS_GARANTIE", length = 80)
 	public String getLibelleOptionsGarantie() {
 		return this.libelleOptionsGarantie;
@@ -82,7 +94,7 @@ public class OptionsGarantie implements java.io.Serializable {
 		this.descriptionOptGaranties = descriptionOptGaranties;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "optionsGarantie")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "optionsGarantie")
 	public Set<GarantieOption> getGarantieOptions() {
 		return this.garantieOptions;
 	}

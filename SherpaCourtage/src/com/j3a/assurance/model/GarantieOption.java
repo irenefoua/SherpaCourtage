@@ -45,7 +45,7 @@ public class GarantieOption implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_GARANTIE", nullable = false, insertable = false, updatable = false)
 	public Garantie getGarantie() {
 		return this.garantie;
@@ -55,7 +55,7 @@ public class GarantieOption implements java.io.Serializable {
 		this.garantie = garantie;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_OPTIONS_GARANTIE", nullable = false, insertable = false, updatable = false)
 	public OptionsGarantie getOptionsGarantie() {
 		return this.optionsGarantie;

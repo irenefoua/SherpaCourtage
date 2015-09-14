@@ -1,5 +1,11 @@
 @CHARSET "ISO-8859-1";
 *
+.imageCourtage{
+	height:60px;
+	width:100px;
+	display:block;
+	text-align:center;
+}
 .identifiant{
   text-transform : uppercase;
 }
