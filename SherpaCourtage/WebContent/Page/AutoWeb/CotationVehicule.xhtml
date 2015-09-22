@@ -342,69 +342,7 @@
                                      </p:panel> 
 				</p:tab>
 				
-				<p:tab id="ongletImmatriculation" title="Immatriculation">
-				<fieldset>
-					<p:panel header="Immatriculation">
-				<br />
-				
-				
 		
-				 <h:panelGrid columns="4">
-				               <h:outputText value="Numéro d'Immatriculation "/>
-										<p:inputText id="imat" value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.numImmat}"
-										 required="true" requiredMessage="Sélectionner une Immatriculation !"
-										 styleClass="identifiant">
-										<p:ajax  update="@this, pmessagePropVehi" global="false"/>
-										</p:inputText>
-										
-									<h:outputText value="Date d'Immatriculation " style="margin-left: 20px;"/>
-									 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.dateImmat}" id="dateActu"  mask="99/99/9999" 
-									 required="true" requiredMessage="Sélectionner une date d'Immatriculation !">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-									<p:ajax  event="blur" listener="#{cotationAuto.carteGriseMB.changedateImmat}"
-									  update="@this, dateImmatpre, datePms, pmessagePropVehi" global="false"/>
-									</p:inputMask>
-								
-										
-				 </h:panelGrid>
-				 
-				 
-				 
-				 </p:panel>
-						     
-						<p:panel header="Immatriculation Précédente">
-				<br />	     
-			   
-			    <h:panelGrid columns="7">
-				 <h:outputText value="Numéro d'Immatriculation"/>
-				 <p:inputText value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.numImmatPrec}"
-				 styleClass="identifiant"
-				 ></p:inputText>
-				 <h:outputText value="Date d'Immatriculation" style="margin-left: 20px;"></h:outputText>
-				 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.dateImmatPrec}" 
-				 id="dateImmatpre" mask="99/99/9999" >
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-				<p:ajax  event="blur" listener="#{cotationAuto.carteGriseMB.changedateImmatprec}"
-									  update="@this, datePms" global="false"/>
-									  
-				</p:inputMask>
-				
-				<h:outputText value="1er Mise en circulation " style="margin-left: 20px;"/>
-								 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.datePremiereCirc}" id="datePms"  mask="99/99/9999" >
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-								</p:inputMask>
-								
-								
-			
-				
-				 </h:panelGrid> 
-				 
-				 
-				</p:panel></fieldset>
-				</p:tab>
-				
-				
-				
 				<p:tab id="ongletVehicule" title="Caractéristiques">
 					<p:panel header="Caractéristiques">
 				<br />

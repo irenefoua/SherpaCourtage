@@ -276,7 +276,7 @@ public class ClientMB implements Serializable{
 		
 		
 		public String validerPersonneCourante(){
-			return "/Page/AutoWeb/vehicule.xhtml?faces-redirect=true";
+			return "/Page/AutoWeb/CotationVehicule.xhtml?faces-redirect=true";
 		}
 		
 		
