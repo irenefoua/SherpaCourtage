@@ -8,6 +8,7 @@
 
 <security:http auto-config="true">
 		<security:intercept-url pattern="/Page/EspaceAdminCompagnie/**" access="ROLE_COMPAGNIE"/>
+		<security:intercept-url pattern="/page/espaceClient/listeContrat.xhtml" access="ROLE_CLIENT"/>
 		
 		<security:intercept-url pattern="/page/sinistreAutoWeb/declarationSinnistreAuto.xhtml" access="ROLE_WEBUSER"/>
 		<security:intercept-url pattern="/page/AutoWeb/clientAuto.xhtml" access="ROLE_WEBUSER"/>
