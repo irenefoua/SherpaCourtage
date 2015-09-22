@@ -1,5 +1,52 @@
 @CHARSET "ISO-8859-1";
 *
+.mystyle.ui-datatable .ui-datatable-header{/* Pour la couleur du Header ds datatable*/
+background: #cc0000 !important;
+
+}
+
+.mystyle.ui-datatable .ui-datatable-footer {/* Pour la couleur du Footer ds datatable*/
+   background: #cc0000 !important;
+}
+
+
+
+.mystyle.ui-datatable .ui-datatable-odd.ui-state-hover{/* Pour la couleur du background du curseur selectd Impaire ds datatable*/
+background: #F4E7C1 ;
+
+}
+
+.mystyle.ui-datatable .ui-datatable-even.ui-state-hover{/* Pour la couleur du background du curseur selectd paire ds datatable*/
+background: #F4E7C1 ;
+
+}
+
+.mystyle.ui-datatable .ui-datatable-even.ui-state-highlight{/* Pour la couleur du background des elts selectd paire ds datatable*/
+background: #7A8A88 ;
+
+}
+
+.mystyle.ui-datatable .ui-datatable-odd.ui-state-highlight{/* Pour la couleur du background des elts selectd impaire ds datatable*/
+background: #7A8A88 ;
+
+}
+
+.mystyle.ui-datatable .ui-datatable-data-empty td {
+color:red;
+font-weight:bold;
+}
+.ui-datatable.mystyle th {/* Pour la couleur du background des titres ds datatable*/
+background: #FFFFFF;
+font-family: verdana;
+font-size: 1em;
+}
+
+
+.mystyle.ui-datatable .ui-expanded-row-content{
+background:white;
+}
+
+
 .imageCourtage{
 	height:60px;
 	width:100px;

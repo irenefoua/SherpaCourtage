@@ -32,7 +32,7 @@ public class ReportingAuto implements Serializable {
 	private Contrat contrat = new Contrat();
 	private Risque risque = new Risque();
 	private Personne personne = new Personne();
-	private String Nom;
+	private String Nom, categorie;
 	private Physique  physique = new Physique();
 	private Morale morale = new Morale();
 	private Avenant avenant = new Avenant();
@@ -133,6 +133,12 @@ public class ReportingAuto implements Serializable {
 	}
 	public void setQuittanceAuto(QuittanceAuto quittanceAuto) {
 		this.quittanceAuto = quittanceAuto;
+	}
+	public String getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
 	}
 	
 }

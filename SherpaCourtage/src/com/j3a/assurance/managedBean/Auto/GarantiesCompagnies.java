@@ -45,104 +45,118 @@ public class GarantiesCompagnies implements Serializable {
 	ObjectService objectService;
 	@Autowired
 	private RecupObjetRow recupObjetRow;
-	private VehiculeRow vehiculeRow =new VehiculeRow();
+	
 	private List<TarifwebComp> listTarifwebComp = new ArrayList<TarifwebComp>();
 	private List<TarifwebComp> listTarifwebCompFiltre = new ArrayList<TarifwebComp>();
 	private TarifwebComp selectedTarifWeb = new TarifwebComp();
-	private double duree = 1;
+	private double duree;
+	private long dureeJour;
 	public String codeRisque;
+	private String numImmatriculation;
 	
-	public void testCourtage(){
-		getListTarifwebComp().clear();
+	public VehiculeRow returnVehiculeRow(){
+		
 		//récupération d'un vehicule en base de données
 		
 		
 		
 		Vehicule vehicule =new Vehicule();
 		//vehicule.setCodeVehicule("003KA1213AUT001-V001");
-		vehicule = (Vehicule)getObjectService().getObjectById("003KA1213AUT001-V001", "Vehicule");
+		vehicule = getObjectService().findVehicule(numImmatriculation);
+		
+		if(vehicule==null){
+			 FacesMessage msg = new FacesMessage("Vehicule :", numImmatriculation+" Non trouvé!");
+		        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+			return null;	
+		}else{
+			 VehiculeRow vehiculeRow =new VehiculeRow();
 		vehiculeRow = getRecupObjetRow().returnVehiculeRow(vehicule);
 		
+		vehiculeRow.getTarifwebComp().addAll(returnTarif(vehiculeRow));
+		
+		//	System.out.println("-------------Liste de tarifs ds VRow----------------"+vehiculeRow.getTarifwebComp().size());
+		
+		
+		 FacesMessage msg = new FacesMessage("Vehicule :", numImmatriculation+" Trouvé!");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+		return vehiculeRow;	
+		}
+	}
+	
+	public List<TarifwebComp> returnTarif(VehiculeRow vehiculeRow){
+		
+		getListTarifwebComp().clear();
 		//gestion des compagnies d'assurance pour la cote d'ivoire ( par pays)
-		System.out.println("------------gestion des compagnies d'assurance pour la cote d'ivoire ( par pays)----------------");
-		List<CompagnieAssurance> compAssList = new ArrayList<CompagnieAssurance>();
-		for(Iterator itca = getObjectService().getObjects("CompagnieAssurance").iterator(); itca.hasNext();){
-			CompagnieAssurance cass =  (CompagnieAssurance)itca.next();
-			if(cass.getPays().getCodePays().equalsIgnoreCase("225")){
-				compAssList.add(cass);
-				System.out.println("-------------Compagnie---------------- "+cass.getRaisonSocialeCompAss());
-			}
-		}
-		
-		
-		System.out.println("------------Pour chaque compagnie recupération de la liste des tarifs pour la sousCat 1----------------");
-		
-		//Pour les Souscats
-		SousCatVehicule sc = (SousCatVehicule)getObjectService().getObjectById("SCAT1","SousCatVehicule");
-		System.out.println("------------SousCatVehicule----------------"+sc.getCodeSousCatVehicule());
-		System.out.println("-----tarif web--------SousCatVehicule----------------"+sc.getTarifwebSousCats().isEmpty());
-		System.out.println("-----tarif web--------SousCatVehicule----------------"+sc.getTarifwebSousCats().size());
-		
-		List<TarifwebSousCat> tarifwList = new ArrayList<TarifwebSousCat>();
-		for(Iterator it = sc.getTarifwebSousCats().iterator();it.hasNext();){
-			TarifwebSousCat twsc = (TarifwebSousCat)it.next();
-			tarifwList.add(twsc);
-		}
-		
-		 List<TarifwebComp> tarifwebComp = new ArrayList<TarifwebComp>();
-		 int numTarif = 0;
-		for(CompagnieAssurance ca: compAssList){
-			//Couple TarifWebs et compagnie
-			TarifwebComp twc = new TarifwebComp();
-			twc.setNumOrdr(numTarif++);
-			twc.setCompagnieAssurance(ca);
-			System.out.println("-------------Recupération des tarifs de la compagnie---------------- "+ca.getRaisonSocialeCompAss()+
-					" -------numKey  "+numTarif);	
-			List<Tarifweb> tarifwebCompList = new ArrayList<Tarifweb>();
-			for(TarifwebSousCat twsc : tarifwList){
-				
-				if(twsc.getTarifweb().getCompagnieAssurance().getCodeCompagnieAssurance().equalsIgnoreCase(ca.getCodeCompagnieAssurance())){
-					tarifwebCompList.add(twsc.getTarifweb());
-					twc.setTarifweb(twsc.getTarifweb());
-					System.out.println("-------------Tarif web --------------- "+twsc.getTarifweb().getCodeTarifWeb()+" ---------Compagnie Assurances "+
-							twsc.getTarifweb().getCompagnieAssurance().getRaisonSocialeCompAss()+" ---------- Tarif ------ "+twsc.getTarifweb().getTarif().getCodeTarif());
+				System.out.println("------------gestion des compagnies d'assurance pour la cote d'ivoire ( par pays)----------------");
+				List<CompagnieAssurance> compAssList = new ArrayList<CompagnieAssurance>();
+				for(Iterator itca = getObjectService().getObjects("CompagnieAssurance").iterator(); itca.hasNext();){
+					CompagnieAssurance cass =  (CompagnieAssurance)itca.next();
+					if(cass.getPays().getCodePays().equalsIgnoreCase("225")){
+						compAssList.add(cass);
+						System.out.println("-------------Compagnie---------------- "+cass.getRaisonSocialeCompAss());
+					}
 				}
-			}
-			twc.getTarifwebList().addAll(tarifwebCompList);
-			// Calcul des garanties du véhicule
-			
-			twc.getListegaranties().addAll(calculGarantieAuto(vehiculeRow,twc));
-			
-			//tri des garanties
-			returnListGarantiesOption(twc);
-			
-			//Calcul de la prime
-			calculPrime(twc);
-			
-			tarifwebComp.add(twc);
-
-			//Ajout des data sur les compagnies et les tarifs
-			
-			
-		}
-		//ajout du Tarif au vehicule
-		
-		getListTarifwebComp().addAll(tarifwebComp);
-		vehiculeRow.getTarifwebComp().addAll(tarifwebComp);
-		
-		System.out.println("-------------Liste de tarifs ds VRow----------------"+vehiculeRow.getTarifwebComp().size());
-		
-	
-	
-		
-		//System.out.println("-------------Tarif web souscat----------------");
-		//System.out.println("-------------Calcul Garantie Debut----------------");
-		//System.out.println("-------------Calcul Garantie Debut----------------");
-		//System.out.println("-------------Calcul Garantie Debut----------------");
-		//calculGarantieAuto(vehiculeR,ca);
-		
-		
 				
+				
+				System.out.println("------------Pour chaque compagnie recupération de la liste des tarifs pour la sousCat 1----------------");
+				
+				//Pour les Souscats
+				SousCatVehicule sc = (SousCatVehicule)getObjectService().getObjectById("SCAT1","SousCatVehicule");
+				System.out.println("------------SousCatVehicule----------------"+sc.getCodeSousCatVehicule());
+				System.out.println("-----tarif web--------SousCatVehicule----------------"+sc.getTarifwebSousCats().isEmpty());
+				System.out.println("-----tarif web--------SousCatVehicule----------------"+sc.getTarifwebSousCats().size());
+				
+				List<TarifwebSousCat> tarifwList = new ArrayList<TarifwebSousCat>();
+				for(Iterator it = sc.getTarifwebSousCats().iterator();it.hasNext();){
+					TarifwebSousCat twsc = (TarifwebSousCat)it.next();
+					tarifwList.add(twsc);
+				}
+				
+				 List<TarifwebComp> tarifwebComp = new ArrayList<TarifwebComp>();
+				 int numTarif = 0;
+				for(CompagnieAssurance ca: compAssList){
+					//Couple TarifWebs et compagnie
+					TarifwebComp twc = new TarifwebComp();
+					twc.setDureeJContrat(getDureeJour());
+					twc.setDureeMoisContrat(getDuree());
+					twc.setNumOrdr(numTarif++);
+					twc.setCompagnieAssurance(ca);
+					System.out.println("-------------Recupération des tarifs de la compagnie---------------- "+ca.getRaisonSocialeCompAss()+
+							" -------numKey  "+numTarif);	
+					List<Tarifweb> tarifwebCompList = new ArrayList<Tarifweb>();
+					for(TarifwebSousCat twsc : tarifwList){
+						
+						if(twsc.getTarifweb().getCompagnieAssurance().getCodeCompagnieAssurance().equalsIgnoreCase(ca.getCodeCompagnieAssurance())){
+							tarifwebCompList.add(twsc.getTarifweb());
+							twc.setTarifweb(twsc.getTarifweb());
+							System.out.println("-------------Tarif web --------------- "+twsc.getTarifweb().getCodeTarifWeb()+" ---------Compagnie Assurances "+
+									twsc.getTarifweb().getCompagnieAssurance().getRaisonSocialeCompAss()+" ---------- Tarif ------ "+twsc.getTarifweb().getTarif().getCodeTarif());
+						}
+					}
+					twc.getTarifwebList().addAll(tarifwebCompList);
+					// Calcul des garanties du véhicule
+					
+					twc.getListegaranties().addAll(calculGarantieAuto(vehiculeRow,twc));
+					
+					//tri des garanties
+					returnListGarantiesOption(twc);
+					
+					//Calcul de la prime
+					calculPrime(twc);
+					
+					tarifwebComp.add(twc);
+
+					//Ajout des data sur les compagnies et les tarifs
+					
+					
+				}
+				//ajout du Tarif au vehicule
+				
+				getListTarifwebComp().addAll(tarifwebComp);
+			
+				return tarifwebComp;	
+			
 	}
 	
 	public List<Garanties> calculGarantieAuto(VehiculeRow vehiculeRow, TarifwebComp twc) {
@@ -205,41 +219,55 @@ public class GarantiesCompagnies implements Serializable {
 
 				if (garantie.getCodeGarantie().equalsIgnoreCase("101")) {
 					BigDecimal rc = prorata.primeProrata(duree, prime.getPrimeRc());
+					BigDecimal rcm = prorata.primeProrata(1, prime.getPrimeRc());
 					BigDecimal v1 = prime.getPrimeRc();
 					garantie.setPrimesAnnuelle(v1);
 					garantie.setPrimesNetteAnnuelle(v1);
+					garantie.setPrimesMensuelle(rcm);
 					garantie.setPrimesProrata(rc);
 					garantie.setPrimeRC(rc);
 					garantie.setChoix(true);
+				
 				}
 
 				if (garantie.getCodeGarantie().equals("104") == true) {
 
 					BigDecimal dr = prorata.primeProrata(duree,
 							prime.getDefenseRecours());
+					BigDecimal drm = prorata.primeProrata(1,
+							prime.getDefenseRecours());
 					BigDecimal v1 = prime.getDefenseRecours();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(drm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(dr);
 					garantie.setChoix(true);
+				
 				}
 				if (garantie.getCodeGarantie().equals("105") == true) {
 
 					BigDecimal ra = prorata.primeProrata(duree,
 							prime.getRemboursemmentAnticipe());
+					BigDecimal ram = prorata.primeProrata(1,
+							prime.getRemboursemmentAnticipe());
 					BigDecimal v1 = prime.getRemboursemmentAnticipe();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(ram);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(ra);
+				
 				}
 
 				if (garantie.getCodeGarantie().equals("106") == true) {
 
 					BigDecimal d = prorata.primeProrata(duree, prime.getDommage());
+					BigDecimal dm = prorata.primeProrata(1, prime.getDommage());
 					BigDecimal v1 = prime.getDommage();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(dm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(d);
+				
 
 				}
 
@@ -247,20 +275,28 @@ public class GarantiesCompagnies implements Serializable {
 
 					BigDecimal d = prorata
 							.primeProrata(duree, prime.getCollision());
+					BigDecimal dm = prorata
+							.primeProrata(1, prime.getCollision());
 					BigDecimal v1 = prime.getCollision();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(dm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(d);
+					
 
 				}
 				if (garantie.getCodeGarantie().equals("108") == true) {
 
 					BigDecimal bdg = prorata.primeProrata(duree,
 							prime.getBrisGlaceRC());
+					BigDecimal bdgm = prorata.primeProrata(1,
+							prime.getBrisGlaceRC());
 					BigDecimal v1 = prime.getBrisGlaceRC();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(bdgm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(bdg);
+			
 
 				}
 
@@ -268,10 +304,14 @@ public class GarantiesCompagnies implements Serializable {
 
 					BigDecimal im = prorata.primeProrata(duree,
 							prime.getImmobilisation());
+					BigDecimal imm = prorata.primeProrata(1,
+							prime.getImmobilisation());
 					BigDecimal v1 = prime.getImmobilisation();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(imm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(im);
+					
 
 				}
 
@@ -279,10 +319,14 @@ public class GarantiesCompagnies implements Serializable {
 
 					BigDecimal inc = prorata.primeProrata(duree,
 							prime.getIncendie());
+					BigDecimal incm = prorata.primeProrata(1,
+							prime.getIncendie());
 					BigDecimal v1 = prime.getIncendie();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(incm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(inc);
+				
 
 				}
 
@@ -290,30 +334,42 @@ public class GarantiesCompagnies implements Serializable {
 
 					BigDecimal vol = prorata
 							.primeProrata(duree, prime.getVolMain());
+					BigDecimal volm = prorata
+							.primeProrata(1, prime.getVolMain());
 					BigDecimal v1 = prime.getVolMain();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(volm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(vol);
+				
 
 				}
 				if (garantie.getCodeGarantie().equals("112") == true) {
 
 					BigDecimal volA = prorata.primeProrata(duree,
 							prime.getVolAccessoires());
+					BigDecimal volAm = prorata.primeProrata(1,
+							prime.getVolAccessoires());
 					BigDecimal v1 = prime.getVolAccessoires();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(volAm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(volA);
+				
 
 				}
 				if (garantie.getCodeGarantie().equals("113") == true) {
 
 					BigDecimal v = prorata.primeProrata(duree,
 							prime.getVolVandalisme());
+					BigDecimal vm = prorata.primeProrata(1,
+							prime.getVolVandalisme());
 					BigDecimal v1 = prime.getVolVandalisme();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(vm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(v);
+				
 
 				}
 
@@ -321,14 +377,18 @@ public class GarantiesCompagnies implements Serializable {
 
 					BigDecimal sr = prorata.primeProrata(duree,
 							prime.getSecuriteRoutiere1());
+					BigDecimal srm = prorata.primeProrata(1,
+							prime.getSecuriteRoutiere1());
 					BigDecimal v1 = prime.getSecuriteRoutiere1();
 					garantie.setPrimesAnnuelle(v1);
+					garantie.setPrimesMensuelle(srm);
 					garantie.setPrimesNetteAnnuelle(v1);
 					garantie.setPrimesProrata(sr);
+				
 
 				}
 				
-				
+				System.out.println("--------------------------------------------------------------------- ");
 				System.out.println("---------------------"
 						+ garantie.getCategorieGarantie());
 				garantieList.add(garantie);
@@ -447,9 +507,14 @@ public class GarantiesCompagnies implements Serializable {
 		 //init
 		 twc.getListegarantieSelectd().clear();
 		 Float tauxRed = twc.getCompagnieAssurance().getTauxReduction(), tauxAcc = twc.getCompagnieAssurance().getTauxAccessoire();
-		    BigDecimal primeMen = BigDecimal.ZERO, primeAn = BigDecimal.ZERO;
-			BigDecimal redMen = BigDecimal.ZERO, redAn = BigDecimal.ZERO;
-			BigDecimal accMen = BigDecimal.ZERO, accAn = BigDecimal.ZERO;
+		    BigDecimal primeMen = BigDecimal.ZERO, primeAn = BigDecimal.ZERO, prime = BigDecimal.ZERO, primeNette = BigDecimal.ZERO;
+		    BigDecimal primeMenTTC = BigDecimal.ZERO, primeAnTTC = BigDecimal.ZERO, primeTTC = BigDecimal.ZERO;
+			BigDecimal redMen = BigDecimal.ZERO, redAn = BigDecimal.ZERO, redP = BigDecimal.ZERO;
+			BigDecimal accMen = BigDecimal.ZERO, accAn = BigDecimal.ZERO, accP = BigDecimal.ZERO;
+			
+			java.math.BigDecimal taxeEnrP = BigDecimal.ZERO,taxeFGAP = BigDecimal.ZERO;
+			java.math.BigDecimal taxeEnrMen = BigDecimal.ZERO,taxeFGAMen = BigDecimal.ZERO;
+			java.math.BigDecimal taxeEnrAn = BigDecimal.ZERO,taxeFGAAn = BigDecimal.ZERO;
 			switch (twc.getOptionGarantie()) {
 			case "TS":
 				twc.setFormule("TIER SIMPLE");
@@ -488,54 +553,135 @@ public class GarantiesCompagnies implements Serializable {
 			
 			//Calcul des primes Accessoires et Reductions
 			for(Garanties g: twc.getListegarantieSelectd()){
-				
+				BigDecimal redM = BigDecimal.ZERO, redA = BigDecimal.ZERO, red = BigDecimal.ZERO;
 				//Calcul des reductions sauf la Rc
 				if(!g.getCodeGarantie().equalsIgnoreCase("101")){
-					BigDecimal redM = BigDecimal.ZERO, redA = BigDecimal.ZERO;
-					
-					redM =	g.getPrimesProrata().multiply(BigDecimal.valueOf(tauxRed/100));
-					redA =	g.getPrimesNetteAnnuelle().multiply(BigDecimal.valueOf(tauxRed/100));
 					
 					
+					redM =	g.getPrimesMensuelle().multiply(new BigDecimal(tauxRed)).divide(new BigDecimal(100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+					red =	g.getPrimesProrata().multiply(new BigDecimal(tauxRed)).divide(new BigDecimal(100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+					redA =	g.getPrimesAnnuelle().multiply(new BigDecimal(tauxRed)).divide(new BigDecimal(100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+					
+					g.setReductions(red);
+					g.setMontantRed(red);
+					g.setTauxRed(new BigDecimal(tauxRed));
+					redP = redP.add(red);
 					redMen = redMen.add(redM);
 					redAn = redAn.add(redA);
 					
 					
+					
 				}
 				
+				
 				//Calcul del'accessoire
-				BigDecimal accM = BigDecimal.ZERO, accA = BigDecimal.ZERO;
+				BigDecimal accM = BigDecimal.ZERO, accA = BigDecimal.ZERO, acc = BigDecimal.ZERO;
 				
-				accM =	g.getPrimesProrata().multiply(BigDecimal.valueOf(tauxAcc).divide(new BigDecimal(100)));
-				accA =	g.getPrimesNetteAnnuelle().multiply(BigDecimal.valueOf(tauxAcc).divide(new BigDecimal(100)));
+				acc =	(g.getPrimesProrata().multiply(new BigDecimal(tauxAcc).divide(new BigDecimal(100))).setScale(0, BigDecimal.ROUND_HALF_UP));
+				accM =	(g.getPrimesMensuelle().multiply(new BigDecimal(tauxAcc).divide(new BigDecimal(100))).setScale(0, BigDecimal.ROUND_HALF_UP));
+				accA =	(g.getPrimesAnnuelle().multiply(new BigDecimal(tauxAcc).divide(new BigDecimal(100))).setScale(0, BigDecimal.ROUND_HALF_UP));
 				
+				accP = accP.add(acc);
 				accMen = accMen.add(accM);
 				accAn = accAn.add(accA);
 				
 			
+				//Calcule des taxes FGA et Taxe
+				java.math.BigDecimal taxeEnr = BigDecimal.ZERO,taxeFGA = BigDecimal.ZERO;
+				java.math.BigDecimal taxeEnrM = BigDecimal.ZERO,taxeFGAM = BigDecimal.ZERO;
+				java.math.BigDecimal taxeEnrA = BigDecimal.ZERO,taxeFGAA = BigDecimal.ZERO;
 				
+				taxeEnr = ( taxeEnr.add(g.getPrimesProrata()).add(red).multiply(new BigDecimal(0.145))).setScale(0, BigDecimal.ROUND_HALF_UP);
+				taxeEnrM =  (taxeEnrM.add(g.getPrimesMensuelle()).add(red).multiply(new BigDecimal(0.145))).setScale(0, BigDecimal.ROUND_HALF_UP);
+				taxeEnrA = ( taxeEnrA.add(g.getPrimesAnnuelle()).add(red).multiply(new BigDecimal(0.145))).setScale(0, BigDecimal.ROUND_HALF_UP);
+				
+				taxeFGA =  (taxeFGA.add(g.getPrimesProrata()).add(red).multiply(new BigDecimal(0.02))).setScale(0, BigDecimal.ROUND_HALF_UP);
+				taxeFGAM =  (taxeFGAM.add(g.getPrimesMensuelle()).add(red).multiply(new BigDecimal(0.02))).setScale(0, BigDecimal.ROUND_HALF_UP);
+				taxeFGAA =  (taxeFGAA.add(g.getPrimesAnnuelle()).add(red).multiply(new BigDecimal(0.02))).setScale(0, BigDecimal.ROUND_HALF_UP);
+				
+				taxeEnrP = taxeEnrP.add(taxeEnr);
+				taxeEnrMen = taxeEnrMen.add(taxeEnrM);
+				taxeEnrAn = taxeEnrAn.add(taxeEnrA);
+				
+				taxeFGAP = taxeFGAP.add(taxeFGA);
+				taxeFGAMen = taxeFGAMen.add(taxeFGAM);
+				taxeFGAAn = taxeFGAAn.add(taxeFGAA);
 					
 				//Calcul de la prime
-				primeMen = primeMen.add(g.getPrimesProrata()).add(accM).subtract(redMen);
-				primeAn = primeAn.add(g.getPrimesNetteAnnuelle()).add(accA).subtract(redAn);
+				
+				prime = prime.add(g.getPrimesProrata());
+				
+				primeNette = primeNette.add(g.getPrimesProrata().subtract(red));
+				primeMen = primeMen.add(g.getPrimesMensuelle().subtract(redM));
+				primeAn = primeAn.add(g.getPrimesAnnuelle().subtract(redA));
+				
+				primeTTC = primeTTC.add(g.getPrimesProrata()).add(acc).add(taxeEnr).add(taxeFGA).subtract(red);
+				primeMenTTC = primeMenTTC.add(g.getPrimesMensuelle()).add(accM).add(taxeEnrM).add(taxeFGAM).subtract(redM);
+				primeAnTTC = primeAnTTC.add(g.getPrimesAnnuelle()).add(accA).add(taxeEnrA).add(taxeFGAA).subtract(redA);
+				
+				g.setPrimesNetteProrata((g.getPrimesProrata()).subtract(red));
+				g.setPrimesMensuelle((g.getPrimesMensuelle()).subtract(redM));
+				g.setPrimesNetteAnnuelle((g.getPrimesAnnuelle()).subtract(redA));
 				
 				
 			}
 			
 			
 			twc.setAccessoireAnnuelle(accAn);
+			twc.setAccessoire(accP);
 			twc.setAccessoireMensuelle(accMen);
 			twc.setReductionAnnuelle(redAn);
 			twc.setReductionMensuelle(redMen);
-			twc.setPrimeMensuelle(primeMen);
-			twc.setPrimeAnnuelle(primeAn);
+			twc.setReduction(redP);
+			twc.setPrimeMensuelle(primeMen.setScale(0, BigDecimal.ROUND_HALF_UP));
+			twc.setPrimeNette(primeNette.setScale(0, BigDecimal.ROUND_HALF_UP));
+			twc.setPrimes(prime.setScale(0, BigDecimal.ROUND_HALF_UP));
+			twc.setPrimeAnnuelle(primeAn.setScale(0, BigDecimal.ROUND_HALF_UP));
 			
-			System.out.println("-------------Prime mensuelle---------------- "+twc.getPrimeMensuelle());
-			System.out.println("-------------Prime Annuelle---------------- "+twc.getPrimeAnnuelle());
-			System.out.println("-------------ReductionAn---------------- "+twc.getReductionAnnuelle());
-			System.out.println("-------------ReductionMens---------------- "+twc.getReductionMensuelle());
-			System.out.println("-------------Accessoire mensuelle---------------- "+twc.getAccessoireMensuelle());
-			System.out.println("-------------Accessoire Annuelle---------------- "+twc.getAccessoireAnnuelle());
+			twc.setPrimeMensuelleTTC(primeMenTTC.setScale(0, BigDecimal.ROUND_HALF_UP));
+			twc.setPrimeNetteTTC(primeTTC.setScale(0, BigDecimal.ROUND_HALF_UP));
+			twc.setPrimeAnnuelleTTC(primeAnTTC.setScale(0, BigDecimal.ROUND_HALF_UP));
+			
+			twc.setTaxe(taxeEnrP);
+			twc.setTaxeMensuelle(taxeEnrMen);
+			twc.setTaxeAnnuelle(taxeEnrAn);
+			
+			twc.setFga(taxeFGAP);
+			twc.setFgaMensuelle(taxeFGAMen);
+			twc.setFgaAnnuelle(taxeFGAAn);
+			
+			System.out.println("--------------------------------------------------------------------- ");
+			
+			System.out.println("-------------Taux reduction--------------- "+tauxRed);
+			
+			System.out.println("-------------Taux Accessoire--------------- "+tauxAcc);
+			
+System.out.println("--------------------------------------------------------------------- ");
+		
+			System.out.println("-------------Prime Prorata--------------- "+twc.getPrimeNette());
+			System.out.println("-------------Reduction Prorata----------- "+twc.getReduction());
+			System.out.println("-------------Accessoire Prorata---------- "+twc.getAccessoire());
+			System.out.println("-------------Taxe Prorata---------------- "+twc.getTaxe());
+			System.out.println("-------------FGA Prorata----------------- "+twc.getFga());
+			
+			System.out.println("--------------------------------------------------------------------- ");
+			
+			System.out.println("-------------Prime mensuelle------------- "+twc.getPrimeMensuelle());
+			System.out.println("-------------Reduction mensuelle--------- "+twc.getReductionMensuelle());
+			System.out.println("-------------Accessoire mensuelle-------- "+twc.getAccessoireMensuelle());
+			System.out.println("-------------Taxe Mensuelle-------------- "+twc.getTaxeMensuelle());
+			System.out.println("-------------FGA Mensuelle--------------- "+twc.getFgaMensuelle());
+			
+			System.out.println("--------------------------------------------------------------------- ");
+			
+			System.out.println("-------------Prime Annuelle-------------- "+twc.getPrimeAnnuelle());
+			System.out.println("-------------Reduction Annuelle---------- "+twc.getReductionAnnuelle());
+			System.out.println("-------------Accessoire Annuelle--------- "+twc.getAccessoireAnnuelle());
+			System.out.println("-------------Taxe Annuelle--------------- "+twc.getTaxeAnnuelle());
+			System.out.println("-------------FGA Annuelle---------------- "+twc.getFgaAnnuelle());
+			
+			System.out.println("--------------------------------------------------------------------- ");
+			
 			
 			
 			
@@ -544,6 +690,8 @@ public class GarantiesCompagnies implements Serializable {
 	
 	 public String validerTarif() {
 		if(getSelectedTarifWeb()!=null){
+			
+			//getSelectedTarifWeb().setDureeJContrat(dureeJour);
 		      System.out.println("-------------selectdTarifwebComp---------------- "+getSelectedTarifWeb().getCompagnieAssurance().getRaisonSocialeCompAss());
 		      FacesMessage msg = new FacesMessage("Compagnie sélectionnée :", getSelectedTarifWeb().getCompagnieAssurance().getRaisonSocialeCompAss());
 		        FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -605,13 +753,6 @@ public class GarantiesCompagnies implements Serializable {
 		this.selectedTarifWeb = selectedTarifWeb;
 	}
 
-	public VehiculeRow getVehiculeRow() {
-		return vehiculeRow;
-	}
-
-	public void setVehiculeRow(VehiculeRow vehiculeRow) {
-		this.vehiculeRow = vehiculeRow;
-	}
 
 	public List<TarifwebComp> getListTarifwebCompFiltre() {
 		return listTarifwebCompFiltre;
@@ -619,6 +760,22 @@ public class GarantiesCompagnies implements Serializable {
 
 	public void setListTarifwebCompFiltre(List<TarifwebComp> listTarifwebCompFiltre) {
 		this.listTarifwebCompFiltre = listTarifwebCompFiltre;
+	}
+
+	public String getNumImmatriculation() {
+		return numImmatriculation;
+	}
+
+	public void setNumImmatriculation(String numImmatriculation) {
+		this.numImmatriculation = numImmatriculation;
+	}
+
+	public long getDureeJour() {
+		return dureeJour;
+	}
+
+	public void setDureeJour(long dureeJour) {
+		this.dureeJour = dureeJour;
 	}
 
 }

@@ -71,11 +71,14 @@ public class ManagedQuittanceAuto {
 	public void calculPrime(){
 		java.math.BigDecimal primeNette = BigDecimal.ZERO;
 		java.math.BigDecimal primeTotale = BigDecimal.ZERO;
+		java.math.BigDecimal netAPayer = BigDecimal.ZERO;
 		java.math.BigDecimal comCon = BigDecimal.ZERO;
 		java.math.BigDecimal comGes = BigDecimal.ZERO;
 		java.math.BigDecimal comInter = BigDecimal.ZERO;
 		java.math.BigDecimal comComp = BigDecimal.ZERO;
 		java.math.BigDecimal comCoass = BigDecimal.ZERO;
+		java.math.BigDecimal taxeFGA = BigDecimal.ZERO;
+		java.math.BigDecimal taxeEnr = BigDecimal.ZERO;
 		
 		java.math.BigDecimal acceComp = BigDecimal.ZERO;
 		System.out.println("Taille de VehiculeRow ds la quittance = "+listVehicules.size());
@@ -90,55 +93,54 @@ public class ManagedQuittanceAuto {
 			java.math.BigDecimal Inter = BigDecimal.ZERO;
 			java.math.BigDecimal Comp = BigDecimal.ZERO;
 			java.math.BigDecimal Coass = BigDecimal.ZERO;
-											 for (Garanties G :vrw.getListegaranties()){
-										prime = prime.add(G.getPrimesProrata());
-										Con = Con.add(G.getComCons());
-										Ges = Ges.add(G.getComGes());
-										Inter =Inter.add(G.getComInter());
-											Coass	 = Coass.add(G.getComCoass());
-											 }
+			
+											
 												
 								
 
-		primeNette = primeNette.add(prime).setScale(0, BigDecimal.ROUND_HALF_UP);
-
+		primeNette = primeNette.add(vrw.getTarifwebCompSelectd().getPrimeNette()).setScale(0, BigDecimal.ROUND_HALF_UP);
+		netAPayer = netAPayer.add(vrw.getTarifwebCompSelectd().getPrimeNetteTTC()).setScale(0, BigDecimal.ROUND_HALF_UP);
 
 		//Accessoire Compagnie
 		
-		acceComp = primeNette.multiply(BigDecimal.valueOf(0.1)).setScale(0, BigDecimal.ROUND_HALF_UP);
+		acceComp = acceComp.add(vrw.getTarifwebCompSelectd().getAccessoire()).setScale(0, BigDecimal.ROUND_HALF_UP);
+		taxeFGA = taxeFGA.add(vrw.getTarifwebCompSelectd().getFga()).setScale(0, BigDecimal.ROUND_HALF_UP);
+		taxeEnr = taxeEnr.add(vrw.getTarifwebCompSelectd().getTaxe()).setScale(0, BigDecimal.ROUND_HALF_UP);
+		
 		//calcul de la commission de l'apporteur
 		
 		comGes = comGes.add(Ges).setScale(0, BigDecimal.ROUND_HALF_UP);
 		comCoass = comCoass.add(Coass).setScale(0, BigDecimal.ROUND_HALF_UP);
 						
 		}
-		primeTotale = primeTotale.add(primeNette).add(acceComp).setScale(0, BigDecimal.ROUND_HALF_UP);
+		primeTotale = primeTotale.add(primeNette).setScale(0, BigDecimal.ROUND_HALF_UP);
+		//netAPayer = netAPayer.add(primeTotale.add(acceComp).add(taxeEnr).add(taxeFGA));
 		quittanceAuto.setPrimeNette(primeNette);
 		quittanceAuto.setPrimeTotale(primeTotale);
 		quittanceAuto.setCommissionCoassu(comCoass);
 		quittanceAuto.setCommissionConseil(comCon);
 		quittanceAuto.setCommissionInterm(BigDecimal.ZERO);
 		quittanceAuto.setCommissionGest(comGes);
-		
 		quittanceAuto.setAccessoireComp(acceComp);
+		quittanceAuto.setTaxeFGA(taxeFGA);
+		quittanceAuto.setTaxeEnr(taxeEnr);
+	    quittanceAuto.setTotalAccessoire(acceComp);
+	    quittanceAuto.setAccessoire(acceComp);
+		quittanceAuto.setNetteApayer(netAPayer);
+		/* totalCommission = quittanceAuto.getCommissionAper().add(quittanceAuto.getCommissionCoassu()).add(quittanceAuto.getCommissionConseil())
+				 .add(quittanceAuto.getCommissionInterm()).setScale(0, BigDecimal.ROUND_HALF_UP);
+		 quittanceAuto.setTotalCommission(totalCommission);*/
+		
+	
+		System.out.println(" Dans Quittance Auto primeExo = "+quittanceAuto.getPrimeExoEncours()+"cfa  ****Prime à Repporter = "+quittanceAuto.getPrimeReport()+"cfa ****PREC = "+quittanceAuto.getPrec()+"cfa");
+
 		
 		System.out.println("Prime Nette de la quittance = "+quittanceAuto.getPrimeNette());
 		
 	}
 public void calculQuittance(){
 	
-	//genererIdQuittance();
-	//calcul de la taxe d'enregistrement
-	java.math.BigDecimal taxeEnr = BigDecimal.ZERO,taxeFGA = BigDecimal.ZERO;
-	taxeEnr =  quittanceAuto.getPrimeNette().multiply(BigDecimal.valueOf(0.145)).setScale(0, BigDecimal.ROUND_HALF_UP);
-	 quittanceAuto.setTaxeEnr(taxeEnr);
-	 
-	 taxeFGA =  quittanceAuto.getPrimeNette().multiply(BigDecimal.valueOf(0.02)).setScale(0, BigDecimal.ROUND_HALF_UP);
-	 quittanceAuto.setTaxeFGA(taxeFGA);
-	//calcul de la prime à payer
-	java.math.BigDecimal netteApayer = BigDecimal.ZERO;
-	java.math.BigDecimal totalAccessoire = BigDecimal.ZERO;
-	java.math.BigDecimal totalCommission = BigDecimal.ZERO;
+	
 	
 	//Calcul de la primeExo en cours, prime à repporter et du Prec
 	//Recupération des durées de Contrat DC, DEC, DAR
@@ -170,21 +172,6 @@ public void calculQuittance(){
 	quittanceAuto.setPrimeExoEncours(primeExo);
 	quittanceAuto.setPrimeReport(primeRepport);
 	quittanceAuto.setPrec(prec);
-	 totalAccessoire = quittanceAuto.getAccessoireComp().add(quittanceAuto.getAccessoireInterm()).setScale(0, BigDecimal.ROUND_HALF_UP);
-	 quittanceAuto.setTotalAccessoire(totalAccessoire);
-	 
-	 totalCommission = quittanceAuto.getCommissionAper().add(quittanceAuto.getCommissionCoassu()).add(quittanceAuto.getCommissionConseil())
-			 .add(quittanceAuto.getCommissionInterm()).setScale(0, BigDecimal.ROUND_HALF_UP);
-	 quittanceAuto.setTotalCommission(totalCommission);
-	
-	 
-	 netteApayer = (quittanceAuto.getPrimeNette().add(quittanceAuto.getTaxeEnr()).add(quittanceAuto.getTaxeFGA()).add(quittanceAuto.getTotalAccessoire()))
-			 .subtract((quittanceAuto.getPrimeCedee().add(
-					 quittanceAuto.getRedCommerciale()).add(quittanceAuto.getRedSpeciale())).setScale(0, BigDecimal.ROUND_HALF_UP));
-	 
-	quittanceAuto.setNetteApayer(netteApayer);
-	
-	System.out.println(" Dans Quittance Auto primeExo = "+quittanceAuto.getPrimeExoEncours()+"cfa  ****Prime à Repporter = "+quittanceAuto.getPrimeReport()+"cfa ****PREC = "+quittanceAuto.getPrec()+"cfa");
 }
 
 public void calculAccessoires(){

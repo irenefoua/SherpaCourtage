@@ -84,7 +84,7 @@ public class PointVente implements java.io.Serializable {
 		this.typePointVente = typePointVente;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_VILLE", nullable = false)
 	public Ville getVille() {
 		return this.ville;

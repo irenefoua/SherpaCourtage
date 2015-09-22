@@ -68,6 +68,7 @@ public class RecupObjetRow implements Serializable {
 		vehi.setSouCatVehi(vehicule.getSousCatVehicule());
 		if(vehicule.getVehiculeZoneGeographiques().iterator().hasNext()){
 		vehi.setZonGeo(vehicule.getVehiculeZoneGeographiques().iterator().next().getZoneGeographique());
+		vehi.setZonGeographique(vehi.getZonGeo().getCodeZoneGeo());
 		}
 		if (vehicule.getConduireVehicules().iterator().hasNext()) {
 			vehi.setConduHab(vehicule.getConduireVehicules().iterator().next().getConducteur());

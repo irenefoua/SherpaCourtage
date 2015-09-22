@@ -35,7 +35,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 	private Float tauxAccessoire;
 	private Boolean activiteCompagnie;
 	private Set<Tarifweb> tarifwebs = new HashSet<Tarifweb>(0);
-	private Set<Avenant> avenants = new HashSet<Avenant>(0);
+	private Set<Contrat> contrats = new HashSet<Contrat>(0);
 	private Set<CompteCompagnieAssurance> compteCompagnieAssurances = new HashSet<CompteCompagnieAssurance>(
 			0);
 	private Set<OptionsGarantie> optionsGaranties = new HashSet<OptionsGarantie>(
@@ -57,7 +57,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 			String deviseCompAss, String loginCompAss, String motPasseCompAss,
 			Float tauxReduction, Float tauxAccessoire,
 			Boolean activiteCompagnie, Set<Tarifweb> tarifwebs,
-			Set<Avenant> avenants,
+			Set<Contrat> contrats,
 			Set<CompteCompagnieAssurance> compteCompagnieAssurances,
 			Set<OptionsGarantie> optionsGaranties) {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
@@ -74,7 +74,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.tauxAccessoire = tauxAccessoire;
 		this.activiteCompagnie = activiteCompagnie;
 		this.tarifwebs = tarifwebs;
-		this.avenants = avenants;
+		this.contrats = contrats;
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
 		this.optionsGaranties = optionsGaranties;
 	}
@@ -209,12 +209,12 @@ public class CompagnieAssurance implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")
-	public Set<Avenant> getAvenants() {
-		return this.avenants;
+	public Set<Contrat> getContrats() {
+		return this.contrats;
 	}
 
-	public void setAvenants(Set<Avenant> avenants) {
-		this.avenants = avenants;
+	public void setContrats(Set<Contrat> contrats) {
+		this.contrats = contrats;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")

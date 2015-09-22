@@ -50,31 +50,111 @@
 
 				<p:messages id="messages"  autoUpdate="true" closable="true" showSummary="true"/>
 
-				<table
-					style="border-style: dashed; border-width: 1px; border-color: red;">
-					<tr>
-						<td><h:panelGrid border="0" columns="3" cellpadding="6">
-								<h:outputLabel value="Entrer le numéro de quittance"/>
-								
+			<br /><br />
+	
+	<h:outputLabel value="Vous pouvez choisir l'offre qui vous convient le mieux !Cliquer pour avoir plus d'informations" style="margin-left:200px ;font-size:15px; color:red" />
+	
+	<br /><br />
+	<fieldset style="border-radius:5px;">
+	<legend>RECAPITULATIF </legend>
 
-							</h:panelGrid></td>
-						<td>
-							<fieldset
-								style="width: 465px; border: 2px solid #93DAFE; border-radius: 6px;">
-								<p:panel header="Options d'edition de pièces"
-									style="margin-bottom:10px" cellpadding="5">
+		<br />
+		<br /><br />
+			
+			
+			
+			
+								 <p:dataTable id="tarifTableRow"
+								  var="twc"
+								  value="#{garantiesCompagnies.listTarifwebComp}" 
+								  styleClass="mystyle"
+								  rowKey="#{twc.numOrdr}"
+								  editable="true" editMode="row"
+								  selectionMode="single" 
+								  selection="#{garantiesCompagnies.selectedTarifWeb}"
+								  >
+								  <p:ajax event="rowEdit" listener="#{garantiesCompagnies.onEditRow}" />
+								  
+								    <f:facet name="header">
+					            RadioButton
+					        </f:facet>
+					        
+					        	<p:column headerText="" style="width:40px">
+							   <p:rowEditor />  
+								</p:column>
 								
-								</p:panel>
-							</fieldset>
-						</td>
-					</tr>
-				</table>
-				<br />
+								        
+					          <p:column headerText="Compagnies">
+    
+						    <h:panelGrid columns="1" > 
+						       <p:graphicImage value="/resources/images/#{twc.compagnieAssurance.loginCompAss}.jpg" styleClass="imageCourtage"/>
+						        <h:outputText value="#{twc.compagnieAssurance.raisonSocialeCompAss}" /> 
+						    </h:panelGrid>
+						    </p:column>
+				    
+						    
+						     <p:column headerText="Options Garanties">
+						     <p:cellEditor>
+		              			 <f:facet name="output"><h:outputText value="#{twc.optionGarantie}" /></f:facet>
+		              			 <f:facet name="input">
+						       <p:selectOneMenu
+											value="#{twc.optionGarantie}" style="width:154px"
+											id="protect" required="false">
+											<f:selectItem itemLabel="TIER SIMPLE" itemValue="TS" />
+											<f:selectItem itemLabel="TIER COMPLET" itemValue="TC" />
+											<f:selectItem itemLabel="TOUS RISQUES" itemValue="TR" />
+										</p:selectOneMenu>
+										  </f:facet>
+        				   </p:cellEditor>
+						    </p:column>
+					        
+							 <p:column headerText="Tarif mensuel">
+						        <h:outputText id="idPrimeMen" value="#{twc.primeMensuelleTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						 
+						    <p:column headerText="Tarif annuel" >
+						        <h:outputText id="idPrimeAn" value="#{twc.primeAnnuelleTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						    
+						     <p:column headerText="Prime à payer" >
+						        <h:outputText id="idPrimeP" value="#{twc.primeNetteTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						 
+						    <p:column headerText="Plus de details">
+						    
+						    
+						    <p:accordionPanel multiple="true" style="border-radius:50px">
+						        <p:tab title="plus d'informations " >
+	
+						                <h:inputTextarea value="Cette offre est interessante.............">   
+						                </h:inputTextarea>
+						                     
+						            
+						        </p:tab>
+						       
+						    </p:accordionPanel>
+						    </p:column>
+					      	    <f:facet name="footer">
+					            RadioButton
+					        </f:facet>
+					    </p:dataTable>
+							
+       </fieldset>
+			<br></br>
+						
+
+											
 				
 				<br></br>
 			<h:commandButton id="validerPrime" value="Test de Garantie Courtage !!!"
 								actionListener="#{garantiesCompagnies.testCourtage}"
-								process="@this"
+								process="@this" update="VehiculeProp"
 								 icon="ui-icon-check"  style="width:150px;height:40px;margin-left:250px;font-size:12px;border-radius:20px;" 
 								 />
 				

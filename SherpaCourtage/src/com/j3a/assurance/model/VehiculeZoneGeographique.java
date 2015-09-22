@@ -68,7 +68,7 @@ public class VehiculeZoneGeographique implements java.io.Serializable {
 		this.vehicule = vehicule;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_ZONE_GEO", nullable = false, insertable = false, updatable = false)
 	public ZoneGeographique getZoneGeographique() {
 		return this.zoneGeographique;
