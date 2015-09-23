@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -448,6 +449,14 @@ creerEmagementAttestation(document);
 		  
 	}
 
+	//
+	 public String formatesp(BigDecimal bd) {
+	        DecimalFormat df = new DecimalFormat("#,###.##");
+	        return (df.format(bd.doubleValue()));
+	 
+	    }
+	
+	
 	
 	
 	private void addContent(Document document, VehiculeRow vehiculeRow) throws DocumentException,
@@ -910,13 +919,13 @@ creerEmagementAttestation(document);
 		tableauVehicul.addCell(cellCont);
 
 		cellLib = new PdfPCell(new Phrase("Valeur à neuf", normalText));
-		cellCont = new PdfPCell(new Phrase("" + vehicule.getValNeuf(),
+		cellCont = new PdfPCell(new Phrase("" + formatesp(vehicule.getValNeuf()),
 				smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
 
 		cellLib = new PdfPCell(new Phrase("Valeur venale", normalText));
-		cellCont = new PdfPCell(new Phrase("" + vehicule.getValVenale(),
+		cellCont = new PdfPCell(new Phrase("" + formatesp(vehicule.getValVenale()),
 				smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
@@ -940,8 +949,7 @@ creerEmagementAttestation(document);
 
 		// 1ere colonne
 		cellLib = new PdfPCell(new Phrase("Tarif", normalText));
-		cellCont = new PdfPCell(new Phrase(vehicule.getSousCatVehicule()
-				.getTarif().getLibelleTarif(), smallText));
+		cellCont = new PdfPCell(new Phrase( vehicule.getSousCatVehicule().getTarif().getLibelleTarif(), smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
 		System.out.println("Tarif véhicule1");
@@ -1077,8 +1085,8 @@ creerEmagementAttestation(document);
 			System.out.println(" Recuperer la gartgartchoisie2");
 			// 2e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeProrata().setScale(
-							2, BigDecimal.ROUND_HALF_UP), smallText));// Somme Garantie
+					+ formatesp(garantieGarantieChoisie.getPrimeProrata().setScale(
+							2, BigDecimal.ROUND_HALF_UP)), smallText));// Somme Garantie
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 			// 3e Colonne
@@ -1088,56 +1096,56 @@ creerEmagementAttestation(document);
 			tableauGaranties.addCell(cellCont);
 			// 4e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeAnnuelle().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));//prime Annuelle
+					+  formatesp(garantieGarantieChoisie.getPrimeAnnuelle().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//prime Annuelle
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 			// 5e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getBonus().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));//Bunus
+					+ formatesp(garantieGarantieChoisie.getBonus().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//Bunus
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 6e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getAutreReduction().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));//Autres reduction
+					+ formatesp(garantieGarantieChoisie.getAutreReduction().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//Autres reduction
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 7e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ BigDecimal.ZERO.setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));//Reduction Flotte
+					+ formatesp(BigDecimal.ZERO.setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//Reduction Flotte
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 8e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getMalus().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText)); //Malus
+					+ formatesp(garantieGarantieChoisie.getMalus().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText)); //Malus
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 9e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getMontantReduction().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText)); // Total Reduction
+					+ formatesp(garantieGarantieChoisie.getMontantReduction().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText)); // Total Reduction
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 10e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeNetteAnnuelle().setScale(
-							2, BigDecimal.ROUND_HALF_UP), smallText)); //Prime nette Annuelle
+					+ formatesp(garantieGarantieChoisie.getPrimeNetteAnnuelle().setScale(
+							2, BigDecimal.ROUND_HALF_UP)), smallText)); //Prime nette Annuelle
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 11e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeNetteProrata().setScale(
-							2, BigDecimal.ROUND_HALF_UP), smallText)); //Prime Comptant
+					+ formatesp(garantieGarantieChoisie.getPrimeNetteProrata().setScale(
+							2, BigDecimal.ROUND_HALF_UP)), smallText)); //Prime Comptant
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 		}
@@ -1148,8 +1156,8 @@ creerEmagementAttestation(document);
 		tableauGaranties.addCell(cellLib);
 		System.out.println(" Recuperer la gartgartchoisie out");
 		cellCont = new PdfPCell(new Phrase(""
-				+ garantieChoisie.getPrimeNetteProrata().setScale(0,
-						BigDecimal.ROUND_HALF_UP), smallText));
+				+ formatesp(garantieChoisie.getPrimeNetteProrata().setScale(0,
+						BigDecimal.ROUND_HALF_UP)), smallText));
 		cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		tableauGaranties.addCell(cellCont);
 
@@ -1168,7 +1176,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ garantieChoisie.getPrimeNetteProrata(), smallTextGras));
+				+ formatesp(garantieChoisie.getPrimeNetteProrata()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1177,7 +1185,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(
-				new Phrase(""+ reportingAuto.getQuittance().getAccessoire(), normalText));
+				new Phrase(""+ formatesp(reportingAuto.getQuittance().getAccessoire()), normalText));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1186,7 +1194,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ reportingAuto.getQuittance().getTaxes(), smallTextGras));
+				+  formatesp(reportingAuto.getQuittance().getTaxes()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1195,7 +1203,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ reportingAuto.getQuittance().getFga(), smallTextGras));
+				+ formatesp(reportingAuto.getQuittance().getFga()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1204,7 +1212,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ reportingAuto.getQuittance().getNetAPayer(), smallTextGras));
+				+ formatesp(reportingAuto.getQuittance().getNetAPayer()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
