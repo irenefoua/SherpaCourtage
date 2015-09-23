@@ -685,7 +685,7 @@ System.out.println("------------------------------------------------------------
 			
 			
 			
-			setSelectedTarifWeb(twc);
+			//setSelectedTarifWeb(twc);
 	    }
 	
 	 public String validerTarif() {
