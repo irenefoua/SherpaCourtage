@@ -54,6 +54,56 @@
 				
 				
 				
+				
+				
+						
+			<p:tab id="ongletpays" title="Pays">
+					<p:panel header="Pays">
+				<br />
+		<fieldset>
+		<legend>Informations Pays </legend>
+								<h:panelGrid id="paysid" columns="6">
+	
+										
+			<p:carousel value="#{cotationAuto.garantiesCompagnies.paysdata}" var="pay" 
+			 itemStyle="text-align:center" responsive="true"
+			 
+								  selectionMode="single" 
+								  selection="#{cotationAuto.garantiesCompagnies.selectedPays}"
+			 >
+        <p:panelGrid columns="1" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            
+                
+                  <p:graphicImage value="/resources/images/#{pay.codePays}.png" styleClass="imagePays"/> 
+            
+ 
+            <h:outputText value="" />
+            <h:outputText value="#{pay.libellePays}" />
+ 
+        </p:panelGrid>
+ 
+       
+    </p:carousel>					
+               
+
+
+
+
+								
+									</h:panelGrid></fieldset>
+                                     </p:panel> 
+				</p:tab>	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				<p:tab id="ongletImmatriculation" title="Immatriculation">
 				<fieldset>
 					<p:panel header="Immatriculation">
