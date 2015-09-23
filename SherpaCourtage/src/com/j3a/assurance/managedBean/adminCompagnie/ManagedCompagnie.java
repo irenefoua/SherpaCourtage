@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
+import org.primefaces.model.chart.PieChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -49,6 +50,8 @@ import com.j3a.assurance.managedBean.admin.ManagedTarif6;
 import com.j3a.assurance.managedBean.admin.ManagedTarif7;
 import com.j3a.assurance.managedBean.admin.ManagedTarif8;
 import com.j3a.assurance.managedBean.admin.ManagedTarif9;
+import com.j3a.assurance.model.Apporteur;
+import com.j3a.assurance.model.ApporteurAliment;
 import com.j3a.assurance.model.Avenant;
 import com.j3a.assurance.model.CompagnieAssurance;
 import com.j3a.assurance.model.CompteCompagnieAssurance;
@@ -103,8 +106,8 @@ public class ManagedCompagnie implements Serializable{
 	UserRole userRole=new UserRole();
 	private List<Avenant> listAvenant=new ArrayList<Avenant>();
 	private List<Personne> listClient=new ArrayList<Personne>();
-	
-	
+	private PieChartModel modelCa,modelAn; 
+	private String mois;
 	
 	
 	public void ajouterCompagnie(){
@@ -153,17 +156,17 @@ public class ManagedCompagnie implements Serializable{
 	}
 	
 	public String ChargerAvenantCompagnie(){
-		List<Avenant> listAnt=new ArrayList<>();
-		listAnt=getObjectService().listAvenantCompagnie(getCompagnieAssuranceConnecte().getCodeCompagnieAssurance());
-		 if (getListAvenant().size()==0){
-			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"0", "Aucun Enregistrement!"));
-			  }
-			  else{
-			   for(Iterator it=listAnt.iterator();it.hasNext();){
-				   Avenant avenant=(Avenant) it.next();
-				   getListAvenant().add(avenant);  
-			   }
-			   }
+		//List<Avenant> listAnt=new ArrayList<>();
+		listAvenant=getObjectService().listAvenantCompagnie(getCompagnieAssuranceConnecte().getCodeCompagnieAssurance());
+		// if (getListAvenant().size()==0){
+			 //   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"0", "Aucun Enregistrement!"));
+			 // }
+			 // else{
+			  // for(Iterator it=listAnt.iterator();it.hasNext();){
+				//   Avenant avenant=(Avenant) it.next();
+				//   getListAvenant().add(avenant);  
+			  // }
+			  // }
 		return "/Page/EspaceAdminCompagnie/listeContrat?faces-redirect=true";
 	}
 	
@@ -197,21 +200,78 @@ public class ManagedCompagnie implements Serializable{
 		 listChiffreAffaireRow=new ArrayList<ChiffreAffaireRow>();
 			String Requete = "SELECT SUM(q.NET_A_PAYER)as ca, a.CODEEXERCICE as coExercice FROM avenant a,quittance q,compagnie_assurance c WHERE a.num_avenant=q.num_avenant and c.CODE_COMPAGNIE_ASSURANCE=a.CODE_COMPAGNIE_ASSURANCE and c.CODE_COMPAGNIE_ASSURANCE='"+getCompagnieAssuranceConnecte().getCodeCompagnieAssurance()+"' group by a.CODEEXERCICE";
 		  setListChiffreAffaireRow((List<ChiffreAffaireRow>) getSessionFactory().getCurrentSession().createSQLQuery(Requete).addScalar("ca", StandardBasicTypes.BIG_DECIMAL).addScalar("coExercice", StandardBasicTypes.INTEGER).setResultTransformer(Transformers.aliasToBean(ChiffreAffaireRow.class)).list());
-     		
+		  
 	}
 	
 	
 	public void listeCaMois(){
 		 listChiffreAffaireRows=new ArrayList<ChiffreAffaireRow>();
-			String Requete = "SELECT SUM(q.NET_A_PAYER)as ca,extract(month from a.effet)as mois, a.CODEEXERCICE as coExercice FROM avenant a,quittance q,compagnie_assurance c WHERE a.num_avenant=q.num_avenant and c.CODE_COMPAGNIE_ASSURANCE=a.CODE_COMPAGNIE_ASSURANCE and c.CODE_COMPAGNIE_ASSURANCE='"+getCompagnieAssuranceConnecte().getCodeCompagnieAssurance()+"' group by extract(month from a.effet)";
-		  setListChiffreAffaireRows((List<ChiffreAffaireRow>) getSessionFactory().getCurrentSession().createSQLQuery(Requete).addScalar("ca", StandardBasicTypes.BIG_DECIMAL).addScalar("mois", StandardBasicTypes.INTEGER).addScalar("coExercice", StandardBasicTypes.INTEGER).setResultTransformer(Transformers.aliasToBean(ChiffreAffaireRow.class)).list());
-    		
+			String Requete = "SELECT SUM(q.NET_A_PAYER)as ca,MONTHNAME( a.effet )as mois, a.CODEEXERCICE as coExercice FROM avenant a,quittance q,compagnie_assurance c WHERE a.num_avenant=q.num_avenant and c.CODE_COMPAGNIE_ASSURANCE=a.CODE_COMPAGNIE_ASSURANCE and c.CODE_COMPAGNIE_ASSURANCE='"+getCompagnieAssuranceConnecte().getCodeCompagnieAssurance()+"' group by extract(month from a.effet)";
+		  setListChiffreAffaireRows(getSessionFactory().getCurrentSession().createSQLQuery(Requete).addScalar("ca", StandardBasicTypes.BIG_DECIMAL).addScalar("mois", StandardBasicTypes.STRING).addScalar("coExercice", StandardBasicTypes.INTEGER).setResultTransformer(Transformers.aliasToBean(ChiffreAffaireRow.class)).list());
+		
 	}
 
+	
+	
+	 public Number chiaff(String mois){
+   	    BigDecimal X = BigDecimal.ZERO; 
+			for(ChiffreAffaireRow ChiffreAffaire:listChiffreAffaireRows){
+			//System.out.println("vvvvvvvvvvvvvvvv"+ChiffreAffaire.getCa());
+			if(ChiffreAffaire.getMois()==mois){
+					X = X.add(ChiffreAffaire.getCa());
+	   				}
+   		
+   			};
+   		return X;
+   		
+   	}
+	
+	 public Number chiaffan(int an){
+	   	    BigDecimal X = BigDecimal.ZERO; 
+				for(ChiffreAffaireRow ChiffreAffaire:listChiffreAffaireRow){
+				if(ChiffreAffaire.getCoExercice()==an){
+						X = X.add(ChiffreAffaire.getCa());
+		   				}
+	   		
+	   			};
+	   		return X;
+	   		
+	   	}
+	 public void chargerModelcamois() {
+ 		List<ChiffreAffaireRow> A = new ArrayList<ChiffreAffaireRow>();
+ 		if (listChiffreAffaireRows.isEmpty()) {
+ 			
+ 		} else {
+ 			A= listChiffreAffaireRows;
+ 		}
+ 		setModelCa(new PieChartModel());
+ 		
+ 		for (ChiffreAffaireRow a : A) {
+ 			getModelCa().set(""+a.getMois(), chiaff(a.getMois()));
+ 			
+ 		}
+ 	}
+	 
+	 
+	 public void chargerModelcaAN() {
+	 		List<ChiffreAffaireRow> A = new ArrayList<ChiffreAffaireRow>();
+	 		if (listChiffreAffaireRow.isEmpty()) {
+	 			
+	 		} else {
+	 			A= listChiffreAffaireRow;
+	 		}
+	 		setModelAn(new PieChartModel());
+	 		
+	 		for (ChiffreAffaireRow a : A) {
+	 			getModelAn().set(""+a.getCoExercice(), chiaffan(a.getCoExercice()));
+	 		}
+	 	}
 	
    public String exeQuery(){
 	   listeCaAn();
 	   listeCaMois();
+	   chargerModelcamois();
+	   chargerModelcaAN();
 	return "/Page/EspaceAdminCompagnie/ChiffreAffaire?faces-redirect=true";
 	
 }
@@ -413,6 +473,36 @@ public class ManagedCompagnie implements Serializable{
 
 	public void setListClient(List<Personne> listClient) {
 		this.listClient = listClient;
+	}
+
+
+	public PieChartModel getModelCa() {
+		return modelCa;
+	}
+
+
+	public void setModelCa(PieChartModel modelCa) {
+		this.modelCa = modelCa;
+	}
+
+
+	public PieChartModel getModelAn() {
+		return modelAn;
+	}
+
+
+	public void setModelAn(PieChartModel modelAn) {
+		this.modelAn = modelAn;
+	}
+
+
+	public String getMois() {
+		return mois;
+	}
+
+
+	public void setMois(String mois) {
+		this.mois = mois;
 	}
 
 	

@@ -7,6 +7,13 @@
 
  <navigation-rule>
   <from-view-id>*</from-view-id>
+  
+   <navigation-case>
+   <from-outcome>validationchoixOK</from-outcome>
+   <to-view-id>/Page/AutoWeb/validationchoix.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
   <navigation-case>
    <from-outcome>redirection</from-outcome>
    <to-view-id>/Page/AutoWeb/pageRedirectConnection.xhtml</to-view-id>
@@ -18,13 +25,23 @@
    <redirect/>
   </navigation-case>
   <navigation-case>
-   <from-outcome>Validation</from-outcome>
-   <to-view-id>/Page/AutoWeb/Validation.xhtml</to-view-id>
+   <from-outcome>validation1</from-outcome>
+   <to-view-id>/Page/AutoWeb/validationdescomp.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>validation2</from-outcome>
+   <to-view-id>/Page/AutoWeb/validationchoix.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
   <navigation-case>
  	<from-outcome>inscriptionPaypalNewSous</from-outcome>
- 		<to-view-id>/Page/Paypal/ inscriptionPaypalNewSous.xhtml</to-view-id>
+ 		<to-view-id>/Page/Paypal/inscriptionPaypalNewSous.xhtml</to-view-id>
+ 		<redirect></redirect>
+ 	</navigation-case>
+ 	<navigation-case>
+ 	<from-outcome>inscriptionPaypal</from-outcome>
+ 		<to-view-id>/Page/Paypal/inscriptionPaypal.xhtml</to-view-id>
  		<redirect></redirect>
  	</navigation-case>
  </navigation-rule>

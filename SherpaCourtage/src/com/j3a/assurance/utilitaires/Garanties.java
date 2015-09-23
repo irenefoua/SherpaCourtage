@@ -19,8 +19,6 @@ public class Garanties extends Garantie {
 
 	private java.math.BigDecimal reduction = BigDecimal.ZERO;
 	private java.math.BigDecimal montantRed = BigDecimal.ZERO;
-	private java.math.BigDecimal primeAnnuelle = BigDecimal.ZERO;
-	private java.math.BigDecimal primeNetAn = BigDecimal.ZERO;
 	private java.math.BigDecimal prime = BigDecimal.ZERO;
 	private java.math.BigDecimal primesProrata = BigDecimal.ZERO;
 	private java.math.BigDecimal capitals = BigDecimal.ZERO;
@@ -39,7 +37,8 @@ public class Garanties extends Garantie {
 	private java.math.BigDecimal tauxFranchise = BigDecimal.ZERO;
 	private java.math.BigDecimal primesAnnuelle = BigDecimal.ZERO;
 	private java.math.BigDecimal primesNetteAnnuelle = BigDecimal.ZERO;
-	private java.math.BigDecimal primesNette = BigDecimal.ZERO;
+	private java.math.BigDecimal primesMensuelle = BigDecimal.ZERO;
+	private java.math.BigDecimal primesNetteProrata = BigDecimal.ZERO;
 	private java.math.BigDecimal reductions = BigDecimal.ZERO;
 	private java.math.BigDecimal facteur = BigDecimal.ZERO;
 	private java.lang.String smp = "";
@@ -80,21 +79,6 @@ public class Garanties extends Garantie {
 		this.montantRed = montantRed;
 	}
 
-	public java.math.BigDecimal getPrimeAnnuelle() {
-		return primeAnnuelle;
-	}
-
-	public void setPrimeAnnuelle(java.math.BigDecimal primeAnnuelle) {
-		this.primeAnnuelle = primeAnnuelle;
-	}
-
-	public java.math.BigDecimal getPrimeNetAn() {
-		return primeNetAn;
-	}
-
-	public void setPrimeNetAn(java.math.BigDecimal primeNetAn) {
-		this.primeNetAn = primeNetAn;
-	}
 
 	public java.math.BigDecimal getPrime() {
 		return prime;
@@ -360,12 +344,13 @@ public class Garanties extends Garantie {
 		this.facteur = facteur;
 	}
 
-	public java.math.BigDecimal getPrimesNette() {
-		return primesNette;
+	
+	public java.math.BigDecimal getPrimesNetteProrata() {
+		return primesNetteProrata;
 	}
 
-	public void setPrimesNette(java.math.BigDecimal primesNette) {
-		this.primesNette = primesNette;
+	public void setPrimesNetteProrata(java.math.BigDecimal primesNetteProrata) {
+		this.primesNetteProrata = primesNetteProrata;
 	}
 
 	public int getnOrdre() {
@@ -441,6 +426,14 @@ public class Garanties extends Garantie {
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+
+	public java.math.BigDecimal getPrimesMensuelle() {
+		return primesMensuelle;
+	}
+
+	public void setPrimesMensuelle(java.math.BigDecimal primesMensuelle) {
+		this.primesMensuelle = primesMensuelle;
 	}
 
 }

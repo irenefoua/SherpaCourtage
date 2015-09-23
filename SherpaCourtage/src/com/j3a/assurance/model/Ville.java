@@ -79,7 +79,7 @@ public class Ville implements java.io.Serializable {
 		this.province = province;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_ZONE_GEO", nullable = false)
 	public ZoneGeographique getZoneGeographique() {
 		return this.zoneGeographique;

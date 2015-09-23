@@ -5,6 +5,7 @@ package com.j3a.assurance.model;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +28,7 @@ public class Contrat implements java.io.Serializable {
 	private PointVente pointVente;
 	private Risque risque;
 	private SocieteAssurance societeAssurance;
+	private CompagnieAssurance compagnieAssurance;
 	private String mentionParticuliere;
 	private String remplace;
 	private String reference;
@@ -43,16 +45,18 @@ public class Contrat implements java.io.Serializable {
 	}
 
 	public Contrat(String numPolice, Personne personne, PointVente pointVente,
+			 CompagnieAssurance compagnieAssurance,
 			Risque risque, SocieteAssurance societeAssurance) {
 		this.numPolice = numPolice;
 		this.personne = personne;
+		this.compagnieAssurance = compagnieAssurance;
 		this.pointVente = pointVente;
 		this.risque = risque;
 		this.societeAssurance = societeAssurance;
 	}
 
 	public Contrat(String numPolice, Apporteur apporteur, Personne personne,
-			PointVente pointVente, Risque risque,
+			PointVente pointVente, Risque risque, CompagnieAssurance compagnieAssurance,
 			SocieteAssurance societeAssurance, String mentionParticuliere,
 			String remplace, String reference, BigDecimal commission,
 			String bareme, String modeReconduction, String typeContrat,
@@ -63,6 +67,7 @@ public class Contrat implements java.io.Serializable {
 		this.personne = personne;
 		this.pointVente = pointVente;
 		this.risque = risque;
+		this.compagnieAssurance = compagnieAssurance;
 		this.societeAssurance = societeAssurance;
 		this.mentionParticuliere = mentionParticuliere;
 		this.remplace = remplace;
@@ -125,6 +130,16 @@ public class Contrat implements java.io.Serializable {
 
 	public void setRisque(Risque risque) {
 		this.risque = risque;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
+	public CompagnieAssurance getCompagnieAssurance() {
+		return this.compagnieAssurance;
+	}
+
+	public void setCompagnieAssurance(CompagnieAssurance compagnieAssurance) {
+		this.compagnieAssurance = compagnieAssurance;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

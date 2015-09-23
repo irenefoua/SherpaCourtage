@@ -10,7 +10,7 @@ public class ChiffreAffaireRow {
 	private Avenant avenant=new Avenant();
 	private Quittance quittance=new Quittance();
 	private int coExercice;
-	private int mois;
+	private String mois;
 
 	public BigDecimal getCa() {
 		return ca;
@@ -44,11 +44,11 @@ public class ChiffreAffaireRow {
 		this.coExercice = coExercice;
 	}
 
-	public int getMois() {
+	public String getMois() {
 		return mois;
 	}
 
-	public void setMois(int mois) {
+	public void setMois(String mois) {
 		this.mois = mois;
 	}
 

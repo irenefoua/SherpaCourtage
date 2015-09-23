@@ -24,7 +24,6 @@ import javax.persistence.TemporalType;
 public class Avenant implements java.io.Serializable {
 
 	private String numAvenant;
-	private CompagnieAssurance compagnieAssurance;
 	private Contrat contrat;
 	private Exercice exercice;
 	private Utilisateur utilisateur;
@@ -62,7 +61,7 @@ public class Avenant implements java.io.Serializable {
 		this.utilisateur = utilisateur;
 	}
 
-	public Avenant(String numAvenant, CompagnieAssurance compagnieAssurance,
+	public Avenant(String numAvenant,
 			Contrat contrat, Exercice exercice, Utilisateur utilisateur,
 			VehiculesAssures vehiculesAssures, Date dateAvenant, Date effet,
 			Date dateEmission, Date echeance, Short duree, Date resiliation,
@@ -75,7 +74,6 @@ public class Avenant implements java.io.Serializable {
 			Set<AvenantRisqueNta> avenantRisqueNtas, Set<AvTrafic> avTrafics,
 			Set<Quittance> quittances) {
 		this.numAvenant = numAvenant;
-		this.compagnieAssurance = compagnieAssurance;
 		this.contrat = contrat;
 		this.exercice = exercice;
 		this.utilisateur = utilisateur;
@@ -108,17 +106,7 @@ public class Avenant implements java.io.Serializable {
 	public void setNumAvenant(String numAvenant) {
 		this.numAvenant = numAvenant;
 	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CODE_COMPAGNIE_ASSURANCE")
-	public CompagnieAssurance getCompagnieAssurance() {
-		return this.compagnieAssurance;
-	}
-
-	public void setCompagnieAssurance(CompagnieAssurance compagnieAssurance) {
-		this.compagnieAssurance = compagnieAssurance;
-	}
-
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "NUM_POLICE", nullable = false)
 	public Contrat getContrat() {

@@ -4,6 +4,7 @@ package com.j3a.assurance.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,9 +31,11 @@ public class CompagnieAssurance implements java.io.Serializable {
 	private String deviseCompAss;
 	private String loginCompAss;
 	private String motPasseCompAss;
+	private Float tauxReduction;
+	private Float tauxAccessoire;
 	private Boolean activiteCompagnie;
 	private Set<Tarifweb> tarifwebs = new HashSet<Tarifweb>(0);
-	private Set<Avenant> avenants = new HashSet<Avenant>(0);
+	private Set<Contrat> contrats = new HashSet<Contrat>(0);
 	private Set<CompteCompagnieAssurance> compteCompagnieAssurances = new HashSet<CompteCompagnieAssurance>(
 			0);
 	private Set<OptionsGarantie> optionsGaranties = new HashSet<OptionsGarantie>(
@@ -52,8 +55,9 @@ public class CompagnieAssurance implements java.io.Serializable {
 			UserRole userRole, String raisonSocialeCompAss,
 			String adresseCompAss, String telCompAss, String siteWebCompAss,
 			String deviseCompAss, String loginCompAss, String motPasseCompAss,
+			Float tauxReduction, Float tauxAccessoire,
 			Boolean activiteCompagnie, Set<Tarifweb> tarifwebs,
-			Set<Avenant> avenants,
+			Set<Contrat> contrats,
 			Set<CompteCompagnieAssurance> compteCompagnieAssurances,
 			Set<OptionsGarantie> optionsGaranties) {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
@@ -66,9 +70,11 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.deviseCompAss = deviseCompAss;
 		this.loginCompAss = loginCompAss;
 		this.motPasseCompAss = motPasseCompAss;
+		this.tauxReduction = tauxReduction;
+		this.tauxAccessoire = tauxAccessoire;
 		this.activiteCompagnie = activiteCompagnie;
 		this.tarifwebs = tarifwebs;
-		this.avenants = avenants;
+		this.contrats = contrats;
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
 		this.optionsGaranties = optionsGaranties;
 	}
@@ -83,7 +89,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.codeCompagnieAssurance = codeCompagnieAssurance;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_PAYS", nullable = false)
 	public Pays getPays() {
 		return this.pays;
@@ -93,7 +99,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.pays = pays;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
 	public UserRole getUserRole() {
 		return this.userRole;
@@ -166,6 +172,24 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.motPasseCompAss = motPasseCompAss;
 	}
 
+	@Column(name = "TAUX_REDUCTION", precision = 12, scale = 0)
+	public Float getTauxReduction() {
+		return tauxReduction;
+	}
+
+	public void setTauxReduction(Float tauxReduction) {
+		this.tauxReduction = tauxReduction;
+	}
+	
+	@Column(name = "TAUX_ACCESSOIRE", precision = 12, scale = 0)
+	public Float getTauxAccessoire() {
+		return tauxAccessoire;
+	}
+
+	public void setTauxAccessoire(Float tauxAccessoire) {
+		this.tauxAccessoire = tauxAccessoire;
+	}
+
 	@Column(name = "ACTIVITE_COMPAGNIE")
 	public Boolean getActiviteCompagnie() {
 		return this.activiteCompagnie;
@@ -185,12 +209,12 @@ public class CompagnieAssurance implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")
-	public Set<Avenant> getAvenants() {
-		return this.avenants;
+	public Set<Contrat> getContrats() {
+		return this.contrats;
 	}
 
-	public void setAvenants(Set<Avenant> avenants) {
-		this.avenants = avenants;
+	public void setContrats(Set<Contrat> contrats) {
+		this.contrats = contrats;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")
@@ -203,7 +227,7 @@ public class CompagnieAssurance implements java.io.Serializable {
 		this.compteCompagnieAssurances = compteCompagnieAssurances;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compagnieAssurance")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compagnieAssurance")
 	public Set<OptionsGarantie> getOptionsGaranties() {
 		return this.optionsGaranties;
 	}

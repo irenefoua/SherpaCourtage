@@ -21,6 +21,7 @@ import com.j3a.assurance.converter.ScatVehiCvtr;
 import com.j3a.assurance.model.ApporteurVehicule;
 import com.j3a.assurance.model.ApporteurVehiculeId;
 import com.j3a.assurance.model.Avenant;
+import com.j3a.assurance.model.Categorie;
 import com.j3a.assurance.model.Conducteur;
 import com.j3a.assurance.model.ConduireVehicule;
 import com.j3a.assurance.model.ConduireVehiculeId;
@@ -31,7 +32,18 @@ import com.j3a.assurance.model.GarantieGarantieChoisie;
 import com.j3a.assurance.model.GarantieGarantieChoisieId;
 import com.j3a.assurance.model.HistoMouvement;
 import com.j3a.assurance.model.HistoProprietesVehicule;
+import com.j3a.assurance.model.RcTarif1;
+import com.j3a.assurance.model.RcTarif10;
+import com.j3a.assurance.model.RcTarif12;
+import com.j3a.assurance.model.RcTarif2;
+import com.j3a.assurance.model.RcTarif3;
+import com.j3a.assurance.model.RcTarif5;
+import com.j3a.assurance.model.RcTarif6;
+import com.j3a.assurance.model.RcTarif7;
+import com.j3a.assurance.model.RcTarif8;
+import com.j3a.assurance.model.RcTarif9;
 import com.j3a.assurance.model.SousCatVehicule;
+import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Vehicule;
 import com.j3a.assurance.model.VehiculeZoneGeographique;
 import com.j3a.assurance.model.VehiculeZoneGeographiqueId;
@@ -57,6 +69,7 @@ public class CarteGriseMB implements Serializable {
 		private IdGenerateur idGenerateur;
 		@Autowired
 		ScatVehiCvtr scatVehiCvtr;
+		public List<SousCatVehicule> CatVehiList=new ArrayList<SousCatVehicule>(); 
 		// private static Logger logs=Logger.getLogger(ManagedCarteGrise.class);
 		private VehiculeRow slctdVehiRw = new VehiculeRow();
 		private VehiculeRow slctdVehiRwTb = new VehiculeRow();
@@ -137,69 +150,137 @@ public class CarteGriseMB implements Serializable {
 
 				VehiculesAssures vehiAss = new VehiculesAssures();
 				vehiAss.setIdVehiculesAssures(getIdGenerateur().getIdVehiAss(Avn.getContrat()));
-				Vehicule vehi = new Vehicule();
-
+				
+				
 				if (Avn.getMouvement().equalsIgnoreCase("AFFAIRE NOUVELLE")) {
 					Avn.setVehiculesAssures(vehiAss);
 					getObjectService().addObject(vehiAss);
+					getObjectService().updateObject(Avn);
+					
+				}else{
+					Avenant avn = new Avenant();
+					avn.setUtilisateur(Avn.getUtilisateur());
+					avn.setDateAvenant(date);
+					avn.setDateEmission(Avn.getDateEmission());
+					avn.setDuree(Avn.getDuree());
+					avn.setEcheance(Avn.getEcheance());
+					avn.setEffet(Avn.getEffet());
+					avn.setNumAvenant(Avn.getNumAvenant());
+					avn.setMouvement("Renouvellement");
+					avn.setContrat(Avn.getContrat());
+					avn.setObservation(Avn.getObservation());
+					avn.setResiliation(Avn.getResiliation());
+					avn.setVehiculesAssures(Avn.getVehiculesAssures());
+					
+					getObjectService().addObject(avn);
 				}
 
-				getObjectService().updateObject(Avn);
+				
 
-				// int numOrdV=Avn.getIdVehiculesAssures().getVehicules().size()+1;
-				int numOrdV = 1;
 				int sizeVehicules = getVehiculeList().size();
 				for (VehiculeRow F : getVehiculeList()) {
-
+					
+					Vehicule vehi = new Vehicule();
 					HistoProprietesVehicule histoPropVehi = new HistoProprietesVehicule();
-
 					HistoMouvement histoMouvement = new HistoMouvement();
-
-					VehiculeZoneGeographique VehiZoneGeo = new VehiculeZoneGeographique();
-					VehiculeZoneGeographiqueId VehiZoneGeoId = new VehiculeZoneGeographiqueId();
-
-					ConduireVehicule conduirVehi = new ConduireVehicule();
-					ConduireVehiculeId conduirVehiId = new ConduireVehiculeId();
-                 
-					String key = getObjectService().getCodeTable("Condu", 5, 4, "conducteur",
-							"NUM_COND");
-					F.getConduHab().setNumCond(key);
-
-					
-					
-				/*	ApporteurVehicule ApporteurVehi = new ApporteurVehicule();
-					ApporteurVehiculeId ApporteurVehiId = new ApporteurVehiculeId();*/
-
-					// on enregistre ici
-					String numOrdVSt = String.format("%02d", numOrdV);
-
 					vehi = F.getVehi();
-					// vehi.setId(vehiAss.getId() + "-V" + numOrdVSt);
-					vehi.setCodeVehicule(getIdGenerateur().getIdVehicule(Avn.getContrat()));
-					vehi.setVehiculesAssures(vehiAss);
-					vehi.setNumImmat(vehi.getNumImmat().toUpperCase());
-					vehi.setNumImmatPrec(vehi.getNumImmatPrec().toUpperCase());
+					// ajout du vehicule ds la BD s'il n'existe pas
+					if (F.getStatutVehiculeBD() == false) {
+
+						vehi.setSousCatVehicule(F.getSouCatVehi());
+						vehi.setCodeVehicule(getIdGenerateur().getIdVehicule(
+								Avn.getContrat()));
+						vehi.setVehiculesAssures(Avn.getVehiculesAssures());
+						VehiculeZoneGeographique VehiZoneGeo = new VehiculeZoneGeographique();
+						VehiculeZoneGeographiqueId VehiZoneGeoId = new VehiculeZoneGeographiqueId();
+
+						ConduireVehicule conduirVehi = new ConduireVehicule();
+						ConduireVehiculeId conduirVehiId = new ConduireVehiculeId();
+
+						//ApporteurVehicule ApporteurVehi = new ApporteurVehicule();
+					//	ApporteurVehiculeId ApporteurVehiId = new ApporteurVehiculeId();
+
+						// on enregistre ici
+
+						if (sizeVehicules == 1) {
+							vehi.setStatut("actif");
+
+						} else {
+							vehi.setStatut("actif");
+						}
+
+						VehiZoneGeoId.setCodeVehicule(vehi.getCodeVehicule());
+						VehiZoneGeoId.setCodeZoneGeo(F.getZonGeo().getCodeZoneGeo());
+
+						VehiZoneGeo.setId(VehiZoneGeoId);
+						VehiZoneGeo.setDateRouler(date);
+
+						conduirVehiId.setCodeVehicule(vehi.getCodeVehicule());
+						conduirVehiId.setNumCond(F.getConduHab().getNumCond());
+
+						conduirVehi.setId(conduirVehiId);
+
+						/*ApporteurVehiId.setCodeVehicule(vehi.getCodeVehicule());
+						ApporteurVehiId.setCodeApporteur(F.getApporteur().getCodeApporteur());
+
+						ApporteurVehi.setId(ApporteurVehiId);
+						ApporteurVehi.setDateApporteurVehicule(date);
+						ApporteurVehi
+								.setMontantComApporteur(F.getCommissionApporteur()
+										.add(F.getTauxCommissionApporteur()
+												.multiply(F.getPrimeNette())
+												.divide(BigDecimal.valueOf(100.0))));
+						ApporteurVehi.setTauxComApporteur(F
+								.getTauxCommissionApporteur());*/
+						// conduirVehi.setDateConduite(date);
+
+						// recup de l'id du vehicule
+
+						getObjectService().addObject(vehi);
+						getObjectService().addObject(VehiZoneGeo);
+						
+					//	getObjectService().addObject(ApporteurVehi);
+
+						// add Cond habituel
+						cduc =  (Conducteur) getObjectService().getObjectById(getSlctdVehiRw().getConduHab().getNumCond(), "Conducteur");
+						if (cduc == null) {
+							getObjectService().addObject(F.getConduHab());
+						} else {
+							getObjectService().updateObject(F.getConduHab());
+						}
+
+						getObjectService().addObject(conduirVehi);
+
+						// int v1 = V.getId();
+					}else{
+						//mise à jour du vehicule et de la zone geographique
+						
+						vehi.setVehiculesAssures(Avn.getVehiculesAssures());
+						
+						getObjectService().updateObject(vehi);
+						
+						//Récup du véhi de la zone géo
+						
+						//test de la zone géo
+						VehiculeZoneGeographique VehiZoneGeo = new VehiculeZoneGeographique();
+						VehiculeZoneGeographiqueId VehiZoneGeoId = new VehiculeZoneGeographiqueId();
+						
+						VehiZoneGeoId.setCodeVehicule(vehi.getCodeVehicule());
+						VehiZoneGeoId.setCodeZoneGeo(F.getZonGeo().getCodeZoneGeo());
+
+						VehiZoneGeo.setId(VehiZoneGeoId);
 					
-					numOrdV++;
-					vehi.setSousCatVehicule(F.getSouCatVehi());
-					if (sizeVehicules == 1) {
-						vehi.setStatut("actif");
-
-					} else {
-						vehi.setStatut("actif");
+						if(F.getZonGeo().getCodeZoneGeo().equalsIgnoreCase(F.getZonGeographique())){
+						VehiZoneGeo.setDateRouler(date);
+						getObjectService().updateObject(VehiZoneGeo);
+						}else{
+							
+							VehiZoneGeo.setDateRouler(date);
+							getObjectService().addObject(VehiZoneGeo);
+						}
+					
 					}
-
-					VehiZoneGeoId.setCodeVehicule(vehi.getCodeVehicule());
-					VehiZoneGeoId.setCodeZoneGeo(F.getZonGeo().getCodeZoneGeo());
-
-					VehiZoneGeo.setId(VehiZoneGeoId);
-					VehiZoneGeo.setDateRouler(date);
-
-					histoPropVehi.setCodeHistoVehicule(getIdGenerateur().getIdHistoPropVehi(
-							vehi.getCodeVehicule()));
-					HistoProprietesVehiTool.setProperties(histoPropVehi, vehi);
-					histoPropVehi.setVehicule(vehi);
-					histoPropVehi.setDateHisto(date);
+					// ajout des infos supplementaires du vehicule
 
 					histoMouvement.setCodeHistoMouvement(getIdGenerateur().getIdHistoMvmt(vehi));
 					histoMouvement.setVehicule(vehi);
@@ -207,57 +288,41 @@ public class CarteGriseMB implements Serializable {
 							.getTime());
 					histoMouvement.setIdAvenant(Avn.getNumAvenant());
 					histoMouvement.setLibelleHistoMouvement(Avn.getMouvement());
-
-					conduirVehiId.setCodeVehicule(vehi.getCodeVehicule());
-					conduirVehiId.setNumCond(F.getConduHab().getNumCond());
-
-					conduirVehi.setId(conduirVehiId);
-					conduirVehi.setDateConduite(date);
-
-					/*ApporteurVehiId.setCodeVehicule(vehi.getCodeVehicule());
-					ApporteurVehiId.setCodeApporteur(F.getApporteur().getCodeApporteur());
-
-					ApporteurVehi.setId(ApporteurVehiId);
-					ApporteurVehi.setDateApporteurVehicule(date);
-					ApporteurVehi
-							.setMontantComApporteur(F.getCommissionApporteur());
-					ApporteurVehi.setTauxComApporteur(F
-							.getTauxCommissionApporteur());*/
-					// conduirVehi.setDateConduite(date);
-
-					// recup de l'id du vehicule
-					getObjectService().addObject(vehi);
-					getObjectService().addObject(VehiZoneGeo);
-					//getObjectService().addObject(ApporteurVehi);
+					histoPropVehi.setCodeHistoVehicule(getIdGenerateur().getIdHistoPropVehi(
+							vehi.getCodeVehicule()));
+					HistoProprietesVehiTool.setProperties(histoPropVehi, vehi);
+					histoPropVehi.setVehicule(vehi);
+					histoPropVehi.setDateHisto(date);
 
 					getObjectService().addObject(histoPropVehi);
 					getObjectService().addObject(histoMouvement);
-					// add Cond habituel
-					
-					
-					
-
-
-					cduc =  (Conducteur) getObjectService().getObjectById(getSlctdVehiRw().getConduHab().getNumCond(), "Conducteur");
-					if (cduc == null) {
-						getObjectService().addObject(F.getConduHab());
-
-					} else {
-
-						getObjectService().updateObject(F.getConduHab());
-					}
-
-					getObjectService().addObject(conduirVehi);
-
 
 					// add Garanties
 					GarantieChoisie garchoi = new GarantieChoisie();
 
-					garchoi.setCodeGarantieChoisie(vehi.getCodeVehicule() + "GA");
+					String idGarchoi = getIdGenerateur().getIdGarChoisieAuto(vehi);
+					garchoi.setCodeGarantieChoisie(idGarchoi);
 					garchoi.setDateGarantieChoisie(date);
-					garchoi.setVehicule(F.getVehi());
+					garchoi.setVehicule(vehi);
 					garchoi.setLibelleGarantieChosie("Garanties Automobile");
 					garchoi.setCodeAvenantAuto(Avn.getNumAvenant());
+
+					garchoi.setPrimeNetteProrata(F.getTarifwebCompSelectd().getPrimeNette());
+					garchoi.setPrimesProrata(F.getTarifwebCompSelectd().getPrimes());
+					garchoi.setPrimeNetteAnnuelle(F.getTarifwebCompSelectd().getPrimeAnnuelle());
+					garchoi.setPrimeAnnuelle(F.getTarifwebCompSelectd().getPrimeAnnuelle());
+
+					garchoi.setBonus(BigDecimal.ZERO);
+					garchoi.setMalus(BigDecimal.ZERO);
+					garchoi.setReductionSocioProf(BigDecimal.ZERO);
+					garchoi.setReductionPermis(BigDecimal.ZERO);
+					garchoi.setReductionCommercial(F.getTarifwebCompSelectd().getReduction());
+					garchoi.setAutre(BigDecimal.ZERO);
+					garchoi.setMontantReduction(F.getTarifwebCompSelectd().getReduction());
+
+					garchoi.setAccessoireauto(F.getTarifwebCompSelectd().getAccessoire());
+				   
+					
 
 					// Garantie Garantie choisie
 
@@ -283,18 +348,20 @@ public class CarteGriseMB implements Serializable {
 								.getPrimesAnnuelle());
 						garantieGarantieChoisie.setPrimeNetteAnnuelle(G
 								.getPrimesNetteAnnuelle());
-						garantieGarantieChoisie.setPrimeNetteProrata(G
+						garantieGarantieChoisie.setPrimeProrata(G
 								.getPrimesProrata());
+						garantieGarantieChoisie.setPrimeNetteProrata(G
+								.getPrimesNetteProrata());
 						garantieGarantieChoisie.setMontantReduction(G
 								.getReductions());
 
-						garantieGarantieChoisie.setAutreReduction(BigDecimal.ZERO);
+						garantieGarantieChoisie.setAutreReduction(G.getReductions());
 						garantieGarantieChoisie.setBonus(G.getBonus());
 						garantieGarantieChoisie.setMalus(G.getMalus());
 						garantieGarantieChoisie.setReductionFlotte(BigDecimal.ZERO);
 						garantieGarantieChoisie.setReductionPermis(BigDecimal.ZERO);
 						garantieGarantieChoisie
-								.setTauxAutreReduction(BigDecimal.ZERO);
+								.setTauxAutreReduction(G.getTauxRed());
 						garantieGarantieChoisie.setTauxBonus(G.getBonus());
 						garantieGarantieChoisie.setTauxMalus(G.getMalus());
 						garantieGarantieChoisie.setTauxFlotte(BigDecimal.ZERO);
@@ -304,48 +371,6 @@ public class CarteGriseMB implements Serializable {
 						garantieGarantieChoisieList.add(garantieGarantieChoisie);
 
 					}
-
-					// Calcul du montant de la prime de la somme des garanties pour
-					// garantie choiosie
-					BigDecimal prime = BigDecimal.ZERO, primeAnnuelle = BigDecimal.ZERO, primeNetteAnnuelle = BigDecimal.ZERO, red = BigDecimal.ZERO, com = BigDecimal.ZERO, ges = BigDecimal.ZERO, con = BigDecimal.ZERO, interm = BigDecimal.ZERO, taxe = BigDecimal.ZERO, coass;
-					for (GarantieGarantieChoisie GC : garantieGarantieChoisieList) {
-						prime = prime.add(GC.getPrimeNetteProrata());
-						primeAnnuelle = primeAnnuelle.add(GC.getPrimeAnnuelle());
-						primeNetteAnnuelle = primeNetteAnnuelle.add(GC
-								.getPrimeNetteAnnuelle());
-						red = red.add(GC.getMontantReduction());
-						/*
-						 * com =
-						 * com.add(GC.getTauxCom().multiply(prime).divide(BigDecimal
-						 * .valueOf(100))); con =
-						 * con.add(GC.getTauxConsIa().multiply
-						 * (prime).divide(BigDecimal.valueOf(100))); interm =
-						 * interm.
-						 * add(GC.getTauxintermIa().multiply(prime).divide(BigDecimal
-						 * .valueOf(100))); ges =
-						 * ges.add(GC.getTauxGesIa().multiply(
-						 * prime).divide(BigDecimal.valueOf(100)));
-						 */
-						// coass = coass+GT.getT*prime/100;
-						taxe = taxe.add(prime.divide(BigDecimal.valueOf(0.03), 2));
-					}
-					garchoi.setPrimeNetteProrata(prime);
-					garchoi.setPrimeNetteAnnuelle(primeAnnuelle);
-					garchoi.setPrimeAnnuelle(primeNetteAnnuelle);
-					garchoi.setCodeAvenantAuto(Avn.getNumAvenant());
-
-					garchoi.setBonus(BigDecimal.ZERO);
-					garchoi.setMalus(BigDecimal.ZERO);
-					garchoi.setReductionSocioProf(BigDecimal.ZERO);
-					garchoi.setReductionPermis(BigDecimal.ZERO);
-					garchoi.setReductionCommercial(BigDecimal.ZERO);
-					garchoi.setAutre(BigDecimal.ZERO);
-					garchoi.setMontantReduction(BigDecimal.ZERO);
-
-					garchoi.setAccessoireauto(BigDecimal.ZERO);
-					// garchoi.setMontantGarantieIa(G.getMontantGarantie());
-					// garchoi.setTaux(new Float(G.getTaux()));
-					// Ajout taux de la franchise
 
 					// ajout de garantie choisie
 					try {
@@ -360,7 +385,7 @@ public class CarteGriseMB implements Serializable {
 						try {
 							getObjectService().addObject(GC);
 						} catch (Exception e) {
-						//	logs.error("Error add GarantieGarantieChoisieAuto", e);
+							//logs.error("Error add GarantieGarantieChoisieAuto", e);
 						}
 					}
 
@@ -368,8 +393,8 @@ public class CarteGriseMB implements Serializable {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				//setWarnMsg("pbe Ã  l'enregistrement des vÃ©hicules et leurs garanties <br/> <<"
-				//		+ e.getMessage() + ">>");
+				setWarnMsg("pbe Ã  l'enregistrement des vÃ©hicules et leurs garanties <br/> <<"
+						+ e.getMessage() + ">>");
 				RequestContext.getCurrentInstance().execute("NoSlctd.show()");
 
 			}
@@ -1508,6 +1533,190 @@ public class CarteGriseMB implements Serializable {
 
 		public void setOutputNbrTran(OutputLabel outputNbrTran) {
 			this.outputNbrTran = outputNbrTran;
+		}
+
+		 public List<SousCatVehicule> getCatVehiList() {
+				if(CatVehiList.isEmpty()){
+					Tarif tarif1  = new Tarif();
+					tarif1.setCodeTarif("Tarif1");
+					RcTarif1 rc1  = new RcTarif1();
+					tarif1.setRcTarif1(rc1);
+					
+					rc1.setCodeRcTarif1("RcTarif1");
+					SousCatVehicule A = new SousCatVehicule("SCAT1");
+					A.setLibelleSousCatVehicule("Vehicule de Tourisme");
+					Categorie catA = new Categorie();
+					catA.setCodeCategorie("1");
+					catA.setLibelleCategorie("Promenade et Affaires");
+					A.setCategorie(catA);
+					A.setTarif_1("TARIF1");
+					A.setTarif(tarif1);
+					CatVehiList.add(A);
+					
+					
+					Tarif tarif12  = new Tarif();
+					tarif12.setCodeTarif("Tarif12");
+					RcTarif12 rc12  = new RcTarif12();
+					tarif12.setRcTarif12(rc12);
+					rc12.setCodeRcTarif12("RcTarif12");
+					
+					SousCatVehicule B = new SousCatVehicule("SCAT12");
+					B.setLibelleSousCatVehicule("Vehicule Professionnel");
+					B.setCategorie(catA);
+					B.setTarif_1("TARIF12");
+					B.setTarif(tarif12);
+					CatVehiList.add(B);
+					
+					
+					Tarif tarif2  = new Tarif();
+					tarif2.setCodeTarif("Tarif2");
+					RcTarif2 rc2  = new RcTarif2();
+					tarif2.setRcTarif2(rc2);
+					rc2.setCodeRcTarif2("RcTarif2");
+					
+					SousCatVehicule C = new SousCatVehicule("SCAT2");
+					C.setLibelleSousCatVehicule("Transport pour propre compte");
+					Categorie catC = new Categorie();
+					catC.setCodeCategorie("2");
+					catC.setLibelleCategorie("Transport pour propre compte");
+					C.setCategorie(catC);
+					C.setTarif_1("TARIF2");
+					C.setTarif(tarif2);
+					CatVehiList.add(C);
+					
+					
+					Tarif tarif3  = new Tarif();
+					tarif3.setCodeTarif("Tarif3");
+					RcTarif3 rc3  = new RcTarif3();
+					tarif3.setRcTarif3(rc3);
+					rc3.setCodeRcTarif3("RcTarif3");
+					
+					SousCatVehicule D = new SousCatVehicule("SCAT3");
+					D.setLibelleSousCatVehicule("Transport Public de Marchandises");
+					Categorie catD = new Categorie();
+					catD.setCodeCategorie("3");
+					catD.setLibelleCategorie("Transport Public de Marchandises");
+					D.setCategorie(catD);
+					D.setTarif_1("TARIF3");
+					D.setTarif(tarif3);
+					CatVehiList.add(D);
+					
+					/*SousCatVehicule E = new SousCatVehicule("SCAT4");
+					E.setLibelleSousCatVehicule("Transport Public de Voyageurs");
+					Categorie catE = new Categorie();
+					catE.setId("4");
+					catE.setLibelleCategorie("Transport Public de Voyageurs");
+					E.setCodeCategorie(catE);
+					E.setTarif("TARIF4");
+					CatVehiList.add(E);*/
+					
+					
+					Tarif tarif5  = new Tarif();
+					tarif5.setCodeTarif("Tarif5");
+					RcTarif5 rc5  = new RcTarif5();
+					tarif5.setRcTarif5(rc5);
+					rc5.setCodeRcTarif5("RcTarif5");
+					
+					SousCatVehicule F = new SousCatVehicule("SCAT5");
+					F.setLibelleSousCatVehicule("Vehicules Motorises 2 OU 3 Roues");
+					Categorie catF = new Categorie();
+					catF.setCodeCategorie("5");
+					catF.setLibelleCategorie("Vehicules Motorises 2 OU 3 Roues");
+					F.setCategorie(catF);
+					F.setTarif_1("TARIF5");
+					F.setTarif(tarif5);
+					CatVehiList.add(F);
+					
+					
+					Tarif tarif6  = new Tarif();
+					tarif6.setCodeTarif("Tarif6");
+					RcTarif6 rc6  = new RcTarif6();
+					tarif6.setRcTarif6(rc6);
+					rc6.setCodeRcTarif6("RcTarif6");
+					
+					SousCatVehicule G = new SousCatVehicule("SCAT6");
+					G.setLibelleSousCatVehicule("Garagistes");
+					Categorie catG = new Categorie();
+					catG.setCodeCategorie("6");
+					catG.setLibelleCategorie("Garagistes");
+					G.setCategorie(catG);
+					G.setTarif_1("TARIF6");
+					G.setTarif(tarif6);
+					CatVehiList.add(G);
+					
+					
+					Tarif tarif7  = new Tarif();
+					tarif7.setCodeTarif("Tarif7");
+					RcTarif7 rc7  = new RcTarif7();
+					tarif7.setRcTarif7(rc7);
+					rc7.setCodeRcTarif7("RcTarif7");
+					
+					SousCatVehicule H = new SousCatVehicule("SCAT7");
+					H.setLibelleSousCatVehicule("Auto Ecole");
+					Categorie catH = new Categorie();
+					catH.setCodeCategorie("7");
+					catH.setLibelleCategorie("Auto Ecole");
+					H.setCategorie(catH);
+					H.setTarif_1("TARIF7");
+					H.setTarif(tarif7);
+					CatVehiList.add(H);
+					
+					
+					Tarif tarif8  = new Tarif();
+					tarif8.setCodeTarif("Tarif8");
+					RcTarif8 rc8  = new RcTarif8();
+					tarif8.setRcTarif8(rc8);
+					rc8.setCodeRcTarif8("RcTarif8");
+					
+					SousCatVehicule I = new SousCatVehicule("SCAT8");
+					I.setLibelleSousCatVehicule("Véhicule de Location");
+					Categorie catI = new Categorie();
+					catI.setCodeCategorie("8");
+					catI.setLibelleCategorie("Véhicule de Location");
+					I.setCategorie(catI);
+					I.setTarif_1("TARIF8");
+					I.setTarif(tarif8);
+					CatVehiList.add(I);
+					
+					
+					Tarif tarif9  = new Tarif();
+					tarif9.setCodeTarif("Tarif9");
+					RcTarif9 rc9  = new RcTarif9();
+					tarif9.setRcTarif9(rc9);
+					rc9.setCodeRcTarif9("RcTarif9");
+					
+					SousCatVehicule J = new SousCatVehicule("SCAT9");
+					J.setLibelleSousCatVehicule("Engins de Chantier");
+					Categorie catJ = new Categorie();
+					catJ.setCodeCategorie("9");
+					catJ.setLibelleCategorie("Engins de Chantier");
+					J.setCategorie(catJ);
+					J.setTarif_1("TARIF9");
+					J.setTarif(tarif9);
+					CatVehiList.add(J);
+					
+					
+					Tarif tarif10  = new Tarif();
+					tarif10.setCodeTarif("Tarif10");
+					RcTarif10 rc10  = new RcTarif10();
+					tarif10.setRcTarif10(rc10);
+					rc10.setCodeRcTarif10("RcTarif10");
+					
+					SousCatVehicule K = new SousCatVehicule("SCAT10");
+					K.setLibelleSousCatVehicule("Véhicule spéciaux");
+					Categorie catK = new Categorie();
+					catK.setCodeCategorie("10");
+					catK.setLibelleCategorie("Véhicule spéciaux");
+					K.setCategorie(catK);
+					K.setTarif_1("TARIF10");
+					K.setTarif(tarif10);
+					CatVehiList.add(K);
+				}
+				return CatVehiList;
+				}
+
+		public void setCatVehiList(List<SousCatVehicule> catVehiList) {
+			CatVehiList = catVehiList;
 		}
 
 		

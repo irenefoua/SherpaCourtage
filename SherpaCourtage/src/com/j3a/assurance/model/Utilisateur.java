@@ -74,7 +74,7 @@ public class Utilisateur implements java.io.Serializable {
 		this.codeUtilisateur = codeUtilisateur;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_POINT_VENTE", nullable = false)
 	public PointVente getPointVente() {
 		return this.pointVente;

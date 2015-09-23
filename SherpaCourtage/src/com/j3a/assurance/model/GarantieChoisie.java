@@ -30,6 +30,7 @@ public class GarantieChoisie implements java.io.Serializable {
 	private Date dateGarantieChoisie;
 	private BigDecimal primeNetteAnnuelle;
 	private BigDecimal primeAnnuelle;
+	private BigDecimal primesProrata;
 	private BigDecimal primeNetteProrata;
 	private BigDecimal bonus;
 	private BigDecimal malus;
@@ -55,7 +56,8 @@ public class GarantieChoisie implements java.io.Serializable {
 	public GarantieChoisie(String codeGarantieChoisie, Vehicule vehicule,
 			String libelleGarantieChosie, Date dateGarantieChoisie,
 			BigDecimal primeNetteAnnuelle, BigDecimal primeAnnuelle,
-			BigDecimal primeNetteProrata, BigDecimal bonus, BigDecimal malus,
+			BigDecimal primeNetteProrata,BigDecimal primesProrata, 
+			BigDecimal bonus, BigDecimal malus,
 			BigDecimal reductionSocioProf, BigDecimal reductionPermis,
 			BigDecimal reductionCommercial, BigDecimal autre,
 			BigDecimal montantReduction, BigDecimal accessoireauto,
@@ -67,6 +69,7 @@ public class GarantieChoisie implements java.io.Serializable {
 		this.dateGarantieChoisie = dateGarantieChoisie;
 		this.primeNetteAnnuelle = primeNetteAnnuelle;
 		this.primeAnnuelle = primeAnnuelle;
+		this.primesProrata = primesProrata;
 		this.primeNetteProrata = primeNetteProrata;
 		this.bonus = bonus;
 		this.malus = malus;
@@ -137,6 +140,16 @@ public class GarantieChoisie implements java.io.Serializable {
 	public void setPrimeAnnuelle(BigDecimal primeAnnuelle) {
 		this.primeAnnuelle = primeAnnuelle;
 	}
+	
+	@Column(name = "PRIMES_PRORATA", precision = 15, scale = 3)
+	public BigDecimal getPrimesProrata() {
+		return this.primesProrata;
+	}
+
+	public void setPrimesProrata(BigDecimal primesProrata) {
+		this.primesProrata = primesProrata;
+	}
+
 
 	@Column(name = "PRIME_NETTE_PRORATA", precision = 15, scale = 3)
 	public BigDecimal getPrimeNetteProrata() {
@@ -237,7 +250,7 @@ public class GarantieChoisie implements java.io.Serializable {
 		this.surprime = surprime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "garantieChoisie")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "garantieChoisie")
 	public Set<GarantieGarantieChoisie> getGarantieGarantieChoisies() {
 		return this.garantieGarantieChoisies;
 	}

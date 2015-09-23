@@ -58,7 +58,7 @@ public class SousCatVehicule implements java.io.Serializable {
 		this.codeSousCatVehicule = codeSousCatVehicule;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_CATEGORIE")
 	public Categorie getCategorie() {
 		return this.categorie;
@@ -68,7 +68,7 @@ public class SousCatVehicule implements java.io.Serializable {
 		this.categorie = categorie;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CODE_TARIF")
 	public Tarif getTarif() {
 		return this.tarif;
@@ -105,7 +105,7 @@ public class SousCatVehicule implements java.io.Serializable {
 		this.vehicules = vehicules;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sousCatVehicule")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sousCatVehicule")
 	public Set<TarifwebSousCat> getTarifwebSousCats() {
 		return this.tarifwebSousCats;
 	}

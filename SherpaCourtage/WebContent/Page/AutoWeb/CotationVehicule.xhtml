@@ -46,12 +46,74 @@
 	</p:ajaxStatus>  
 
 			<h:form id="VehiculeProp">
-			
+			<p:messages id="pmessagePropVehi" showDetail="true" autoUpdate="true" sticky="true" closable="true"/>
 			<p:wizard id="wizar"
 				flowListener="#{cotationAuto.handleflow}" widgetVar="wiz"
 				nextLabel="Suivant"
 				backLabel="Précedant" styleClass="wizardStyle" style="width:99%">
-				<p:messages id="pmessagePropVehi" showDetail="false" sticky="true" closable="true"/>
+				
+				
+				
+				<p:tab id="ongletImmatriculation" title="Immatriculation">
+				<fieldset>
+					<p:panel header="Immatriculation">
+				<br />
+				
+				
+		
+				 <h:panelGrid columns="4">
+				               <h:outputText value="Numéro d'Immatriculation "/>
+										<p:inputText id="imat" value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.numImmat}"
+										 required="true" requiredMessage="Sélectionner une Immatriculation !"
+										 styleClass="identifiant">
+										<p:ajax  listener="#{cotationAuto.rechercheVehicule}" update="VehiculeProp"/>
+										</p:inputText>
+										
+									<h:outputText value="Date d'Immatriculation " style="margin-left: 20px;"/>
+									 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.dateImmat}" id="dateActu"  mask="99/99/9999" 
+									 required="true" requiredMessage="Sélectionner une date d'Immatriculation !">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+									<p:ajax  event="blur" listener="#{cotationAuto.carteGriseMB.changedateImmat}"
+									  update="@this, dateImmatpre, datePms, pmessagePropVehi" global="false"/>
+									</p:inputMask>
+								
+										
+				 </h:panelGrid>
+				 
+				 
+				 
+				 </p:panel>
+						     
+						<p:panel header="Immatriculation Précédente">
+				<br />	     
+			   
+			    <h:panelGrid columns="7">
+				 <h:outputText value="Numéro d'Immatriculation"/>
+				 <p:inputText value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.numImmatPrec}"
+				 styleClass="identifiant"
+				 ></p:inputText>
+				 <h:outputText value="Date d'Immatriculation" style="margin-left: 20px;"></h:outputText>
+				 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.dateImmatPrec}" 
+				 id="dateImmatpre" mask="99/99/9999" >
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+				<p:ajax  event="blur" listener="#{cotationAuto.carteGriseMB.changedateImmatprec}"
+									  update="@this, datePms" global="false"/>
+									  
+				</p:inputMask>
+				
+				<h:outputText value="1er Mise en circulation " style="margin-left: 20px;"/>
+								 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.datePremiereCirc}" id="datePms"  mask="99/99/9999" >
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:inputMask>
+								
+								
+			
+				
+				 </h:panelGrid> 
+				 
+				 
+				</p:panel></fieldset>
+				</p:tab>
 				
 				
 
@@ -64,7 +126,7 @@
 								<h:panelGrid id="vehiProp" columns="6">
 								
 								<h:outputText value="Sous Categorie "/>
-										<p:selectOneMenu id="slctSCat"  value="#{cotationAuto.carteGriseMB.slctdVehiRw.souCatVehi}" required="true" requiredMessage="Sélectionner une sous Catégorie !" converter="#{scatVehiCvtr}" style="width:170px">
+										<p:selectOneMenu id="slctSCat"  value="#{cotationAuto.carteGriseMB.slctdVehiRw.souCatVehi}" converter="#{entityConverter}" style="width:170px">
 											<f:selectItem itemLabel="" itemValue=""/>
 											<f:selectItems value="#{scatVehiCvtr.catVehiList}" var="ca" itemLabel="#{ca.libelleSousCatVehicule}" itemValue="#{ca}"/>
 											  <p:ajax process="slctSCat"  listener="#{cotationAuto.carteGriseMB.choixSousCat}" partialSubmit="true" event="valueChange"  update="@this, catV"/>
@@ -280,69 +342,7 @@
                                      </p:panel> 
 				</p:tab>
 				
-				<p:tab id="ongletImmatriculation" title="Immatriculation">
-				<fieldset>
-					<p:panel header="Immatriculation">
-				<br />
-				
-				
 		
-				 <h:panelGrid columns="4">
-				               <h:outputText value="Numéro d'Immatriculation "/>
-										<p:inputText id="imat" value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.numImmat}"
-										 required="true" requiredMessage="Sélectionner une Immatriculation !"
-										 styleClass="identifiant">
-										<p:ajax  update="@this, pmessagePropVehi" global="false"/>
-										</p:inputText>
-										
-									<h:outputText value="Date d'Immatriculation " style="margin-left: 20px;"/>
-									 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.dateImmat}" id="dateActu"  mask="99/99/9999" 
-									 required="true" requiredMessage="Sélectionner une date d'Immatriculation !">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-									<p:ajax  event="blur" listener="#{cotationAuto.carteGriseMB.changedateImmat}"
-									  update="@this, dateImmatpre, datePms, pmessagePropVehi" global="false"/>
-									</p:inputMask>
-								
-										
-				 </h:panelGrid>
-				 
-				 
-				 
-				 </p:panel>
-						     
-						<p:panel header="Immatriculation Précédente">
-				<br />	     
-			   
-			    <h:panelGrid columns="7">
-				 <h:outputText value="Numéro d'Immatriculation"/>
-				 <p:inputText value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.numImmatPrec}"
-				 styleClass="identifiant"
-				 ></p:inputText>
-				 <h:outputText value="Date d'Immatriculation" style="margin-left: 20px;"></h:outputText>
-				 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.dateImmatPrec}" 
-				 id="dateImmatpre" mask="99/99/9999" >
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-				<p:ajax  event="blur" listener="#{cotationAuto.carteGriseMB.changedateImmatprec}"
-									  update="@this, datePms" global="false"/>
-									  
-				</p:inputMask>
-				
-				<h:outputText value="1er Mise en circulation " style="margin-left: 20px;"/>
-								 <p:inputMask value="#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.datePremiereCirc}" id="datePms"  mask="99/99/9999" >
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-								</p:inputMask>
-								
-								
-			
-				
-				 </h:panelGrid> 
-				 
-				 
-				</p:panel></fieldset>
-				</p:tab>
-				
-				
-				
 				<p:tab id="ongletVehicule" title="Caractéristiques">
 					<p:panel header="Caractéristiques">
 				<br />
@@ -538,6 +538,8 @@
 												<f:selectItem itemLabel="10 mois" itemValue="10.0" />
 												<f:selectItem itemLabel="11 mois" itemValue="11.0" />
 												<f:selectItem itemLabel="12 mois" itemValue="12.0" />
+												
+												<p:ajax listener="#{cotationAuto.contratMB.majEcheance}" update="ech,nbj"/>
 											</p:selectOneMenu>
 
 											<h:outputText value="Date Echéance*" style="margin-right:20px;" />
@@ -578,227 +580,113 @@
 				</p:tab>
 				
 				<p:tab id="ongletGarantie" title="Garantie">
-				<fieldset>
-						
-						
-<h:panelGrid >
-							<p:panel>
-
-		<p:panel header="Groupe  de Garanties ">
-				<br />
-	<p:dataTable id="garTablegroup" var="garSeltd" 
-				value="#{cotationAuto.garantieMB.listeGroupGaranties}"
-				selectionMode="single" selection="#{cotationAuto.garantieMB.selectGarantieGroup}" 
-				scrollable="true"
-				scrollWidth="850"
-				emptyMessage="Aucune Données"
-				rowKey="#{garSeltd.nOrdre}">
-				<p:ajax event="rowSelect" listener="#{cotationAuto.garantieMB.onRowSelectGroupGarantie}"  global="false"
-				 update=":VehiculeProp:cmdPrime, :VehiculeProp:garTable, :VehiculeProp:panelPrimes"/>
-				
-				<p:column headerText="Code" style="width:40px">
-				<h:outputText value="#{garSeltd.codeGarantie}" />
-				</p:column>
-
-				<p:column headerText="Garantie" style="width:200px">
-				<h:outputText value="#{garSeltd.libelleGarantie}" />
-				</p:column>
-				
-				<p:column headerText="Nette Prorata" style="width:60px">
-				<h:outputText value="#{garSeltd.primesProrata}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText>
-				</p:column>
-				
-						</p:dataTable>
+	<br /><br />
 	
-	</p:panel>
-		<p:panel header="Garanties">
-				<br />
-		
-		<h:panelGrid id="factGar">
-		<p:dataTable id="garTable" var="garanties" widgetVar="garTable"  
-			filteredValue="#{cotationAuto.garantieMB.listegarantieFiltre}"
-				value="#{cotationAuto.garantieMB.listegaranties}"
-				editable="true" editMode="row"
-				scrollable="true"
-				scrollWidth="850"
-				emptyMessage="Aucune Données">
-				<p:ajax event="rowEdit" listener="#{cotationAuto.garantieMB.onEditRow}"  global="false" 
-				update=":VehiculeProp:cmdPrime, :VehiculeProp:panelPrimes, :VehiculeProp:garTablegroup"/>
-				
-				<p:column headerText="" style="width:40px">
-				   <p:rowEditor />  
-				</p:column>
-				
-				<p:column headerText="" style="width:10px">
-				<p:cellEditor>  
-				<f:facet name="output"><p:selectBooleanCheckbox value="#{garanties.choix}" disabled="true"/></f:facet>  
-				<f:facet name="input"><p:selectBooleanCheckbox value="#{garanties.choix}" /></f:facet>  
-				</p:cellEditor>
-				</p:column>
+	<h:outputLabel value="Vous pouvez choisir l'offre qui vous convient le mieux !Cliquer pour avoir plus d'informations" style="margin-left:200px ;font-size:15px; color:red" />
+	
+	<br /><br />
+	<fieldset style="border-radius:5px;">
+	<legend>RECAPITULATIF </legend>
 
-				<p:column headerText="Code" style="width:30px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.codeGarantie}" /></f:facet>  
-				<f:facet name="input"><h:outputText value="#{garanties.codeGarantie}" /></f:facet>  
-				</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="Garantie" style="width:250px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.libelleGarantie}" /></f:facet>  
-				<f:facet name="input"><h:outputText value="#{garanties.libelleGarantie}" /></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Capital" style="width:150px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.capitalGarantie}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				<f:facet name="input"><h:outputText id="capitalInput" value="#{garanties.capitalGarantie}" readonly="true" style="width:96%"/></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				
-				<p:column headerText="Franchise" style="width:150px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.franchise}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				<f:facet name="input"><h:outputText id="franchiseInput" value="#{garanties.franchise}" style="width:96%"/></f:facet>  
-				</p:cellEditor>
-				</p:column>
-		
-				<p:column headerText="Prime Annuelle" style="width:100px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.primesAnnuelle}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				<f:facet name="input"><h:outputText value="#{garanties.primesAnnuelle}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				
-				
-				<p:column headerText="Red%" style="width:30px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.tauxRed}" /></f:facet>  
-				<f:facet name="input"><p:inputText id="tauxRedInput" value="#{garanties.tauxRed}" style="width:96%"/></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Reduction" style="width:70px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.reductions}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				<f:facet name="input"><h:outputText value="#{garanties.reductions}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Nette Annuelle" style="width:100px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.primesNetteAnnuelle}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				<f:facet name="input"><h:outputText value="#{garanties.primesNetteAnnuelle}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Nette Prorata" style="width:100px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.primesProrata}" >
-						<f:convertNumber pattern="##,###.##"></f:convertNumber>
-					</h:outputText></f:facet>  
-				<f:facet name="input"><h:outputText id="tauxRfactrInput" value="#{garanties.facteur}" style="width:96%"/></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Bonus%" style="width:50px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.bonus}" /></f:facet>  
-				<f:facet name="input"><p:inputText id="tauxBonInput" value="#{garanties.bonus}" style="width:96%"/></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-					<p:column headerText="Malus%" style="width:50px">
-				<p:cellEditor>  
-				<f:facet name="output"><h:outputText value="#{garanties.malus}" /></f:facet>  
-				<f:facet name="input"><p:inputText id="tauxMalInput" value="#{garanties.malus}" style="width:96%"/></f:facet>  
-				</p:cellEditor>
-				</p:column>
-				
-						</p:dataTable>
-
-									</h:panelGrid>
-									
-									<h:panelGrid id= "panelPrimes" columns="12" style="margin-bottom:0px"
-									>
-						
-								<h:outputText value="Reduction Permis" styleClass="outputextK" />
-								<h:inputText 
-									value="#{cotationAuto.garantieMB.reductionPermis}"
-									readonly="true" style="width:80px" >
-									<f:convertNumber pattern="##,###.##"></f:convertNumber>
-										</h:inputText>
-
-
-					
-										
-												<h:outputText value="PrimesNette" styleClass="outputextcl1" />
-								<h:inputText 
-									value="#{cotationAuto.garantieMB.primeNette}"
-									readonly="true" style="width:80px" >
-									<f:convertNumber pattern="##,###.##"></f:convertNumber>
-										</h:inputText>
-										
-									</h:panelGrid>
-									
-										
-								<h:panelGrid id= "panelAcc" columns="2" style="margin-bottom:0px"
-									>		
-						</h:panelGrid>
-
-
-						<h:panelGrid id="cmdPrime" columns="6" style="margin-bottom:0px">
+		<br />
+		<h:outputLabel     style="font-size:15px"  value="le vehicule à assurer est :#{cotationAuto.carteGriseMB.slctdVehiRw.vehi.marque}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.energie}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.carrosserie}  #{cotationAuto.carteGriseMB.slctdVehiRw.vehi.puissFisc}CV"/>
+			<br /><br />
+			
+			
+			
+			
+								 <p:dataTable id="tarifTableRow"
+								  var="twc"
+								  value="#{cotationAuto.garantiesCompagnies.listTarifwebComp}" 
+								  styleClass="mystyle"
+								  rowKey="#{twc.numOrdr}"
+								  editable="true" editMode="row"
+								  selectionMode="single" 
+								  selection="#{cotationAuto.garantiesCompagnies.selectedTarifWeb}"
+								  >
+								  <p:ajax event="rowEdit" listener="#{cotationAuto.garantiesCompagnies.onEditRow}" process=":VehiculeProp:tarifTableRow" update=":VehiculeProp:tarifTableRow" />
+					        
+					        	<p:column headerText="" style="width:40px">
+							   <p:rowEditor />  
+								</p:column>
+								
+								        
+					          <p:column headerText="Compagnies">
+    
+						    <h:panelGrid columns="1" > 
+						       <p:graphicImage value="/resources/images/#{twc.compagnieAssurance.loginCompAss}.jpg" styleClass="imageCourtage"/>
+						        <h:outputText value="#{twc.compagnieAssurance.raisonSocialeCompAss}" /> 
+						    </h:panelGrid>
+						    </p:column>
+				    
+						    
+						     <p:column headerText="Options Garanties">
+						     <p:cellEditor>
+		              			 <f:facet name="output"><h:outputText value="#{twc.optionGarantie}" /></f:facet>
+		              			 <f:facet name="input">
+						       <p:selectOneMenu
+											value="#{twc.optionGarantie}" style="width:154px"
+											id="protect" required="false">
+											<f:selectItem itemLabel="TIER SIMPLE" itemValue="TS" />
+											<f:selectItem itemLabel="TIER COMPLET" itemValue="TC" />
+											<f:selectItem itemLabel="TOUS RISQUES" itemValue="TR" />
+										</p:selectOneMenu>
+										  </f:facet>
+        				   </p:cellEditor>
+						    </p:column>
+					        
+							 <p:column headerText="Tarif mensuel">
+						        <h:outputText id="idPrimeMen" value="#{twc.primeMensuelleTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						 
+						    <p:column headerText="Tarif annuel" >
+						        <h:outputText id="idPrimeAn" value="#{twc.primeAnnuelleTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						    
+						     <p:column headerText="Prime à payer" >
+						        <h:outputText id="idPrimeP" value="#{twc.primeNetteTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						 
+						    <p:column headerText="Plus de details">
+						    
+						    
+						    <p:accordionPanel multiple="true" style="border-radius:50px">
+						        <p:tab title="plus d'informations " >
+	
+						                <h:inputTextarea value="Cette offre est interessante.............">   
+						                </h:inputTextarea>
+						                     
+						            
+						        </p:tab>
+						       
+						    </p:accordionPanel>
+						    </p:column>
+					      
+					    </p:dataTable>
 							
-							<h:outputText value=""></h:outputText> 
-							<h:commandButton id="validerPrime" value="Valider la Prime"
-								actionListener="#{cotationAuto.ValiderCotation}" disabled="#{cotationAuto.garantieMB.vuePrimes}"
-								update=":VehiculeProp:cmdPrime, :VehiculeProp:panelPrimes"
-								process="@this"
-								 icon="ui-icon-check"  style="width:150px;height:40px;margin-left:250px;font-size:12px;border-radius:20px;" 
-								 />
-
-							<h:commandButton value="Recapitulatif de la Prime" action="#{cotationAuto.voirQuittance}"  style="width:150px;height:40px; margin-left:50px;font-size:12px;border-radius:20px;" />	
-						</h:panelGrid>
-
-					
-
+       </fieldset>
+			<br></br>
+			<h:panelGrid>
+								   <h:commandButton  action="#{cotationAuto.validerPrime}" value=" Valider le choix " style="color:white; width:150px;height:30px;font-size:15px;border-radius:10px;text-align :center ; background-color: #F71B1B;border:1px solid black;" />
+   				 
+				</h:panelGrid>				
+	<br />				                    
+<p:commandLink id="addCont"  action="Precedant" value="Revenir à la première page du formulaire" />
+											
+										
 									
-								</p:panel>
 
+								
 
-							</p:panel>
-
-
-
-						</h:panelGrid>
-
-						
-						
-						
-						
-				</fieldset>
 				</p:tab>
+				
+				
 				
 				</p:wizard>
 				</h:form>

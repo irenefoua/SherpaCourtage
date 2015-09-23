@@ -48,11 +48,39 @@
 					  <p:column headerText="Chiffre d'affaire" style="width:16%;">
 							 <h:outputText value="#{ca.ca}"/>
 					 </p:column> 
-					 
+					 <f:facet name="footer">
+										<p:commandButton id="graph" rendered="true" value="Afficher les graphes" oncomplete="callGraphStat.show()"/>
+									</f:facet>
 				</p:dataTable>
 	
 			
 			</h:form>
+			
+			
+			<p:dialog  widgetVar="callGraphStat" height="900px" width="1200px" closable="true">
+		 <h:form>
+		 <p:outputPanel id="alertForm" autoUpdate="true" global="false">
+			
+			 	<p:fieldset legend="REPARTION DU CHIFFRE D'AFFAIRE" toggleable="true" >
+			 		<h:panelGrid id="charts" columns="2" style="width:100%" columnClasses="HalfLeft,HalfLeft">
+				        
+						 
+							 <p:pieChart value="#{managedCompagnie.modelCa}"  title="REPARTION DU CHIFFRE D'AFFAIRE PAR MOIS" legendCols="1" legendPosition="e" showDataLabels="true"/>
+							 <p:pieChart value="#{managedCompagnie.modelAn}"  title="REPARTION DU CHIFFRE D'AFFAIRE PAR AN" legendCols="1" legendPosition="e" showDataLabels="true"/>
+							 
+							 
+							
+							 <h:outputText value=""/>	
+						 
+					</h:panelGrid>
+		         </p:fieldset>
+		</p:outputPanel>
+		 
+		 
+		 </h:form>
+			</p:dialog>
+	
+				
 		
 	</ui:define>
 </ui:composition>

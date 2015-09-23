@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,7 +81,7 @@ public class ConditionPartAuto implements Serializable {
 	private String nomFichier;
 	private BigDecimal totalAccessoir;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
-	public static final String RESOURCE = "http://localhost:8080/SherpaWebUse/resources/images/logo_j3a.jpg";
+	public static final String RESOURCE = "http://localhost:8080/SherpaCourtage/resources/images/";
 
 	// Pour la mise en forme
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 28,
@@ -175,14 +176,16 @@ public void printPdf(ReportingAuto reporting,
 public void addContentAttestation(Document document, VehiculeRow vehiculeRow) throws DocumentException,
 MalformedURLException, IOException {
 // Ajout de logo
-Image logo = Image.getInstance(new URL(RESOURCE));
+	String res = RESOURCE+vehiculeRow.getTarifwebCompSelectd().getCompagnieAssurance().getLoginCompAss()+".jpg";
+	System.out.println("------------resource------- "+res);
+Image logo = Image.getInstance(new URL(res));
 logo.scalePercent(40f);
 document.add(logo);
 /*Paragraph saut = new Paragraph();
 addEmptyLine(saut, 1);
 document.add(sautLigne(1));*/
 //Ajout du nom de la societe d'assurance
-AjouterNomEntreprise(document);
+AjouterNomEntreprise(document, vehiculeRow);
 
 // Entête du document
 creerTitreDocumentAttestation(document);
@@ -388,79 +391,7 @@ creerEmagementAttestation(document);
 		  
 	}
 
-	public void editerConditionPart(String idQuittance,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, Exception {
-		// Créer le dosier de stockage des fichier générés
-		repectoire = new File("c:/Etats/Cond_Part/AUTO");
-		repectoire.mkdirs();
-		// Passer les info nécessaires à notre rapport à générer
-		getReportFactoryAuto().setIdQuittance(idQuittance);
-		setReportingAuto(getReportFactoryAuto().reportProvider());
-		if(reportingAuto!=null){
-
-		Document document = new Document(PageSize.A4);
-		document.setMargins(20, 20, 20, 20);
-		nomFichier = "CP-" + reportingAuto.getQuittance().getCodeQuittance() + ".pdf";
-		// step 2
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		PdfWriter.getInstance(document, baos);
-		PdfWriter.getInstance(document, new FileOutputStream(repectoire + "/"
-				+ nomFichier));
-
-		// step 3
-		document.open();
-
-		for (Vehicule vehicule : getReportingAuto().getListVehiculeAssure()) {
-			document.newPage();
-			// Recuperer la sous catégorie
-			SousCatVehicule sousCatVehicule = vehicule.getSousCatVehicule();
-
-			// Recuperer la zone de geographie
-			VehiculeZoneGeographique vehiculeZoneGeographique = getObjectService()
-					.recupDerniereZoneGeo(vehicule.getCodeVehicule());
-
-			// Recuperer le conducteur habituel
-			ConduireVehicule conduireVehicule = getObjectService()
-					.recupConducteur(vehicule.getCodeVehicule());
-
-			// recuperer la derniere garantieChoisie
-			GarantieChoisie garantieChoisie = getObjectService()
-					.recuperGarantiChoisie(vehicule.getCodeVehicule(),
-							getReportingAuto().getAvenant().getNumAvenant());
-
-			// Recuperer la liste des gartgartchoisies
-			List<GarantieGarantieChoisie> listgartieGartieChoisies = new ArrayList<GarantieGarantieChoisie>(
-					getObjectService().recupGartGartChoisie(
-							garantieChoisie.getCodeGarantieChoisie()));
-			try {
-
-				addContent(document, vehicule, garantieChoisie,
-						listgartieGartieChoisies, vehiculeZoneGeographique,
-						conduireVehicule);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Erreur1");
-				e.printStackTrace();
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Erreur2");
-			}
-		}
-
-		document.close();
-		  // setting some response headers response.setHeader("Expires", "0");
-		  response.setHeader("Cache-Control","must-revalidate, post-check=0, pre-check=0");
-//		  response.setHeader("Pragma", "public"); // setting the content type
-		  response.setContentType("application/pdf"); // the contentlength
-		  response.setContentLength(baos.size()); // write ByteArrayOutputStream to the ServletOutputStream 
-		  OutputStream os = response.getOutputStream(); 
-		  baos.writeTo(os);
-		  os.flush();
-		  os.close();
-		  }
-	}
+	
 	
 	public void editerConditionPart(ReportingAuto reporting,
 			HttpServletRequest request, HttpServletResponse response)
@@ -518,61 +449,29 @@ creerEmagementAttestation(document);
 		  
 	}
 
-	private void addContent(Document document, Vehicule vehicule,
-			GarantieChoisie garantieChoisie,
-			List<GarantieGarantieChoisie> listgartieGartieChoisies,
-			VehiculeZoneGeographique vehiculeZoneGeographique,
-			ConduireVehicule conduireVehicule) throws DocumentException,
-			MalformedURLException, IOException {
-		// Ajout de logo
-		Image logo = Image.getInstance(new URL(RESOURCE));
-		logo.scalePercent(40f);
-		document.add(logo);
-		/*Paragraph saut = new Paragraph();
-		addEmptyLine(saut, 1);
-		document.add(sautLigne(1));*/
-		//Ajout du nom de la societe d'assurance
-		System.out.println("Entète du document");
-		AjouterNomEntreprise(document);
-		
-		// Entête du document
-		creerTitreDocument(document);
-
-		// Information de la quittance
-		creatTableInfo(document);
-
-		// Titre du document
-		ajoutTitre(document);
-
-		// Information du vehicule
-		identifierVehicule(document, vehicule, vehiculeZoneGeographique);
-
-		// Tarif du vehicule
-		tarifVehicule(document, vehicule, conduireVehicule);
-
-		// Tableau de garantie
-		creerTableauGaranties(document, listgartieGartieChoisies,
-				garantieChoisie);
-
-		// Recap de la prime
-		createtableRecapPrime(document, garantieChoisie);
-
-		// Emagement
-		creerEmagement(document);
-
-	}
+	//
+	 public String formatesp(BigDecimal bd) {
+	        DecimalFormat df = new DecimalFormat("#,###.##");
+	        return (df.format(bd.doubleValue()));
+	 
+	    }
+	
+	
+	
 	
 	private void addContent(Document document, VehiculeRow vehiculeRow) throws DocumentException,
 			MalformedURLException, IOException {
 		// Ajout de logo
-		Image logo = Image.getInstance(new URL(RESOURCE));
+		String res = RESOURCE+vehiculeRow.getTarifwebCompSelectd().getCompagnieAssurance().getLoginCompAss()+".jpg";
+		System.out.println("------------resource------- "+res);
+	Image logo = Image.getInstance(new URL(res));
 		logo.scalePercent(40f);
 		document.add(logo);
 		/*Paragraph saut = new Paragraph();
 		addEmptyLine(saut, 1);
 		document.add(sautLigne(1));*/
 		//Ajout du nom de la societe d'assurance
-		AjouterNomEntreprise(document);
+		AjouterNomEntreprise(document, vehiculeRow);
 		
 		// Entête du document
 		creerTitreDocument(document);
@@ -628,18 +527,20 @@ creerEmagementAttestation(document);
 					.getPrimesAnnuelle());
 			garantieGarantieChoisie.setPrimeNetteAnnuelle(G
 					.getPrimesNetteAnnuelle());
-			garantieGarantieChoisie.setPrimeNetteProrata(G
+			garantieGarantieChoisie.setPrimeProrata(G
 					.getPrimesProrata());
+			garantieGarantieChoisie.setPrimeNetteProrata(G
+					.getPrimesNetteProrata());
 			garantieGarantieChoisie.setMontantReduction(G
 					.getReductions());
 
-			garantieGarantieChoisie.setAutreReduction(BigDecimal.ZERO);
+			garantieGarantieChoisie.setAutreReduction(G.getReductions());
 			garantieGarantieChoisie.setBonus(G.getBonus());
 			garantieGarantieChoisie.setMalus(G.getMalus());
 			garantieGarantieChoisie.setReductionFlotte(BigDecimal.ZERO);
 			garantieGarantieChoisie.setReductionPermis(BigDecimal.ZERO);
 			garantieGarantieChoisie
-					.setTauxAutreReduction(BigDecimal.ZERO);
+					.setTauxAutreReduction(G.getTauxRed());
 			garantieGarantieChoisie.setTauxBonus(G.getBonus());
 			garantieGarantieChoisie.setTauxMalus(G.getMalus());
 			garantieGarantieChoisie.setTauxFlotte(BigDecimal.ZERO);
@@ -651,43 +552,21 @@ creerEmagementAttestation(document);
 		}
 		System.out.println("Liste Garantie "+garantieGarantieChoisieList.size());
 
-		// Calcul du montant de la prime de la somme des garanties pour
-		// garantie choiosie
-		BigDecimal prime = BigDecimal.ZERO, primeAnnuelle = BigDecimal.ZERO, primeNetteAnnuelle = BigDecimal.ZERO, red = BigDecimal.ZERO, com = BigDecimal.ZERO, ges = BigDecimal.ZERO, con = BigDecimal.ZERO, interm = BigDecimal.ZERO, taxe = BigDecimal.ZERO, coass;
-		for (GarantieGarantieChoisie GC : garantieGarantieChoisieList) {
-			prime = prime.add(GC.getPrimeNetteProrata());
-			primeAnnuelle = primeAnnuelle.add(GC.getPrimeAnnuelle());
-			primeNetteAnnuelle = primeNetteAnnuelle.add(GC
-					.getPrimeNetteAnnuelle());
-			red = red.add(GC.getMontantReduction());
-			/*
-			 * com =
-			 * com.add(GC.getTauxCom().multiply(prime).divide(BigDecimal
-			 * .valueOf(100))); con =
-			 * con.add(GC.getTauxConsIa().multiply
-			 * (prime).divide(BigDecimal.valueOf(100))); interm =
-			 * interm.
-			 * add(GC.getTauxintermIa().multiply(prime).divide(BigDecimal
-			 * .valueOf(100))); ges =
-			 * ges.add(GC.getTauxGesIa().multiply(
-			 * prime).divide(BigDecimal.valueOf(100)));
-			 */
-			// coass = coass+GT.getT*prime/100;
-			taxe = taxe.add(prime.divide(BigDecimal.valueOf(0.03), 2));
-		}
-		garchoi.setPrimeNetteProrata(prime);
-		garchoi.setPrimeNetteAnnuelle(primeAnnuelle);
-		garchoi.setPrimeAnnuelle(primeNetteAnnuelle);
+		
+		garchoi.setPrimeNetteProrata(vehiculeRow.getTarifwebCompSelectd().getPrimeNette());
+		garchoi.setPrimesProrata(vehiculeRow.getTarifwebCompSelectd().getPrimes());
+		garchoi.setPrimeNetteAnnuelle(vehiculeRow.getTarifwebCompSelectd().getPrimeAnnuelle());
+		garchoi.setPrimeAnnuelle(vehiculeRow.getTarifwebCompSelectd().getPrimeAnnuelle());
 
 		garchoi.setBonus(BigDecimal.ZERO);
 		garchoi.setMalus(BigDecimal.ZERO);
 		garchoi.setReductionSocioProf(BigDecimal.ZERO);
 		garchoi.setReductionPermis(BigDecimal.ZERO);
-		garchoi.setReductionCommercial(BigDecimal.ZERO);
+		garchoi.setReductionCommercial(vehiculeRow.getTarifwebCompSelectd().getReduction());
 		garchoi.setAutre(BigDecimal.ZERO);
-		garchoi.setMontantReduction(BigDecimal.ZERO);
+		garchoi.setMontantReduction(vehiculeRow.getTarifwebCompSelectd().getReduction());
 
-		garchoi.setAccessoireauto(BigDecimal.ZERO);
+		garchoi.setAccessoireauto(vehiculeRow.getTarifwebCompSelectd().getAccessoire());
 		// garchoi.setMontantGarantieIa(G.getMontantGarantie());
 		// garchoi.setTaux(new Float(G.getTaux()));
 		// Ajout taux de la franchise
@@ -827,11 +706,8 @@ creerEmagementAttestation(document);
 		tabQuit.addCell(new Phrase("",smallText));
 		}
 		tabQuit.addCell(new Phrase("Categorie:", normalText));
-		if(reportingAuto.getRisque().getCodeRisque()!=null){
-			tabQuit.addCell(new Phrase(reportingAuto.getRisque().getCodeRisque(), smallText));
-			}else{
-				tabQuit.addCell(new Phrase("", smallText));
-			}
+			tabQuit.addCell(new Phrase(reportingAuto.getCategorie(), smallText));
+			
 		
 		
 
@@ -844,8 +720,8 @@ creerEmagementAttestation(document);
 		}
 		
 		cell.setBorder(Rectangle.NO_BORDER);
-
 		tabQuit.addCell(cell);
+		
 		tabQuit.addCell(new Phrase("Mouvement:", normalText));
 		if(reportingAuto.getAvenant().getMouvement()!=null){tabQuit.addCell(new Phrase(reportingAuto.getAvenant().getMouvement(),
 				smallText));}else{tabQuit.addCell(new Phrase("",
@@ -858,34 +734,35 @@ creerEmagementAttestation(document);
 		if(reportingAuto.getAvenant().getEffet()!=null){cell = new PdfPCell(new Phrase(sdf.format(reportingAuto.getAvenant().getEffet()), smallText));}else{
 			cell = new PdfPCell(new Phrase("", smallText));
 		}
-		
-	
 		cell.setBorder(Rectangle.NO_BORDER);
-
 		tabQuit.addCell(cell);
+		
 		tabQuit.addCell(new Phrase("Echéance:", normalText));
 		if(reportingAuto.getAvenant().getEcheance()!=null){cell = new PdfPCell(new Phrase(sdf.format(reportingAuto.getAvenant().getEcheance()), smallText));}else{
 			cell = new PdfPCell(new Phrase("", smallText));
 		}
-
+		cell.setBorder(Rectangle.NO_BORDER);
+		tabQuit.addCell(cell);
+		
 		// 4e Ligne
-		tabQuit.addCell(new Phrase("Barème:", normalText));
-		if(reportingAuto.getContrat().getBareme()!=null){cell = new PdfPCell(new Phrase(reportingAuto.getContrat().getBareme(),
+		tabQuit.addCell(new Phrase("Mode:", normalText));
+		if(reportingAuto.getContrat().getModeReconduction()!=null){cell = new PdfPCell(new Phrase(reportingAuto.getContrat().getModeReconduction(),
 				smallText));}else{
 					cell = new PdfPCell(new Phrase("",
 							smallText));
 				}
 		
 		cell.setBorder(Rectangle.NO_BORDER);
-
 		tabQuit.addCell(cell);
-		tabQuit.addCell(new Phrase("Durée:", normalText));
-		if(reportingAuto.getAvenant().getDuree()!=null){tabQuit.addCell(new Phrase("" + reportingAuto.getAvenant().getDuree(),
+		
+		tabQuit.addCell(new Phrase("Durée(J):", normalText));
+		if(reportingAuto.getAvenant().getDuree()!=null){cell = new PdfPCell(new Phrase("" + reportingAuto.getAvenant().getDuree(),
 				smallText));}else{
-					tabQuit.addCell(new Phrase("",
+					cell = new PdfPCell(new Phrase("",
 							smallText));
 				}
-		
+		cell.setBorder(Rectangle.NO_BORDER);
+		tabQuit.addCell(cell);
 
 		tabInfo.addCell(tabSous);
 		cell = new PdfPCell(new Phrase(""));
@@ -910,6 +787,11 @@ creerEmagementAttestation(document);
 	}
 	
 	
+	public void AjouterNomEntreprise(Document document, VehiculeRow vehiculeRow) throws DocumentException{
+		Paragraph societeAssurance = new Paragraph(vehiculeRow.getTarifwebCompSelectd().getCompagnieAssurance().getRaisonSocialeCompAss());
+		societeAssurance.setAlignment(Element.ALIGN_LEFT);
+		document.add(societeAssurance);
+	}
 	public void AjouterNomEntreprise(Document document) throws DocumentException{
 		Paragraph societeAssurance = new Paragraph(reportingAuto.getSocieteAssurance().getAbrege());
 		societeAssurance.setAlignment(Element.ALIGN_LEFT);
@@ -1037,13 +919,13 @@ creerEmagementAttestation(document);
 		tableauVehicul.addCell(cellCont);
 
 		cellLib = new PdfPCell(new Phrase("Valeur à neuf", normalText));
-		cellCont = new PdfPCell(new Phrase("" + vehicule.getValNeuf(),
+		cellCont = new PdfPCell(new Phrase("" + formatesp(vehicule.getValNeuf()),
 				smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
 
 		cellLib = new PdfPCell(new Phrase("Valeur venale", normalText));
-		cellCont = new PdfPCell(new Phrase("" + vehicule.getValVenale(),
+		cellCont = new PdfPCell(new Phrase("" + formatesp(vehicule.getValVenale()),
 				smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
@@ -1067,15 +949,14 @@ creerEmagementAttestation(document);
 
 		// 1ere colonne
 		cellLib = new PdfPCell(new Phrase("Tarif", normalText));
-		cellCont = new PdfPCell(new Phrase(vehicule.getSousCatVehicule()
-				.getTarif().getLibelleTarif(), smallText));
+		cellCont = new PdfPCell(new Phrase( vehicule.getSousCatVehicule().getTarif().getLibelleTarif(), smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
 		System.out.println("Tarif véhicule1");
 		// 2e colonne
 		cellLib = new PdfPCell(new Phrase("Catégorie", normalText));
 		cellCont = new PdfPCell(new Phrase(vehicule.getSousCatVehicule()
-				.getTarif().getLibelleTarif(), smallText));
+				.getCategorie().getLibelleCategorie(), smallText));
 		tableauVehicul.addCell(cellLib);
 		tableauVehicul.addCell(cellCont);
 
@@ -1198,67 +1079,73 @@ creerEmagementAttestation(document);
 			// Contenu
 			// 1e Colonne
 			cellCont = new PdfPCell(new Phrase(garantie.getLibelleGarantie(),
-					smallText));// Garanties
+					smallText));// Libelle Garanties
 			cellCont.setHorizontalAlignment(Element.ALIGN_LEFT);
 			tableauGaranties.addCell(cellCont);
 			System.out.println(" Recuperer la gartgartchoisie2");
 			// 2e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeNetteProrata().setScale(
-							2, BigDecimal.ROUND_HALF_UP), smallText));// Nature-Franchise
+					+ formatesp(garantieGarantieChoisie.getPrimeProrata().setScale(
+							2, BigDecimal.ROUND_HALF_UP)), smallText));// Somme Garantie
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 			// 3e Colonne
 			cellCont = new PdfPCell(new Phrase("" + garantie.getFranchise(),
-					smallText));
+					smallText)); //Nature-Franchise
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 			// 4e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeAnnuelle().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));
+					+  formatesp(garantieGarantieChoisie.getPrimeAnnuelle().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//prime Annuelle
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 			// 5e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getBonus().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));
+					+ formatesp(garantieGarantieChoisie.getBonus().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//Bunus
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 6e Colonne
-			cellCont = new PdfPCell(new Phrase("non fourni", smallText));
+			cellCont = new PdfPCell(new Phrase(""
+					+ formatesp(garantieGarantieChoisie.getAutreReduction().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//Autres reduction
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 7e Colonne
-			cellCont = new PdfPCell(new Phrase("non fourni", smallText));
+			cellCont = new PdfPCell(new Phrase(""
+					+ formatesp(BigDecimal.ZERO.setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText));//Reduction Flotte
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 8e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getMalus().setScale(2,
-							BigDecimal.ROUND_HALF_UP), smallText));
+					+ formatesp(garantieGarantieChoisie.getMalus().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText)); //Malus
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 9e Colonne
-			cellCont = new PdfPCell(new Phrase("non fourni", smallText));
+			cellCont = new PdfPCell(new Phrase(""
+					+ formatesp(garantieGarantieChoisie.getMontantReduction().setScale(2,
+							BigDecimal.ROUND_HALF_UP)), smallText)); // Total Reduction
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 10e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeNetteAnnuelle().setScale(
-							2, BigDecimal.ROUND_HALF_UP), smallText));
+					+ formatesp(garantieGarantieChoisie.getPrimeNetteAnnuelle().setScale(
+							2, BigDecimal.ROUND_HALF_UP)), smallText)); //Prime nette Annuelle
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 
 			// 11e Colonne
 			cellCont = new PdfPCell(new Phrase(""
-					+ garantieGarantieChoisie.getPrimeNetteProrata().setScale(
-							2, BigDecimal.ROUND_HALF_UP), smallText));
+					+ formatesp(garantieGarantieChoisie.getPrimeNetteProrata().setScale(
+							2, BigDecimal.ROUND_HALF_UP)), smallText)); //Prime Comptant
 			cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			tableauGaranties.addCell(cellCont);
 		}
@@ -1269,8 +1156,8 @@ creerEmagementAttestation(document);
 		tableauGaranties.addCell(cellLib);
 		System.out.println(" Recuperer la gartgartchoisie out");
 		cellCont = new PdfPCell(new Phrase(""
-				+ garantieChoisie.getPrimeNetteProrata().setScale(2,
-						BigDecimal.ROUND_HALF_UP), smallText));
+				+ formatesp(garantieChoisie.getPrimeNetteProrata().setScale(0,
+						BigDecimal.ROUND_HALF_UP)), smallText));
 		cellCont.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		tableauGaranties.addCell(cellCont);
 
@@ -1289,7 +1176,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ garantieChoisie.getPrimeNetteProrata(), smallTextGras));
+				+ formatesp(garantieChoisie.getPrimeNetteProrata()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1298,11 +1185,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(
-				new Phrase(""
-						+ reportingAuto.getQuittance().getAccessoire()
-								.doubleValue()
-						/ (reportingAuto.getListVehiculeAssure().size()),
-						smallTextGras));
+				new Phrase(""+ formatesp(reportingAuto.getQuittance().getAccessoire()), normalText));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1311,7 +1194,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ reportingAuto.getQuittance().getTaxes(), smallTextGras));
+				+  formatesp(reportingAuto.getQuittance().getTaxes()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1320,7 +1203,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ reportingAuto.getQuittance().getFga(), smallTextGras));
+				+ formatesp(reportingAuto.getQuittance().getFga()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
@@ -1329,7 +1212,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(new Phrase(""
-				+ reportingAuto.getQuittance().getNetAPayer(), smallTextGras));
+				+ formatesp(reportingAuto.getQuittance().getNetAPayer()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);

@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title></title>
+</h:head>
+<ui:composition template="/template/templateWebAuto.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"  />
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Informations du Vehicule" url="#" />
+		</p:menubar>
+	</h:form>
+	
+	<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus>  
+
+			<h:form id="VehiculeProp">
+	
+
+				<p:messages id="messages"  autoUpdate="true" closable="true" showSummary="true"/>
+
+			<br /><br />
+	
+	<h:outputLabel value="Vous pouvez choisir l'offre qui vous convient le mieux !Cliquer pour avoir plus d'informations" style="margin-left:200px ;font-size:15px; color:red" />
+	
+	<br /><br />
+	<fieldset style="border-radius:5px;">
+	<legend>RECAPITULATIF </legend>
+
+		<br />
+		<br /><br />
+			
+			
+			
+			
+								 <p:dataTable id="tarifTableRow"
+								  var="twc"
+								  value="#{garantiesCompagnies.listTarifwebComp}" 
+								  styleClass="mystyle"
+								  rowKey="#{twc.numOrdr}"
+								  editable="true" editMode="row"
+								  selectionMode="single" 
+								  selection="#{garantiesCompagnies.selectedTarifWeb}"
+								  >
+								  <p:ajax event="rowEdit" listener="#{garantiesCompagnies.onEditRow}" />
+								  
+								    <f:facet name="header">
+					            RadioButton
+					        </f:facet>
+					        
+					        	<p:column headerText="" style="width:40px">
+							   <p:rowEditor />  
+								</p:column>
+								
+								        
+					          <p:column headerText="Compagnies">
+    
+						    <h:panelGrid columns="1" > 
+						       <p:graphicImage value="/resources/images/#{twc.compagnieAssurance.loginCompAss}.jpg" styleClass="imageCourtage"/>
+						        <h:outputText value="#{twc.compagnieAssurance.raisonSocialeCompAss}" /> 
+						    </h:panelGrid>
+						    </p:column>
+				    
+						    
+						     <p:column headerText="Options Garanties">
+						     <p:cellEditor>
+		              			 <f:facet name="output"><h:outputText value="#{twc.optionGarantie}" /></f:facet>
+		              			 <f:facet name="input">
+						       <p:selectOneMenu
+											value="#{twc.optionGarantie}" style="width:154px"
+											id="protect" required="false">
+											<f:selectItem itemLabel="TIER SIMPLE" itemValue="TS" />
+											<f:selectItem itemLabel="TIER COMPLET" itemValue="TC" />
+											<f:selectItem itemLabel="TOUS RISQUES" itemValue="TR" />
+										</p:selectOneMenu>
+										  </f:facet>
+        				   </p:cellEditor>
+						    </p:column>
+					        
+							 <p:column headerText="Tarif mensuel">
+						        <h:outputText id="idPrimeMen" value="#{twc.primeMensuelleTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						 
+						    <p:column headerText="Tarif annuel" >
+						        <h:outputText id="idPrimeAn" value="#{twc.primeAnnuelleTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						    
+						     <p:column headerText="Prime à payer" >
+						        <h:outputText id="idPrimeP" value="#{twc.primeNetteTTC}">
+						        <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+						    </p:column>
+						 
+						    <p:column headerText="Plus de details">
+						    
+						    
+						    <p:accordionPanel multiple="true" style="border-radius:50px">
+						        <p:tab title="plus d'informations " >
+	
+						                <h:inputTextarea value="Cette offre est interessante.............">   
+						                </h:inputTextarea>
+						                     
+						            
+						        </p:tab>
+						       
+						    </p:accordionPanel>
+						    </p:column>
+					      	    <f:facet name="footer">
+					            RadioButton
+					        </f:facet>
+					    </p:dataTable>
+							
+       </fieldset>
+			<br></br>
+						
+
+											
+				
+				<br></br>
+			<h:commandButton id="validerPrime" value="Test de Garantie Courtage !!!"
+								actionListener="#{garantiesCompagnies.testCourtage}"
+								process="@this" update="VehiculeProp"
+								 icon="ui-icon-check"  style="width:150px;height:40px;margin-left:250px;font-size:12px;border-radius:20px;" 
+								 />
+				
+				</h:form>
+ 
+</ui:define>
+
+</ui:composition>
+</html>

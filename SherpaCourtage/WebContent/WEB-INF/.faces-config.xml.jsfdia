@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="24,16,53,90" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="validationchoixOK::#Page#AutoWeb#validationchoix.xhtml"
+    NAME="output" PATH="/Page/AutoWeb/validationchoix.xhtml"
+    TARGET="rules:#Page#AutoWeb#validationchoix.xhtml"
+    TITLE="validationchoixOK" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="redirection::#Page#AutoWeb#pageRedirectConnection.xhtml"
+    NAME="output1" PATH="/Page/AutoWeb/pageRedirectConnection.xhtml"
+    TARGET="rules:#Page#AutoWeb#pageRedirectConnection.xhtml"
+    TITLE="redirection" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="vehicule::#Page#AutoWeb#vehicule.xhtml"
+    NAME="output2" PATH="/Page/AutoWeb/vehicule.xhtml"
+    TARGET="rules:#Page#AutoWeb#vehicule.xhtml" TITLE="vehicule" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptionPaypalNewSous::#Page#Paypal# inscriptionPaypalNewSous.xhtml"
+    NAME="output3" PATH="/Page/Paypal/ inscriptionPaypalNewSous.xhtml"
+    TARGET="rules:#Page#Paypal# inscriptionPaypalNewSous.xhtml"
+    TITLE="inscriptionPaypalNewSous" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Page#sinistreAutoWeb#pageConnexion.xhtml"
+  PATH="/Page/sinistreAutoWeb/pageConnexion.xhtml" SHAPE="32,561,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Page#sinistreAutoWeb#pageConnexion.xhtml:0"
+   NAME="item" PATH="/Page/sinistreAutoWeb/pageConnexion.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="declarationSinnistreAuto::#Page#sinistreAutoWeb#declarationSinnistreAuto.xhtml"
+    NAME="output"
+    PATH="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml"
+    TARGET="rules:#Page#sinistreAutoWeb#declarationSinnistreAuto.xhtml"
+    TITLE="declarationSinnistreAuto" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Page#AutoWeb#pageRedirectConnection.xhtml"
+  PATH="/Page/AutoWeb/pageRedirectConnection.xhtml" SHAPE="288,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Page#Paypal# inscriptionPaypalNewSous.xhtml"
+  PATH="/Page/Paypal/ inscriptionPaypalNewSous.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Page#AutoWeb#vehicule.xhtml"
+  PATH="/Page/AutoWeb/vehicule.xhtml" SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#Page#sinistreAutoWeb#declarationSinnistreAuto.xhtml"
+  PATH="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml"
+  SHAPE="240,577,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Page#AutoWeb#Validation.xhtml"
+  PATH="/Page/AutoWeb/Validation.xhtml" SHAPE="288,353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Page#AutoWeb#validationchoix.xhtml"
+  PATH="/Page/AutoWeb/validationchoix.xhtml" SHAPE="296,176,50,25" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -57,7 +57,7 @@ public class ConduireVehicule implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "NUM_COND", nullable = false, insertable = false, updatable = false)
 	public Conducteur getConducteur() {
 		return this.conducteur;

@@ -27,6 +27,7 @@ public class GarantieGarantieChoisie implements java.io.Serializable {
 	private Garantie garantie;
 	private GarantieChoisie garantieChoisie;
 	private BigDecimal primeAnnuelle;
+	private BigDecimal primeProrata;
 	private BigDecimal primeNetteProrata;
 	private Date dateGarantieGarantieChoisie;
 	private BigDecimal primeNetteAnnuelle;
@@ -57,7 +58,7 @@ public class GarantieGarantieChoisie implements java.io.Serializable {
 
 	public GarantieGarantieChoisie(GarantieGarantieChoisieId id,
 			Garantie garantie, GarantieChoisie garantieChoisie,
-			BigDecimal primeAnnuelle, BigDecimal primeNetteProrata,
+			BigDecimal primeAnnuelle, BigDecimal primeProrata, BigDecimal primeNetteProrata,
 			Date dateGarantieGarantieChoisie, BigDecimal primeNetteAnnuelle,
 			BigDecimal montantReduction, BigDecimal bonus, BigDecimal malus,
 			BigDecimal reductionPermis, BigDecimal reductionFlotte,
@@ -69,6 +70,7 @@ public class GarantieGarantieChoisie implements java.io.Serializable {
 		this.garantie = garantie;
 		this.garantieChoisie = garantieChoisie;
 		this.primeAnnuelle = primeAnnuelle;
+		this.primeProrata = primeProrata;
 		this.primeNetteProrata = primeNetteProrata;
 		this.dateGarantieGarantieChoisie = dateGarantieGarantieChoisie;
 		this.primeNetteAnnuelle = primeNetteAnnuelle;
@@ -128,7 +130,16 @@ public class GarantieGarantieChoisie implements java.io.Serializable {
 	public void setPrimeAnnuelle(BigDecimal primeAnnuelle) {
 		this.primeAnnuelle = primeAnnuelle;
 	}
+	
+	@Column(name = "PRIME_PRORATA", precision = 15, scale = 3)
+	public BigDecimal getPrimeProrata() {
+		return this.primeProrata;
+	}
 
+	public void setPrimeProrata(BigDecimal primeProrata) {
+		this.primeProrata = primeProrata;
+	}
+	
 	@Column(name = "PRIME_NETTE_PRORATA", precision = 15, scale = 3)
 	public BigDecimal getPrimeNetteProrata() {
 		return this.primeNetteProrata;

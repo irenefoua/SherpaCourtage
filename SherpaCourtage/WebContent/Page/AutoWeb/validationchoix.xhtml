@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"/>
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Validation" url="#" />
+		</p:menubar>
+	</h:form>
+	
+		<h:form id="gnl">
+	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	
+	
+	
+	<p:tab id="ongletQuittance" title="Quittance">
+	<br /><br />
+	
+	<h:outputLabel value="Votre souscription" style="margin-left:10px ;font-size:25px; color:red" />
+	
+	<br />
+	<fieldset style="border-radius:5px;">
+	<legend>Offre </legend>
+
+		<br />
+	
+  
+    <h:panelGrid columns="3"  style="text-align: center;  "> 
+    
+     
+    
+      
+        
+       <h:panelGrid columns="1"  >
+       <p:graphicImage value="/resources/images/#{garantiesCompagnies.selectedTarifWeb.compagnieAssurance.loginCompAss}.jpg" />
+       <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.compagnieAssurance.raisonSocialeCompAss}" />   </h:panelGrid>
+  
+       <h:outputText value="Notre assurance est fiable et vous remercie pour le choix effectué " />
+      </h:panelGrid>
+    
+    <br />	
+    
+ 	 <h:panelGrid columns="6" >
+          <h:outputText value="Formule: " style=";font-weight : bold;  margin-left: 10px;"/>   
+          <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.formule}"  style="color:red  "/>
+          
+         
+          
+          <h:outputText value="Durée du contrat (Jour) :"  style=";font-weight : bold;  margin-left: 32px;"/> 
+          <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.dureeJContrat}"  style="font-weight : bold;color:red ;font-size:15px"/>   
+     
+     
+        
+          <h:outputText value="TARIF:"  style=";font-weight : bold;  margin-left: 30px;"/> 
+          <h:outputText value="#{garantiesCompagnies.selectedTarifWeb.primeNetteTTC}"  style="font-weight : bold;color:red ;font-size:15px">
+            <f:convertNumber pattern="##,###.##"></f:convertNumber>
+								</h:outputText>
+          
+      </h:panelGrid>
+    
+   
+								
+	<br />				                    
+											
+										
+									
+</fieldset>
+<br />				
+				
+
+	<fieldset style="border-radius:5px;">
+	
+
+		<br />
+		
+
+    <h:panelGrid columns="3"  style="text-align: center;  "> 
+   <p:commandButton id="addContrats1"  action="inscriptionPaypal" value="Valider le choix et payer" style="width:190px;height:50px; margin-left:50px;font-size:14px;border-radius:10px;" />
+   <p:commandButton id="addContrats2"  actionListener="#{cotationAuto.sendQuittance}" value="Voir le devis" style="width:190px;height:50px; margin-left: 100px;font-size:14px;border-radius:10px;"/>
+   <p:commandButton id="addContrats3" action="validationdescomp" value="Retour page precedante"  style="width:190px;height:50px; margin-left: 100px;font-size:14px;border-radius:10px;"/>
+                                                  
+        
+    </h:panelGrid>
+    
+ 
+    
+   
+								
+	<br />				                    
+											
+										
+									
+</fieldset>
+							
+
+				</p:tab>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

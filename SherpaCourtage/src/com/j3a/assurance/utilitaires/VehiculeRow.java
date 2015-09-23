@@ -72,6 +72,7 @@ public class VehiculeRow {
 	private Vehicule vehi;
 	private SousCatVehicule souCatVehi;
 	private ZoneGeographique zonGeo;
+	private String zonGeographique;
 	private List<ListGarantieparVehicule> listGarantieparVehicule = new ArrayList<ListGarantieparVehicule>();
 	private int numOrdr;
 	private Boolean CgDisblr;
@@ -87,6 +88,8 @@ public class VehiculeRow {
 	private Apporteur apporteur = new Apporteur();
 	private GarantieChoisie gcIa = new GarantieChoisie();
 	private List<GarantieGarantieChoisie> ggca=new ArrayList<GarantieGarantieChoisie>();
+	private TarifwebComp tarifwebCompSelectd = new TarifwebComp();
+	private List<TarifwebComp> tarifwebComp = new ArrayList<TarifwebComp>();
 	
 	
 	
@@ -214,6 +217,25 @@ public class VehiculeRow {
 	public void setGgca(List<GarantieGarantieChoisie> ggca) {
 		this.ggca = ggca;
 	}
+	public List<TarifwebComp> getTarifwebComp() {
+		return tarifwebComp;
+	}
+	public void setTarifwebComp(List<TarifwebComp> tarifwebComp) {
+		this.tarifwebComp = tarifwebComp;
+	}
+	public TarifwebComp getTarifwebCompSelectd() {
+		return tarifwebCompSelectd;
+	}
+	public void setTarifwebCompSelectd(TarifwebComp tarifwebCompSelectd) {
+		this.tarifwebCompSelectd = tarifwebCompSelectd;
+	}
+	public String getZonGeographique() {
+		return zonGeographique;
+	}
+	public void setZonGeographique(String zonGeographique) {
+		this.zonGeographique = zonGeographique;
+	}
+	
 		
 	
 }
