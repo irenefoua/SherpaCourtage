@@ -70,7 +70,7 @@ public class VehiculeRow {
 	private Conducteur  conduHab = new Conducteur();
 	private Permis conduHabPerm; 
 	private Vehicule vehi;
-	private SousCatVehicule souCatVehi;
+	private SousCatVehicule souCatVehi = new SousCatVehicule();
 	private ZoneGeographique zonGeo;
 	private String zonGeographique;
 	private List<ListGarantieparVehicule> listGarantieparVehicule = new ArrayList<ListGarantieparVehicule>();

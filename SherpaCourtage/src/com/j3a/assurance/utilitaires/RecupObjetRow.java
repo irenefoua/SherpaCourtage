@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.j3a.assurance.model.GarantieChoisie;
 import com.j3a.assurance.model.GarantieGarantieChoisie;
 import com.j3a.assurance.model.Vehicule;
+import com.j3a.assurance.model.VehiculeZoneGeographique;
 import com.j3a.assurance.objetService.ObjectService;
 import com.j3a.assurance.reporting.bean.PrimeGarantieObject;
 
@@ -66,10 +69,34 @@ public class RecupObjetRow implements Serializable {
 
 		// souscatégorie, zoneGeo et le conducteur
 		vehi.setSouCatVehi(vehicule.getSousCatVehicule());
-		if(vehicule.getVehiculeZoneGeographiques().iterator().hasNext()){
+	
+		//Dernière zone géographique
+		List<VehiculeZoneGeographique> vehiZone = new ArrayList<VehiculeZoneGeographique>();
+		vehiZone.addAll(vehicule.getVehiculeZoneGeographiques());
+		
+		 Collections.sort(vehiZone, new Comparator<VehiculeZoneGeographique>() {
+		        @Override public int compare(VehiculeZoneGeographique vz1, VehiculeZoneGeographique vz2) {
+		        	int n=0;
+		        	if(vz1.getDateRouler().before(vz2.getDateRouler())){
+		        	n=1;	
+		        	}
+		        	if(vz1.getDateRouler().after(vz2.getDateRouler())){
+			        	n=-1;	
+			        	}
+		        	if(vz1.getDateRouler().equals(vz2.getDateRouler())){
+			        	n=0;	
+			        	}
+		        	return n; // Ascending  
+		        }
+
+		    });
+		 	vehi.setZonGeo(vehiZone.get(0).getZoneGeographique());
+			vehi.setZonGeographique(vehi.getZonGeo().getCodeZoneGeo());
+		/*if(vehicule.getVehiculeZoneGeographiques().iterator().hasNext()){
 		vehi.setZonGeo(vehicule.getVehiculeZoneGeographiques().iterator().next().getZoneGeographique());
+		
 		vehi.setZonGeographique(vehi.getZonGeo().getCodeZoneGeo());
-		}
+		}*/
 		if (vehicule.getConduireVehicules().iterator().hasNext()) {
 			vehi.setConduHab(vehicule.getConduireVehicules().iterator().next().getConducteur());
 		}

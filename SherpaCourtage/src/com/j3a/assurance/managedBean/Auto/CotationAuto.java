@@ -405,7 +405,7 @@ public class CotationAuto implements Serializable{
 				try {
 					getCarteGriseMB().setSlctdVehiRw(
 							getCarteGriseMB().getVehiculeList().get(0));
-				} catch (Exception e) {
+						} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
