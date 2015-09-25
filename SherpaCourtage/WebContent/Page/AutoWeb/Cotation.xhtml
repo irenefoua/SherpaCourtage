@@ -46,7 +46,8 @@
 	</p:ajaxStatus> 
 	
 		<h:form id="gnl">
-	<p:messages id="growl" showDetail="true" autoUpdate="true" closable="true"/>
+	<p:messages id="pmessage" showDetail="true" autoUpdate="true" sticky="true" closable="true"/>
+		
 	
 	<p:tab id="ongletpays" title="Pays">
 					<p:panel header="Pays">
@@ -71,7 +72,8 @@
                
  
  
-                <p:commandLink   title="#{pays.libellePays}" action="#{cotationAuto.garantiesCompagnies.verifCompagnie}">
+                <p:commandLink   title="#{pays.libellePays}" action="#{cotationAuto.garantiesCompagnies.verifCompagnie}"
+              process="@this"  update=":gnl:pmessage">
                     <p:graphicImage value="/resources/images/#{pays.codePays}.jpg" styleClass="imagePays"/> 
                     <f:setPropertyActionListener value="#{pays}" target="#{cotationAuto.garantiesCompagnies.selectedPays}" />
                 </p:commandLink>
