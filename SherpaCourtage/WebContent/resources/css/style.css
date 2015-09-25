@@ -53,6 +53,13 @@ background:white;
 	display:block;
 	text-align:center;
 }
+
+.imagePays{
+	height:80px;
+	width:120px;
+	display:block;
+	text-align:center;
+}
 .identifiant{
   text-transform : uppercase;
 }

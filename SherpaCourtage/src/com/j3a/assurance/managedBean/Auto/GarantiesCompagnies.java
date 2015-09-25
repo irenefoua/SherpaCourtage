@@ -8,7 +8,9 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
+import org.hibernate.sql.Select;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
@@ -21,6 +23,7 @@ import com.j3a.assurance.model.Garantie;
 import com.j3a.assurance.model.GarantieOption;
 import com.j3a.assurance.model.GarantieOptionId;
 import com.j3a.assurance.model.OptionsGarantie;
+import com.j3a.assurance.model.Pays;
 import com.j3a.assurance.model.SousCatVehicule;
 import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Tarifweb;
@@ -53,6 +56,15 @@ public class GarantiesCompagnies implements Serializable {
 	private long dureeJour;
 	public String codeRisque;
 	private String numImmatriculation;
+	
+	private List<SelectItem> listpays;
+	private String choixPays;
+	private String idpays;
+    private Pays pays;
+    private List<Pays> paysdata;
+    private Pays selectedPays;
+	
+	
 	
 	public VehiculeRow returnVehiculeRow(){
 		
@@ -92,7 +104,7 @@ public class GarantiesCompagnies implements Serializable {
 				List<CompagnieAssurance> compAssList = new ArrayList<CompagnieAssurance>();
 				for(Iterator itca = getObjectService().getObjects("CompagnieAssurance").iterator(); itca.hasNext();){
 					CompagnieAssurance cass =  (CompagnieAssurance)itca.next();
-					if(cass.getPays().getCodePays().equalsIgnoreCase("225")){
+					if(cass.getPays().getCodePays().equalsIgnoreCase(idpays)){
 						compAssList.add(cass);
 						System.out.println("-------------Compagnie---------------- "+cass.getRaisonSocialeCompAss());
 					}
@@ -778,4 +790,82 @@ System.out.println("------------------------------------------------------------
 		this.dureeJour = dureeJour;
 	}
 
+	
+	public String getChoixPays() {
+		return choixPays;
+	}
+
+	
+	public void Recuplistpays() {
+		setPays((Pays) getObjectService().getObjectById(
+				idpays, "Pays"));	
+	}
+	
+	public List<SelectItem> getListpays() {
+		
+		if (listpays == null) {
+			listpays = new ArrayList<SelectItem>();
+			try {
+				for (Object obj : getObjectService().getObjects("Pays")) {
+       
+					listpays.add(new SelectItem(((Pays) obj).getCodePays(), ((Pays) obj).getLibellePays()));
+
+				}
+			} catch (Exception e) {
+
+			}
+		}
+		
+		return listpays;
+	}
+
+	public void setListpays(List<SelectItem> listpays) {
+		this.listpays = listpays;
+	}
+
+	public void setChoixPays(String choixPays) {
+		this.choixPays = choixPays;
+	}
+
+	public String getIdpays() {
+		return idpays;
+	}
+
+	public void setIdpays(String idpays) {
+		this.idpays = idpays;
+	}
+
+	public Pays getPays() {
+		return pays;
+	}
+
+	public void setPays(Pays pays) {
+		this.pays = pays;
+	}
+
+	public List<Pays> getPaysdata() {
+		
+		paysdata =new ArrayList<Pays>();
+		for(Object pa:getObjectService().getojects("Pays")){
+			paysdata.add((Pays) pa);
+		}
+		return paysdata;
+		
+		
+	}
+
+	public void setPaysdata(List<Pays> paysdata) {
+		this.paysdata = paysdata;
+	}
+
+	public Pays getSelectedPays() {
+		return selectedPays;
+	}
+
+	public void setSelectedPays(Pays selectedPays) {
+		this.selectedPays = selectedPays;
+	}
+
+	
+	
 }

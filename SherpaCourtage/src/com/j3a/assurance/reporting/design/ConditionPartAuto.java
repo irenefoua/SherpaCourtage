@@ -1185,7 +1185,7 @@ creerEmagementAttestation(document);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
 		cell = new PdfPCell(
-				new Phrase(""+ formatesp(reportingAuto.getQuittance().getAccessoire()), normalText));
+				new Phrase(""+ formatesp(reportingAuto.getQuittance().getAccessoire()), smallTextGras));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		cell.setBorder(Rectangle.NO_BORDER);
 		tableTotall.addCell(cell);
