@@ -60,6 +60,13 @@ background:white;
 	display:block;
 	text-align:center;
 }
+
+.SimagePays{
+	height:25px;
+	width:50px;
+	display:block;
+	text-align:center;
+}
 .identifiant{
   text-transform : uppercase;
 }

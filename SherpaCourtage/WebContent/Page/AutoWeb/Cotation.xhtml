@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateWebAuto.xhtml">
+	<ui:define name="content">
+		<h:form>
+		<p:menubar>
+			<p:submenu label="Acceuil" icon="ui-icon-home">
+	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"/>
+	            <p:menuitem value="Assurance Indiduel Accident" url="#"  />
+	            <p:menuitem value="Assurance MultiRisque Habitation" url="#"  />
+	            <p:menuitem value="Acceuil" action="/index?faces-redirect=true" />
+	        </p:submenu>
+		    
+		    <p:separator/>
+		    
+		    <p:submenu label="Assurances Automobile" >
+		    	<p:menuitem value="Cotation -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Souscription en ligne -Auto-" action="/Page/AutoWeb/devisAuto?faces-redirect=true"  />
+	            <p:menuitem value="Declaration Sinistre -Auto-" url="/Page/sinistreAutoWeb/declarationSinnistreAuto.xhtml?faces-redirect=true"  />
+	        </p:submenu>
+		    <p:separator/>
+		    <p:menuitem value="Cotation / Souscription :Validation" url="#" />
+		   
+		</p:menubar>
+	</h:form>
+	
+			<p:ajaxStatus styleClass="ajaxStatut">  
+	<f:facet name="prestart">
+	<h:outputText value="Starting..." />
+	</f:facet>
+	
+    <f:facet name="start">  
+        <h:graphicImage value="../../resources/images/loader16.gif"/>  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+	</p:ajaxStatus> 
+	
+		<h:form id="gnl">
+	<p:messages id="pmessage" showDetail="true" autoUpdate="true" sticky="true" closable="true"/>
+		
+	
+	<p:tab id="ongletpays" title="Pays">
+					<p:panel header="Pays">
+				<br />
+		<fieldset>
+		<legend>Informations Pays </legend>
+								<h:panelGrid id="paysid" columns="6">
+								
+								
+								
+			 <p:dataGrid var="pays" value="#{cotationAuto.garantiesCompagnies.paysdata}" columns="5" layout="grid"
+        rows="2" id="payss"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+ 
+        <f:facet name="header">
+           
+        </f:facet>
+ 
+        <p:panel header="#{pays.libellePays}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+               
+ 
+ 
+                <p:commandLink   title="#{pays.libellePays}" action="#{cotationAuto.garantiesCompagnies.verifCompagnie}"
+              process="@this"  update=":gnl:pmessage">
+                    <p:graphicImage value="/resources/images/#{pays.codePays}.jpg" styleClass="imagePays"/> 
+                    <f:setPropertyActionListener value="#{pays}" target="#{cotationAuto.garantiesCompagnies.selectedPays}" />
+                </p:commandLink>
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>					
+	
+					
+									</h:panelGrid></fieldset>
+                                     </p:panel> 
+				</p:tab>	
+				
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

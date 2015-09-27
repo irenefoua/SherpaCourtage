@@ -59,7 +59,7 @@ public class ZoneGeographique implements java.io.Serializable {
 		this.libelleZoneGeo = libelleZoneGeo;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zoneGeographique")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "zoneGeographique")
 	public Set<Ville> getVilles() {
 		return this.villes;
 	}

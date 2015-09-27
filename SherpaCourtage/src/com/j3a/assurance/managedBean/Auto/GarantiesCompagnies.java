@@ -9,19 +9,14 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
-import org.hibernate.sql.Select;
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.j3a.assurance.model.CompagnieAssurance;
-import com.j3a.assurance.model.Conducteur;
 import com.j3a.assurance.model.Garantie;
 import com.j3a.assurance.model.GarantieOption;
-import com.j3a.assurance.model.GarantieOptionId;
 import com.j3a.assurance.model.OptionsGarantie;
 import com.j3a.assurance.model.Pays;
 import com.j3a.assurance.model.SousCatVehicule;
@@ -29,7 +24,6 @@ import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Tarifweb;
 import com.j3a.assurance.model.TarifwebSousCat;
 import com.j3a.assurance.model.Vehicule;
-import com.j3a.assurance.model.ZoneGeographique;
 import com.j3a.assurance.objetService.ObjectService;
 import com.j3a.assurance.prime.CalculPrimeGlobale;
 import com.j3a.assurance.prime.CalculPrimeProrata;
@@ -58,10 +52,8 @@ public class GarantiesCompagnies implements Serializable {
 	private String numImmatriculation;
 	
 	private List<SelectItem> listpays;
-	private String choixPays;
-	private String idpays;
     private Pays pays;
-    private List<Pays> paysdata;
+    private List<Pays> paysdata = new ArrayList<Pays>();;
     private Pays selectedPays;
 	
 	
@@ -96,6 +88,30 @@ public class GarantiesCompagnies implements Serializable {
 		}
 	}
 	
+	public String verifCompagnie(){
+		String condition = "/Page/AutoWeb/Cotation?faces-redirect=true"; ;
+		List<CompagnieAssurance> listCompAss = new ArrayList<CompagnieAssurance>();
+		for(Iterator itca = getObjectService().getObjects("CompagnieAssurance").iterator(); itca.hasNext();){
+			CompagnieAssurance ca =  (CompagnieAssurance)itca.next();
+			
+			if(ca.getPays().getCodePays().equalsIgnoreCase(getSelectedPays().getCodePays())){
+				listCompAss.add(ca);
+			}
+		}
+		
+		if(listCompAss.isEmpty()){
+			condition = "/Page/AutoWeb/Cotation?faces-redirect=true";
+			 FacesMessage msg = new FacesMessage("Aucunne Compagnie pour ce pays : ", getSelectedPays().getLibellePays());
+		        FacesContext.getCurrentInstance().addMessage(null, msg);
+		             
+		}else{
+			condition = "/Page/AutoWeb/CotationVehicule?faces-redirect=true";
+		}
+		System.out.println("------------ Taille Compagnies d'assurance pour :"+getSelectedPays().getLibellePays() +"---== "+listCompAss.size());
+		
+		return condition;
+	}
+	
 	public List<TarifwebComp> returnTarif(VehiculeRow vehiculeRow){
 		
 		getListTarifwebComp().clear();
@@ -104,12 +120,12 @@ public class GarantiesCompagnies implements Serializable {
 				List<CompagnieAssurance> compAssList = new ArrayList<CompagnieAssurance>();
 				for(Iterator itca = getObjectService().getObjects("CompagnieAssurance").iterator(); itca.hasNext();){
 					CompagnieAssurance cass =  (CompagnieAssurance)itca.next();
-					if(cass.getPays().getCodePays().equalsIgnoreCase(idpays)){
+					
+					if(cass.getPays().getCodePays().equalsIgnoreCase(getSelectedPays().getCodePays())){
 						compAssList.add(cass);
 						System.out.println("-------------Compagnie---------------- "+cass.getRaisonSocialeCompAss());
 					}
 				}
-				
 				
 				System.out.println("------------Pour chaque compagnie recupération de la liste des tarifs pour la sousCat 1----------------");
 				
@@ -790,50 +806,6 @@ System.out.println("------------------------------------------------------------
 		this.dureeJour = dureeJour;
 	}
 
-	
-	public String getChoixPays() {
-		return choixPays;
-	}
-
-	
-	public void Recuplistpays() {
-		setPays((Pays) getObjectService().getObjectById(
-				idpays, "Pays"));	
-	}
-	
-	public List<SelectItem> getListpays() {
-		
-		if (listpays == null) {
-			listpays = new ArrayList<SelectItem>();
-			try {
-				for (Object obj : getObjectService().getObjects("Pays")) {
-       
-					listpays.add(new SelectItem(((Pays) obj).getCodePays(), ((Pays) obj).getLibellePays()));
-
-				}
-			} catch (Exception e) {
-
-			}
-		}
-		
-		return listpays;
-	}
-
-	public void setListpays(List<SelectItem> listpays) {
-		this.listpays = listpays;
-	}
-
-	public void setChoixPays(String choixPays) {
-		this.choixPays = choixPays;
-	}
-
-	public String getIdpays() {
-		return idpays;
-	}
-
-	public void setIdpays(String idpays) {
-		this.idpays = idpays;
-	}
 
 	public Pays getPays() {
 		return pays;
@@ -845,9 +817,10 @@ System.out.println("------------------------------------------------------------
 
 	public List<Pays> getPaysdata() {
 		
-		paysdata =new ArrayList<Pays>();
+		if(paysdata.isEmpty()){
 		for(Object pa:getObjectService().getojects("Pays")){
 			paysdata.add((Pays) pa);
+		}
 		}
 		return paysdata;
 		
