@@ -3,14 +3,16 @@ package com.j3a.assurance.managedBean.Auto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import org.primefaces.event.RowEditEvent;
 
+import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,7 @@ import com.j3a.assurance.model.Tarif;
 import com.j3a.assurance.model.Tarifweb;
 import com.j3a.assurance.model.TarifwebSousCat;
 import com.j3a.assurance.model.Vehicule;
+import com.j3a.assurance.model.VehiculeZoneGeographique;
 import com.j3a.assurance.objetService.ObjectService;
 import com.j3a.assurance.prime.CalculPrimeGlobale;
 import com.j3a.assurance.prime.CalculPrimeProrata;
@@ -821,6 +824,18 @@ System.out.println("------------------------------------------------------------
 		for(Object pa:getObjectService().getojects("Pays")){
 			paysdata.add((Pays) pa);
 		}
+		//ordonner les pays
+		 Collections.sort(paysdata, new Comparator<Pays>() {
+		        @Override public int compare(Pays p1, Pays p2) {
+		        	int n = p1.getLibellePays().compareTo(p2.getLibellePays());
+	
+		        	return n; // Ascending  
+		        }
+
+		    });
+		
+		
+		
 		}
 		return paysdata;
 		
