@@ -4,14 +4,16 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+		
 
 
 <security:http auto-config="true">
 		<security:intercept-url pattern="/Page/EspaceAdminCompagnie/**" access="ROLE_COMPAGNIE"/>
 		<security:intercept-url pattern="/page/espaceClient/listeContrat.xhtml" access="ROLE_CLIENT"/>
+		<security:intercept-url pattern="/page/Paypal/**" access="ROLE_CLIENT"/>
 		
 		<security:intercept-url pattern="/page/sinistreAutoWeb/declarationSinnistreAuto.xhtml" access="ROLE_WEBUSER"/>
-		<security:intercept-url pattern="/page/AutoWeb/clientAuto.xhtml" access="ROLE_WEBUSER"/>
+		<security:intercept-url pattern="/page/AutoWeb/clientAuto.xhtml" access="ROLE_CLIENT"/>
 		<security:intercept-url pattern="/Page/AutoWeb/inscriptionPaypalNewSouscripteur.xhtml" access="ROLE_WEBUSER"/>
 		<security:intercept-url pattern="/page/EspaceUser/*" access="ROLE_WEBUSER"/>
 	    <security:form-login login-page="/login.jsp" authentication-failure-url="/login-failure.jsp"/>
