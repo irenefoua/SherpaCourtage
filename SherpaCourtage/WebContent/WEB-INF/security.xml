@@ -18,8 +18,6 @@
 		<security:intercept-url pattern="/page/EspaceUser/*" access="ROLE_WEBUSER"/>
 	    <security:form-login login-page="/login.jsp" authentication-failure-url="/login-failure.jsp"/>
 		<security:logout logout-url="/logout.jsp" logout-success-url="/index.xhtml"/>
-		
-		<security:intercept-url pattern="/**" requires-channel="https" />
 	</security:http>
 
 	
