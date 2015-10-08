@@ -103,21 +103,42 @@
                                                   
         
     </h:panelGrid>
-    
- 
-    
-   
-								
+    						
 	<br />				                    
-											
-										
-									
+																			
 </fieldset>
 							
-
 				</p:tab>
 
 		</h:form>
+		
+	<p:dialog header="Edition du souscripteur" widgetVar="edition_sous">
+	 	<h:form id="sous_form">
+	 	<fieldset id="souscrip" class="fieldset" style="width:1200px">
+				<legend>CREATION DE COMPTE</legend>
+							
+	<h:panelGrid columns="2" >
+	 <p:outputLabel for="login_inp" value="Login"/>
+	 <p:inputText id="login_inp" value=""> </p:inputText>
+	 
+	 <p:outputLabel for="mdp1" value=""/>
+	 <p:inputText id="mdp1" value="" >
+	 </p:inputText>
+	 
+	 <p:outputLabel for="mdp2" value="Entrez de nouveau le mot de passe"/>
+	 <p:inputText id="mdp2" value="">
+	 </p:inputText>
+	 </h:panelGrid>
+							
+		<h:panelGrid columns="3">
+			<p:commandButton id="cmd_engClient" style="width:90px" value="Enregistrer" actionListener=""/>
+			<p:commandButton value="Initialiser" style="width:90px" actionListener=""/>
+		</h:panelGrid>
+	</fieldset>
+										
+		</h:form>
+	</p:dialog>
+		
 	</ui:define>
 </ui:composition>
 </html>

@@ -10,6 +10,9 @@
 <ui:composition template="/template/templateWebAuto.xhtml">
 	<ui:define name="content">
 		<h:form>
+	<p:messages id="pmessage" showDetail="true" autoUpdate="true" sticky="true" closable="true"/>
+		</h:form>
+		<h:form>
 		<p:menubar>
 			<p:submenu label="Acceuil" icon="ui-icon-home">
 	            <p:menuitem value="Assurance Automobile" action="/index?faces-redirect=true"/>
@@ -46,7 +49,7 @@
 	</p:ajaxStatus> 
 	
 		<h:form id="gnl">
-	<p:messages id="pmessage" showDetail="true" autoUpdate="true" sticky="true" closable="true"/>
+	
 		
 	
 	<p:tab id="ongletpays" title="Pays">
@@ -73,7 +76,7 @@
  
  
                 <p:commandLink   title="#{pays.libellePays}" action="#{cotationAuto.garantiesCompagnies.verifCompagnie}"
-              process="@this"  update=":gnl:pmessage">
+              process="@this" >
                     <p:graphicImage value="/resources/images/#{pays.codePays}.jpg" styleClass="imagePays"/> 
                     <f:setPropertyActionListener value="#{pays}" target="#{cotationAuto.garantiesCompagnies.selectedPays}" />
                 </p:commandLink>
