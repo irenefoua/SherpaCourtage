@@ -100,6 +100,7 @@
    <p:commandButton id="addContrats1"  action="inscriptionPaypal" value="Valider le choix et payer" style="width:190px;height:50px; margin-left:50px;font-size:14px;border-radius:10px;" />
    <p:commandButton id="addContrats2"  actionListener="#{cotationAuto.sendQuittance}" value="Voir le devis" style="width:190px;height:50px; margin-left: 100px;font-size:14px;border-radius:10px;"/>
    <p:commandButton id="addContrats3" action="validationdescomp" value="Retour page precedante"  style="width:190px;height:50px; margin-left: 100px;font-size:14px;border-radius:10px;"/>
+   <p:commandButton id="test"  actionListener="cotationAuto.gererNewClient" value="Test" style="width:190px;height:50px; margin-left:50px;font-size:14px;border-radius:10px;" />
                                                   
         
     </h:panelGrid>
@@ -112,10 +113,10 @@
 
 		</h:form>
 		
-	<p:dialog header="Edition du souscripteur" widgetVar="edition_sous">
+	<p:dialog header="CREATION DE COMPTE UTILISATEUR" widgetVar="edition_sous">
 	 	<h:form id="sous_form">
 	 	<fieldset id="souscrip" class="fieldset" style="width:1200px">
-				<legend>CREATION DE COMPTE</legend>
+				<legend>COMPTE UTILISATEUR</legend>
 							
 	<h:panelGrid columns="2" >
 	 <p:outputLabel for="login_inp" value="Login"/>
@@ -129,10 +130,20 @@
 	 <p:inputText id="mdp2" value="">
 	 </p:inputText>
 	 </h:panelGrid>
+	 
+	 
+	 <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
+        <h:outputLabel for="pwd1" value="Password 1: *" />
+        <p:password id="pwd1" value="" match="pwd2" label="Password 1" required="true" />
+ 
+        <h:outputLabel for="pwd2" value="Password 2: *" />
+        <p:password id="pwd2" value="" label="Password 2" required="true" />
+    </h:panelGrid>
+	 
 							
 		<h:panelGrid columns="3">
-			<p:commandButton id="cmd_engClient" style="width:90px" value="Enregistrer" actionListener=""/>
-			<p:commandButton value="Initialiser" style="width:90px" actionListener=""/>
+			<p:commandButton id="cmd_engClient" style="width:90px" value="Enregistrer"/>
+			<p:commandButton value="Initialiser" style="width:90px"/>
 		</h:panelGrid>
 	</fieldset>
 										

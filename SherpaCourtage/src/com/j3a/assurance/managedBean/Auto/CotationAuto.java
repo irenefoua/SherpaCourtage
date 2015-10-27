@@ -32,6 +32,7 @@ import com.j3a.assurance.model.VehiculesAssures;
 import com.j3a.assurance.reporting.bean.ReportingAuto;
 import com.j3a.assurance.reporting.design.ConditionPartAuto;
 import com.j3a.assurance.reporting.design.QuittanceDesignAuto;
+import com.j3a.assurance.utilitaire.VerificationAuthentif;
 import com.j3a.assurance.utilitaires.IdGenerateur;
 import com.j3a.assurance.utilitaires.RecupObjetRow;
 import com.j3a.assurance.utilitaires.VehiculeRow;
@@ -73,6 +74,10 @@ public class CotationAuto implements Serializable{
 		private Contrat contratF = new Contrat();
 		private Avenant avenantF = new Avenant();
 
+		@Autowired
+		private VerificationAuthentif verificationAuthentif;//By ALekerand
+
+		
 		@PostConstruct
 		public void postConstru() {
 			risque = "Automobile";
@@ -520,6 +525,15 @@ public class CotationAuto implements Serializable{
 			//logs.info(">>>>/ END -handleflow-");
 			return a;
 		}
+		
+		
+		
+		public void gererNewClient(){
+			getVerificationAuthentif().recupererUtilisateur();
+			
+		}
+
+		
 
 		public void addContrats() {
 			  //client
@@ -876,8 +890,17 @@ public class CotationAuto implements Serializable{
 			this.garantiesCompagnies = garantiesCompagnies;
 		}
 
-		
 
+
+		public VerificationAuthentif getVerificationAuthentif() {
+			return verificationAuthentif;
+		}
+
+
+
+		public void setVerificationAuthentif(VerificationAuthentif verificationAuthentif) {
+			this.verificationAuthentif = verificationAuthentif;
+		}
 	}
 
 	

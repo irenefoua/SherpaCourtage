@@ -1,11 +1,16 @@
 package com.j3a.assurance.utilitaire;
 
+import javax.faces.view.facelets.FaceletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.j3a.assurance.model.Personne;
 import com.j3a.assurance.model.Physique;
 import com.j3a.assurance.objetService.ObjectService;
+import com.sun.xml.internal.ws.client.RequestContext;
 
+@Component
 public class VerificationAuthentif {
 	/**
 	 * @author ALekerand
@@ -21,6 +26,7 @@ public class VerificationAuthentif {
 			//vérifié s'il ya une personne connectée
 		if(personneConnecte == null){
 			//lever une boîte de dialog ici
+			
 		}
 		
 	}
